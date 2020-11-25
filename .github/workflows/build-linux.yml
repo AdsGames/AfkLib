@@ -17,6 +17,7 @@ jobs:
       
     - name: Install Libraries
       run: |
+        sudo apt update
         sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-image5-dev liballegro-dialog5-dev liballegro-ttf5-dev
         
     - name: Run CMake

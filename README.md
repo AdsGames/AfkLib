@@ -5,6 +5,9 @@
 
 Game framework
 
+## Documentation
+[Doxygen Generated Documentation](https://alegemaate.github.io/AfkLib/)
+
 ## Setup
 
 ### Windows (MSYS2)

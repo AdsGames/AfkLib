@@ -50,3 +50,4 @@ build
 *.dll
 install_manifest.txt
 *.exe
+docs
