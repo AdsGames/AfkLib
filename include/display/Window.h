@@ -121,16 +121,16 @@ class Window {
   unsigned int getWindowHeight() const;
 
   /**
-   * @brief Get the scaling being done on buffer.
-   * \f$ \textup{scale}_x = \frac{\textup{buffer}_w}{\text{window}_w} \f$
+   * @brief Get the scaling being done on buffer. This is equivalent to buffer
+   * width / window width
    *
    * @return X scale amount of buffer
    */
   float getScaleX() const;
 
   /**
-   * @brief Get the scaling being done on buffer.
-   * \f$ \textup{scale}_y = \frac{\textup{buffer}_h}{\text{window}_h} \f$
+   * @brief Get the scaling being done on buffer. This is equivalent to buffer
+   * height / window height
    *
    * @return Y scale amount of buffer
    */
