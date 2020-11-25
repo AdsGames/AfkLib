@@ -6,7 +6,7 @@
 Game framework
 
 ## Documentation
-[Doxygen Generated Documentation](https://alegemaate.github.io/AfkLib/)
+[Doxygen Generated Documentation](https://adsgames.github.io/AfkLib/)
 
 ## Setup
 
