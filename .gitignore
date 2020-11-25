@@ -50,3 +50,6 @@ build
 *.dll
 install_manifest.txt
 *.exe
+docs
+*.so*
+*.dylib*

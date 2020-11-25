@@ -1,0 +1,26 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  docs:
+    name: Deploy Docs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate docs
+        uses: mattnotmitt/doxygen-action@v1
+        with:
+          doxyfile-path: "./Doxyfile"
+
+      - name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN  }}
+          publish_dir: ./docs/html
+          force_orphan: true
