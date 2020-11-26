@@ -11,19 +11,40 @@ const int MOUSE_CENTER = 4;
  *
  */
 struct MouseState {
+  /// Current mouse x position
   int x = 0;
+
+  /// Current mouse y position
   int y = 0;
+
+  /// Current mouse z position
   int z = 0;
 
+  /// Previous mouse x position
+  int old_x = 0;
+
+  /// Previous mouse y position
+  int old_y = 0;
+
+  /// Individual button states
   bool button[MAX_MOUSE_BUTTONS] = {false};
+
+  /// Buttons just pressed
   bool down[MAX_MOUSE_BUTTONS] = {false};
+
+  /// Buttons just released
   bool up[MAX_MOUSE_BUTTONS] = {false};
+
+  /// Mouse just moved
   bool moved = false;
 
-  int old_x = 0;
-  int old_y = 0;
+  /// Previous button states
   bool button_old[MAX_MOUSE_BUTTONS] = {false};
 
+  /**
+   * @brief Update the mouse state
+   *
+   */
   void update() {
     // Check if just moved
     moved = old_x != x || old_y != y;

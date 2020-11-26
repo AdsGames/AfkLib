@@ -62,11 +62,11 @@ class Sound {
   /**
    * @brief Helper which loads an ALLEGRO_SAMPLE* from a file
    *
-   * @param file Path to file
+   * @param path Path to file
    * @return ALLEGRO_SAMPLE* File that has been loaded
    * @throws FileIOException If sound can not be found at path
    */
-  static ALLEGRO_SAMPLE* loadSample(const std::string& file);
+  static ALLEGRO_SAMPLE* loadSample(const std::string& path);
 
   /// Pointer to ALLEGRO_SAMPLE
   ALLEGRO_SAMPLE* sample;

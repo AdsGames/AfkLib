@@ -219,9 +219,13 @@ class Window {
   /// Drawing buffer
   ALLEGRO_BITMAP* buffer;
 
-  // Fps timer
+  /// Fps timer
   double old_time = 0;
+
+  /// Frame array for calculating fps
   unsigned int frames_array[FRAME_BUFFER_SIZE];
+
+  /// Current fps
   unsigned int fps = 0;
 
   /**
@@ -242,3 +246,8 @@ class Window {
 };
 
 #endif  // ENGINE_DISPLAY_WINDOW_H
+
+/**
+ * @example ex_display.cpp
+ * This is an example of how to use the Window class to create a basic display.
+ */

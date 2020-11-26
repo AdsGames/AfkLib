@@ -21,8 +21,7 @@ class AssetManager {
   /**
    * @brief Create a new instance of asset manager
    *
-   * @constructor
-   * @todo unload assets on delete
+   * @todo Unload assets on delete
    */
   AssetManager();
 
@@ -30,7 +29,6 @@ class AssetManager {
    * Destroy instance of asset manager
    * Cleans up assets upon unloading
    *
-   * @destructor
    */
   ~AssetManager();
 

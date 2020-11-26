@@ -14,7 +14,6 @@ class DefaultAudioService : public AudioService {
   /**
    * @brief Implementation of playSound
    *
-   * @override
    */
   virtual void playSound(const std::string& key,
                          const PlaySoundConfig& config) override;
@@ -22,7 +21,6 @@ class DefaultAudioService : public AudioService {
   /**
    * @brief Implementation of playStream
    *
-   * @override
    */
   virtual void playStream(const std::string& key,
                           const bool loop = false) override;
@@ -30,7 +28,6 @@ class DefaultAudioService : public AudioService {
   /**
    * @brief Implementation of stopStream
    *
-   * @override
    */
   virtual void stopStream(const std::string& key) override;
 };

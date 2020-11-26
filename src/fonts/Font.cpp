@@ -53,12 +53,12 @@ void Font::draw(const int x,
 }
 
 // Load font from file
-ALLEGRO_FONT* Font::loadFont(const std::string& file, const int size) {
+ALLEGRO_FONT* Font::loadFont(const std::string& path, const int size) {
   // Attempt to load
-  ALLEGRO_FONT* temp_font = al_load_font(file.c_str(), size, 0);
+  ALLEGRO_FONT* temp_font = al_load_font(path.c_str(), size, 0);
 
   if (!temp_font) {
-    throw FileIOException("There was an error loading font " + file);
+    throw FileIOException("There was an error loading font " + path);
   }
 
   return temp_font;

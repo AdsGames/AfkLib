@@ -59,11 +59,11 @@ class Stream {
   /**
    * @brief Load an ALLEGRO_AUDIO_STREAM* from file
    *
-   * @param file Path to stream
+   * @param path Path to stream
    * @return ALLEGRO_AUDIO_STREAM* Loaded allegro audio stream
    * @throws FileIOException If stream can not be found at path
    */
-  static ALLEGRO_AUDIO_STREAM* loadStream(const std::string& file);
+  static ALLEGRO_AUDIO_STREAM* loadStream(const std::string& path);
 
   /// Pointer to associated ALLEGRO_AUDIO_STREAM*
   ALLEGRO_AUDIO_STREAM* stream;

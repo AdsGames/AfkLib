@@ -72,12 +72,12 @@ ALLEGRO_COLOR Texture::getPixel(const int x, const int y) const {
 }
 
 // Load allegro bitmap from file
-ALLEGRO_BITMAP* Texture::loadBitmap(const std::string& file) {
+ALLEGRO_BITMAP* Texture::loadBitmap(const std::string& path) {
   // Attempt to load
-  ALLEGRO_BITMAP* temp_bitmap = al_load_bitmap(file.c_str());
+  ALLEGRO_BITMAP* temp_bitmap = al_load_bitmap(path.c_str());
 
   if (!temp_bitmap) {
-    throw FileIOException("There was an error loading texture " + file);
+    throw FileIOException("There was an error loading texture " + path);
   }
 
   return temp_bitmap;

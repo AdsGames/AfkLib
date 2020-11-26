@@ -13,6 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install graphviz
+        run: sudo apt install graphviz
+
       - name: Generate docs
         uses: mattnotmitt/doxygen-action@v1
         with:
@@ -22,5 +25,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN  }}
-          publish_dir: ./docs/html
+          publish_dir: ./docs
           force_orphan: true
