@@ -13,20 +13,6 @@
 class Logger {
  public:
   /**
-   * @brief Create a new instance of logger
-   *
-   * @constructor
-   */
-  Logger(){};
-
-  /**
-   * Destroy instance of logger
-   *
-   * @destructor
-   */
-  virtual ~Logger(){};
-
-  /**
    * @brief Does nothing
    *
    * @param msg Message to log

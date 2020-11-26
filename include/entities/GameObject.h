@@ -119,14 +119,20 @@ class GameObject {
   /// Reference to registered scene
   Scene& scene;
 
-  /// Position on x y plane
-  float x, y;
+  /// X position on x y plane
+  float x;
+
+  /// Y position on x y plane
+  float y;
 
   /// Z position, used for sorting
   int z;
 
-  /// Size in pixels of game object
-  int height, width;
+  /// Height in pixels of game object
+  int height;
+
+  /// Width in pixels of game object
+  int width;
 
  private:
   /// Autoassigned unique id

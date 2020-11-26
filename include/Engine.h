@@ -7,9 +7,14 @@
 
 #include "scene/Scene.h"
 
-/// Struct containing scene id and scene type
+/**
+ * @brief Simple struct which binds scenes to scene ids
+ *
+ */
 struct SceneType {
+  /// Id of scene
   std::string scene_id;
+  /// Scene object
   Scene* scene;
 };
 

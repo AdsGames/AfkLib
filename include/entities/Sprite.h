@@ -51,7 +51,7 @@ class Sprite : public GameObject {
 
   /**
    * @brief Hook into draw loop
-   * @override
+   *
    */
   virtual void draw() override;
 

@@ -9,16 +9,31 @@
  *
  */
 struct KeyboardState {
+  /// Individual key states
   bool key[ALLEGRO_KEY_MAX] = {false};
+
+  /// keys just pressed
   bool keyPressed[ALLEGRO_KEY_MAX] = {false};
+
+  /// keys just released
   bool keyReleased[ALLEGRO_KEY_MAX] = {false};
 
+  /// Id of last key pressed
   int lastKeyPressed = -1;
+
+  /// Id of last key released
   int lastKeyReleased = -1;
+
+  /// True if any key down
   bool anyKeyPressed = -1;
 
+  /// Previous key states
   bool lastTicksKey[ALLEGRO_KEY_MAX] = {false};
 
+  /**
+   * @brief Update the keyboard state
+   *
+   */
   void update() {
     // Reset last key
     lastKeyPressed = -1;

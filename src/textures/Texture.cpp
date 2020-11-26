@@ -72,7 +72,7 @@ ALLEGRO_COLOR Texture::getPixel(const int x, const int y) const {
 }
 
 // Load allegro bitmap from file
-ALLEGRO_BITMAP* Texture::loadBitmap(const std::string& file) {
+ALLEGRO_BITMAP* Texture::loadBitmap(const std::string& path) {
   // Attempt to load
   ALLEGRO_BITMAP* temp_bitmap = al_load_bitmap(file.c_str());
 

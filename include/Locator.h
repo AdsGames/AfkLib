@@ -10,6 +10,12 @@
 #include "logging/Logger.h"
 #include "settings/SettingManager.h"
 
+/**
+ * @brief Core service locator for engine features
+ *
+ * @author Allan Legemaate
+ * @date 7/11/2020
+ */
 class Locator {
  public:
   /**
@@ -17,7 +23,7 @@ class Locator {
    *
    * @tparam T Type of audio service to provide, must be child of AudioService
    * class
-   * @param Args Arguments that correspond to the constructor of T
+   * @tparam Args Arguments that correspond to the constructor of T
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>

@@ -102,11 +102,11 @@ class Texture {
   /**
    * @brief Helper which loads an ALLEGRO_BITMAP* from a file
    *
-   * @param file Path to file
+   * @param path Path to file
    * @return ALLEGRO_BITMAP* File that has been loaded
    * @throws FileIOException If texture can not be found at path
    */
-  static ALLEGRO_BITMAP* loadBitmap(const std::string& file);
+  static ALLEGRO_BITMAP* loadBitmap(const std::string& path);
 
   /// Pointer to referenced bitmap
   ALLEGRO_BITMAP* bitmap;

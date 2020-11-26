@@ -78,11 +78,12 @@ class Font {
   /**
    * @brief Helper which loads an ALLEGRO_FONT* from a file
    *
-   * @param file Path to file
+   * @param path Path to file
+   * @param size Size of font to generate
    * @return ALLEGRO_FONT* File that has been loaded
    * @throws FileIOException If font can not be found at path
    */
-  static ALLEGRO_FONT* loadFont(const std::string& file, const int size);
+  static ALLEGRO_FONT* loadFont(const std::string& path, const int size);
 
   /// Pointer to referenced font
   ALLEGRO_FONT* font;

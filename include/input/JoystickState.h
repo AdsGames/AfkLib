@@ -24,23 +24,46 @@ const int JOY_MAX_BUTTONS = _AL_MAX_JOYSTICK_BUTTONS;
  *
  */
 struct JoystickState {
+  /// Individual button states
   bool button[JOY_MAX_BUTTONS] = {false};
+
+  /// Buttons just pressed
   bool buttonPressed[JOY_MAX_BUTTONS] = {false};
+
+  /// Buttons just released
   bool buttonReleased[JOY_MAX_BUTTONS] = {false};
 
+  /// Id of last button pressed
   int lastButtonPressed = -1;
+
+  /// Id of last button released
   int lastButtonReleased = -1;
+
+  /// True if any button down
   bool anyButtonPressed = false;
 
+  /// Stick axis is active
   bool stick[JOY_MAX_STICK_BOOLEANS] = {false};
+
+  /// Stick axis just moved
   bool stickMoved[JOY_MAX_STICK_BOOLEANS] = {false};
+
+  /// Stick axis just moved back
   bool stickReleased[JOY_MAX_STICK_BOOLEANS] = {false};
 
+  /// Previous button states
   bool lastTicksButton[JOY_MAX_BUTTONS] = {false};
+
+  /// Previous stick states
   bool lastTicksStick[JOY_MAX_STICK_BOOLEANS] = {false};
 
+  /// Joystick is enabled or not
   bool enabled = false;
 
+  /**
+   * @brief Update the joystick state
+   *
+   */
   void update() {
     // Reset last button
     lastButtonPressed = -1;
