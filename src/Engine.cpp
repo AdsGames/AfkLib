@@ -46,9 +46,9 @@ void Engine::start(const std::string& scene_id) {
     while (!closing) {
       update();
     }
-  } catch (FileIOException& e) {
+  } catch (const FileIOException& e) {
     showDialog("File Error", e.what());
-  } catch (std::runtime_error& e) {
+  } catch (const std::runtime_error& e) {
     showDialog("Runtime Error", e.what());
   } catch (...) {
     showDialog("Unknown Error", "An unknown error has occured :(");
@@ -92,17 +92,16 @@ void Engine::changeScene() {
 
 // Sets up game
 void Engine::setup() {
+  // Setup logger
+  Locator::provideLogger<DebugLogger>();
+
   // Init allegro 5
   if (!al_init()) {
-    throw InitException("Could not allegro");
+    throw InitException("Could not init allegro");
   }
 
   // Setup window
   Locator::provideWindow<Window>();
-  Locator::getWindow().setWindowSize(800, 600);
-  Locator::getWindow().setBufferSize(800, 600);
-  Locator::getWindow().setMode(DISPLAY_MODE::WINDOWED);
-  Locator::getWindow().setTitle("Loading");
 
   // Input
   if (!al_install_keyboard()) {
@@ -143,7 +142,7 @@ void Engine::setup() {
   // Events
   event_queue = al_create_event_queue();
 
-  Locator::getWindow().registerEventSource(event_queue);
+  // Locator::getWindow().registerEventSource(event_queue);
   timer = al_create_timer(1.0 / UPDATES_PER_SECOND);
   al_register_event_source(event_queue, al_get_timer_event_source(timer));
   al_start_timer(timer);
@@ -156,9 +155,6 @@ void Engine::setup() {
 
   // Setup setting manager
   Locator::provideSettings<SettingManager>();
-
-  // Setup logger
-  Locator::provideLogger<DebugLogger>();
 
   // Setup input
   Locator::provideInput<Input>();

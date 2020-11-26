@@ -44,12 +44,8 @@ CppCheckResults.xml
 CMakeFiles
 CMakeCache.txt
 Makefile
-build
 *.cmake
-*.a
-*.dll
 install_manifest.txt
-*.exe
+bin
 docs
-*.so*
-*.dylib*
+lib
