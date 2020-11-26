@@ -209,7 +209,7 @@ void Window::setMode(const DISPLAY_MODE mode) {
 
 void Window::draw(Scene* current_scene) {
   if (!display || !buffer) {
-    throw InvalidParameterException("Display not initialized");
+    return;
   }
 
   // Render a frame

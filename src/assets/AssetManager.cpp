@@ -61,7 +61,7 @@ void AssetManager::loadStream(const std::string& key, const std::string& path) {
 const Texture& AssetManager::getImage(const std::string& key) {
   try {
     return loaded_image.at(key);
-  } catch (std::out_of_range) {
+  } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find image " + key);
   }
 }
@@ -70,7 +70,7 @@ const Texture& AssetManager::getImage(const std::string& key) {
 const Sound& AssetManager::getAudio(const std::string& key) {
   try {
     return loaded_audio.at(key);
-  } catch (std::out_of_range) {
+  } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find sound " + key);
   }
 }
@@ -79,7 +79,7 @@ const Sound& AssetManager::getAudio(const std::string& key) {
 const Font& AssetManager::getFont(const std::string& key) {
   try {
     return loaded_font.at(key);
-  } catch (std::out_of_range) {
+  } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find font " + key);
   }
 }
@@ -88,7 +88,7 @@ const Font& AssetManager::getFont(const std::string& key) {
 const Stream& AssetManager::getStream(const std::string& key) {
   try {
     return loaded_stream.at(key);
-  } catch (std::out_of_range) {
+  } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find stream " + key);
   }
 }
