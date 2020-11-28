@@ -2,22 +2,61 @@
 
 #include <allegro5/allegro.h>
 
+#include "Locator.h"
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
 
-Window::Window()
-    : draw_w(0),
-      draw_h(0),
-      window_w(0),
-      window_h(0),
-      translation_x(0),
-      translation_y(0),
-      scale_x(0),
-      scale_y(0),
-      display_mode(DISPLAY_MODE::WINDOWED),
-      display(nullptr),
-      buffer(nullptr),
-      frames_array() {}
+// Draw ticks per second
+const float DRAWS_PER_SECOND = 60;
+
+// Setup window
+Window::Window() {
+  Locator::getLogger().log("[Window Manager]: Starting up");
+
+  // Create timer
+  fps_timer = al_create_timer(1.0 / DRAWS_PER_SECOND);
+  al_start_timer(fps_timer);
+
+  // Register timer events
+  Locator::getEventQueue().registerSource(al_get_timer_event_source(fps_timer));
+
+  // Register self
+  Locator::getEventQueue().registerService(this);
+
+  // Set initial time
+  old_time = al_get_time();
+}
+
+// Cleanup window
+Window::~Window() {
+  Locator::getLogger().log("[Window Manager]: Shutting down");
+
+  // Unregister self
+  Locator::getEventQueue().unregisterService(this);
+
+  // Cleanup
+  if (display) {
+    al_destroy_display(display);
+  }
+
+  if (buffer) {
+    al_destroy_bitmap(buffer);
+  }
+
+  if (fps_timer) {
+    al_destroy_timer(fps_timer);
+  }
+}
+
+// Notify
+void Window::notify(const ALLEGRO_EVENT& event) {
+  if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
+    // resize(ev.display.width, ev.display.height);
+  } else if (event.type == ALLEGRO_EVENT_TIMER &&
+             event.timer.source == fps_timer) {
+    draw(Locator::getSceneManager().getScene());
+  }
+}
 
 // Returns current display mode
 int Window::getDisplayMode() const {
@@ -72,11 +111,6 @@ void Window::hideMouse() {
 // Show mouse on display
 void Window::showMouse() {
   al_show_mouse_cursor(display);
-}
-
-// Register display with event queue
-void Window::registerEventSource(ALLEGRO_EVENT_QUEUE* queue) {
-  al_register_event_source(queue, al_get_display_event_source(display));
 }
 
 // Resize window
@@ -184,10 +218,17 @@ void Window::setIcon(const std::string& path) {
   al_set_display_icon(display, icon);
 }
 
+// Get fps
+int Window::getFps() {
+  return fps;
+}
+
 // Change display mode
 void Window::setMode(const DISPLAY_MODE mode) {
   // Destroy existing display
   if (display) {
+    Locator::getEventQueue().unregisterSource(
+        al_get_display_event_source(display));
     al_destroy_display(display);
     display = nullptr;
   }
@@ -205,6 +246,7 @@ void Window::setMode(const DISPLAY_MODE mode) {
 
   // Create display
   display = al_create_display(window_w, window_h);
+  Locator::getEventQueue().registerSource(al_get_display_event_source(display));
 }
 
 void Window::draw(Scene* current_scene) {

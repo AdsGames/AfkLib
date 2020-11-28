@@ -1,22 +1,44 @@
 #include "input/Input.h"
 
 #include "Locator.h"
+#include "common/Exceptions.h"
 
 const float JOYSTICK_DEADZONE = 0.6f;
 
-// Create and register input queue
-void Input::registerEvents(ALLEGRO_EVENT_QUEUE* queue) {
-  // Register listeners
-  al_register_event_source(queue, al_get_keyboard_event_source());
-  al_register_event_source(queue, al_get_joystick_event_source());
-  al_register_event_source(queue, al_get_mouse_event_source());
+// Install core input services
+Input::Input() {
+  Locator::getLogger().log("[Input Manager]: Starting up");
+
+  // Install core allegro features
+  if (!al_install_keyboard()) {
+    throw InitException("Could not init keyboard");
+  }
+  if (!al_install_mouse()) {
+    throw InitException("Could not init mouse");
+  }
+  if (!al_install_joystick()) {
+    throw InitException("Could not init joystick");
+  }
+
+  // Register service
+  Locator::getEventQueue().registerService(this);
+  Locator::getEventQueue().registerSource(al_get_keyboard_event_source());
+  Locator::getEventQueue().registerSource(al_get_joystick_event_source());
+  Locator::getEventQueue().registerSource(al_get_mouse_event_source());
 
   // Set joystick enabled
   joystick_state.enabled = al_get_num_joysticks() > 0;
 }
 
-// Handle events
-void Input::processEvent(const ALLEGRO_EVENT& event) {
+Input::~Input() {
+  Locator::getLogger().log("[Input Manager]: Shutting down");
+
+  // Unregister self
+  Locator::getEventQueue().unregisterService(this);
+}
+
+// Process event
+void Input::notify(const ALLEGRO_EVENT& event) {
   switch (event.type) {
     case ALLEGRO_EVENT_TIMER:
       update();

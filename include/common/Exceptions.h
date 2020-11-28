@@ -77,4 +77,19 @@ class InvalidParameterException : public std::runtime_error {
       : std::runtime_error(msg) {}
 };
 
+/**
+ * @brief Exception raised when a scene can not be found
+ *
+ */
+class SceneLookupException : public std::runtime_error {
+ public:
+  /**
+   * @brief Construct a new Invalid Parameter Exception object
+   *
+   * @param msg Message to pass to runtime_error.
+   */
+  explicit SceneLookupException(const std::string& msg)
+      : std::runtime_error(msg) {}
+};
+
 #endif  // ENGINE_COMMON_EXCEPTIONS_H

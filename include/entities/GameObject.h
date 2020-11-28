@@ -65,6 +65,18 @@ class GameObject {
   virtual void onCollide(const GameObject& other);
 
   /**
+   * @brief Set the size of game object in pixels
+   *
+   */
+  void setSize(const unsigned int width, const unsigned int height);
+
+  /**
+   * @brief Set the position of game object in pixels
+   *
+   */
+  void setPosition(const float x, const float y);
+
+  /**
    * @brief Get the width of the game object
    *
    * @return Width of game object

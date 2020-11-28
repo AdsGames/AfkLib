@@ -33,7 +33,7 @@ class Particle {
            int size,
            int type);
 
-  ~Particle();
+  virtual ~Particle();
 
   void update();
   void scroll(float x, float y);

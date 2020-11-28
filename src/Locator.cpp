@@ -48,3 +48,17 @@ Input& Locator::getInput() {
   }
   return *input_service;
 }
+
+EventQueue& Locator::getEventQueue() {
+  if (!event_service.get()) {
+    throw CoreServiceLookupException("Event queue not found");
+  }
+  return *event_service;
+}
+
+SceneManager& Locator::getSceneManager() {
+  if (!scene_service.get()) {
+    throw CoreServiceLookupException("Scene manager not found");
+  }
+  return *scene_service;
+}

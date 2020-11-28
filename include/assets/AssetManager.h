@@ -30,7 +30,7 @@ class AssetManager {
    * Cleans up assets upon unloading
    *
    */
-  ~AssetManager();
+  virtual ~AssetManager();
 
   /**
    * @brief Get reference to audio by key reference

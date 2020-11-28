@@ -3,11 +3,13 @@
 
 #include <memory>
 
+#include "EventQueue.h"
 #include "assets/AssetManager.h"
 #include "audio/AudioService.h"
 #include "display/Window.h"
 #include "input/Input.h"
 #include "logging/Logger.h"
+#include "scene/SceneManager.h"
 #include "settings/SettingManager.h"
 
 /**
@@ -28,9 +30,7 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideAudio(Args&&... args) {
-    std::unique_ptr<AudioService> service =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    audio_service = std::move(service);
+    audio_service = std::make_unique<T>((args)...);
   }
 
   /**
@@ -42,9 +42,7 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideAssetManager(Args&&... args) {
-    std::unique_ptr<AssetManager> service =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    asset_service = std::move(service);
+    asset_service = std::make_unique<T>((args)...);
   }
 
   /**
@@ -56,9 +54,7 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideWindow(Args&&... args) {
-    std::unique_ptr<Window> service =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    window_service = std::move(service);
+    window_service = std::make_unique<T>((args)...);
   }
 
   /**
@@ -71,9 +67,7 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideSettings(Args&&... args) {
-    std::unique_ptr<SettingManager> service =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    setting_service = std::move(service);
+    setting_service = std::make_unique<T>((args)...);
   }
 
   /**
@@ -85,9 +79,7 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideLogger(Args&&... args) {
-    std::unique_ptr<Logger> service =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    logger_service = std::move(service);
+    logger_service = std::make_unique<T>((args)...);
   }
 
   /**
@@ -99,9 +91,31 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideInput(Args&&... args) {
-    std::unique_ptr<Input> service =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    input_service = std::move(service);
+    input_service = std::make_unique<T>((args)...);
+  }
+
+  /**
+   * @brief Provide instance of event queue
+   *
+   * @tparam T Type of logger to provide, must be of type Event Queue
+   * @tparam Args Ctor arguments for T
+   * @param args Argument values to be forwarded to constructor of T
+   */
+  template <class T, class... Args>
+  static void provideEventQueue(Args&&... args) {
+    event_service = std::make_unique<T>((args)...);
+  }
+
+  /**
+   * @brief Provide instance of scene manager
+   *
+   * @tparam T Type of logger to provide, must be of type Scene Manager
+   * @tparam Args Ctor arguments for T
+   * @param args Argument values to be forwarded to constructor of T
+   */
+  template <class T, class... Args>
+  static void provideSceneManager(Args&&... args) {
+    scene_service = std::make_unique<T>((args)...);
   }
 
   /**
@@ -146,6 +160,20 @@ class Locator {
    */
   static Input& getInput();
 
+  /**
+   * @brief Get the event queue object
+   *
+   * @return EventQueue& Reference to current event queue
+   */
+  static EventQueue& getEventQueue();
+
+  /**
+   * @brief Get the scene manager object
+   *
+   * @return EventQueue& Reference to current scene manager
+   */
+  static SceneManager& getSceneManager();
+
  private:
   /// Internal pointer to current AudioService instance
   static inline std::unique_ptr<AudioService> audio_service;
@@ -164,6 +192,12 @@ class Locator {
 
   /// Internal pointer to current Input instance
   static inline std::unique_ptr<Input> input_service;
+
+  /// Internal pointer to current Event queue instance
+  static inline std::unique_ptr<EventQueue> event_service;
+
+  /// Internal pointer to current Event queue instance
+  static inline std::unique_ptr<SceneManager> scene_service;
 };
 
 #endif  // ENGINE_LOCATOR_H

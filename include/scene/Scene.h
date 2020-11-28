@@ -77,8 +77,7 @@ class Scene {
    */
   template <typename T, typename... Args>
   ObjId add(Args&&... args) {
-    std::unique_ptr<GameObject> obj =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
+    std::unique_ptr<GameObject> obj = std::make_unique<T>((args)...);
     const int id = obj.get()->getId();
     update_pool.push_back(std::move(obj));
     sortGameObjects();
@@ -137,19 +136,6 @@ class Scene {
    * @param obj2 Game object 2
    */
   void addCollider(const ObjId obj1, const ObjId obj2);
-
-  /**
-   * @brief Set the next scene to be loaded in. Upon calling, deletes this scene
-   *
-   * @param scene_id Id of next scene to load
-   */
-  static void setNextScene(const std::string& scene_id);
-
-  /// Current scene
-  static std::string scene_id;
-
-  /// Next scene to load
-  static std::string next_scene;
 
   /**
    * @brief Get the AudioService registered with the game

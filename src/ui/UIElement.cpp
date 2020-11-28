@@ -34,9 +34,9 @@ void UIElement::draw() {}
 void UIElement::update() {
   if (onClick && scene.getInput().mouse().down[1]) {
     bool is_colliding = scene.getInput().mouse().x < x + width &&
-                        scene.getInput().mouse().y < y + width &&
-                        x < scene.getInput().mouse().x &&
-                        y < scene.getInput().mouse().y;
+                        scene.getInput().mouse().y < y + height &&
+                        scene.getInput().mouse().x > x &&
+                        scene.getInput().mouse().y > y;
 
     if (is_colliding) {
       onClick();

@@ -1,12 +1,46 @@
 #include "assets/AssetManager.h"
 
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
 #include <algorithm>
 
 #include "Locator.h"
 #include "common/Exceptions.h"
 
+// Constant defining number of samples to reserve
+const int NUM_SAMPLES = 20;
+
 // Constructor
-AssetManager::AssetManager() {}
+AssetManager::AssetManager() {
+  // Fonts
+  if (!al_init_font_addon()) {
+    throw InitException("Could not init font addon");
+  }
+  if (!al_init_ttf_addon()) {
+    throw InitException("Could not init ttf addon");
+  }
+
+  // Graphics
+  if (!al_init_image_addon()) {
+    throw InitException("Could not init image addon");
+  }
+  if (!al_init_primitives_addon()) {
+    throw InitException("Could not init primitives addon");
+  }
+
+  // Audio
+  if (!al_install_audio()) {
+    throw InitException("Could not init audio addon");
+  }
+  if (!al_init_acodec_addon()) {
+    throw InitException("Could not init acodec addon");
+  }
+
+  if (!al_reserve_samples(NUM_SAMPLES)) {
+    throw InitException("Could not reserve samples");
+  }
+}
 
 // Destructor
 AssetManager::~AssetManager() {}

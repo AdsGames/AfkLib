@@ -6,6 +6,7 @@
 #include "JoystickState.h"
 #include "KeyboardState.h"
 #include "MouseState.h"
+#include "Service.h"
 
 /**
  * @brief General Purpose input listener
@@ -13,27 +14,27 @@
  * @date 2020-11-07
  * @author Allan Legemaate (alegemaate@gmail.com)
  */
-class Input {
+class Input : public Service {
  public:
   /**
    * @brief Construct a new Input object
+   * Installs core input services on first init
    *
    */
-  Input(){};
+  Input();
 
   /**
-   * @brief Register with allegro queue
+   * @brief Destroy the Input object
    *
-   * @param queue Allegro queue
    */
-  void registerEvents(ALLEGRO_EVENT_QUEUE* queue);
+  virtual ~Input();
 
   /**
-   * @brief Process an event from the main thread
+   * @brief Notify input service of recent event
    *
-   * @param event ALLEGRO_EVENT to process
+   * @param event to process
    */
-  void processEvent(const ALLEGRO_EVENT& event);
+  void notify(const ALLEGRO_EVENT& event);
 
   /**
    * @brief Get keyboard state

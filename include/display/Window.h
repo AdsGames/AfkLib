@@ -5,7 +5,9 @@
 #include <allegro5/display.h>
 #include <string>
 
-const int FRAME_BUFFER_SIZE = 100;
+#include "Service.h"
+
+const int FRAME_BUFFER_SIZE = 20;
 
 class Scene;
 
@@ -31,7 +33,7 @@ enum DISPLAY_MODE {
  * @author Danny Van Stemp and Allan Legemaate
  * @date 20/11/2018
  */
-class Window {
+class Window : public Service {
  public:
   /**
    * @brief Construct a new Window object
@@ -43,7 +45,14 @@ class Window {
    * @brief Destroy the Window object
    *
    */
-  virtual ~Window(){};
+  virtual ~Window();
+
+  /**
+   * @brief Notify about event updates
+   *
+   * @param event Event which happened
+   */
+  virtual void notify(const ALLEGRO_EVENT& event);
 
   /**
    * @brief Set the current display mode. Should be called once on
@@ -165,13 +174,6 @@ class Window {
   void draw(Scene* current_scene);
 
   /**
-   * @brief Register display with event queue
-   *
-   * @param queue Event queue to register with
-   */
-  void registerEventSource(ALLEGRO_EVENT_QUEUE* queue);
-
-  /**
    * @brief Set the window title
    *
    * @param title String to show in title
@@ -185,48 +187,58 @@ class Window {
    */
   void setIcon(const std::string& path);
 
+  /**
+   * @brief Get the current frames per second
+   *
+   * @return int Frames per second
+   */
+  int getFps();
+
  private:
   /// Width of buffer
-  unsigned int draw_w;
+  unsigned int draw_w = 0;
 
   /// Height of buffer
-  unsigned int draw_h;
+  unsigned int draw_h = 0;
 
   /// Width of window
-  unsigned int window_w;
+  unsigned int window_w = 0;
 
   /// Height of window
-  unsigned int window_h;
+  unsigned int window_h = 0;
 
   /// X translation of window
-  unsigned int translation_x;
+  unsigned int translation_x = 0;
 
   /// Y translation of window
-  unsigned int translation_y;
+  unsigned int translation_y = 0;
 
   /// X scaling amount
-  float scale_x;
+  float scale_x = 0;
 
   /// Y scaling amount
-  float scale_y;
+  float scale_y = 0;
 
   /// Current display mode
-  DISPLAY_MODE display_mode;
+  DISPLAY_MODE display_mode = DISPLAY_MODE::WINDOWED;
 
   /// Active display
-  ALLEGRO_DISPLAY* display;
+  ALLEGRO_DISPLAY* display = nullptr;
 
   /// Drawing buffer
-  ALLEGRO_BITMAP* buffer;
+  ALLEGRO_BITMAP* buffer = nullptr;
 
   /// Fps timer
   double old_time = 0;
 
   /// Frame array for calculating fps
-  unsigned int frames_array[FRAME_BUFFER_SIZE];
+  unsigned int frames_array[FRAME_BUFFER_SIZE] = {0};
 
   /// Current fps
   unsigned int fps = 0;
+
+  /// FPS timer
+  ALLEGRO_TIMER* fps_timer = nullptr;
 
   /**
    * @brief Sets the window scaling in percent
