@@ -1,12 +1,11 @@
-#include <iostream>
 #include <string>
 
 #include "../include/Engine.h"
-#include "../include/Locator.h"
 #include "../include/entities/Sprite.h"
+#include "../include/entities/ui/Label.h"
 #include "../include/random/RandomGenerator.h"
 #include "../include/scene/Scene.h"
-#include "../include/ui/Label.h"
+#include "../include/services/Locator.h"
 
 const int NUM_SPRITE = 1000;
 const int SCREEN_H = 400;
@@ -16,14 +15,14 @@ const int SPRITE_SIZE = 20;
 class DemoScene : public Scene {
  public:
   void start() {
-    std::cout << "Starting!" << std::endl;
-    this->getWindow().setWindowSize(SCREEN_W, SCREEN_H);
-    this->getWindow().setBufferSize(SCREEN_W, SCREEN_H);
-    this->getWindow().setMode(DISPLAY_MODE::WINDOWED);
-    this->getWindow().setTitle("ex_display");
+    Locator::getLogger().log("Starting!");
+    Locator::getDisplay().setWindowSize(SCREEN_W, SCREEN_H);
+    Locator::getDisplay().setBufferSize(SCREEN_W, SCREEN_H);
+    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
+    Locator::getDisplay().setTitle("ex_fps");
 
-    this->getAsset().loadFont("freesans", "assets/freesans.ttf", 64);
-    this->getAsset().loadImage("lenna", "assets/lenna.png");
+    Locator::getAsset().loadFont("freesans", "assets/freesans.ttf", 64);
+    Locator::getAsset().loadImage("lenna", "assets/lenna.png");
 
     label_id = this->add<Label>(*this, 10, 5, 0, "fps", "freesans");
 
@@ -40,7 +39,7 @@ class DemoScene : public Scene {
   void update() {
     iter++;
 
-    unsigned int fps = Locator::getWindow().getFps();
+    unsigned int fps = Locator::getDisplay().getFps();
     this->get<Label>(label_id).setText(std::to_string(fps));
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
@@ -50,7 +49,7 @@ class DemoScene : public Scene {
     }
   }
 
-  void stop() { std::cout << "Stopping!"; }
+  void stop() { Locator::getLogger().log("Stopping!"); }
 
  private:
   ObjId label_id = -1;
@@ -61,8 +60,8 @@ class DemoScene : public Scene {
 
 int main() {
   Engine game = Engine();
-  Locator::getSceneManager().addScene<DemoScene>("demo");
-  Locator::getSceneManager().setNextScene("demo");
+  Locator::getScene().addScene<DemoScene>("demo");
+  Locator::getScene().setNextScene("demo");
   game.start();
   return 0;
 }

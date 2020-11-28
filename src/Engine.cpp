@@ -1,15 +1,15 @@
 #include "Engine.h"
 
-#include "EventQueue.h"
-#include "Locator.h"
-#include "assets/AssetManager.h"
-#include "audio/DefaultAudioService.h"
 #include "common/Exceptions.h"
-#include "input/Input.h"
-#include "logging/DebugLogger.h"
-#include "scene/SceneManager.h"
-#include "settings/SettingManager.h"
-#include "ui/MessageBox.h"
+#include "entities/ui/MessageBox.h"
+#include "services/EventQueue.h"
+#include "services/Locator.h"
+#include "services/assets/AssetService.h"
+#include "services/audio/DefaultAudioService.h"
+#include "services/config/ConfigService.h"
+#include "services/input/InputService.h"
+#include "services/logging/DebugLoggingService.h"
+#include "services/scene/SceneService.h"
 
 // Exit helper
 void showErrorDialog(const std::string& title,
@@ -59,28 +59,28 @@ void Engine::setup() {
   }
 
   // Setup logger
-  Locator::provideLogger<DebugLogger>();
+  Locator::provideLogging<DebugLoggingService>();
 
   // Setup event queue
   Locator::provideEventQueue<EventQueue>();
 
-  // Setup window
-  Locator::provideWindow<Window>();
+  // Setup display
+  Locator::provideDisplay<DisplayService>();
 
   // Setup service locator
   Locator::provideAudio<DefaultAudioService>();
 
   // Setup asset manager
-  Locator::provideAssetManager<AssetManager>();
+  Locator::provideAsset<AssetService>();
 
   // Setup setting manager
-  Locator::provideSettings<SettingManager>();
+  Locator::provideConfig<ConfigService>();
 
   // Setup input
-  Locator::provideInput<Input>();
+  Locator::provideInput<InputService>();
 
   // Setup scene manager
-  Locator::provideSceneManager<SceneManager>();
+  Locator::provideScene<SceneService>();
 
   // Register self with event queue
   Locator::getEventQueue().registerService(this);

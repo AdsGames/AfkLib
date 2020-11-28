@@ -1,20 +1,18 @@
-#include <iostream>
-
 #include "../include/Engine.h"
-#include "../include/Locator.h"
+#include "../include/entities/ui/Button.h"
+#include "../include/entities/ui/MessageBox.h"
 #include "../include/scene/Scene.h"
-#include "../include/ui/Button.h"
-#include "../include/ui/MessageBox.h"
+#include "../include/services/Locator.h"
 
 class DemoScene : public Scene {
  public:
   void start() {
-    std::cout << "Starting!" << std::endl;
-    this->getWindow().setWindowSize(512, 512);
-    this->getWindow().setBufferSize(512, 512);
-    this->getWindow().setMode(DISPLAY_MODE::WINDOWED);
-    this->getWindow().setTitle("ex_button");
-    this->getAsset().loadFont("freesans", "assets/freesans.ttf", 12);
+    Locator::getLogger().log("Starting!");
+    Locator::getDisplay().setWindowSize(512, 512);
+    Locator::getDisplay().setBufferSize(512, 512);
+    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
+    Locator::getDisplay().setTitle("ex_button");
+    Locator::getAsset().loadFont("freesans", "assets/freesans.ttf", 12);
 
     int button_id =
         this->add<Button>(*this, 10, 10, 10, "CLICK ME", "freesans");
@@ -32,13 +30,13 @@ class DemoScene : public Scene {
 
   void update() {}
 
-  void stop() { std::cout << "Stopping!"; }
+  void stop() { Locator::getLogger().log("Stopping!"); }
 };
 
 int main() {
   Engine game = Engine();
-  Locator::getSceneManager().addScene<DemoScene>("demo");
-  Locator::getSceneManager().setNextScene("demo");
+  Locator::getScene().addScene<DemoScene>("demo");
+  Locator::getScene().setNextScene("demo");
   game.start();
   return 0;
 }

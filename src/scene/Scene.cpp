@@ -85,28 +85,3 @@ void Scene::sortGameObjects() {
     lookup_map[id] = i;
   }
 }
-
-// Get provided audio service
-AudioService& Scene::getAudio() {
-  return Locator::getAudio();
-}
-
-// Get provided asset manager
-AssetManager& Scene::getAsset() {
-  return Locator::getAsset();
-}
-
-// Get provided window
-Window& Scene::getWindow() {
-  return Locator::getWindow();
-}
-
-// Get provided settings manager
-SettingManager& Scene::getSettings() {
-  return Locator::getSettings();
-}
-
-// Get provided input
-Input& Scene::getInput() {
-  return Locator::getInput();
-}

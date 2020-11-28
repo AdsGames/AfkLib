@@ -1,19 +1,17 @@
-#include <iostream>
-
 #include "../include/Engine.h"
-#include "../include/Locator.h"
 #include "../include/entities/Sprite.h"
 #include "../include/scene/Scene.h"
+#include "../include/services/Locator.h"
 
 class DemoScene : public Scene {
  public:
   void start() {
-    std::cout << "Starting!" << std::endl;
-    this->getWindow().setWindowSize(512, 512);
-    this->getWindow().setBufferSize(512, 512);
-    this->getWindow().setMode(DISPLAY_MODE::WINDOWED);
-    this->getWindow().setTitle("ex_sprite");
-    this->getAsset().loadImage("lenna", "assets/lenna.png");
+    Locator::getLogger().log("Starting!");
+    Locator::getDisplay().setWindowSize(512, 512);
+    Locator::getDisplay().setBufferSize(512, 512);
+    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
+    Locator::getDisplay().setTitle("ex_sprite");
+    Locator::getAsset().loadImage("lenna", "assets/lenna.png");
     this->add<Sprite>(*this, "lenna");
   }
 
@@ -21,13 +19,13 @@ class DemoScene : public Scene {
 
   void update() {}
 
-  void stop() { std::cout << "Stopping!"; }
+  void stop() { Locator::getLogger().log("Stopping!"); }
 };
 
 int main() {
   Engine game = Engine();
-  Locator::getSceneManager().addScene<DemoScene>("demo");
-  Locator::getSceneManager().setNextScene("demo");
+  Locator::getScene().addScene<DemoScene>("demo");
+  Locator::getScene().setNextScene("demo");
   game.start();
   return 0;
 }

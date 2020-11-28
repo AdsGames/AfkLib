@@ -1,5 +1,5 @@
-#ifndef ENGINE_COMMON_EXCEPTIONS_H
-#define ENGINE_COMMON_EXCEPTIONS_H
+#ifndef COMMON_EXCEPTIONS_H
+#define COMMON_EXCEPTIONS_H
 
 #include <stdexcept>
 #include <string>
@@ -92,4 +92,4 @@ class SceneLookupException : public std::runtime_error {
       : std::runtime_error(msg) {}
 };
 
-#endif  // ENGINE_COMMON_EXCEPTIONS_H
+#endif  // COMMON_EXCEPTIONS_H

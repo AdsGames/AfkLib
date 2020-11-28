@@ -1,10 +1,10 @@
-#ifndef ENGINE_ENGINE_H
-#define ENGINE_ENGINE_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
 #include <allegro5/allegro5.h>
 #include <string>
 
-#include "Service.h"
+#include "services/Service.h"
 
 /**
  * @brief Core engine class, manages scenes and sets up locator and allegro
@@ -45,4 +45,4 @@ class Engine : public Service {
   bool closing = false;
 };
 
-#endif  // ENGINE_ENGINE_H
+#endif  // ENGINE_H

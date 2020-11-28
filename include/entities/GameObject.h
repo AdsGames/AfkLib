@@ -1,5 +1,5 @@
-#ifndef ENGINE_ENTITIES_GAME_OBJECT_H
-#define ENGINE_ENTITIES_GAME_OBJECT_H
+#ifndef ENTITIES_GAME_OBJECT_H
+#define ENTITIES_GAME_OBJECT_H
 
 /// Unique id type alias
 using ObjId = unsigned int;
@@ -154,4 +154,4 @@ class GameObject {
   static ObjId index;
 };
 
-#endif  // ENGINE_ENTITIES_GAME_OBJECT_H
+#endif  // ENTITIES_GAME_OBJECT_H

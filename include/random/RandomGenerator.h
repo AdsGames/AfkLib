@@ -1,5 +1,5 @@
-#ifndef ENGINE_RANDOM_RANDOM_GENERATOR_H
-#define ENGINE_RANDOM_RANDOM_GENERATOR_H
+#ifndef RANDOM_RANDOM_GENERATOR_H
+#define RANDOM_RANDOM_GENERATOR_H
 
 #include <random>
 
@@ -33,4 +33,4 @@ class RandomGenerator {
   static std::mt19937 rng;
 };
 
-#endif  // ENGINE_RANDOM_RANDOM_GENERATOR_H
+#endif  // RANDOM_RANDOM_GENERATOR_H
