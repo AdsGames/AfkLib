@@ -1,5 +1,5 @@
-#ifndef ENGINE_LOGGIN_LOGGER_H
-#define ENGINE_LOGGIN_LOGGER_H
+#ifndef ENGINE_LOGGING_LOGGER_H
+#define ENGINE_LOGGING_LOGGER_H
 
 #include <string>
 
@@ -20,4 +20,4 @@ class Logger {
   virtual void log(const std::string& msg);
 };
 
-#endif  // ENGINE_LOGGIN_LOGGER_H
+#endif  // ENGINE_LOGGING_LOGGER_H

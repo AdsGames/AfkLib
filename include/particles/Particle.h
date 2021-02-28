@@ -6,7 +6,7 @@
 #ifndef ENGINE_PARTICLES_PARTICLE_H
 #define ENGINE_PARTICLES_PARTICLE_H
 
-#include <allegro5/allegro_primitives.h>
+#include "primitives/Primitives.h"
 
 enum class ParticleType : int {
   PIXEL,
@@ -24,16 +24,6 @@ class Particle {
            float velocity_y,
            int size,
            ParticleType type);
-
-  Particle(float x,
-           float y,
-           ALLEGRO_COLOR color,
-           float velocity_x,
-           float velocity_y,
-           int size,
-           int type);
-
-  ~Particle();
 
   void update();
   void scroll(float x, float y);
