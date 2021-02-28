@@ -1,4 +1,5 @@
 #include "ui/Label.h"
+#include "color/Color.h"
 
 // Detailed constructor
 Label::Label(Scene& scene,
@@ -19,5 +20,5 @@ void Label::draw() {
     return;
 
   // Text
-  font.draw(x, y, text, al_map_rgb(0, 0, 0));
+  font.draw(x, y, text, Color::rgb(0, 0, 0));
 }

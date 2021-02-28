@@ -1,5 +1,5 @@
-#ifndef ENGINE_LOGGIN_DEBUG_LOGGER_H
-#define ENGINE_LOGGIN_DEBUG_LOGGER_H
+#ifndef ENGINE_LOGGING_DEBUG_LOGGER_H
+#define ENGINE_LOGGING_DEBUG_LOGGER_H
 
 #include "Logger.h"
 
@@ -20,4 +20,4 @@ class DebugLogger : public Logger {
   virtual void log(const std::string& msg) override;
 };
 
-#endif  // ENGINE_LOGGIN_DEBUG_LOGGER_H
+#endif  // ENGINE_LOGGING_DEBUG_LOGGER_H

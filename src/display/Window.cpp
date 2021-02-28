@@ -4,6 +4,7 @@
 
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
+#include "color/Color.h"
 
 Window::Window()
     : draw_w(0),
@@ -214,13 +215,13 @@ void Window::draw(Scene* current_scene) {
 
   // Render a frame
   al_set_target_bitmap(buffer);
-  al_clear_to_color(al_map_rgb(0, 0, 0));
+  al_clear_to_color(Color::rgb(0, 0, 0));
 
   current_scene->drawInternal();
   current_scene->draw();
 
   al_set_target_backbuffer(display);
-  al_clear_to_color(al_map_rgb(0, 0, 0));
+  al_clear_to_color(Color::rgb(0, 0, 0));
   al_draw_scaled_bitmap(buffer, 0, 0, draw_w, draw_h, translation_x,
                         translation_y, window_w, window_h, 0);
 

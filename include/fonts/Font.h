@@ -5,6 +5,8 @@
 #include <allegro5/allegro_font.h>
 #include <string>
 
+#include "../color/Color.h"
+
 /**
  * @brief Easy interface to interact with allegro fonts
  *
@@ -49,7 +51,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const ALLEGRO_COLOR colour = al_map_rgb(0, 0, 0),
+            const ALLEGRO_COLOR colour = Color::rgb(0, 0, 0),
             const int flags = 0);
 
   /**

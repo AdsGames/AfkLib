@@ -1,8 +1,8 @@
 #include "ui/Button.h"
 
-#include <allegro5/allegro_primitives.h>
-
 #include "scene/Scene.h"
+#include "color/Color.h"
+#include "primitives/Primitives.h"
 
 // Ctor
 Button::Button(Scene& scene,
@@ -39,10 +39,10 @@ void Button::draw() {
     image.draw(x, y);
   } else {
     // Draw button background
-    al_draw_filled_rectangle(x, y, x + width, y + height,
-                             al_map_rgb(255, 255, 255));
+    Primitives::rectfill(x, y, x + width, y + height,
+                             Color::rgb(255, 255, 255));
 
     // Text
-    font.draw(x, y, text, al_map_rgb(0, 0, 0));
+    font.draw(x, y, text, Color::rgb(0, 0, 0));
   }
 }
