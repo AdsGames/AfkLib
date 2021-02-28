@@ -1,9 +1,9 @@
 #include "entities/Sprite.h"
 
-#include <allegro5/allegro_color.h>
-#include <allegro5/allegro_primitives.h>
-
+#include "color/Color.h"
+#include "primitives/Primitives.h"
 #include "scene/Scene.h"
+
 #include "services/Locator.h"
 
 // Constructor
@@ -52,6 +52,6 @@ void Sprite::draw() {
 
   // Draw bounding box
   if (Locator::getConfig().get<bool>("debug", false)) {
-    al_draw_rectangle(x, y, x + width, y + height, al_map_rgb(88, 88, 88), 1);
+    Primitives::rect(x, y, x + width, y + height, Color::rgb(88, 88, 88), 1);
   }
 }

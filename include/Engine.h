@@ -1,7 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <allegro5/allegro5.h>
 #include <string>
 
 #include "services/Service.h"
