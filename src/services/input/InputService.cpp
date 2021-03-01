@@ -41,7 +41,8 @@ InputService::~InputService() {
 void InputService::notify(const ALLEGRO_EVENT& event) {
   switch (event.type) {
     case ALLEGRO_EVENT_TIMER:
-      if (al_get_timer_speed(event.timer.source) == 0.05f) {
+      // Get update timer and ensure it is the one
+      if (event.timer.source == Locator::getScene().getUpdateTimer()) {
         update();
       }
       break;

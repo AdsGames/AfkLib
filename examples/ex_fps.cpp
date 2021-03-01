@@ -7,7 +7,7 @@
 #include "../include/scene/Scene.h"
 #include "../include/services/Locator.h"
 
-const int NUM_SPRITE = 1000;
+const int NUM_SPRITE = 10;
 const int SCREEN_H = 400;
 const int SCREEN_W = 400;
 const int SPRITE_SIZE = 20;

@@ -95,3 +95,8 @@ void SceneService::setNextScene(const std::string& scene_id) {
     next_scene = scene_id;
   }
 }
+
+// Get the update timer (useful for checking if timer event is from here)
+ALLEGRO_TIMER* SceneService::getUpdateTimer() {
+  return update_timer;
+}

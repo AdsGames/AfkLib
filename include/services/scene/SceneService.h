@@ -71,6 +71,13 @@ class SceneService : public Service {
    */
   void setNextScene(const std::string& scene_id);
 
+  /**
+   * @brief Get the Update Timer
+   *
+   * @return ALLEGRO_TIMER
+   */
+  ALLEGRO_TIMER* getUpdateTimer();
+
  private:
   /**
    * @brief Check for new scene, and change it accordingly

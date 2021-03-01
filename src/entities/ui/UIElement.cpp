@@ -1,8 +1,8 @@
 #include "entities/ui/UIElement.h"
 
+#include <string>
 #include "scene/Scene.h"
 #include "services/Locator.h"
-
 // Constructor
 UIElement::UIElement(Scene& scene,
                      const float x,
@@ -33,7 +33,11 @@ void UIElement::draw() {}
 
 // Update
 void UIElement::update() {
-  if (onClick && Locator::getInput().mouse().down[1]) {
+  if (!onClick) {
+    return;
+  }
+
+  if (Locator::getInput().mouse().down[1]) {
     bool is_colliding = Locator::getInput().mouse().x < x + width &&
                         Locator::getInput().mouse().y < y + height &&
                         Locator::getInput().mouse().x > x &&
