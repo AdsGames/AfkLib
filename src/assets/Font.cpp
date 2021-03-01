@@ -43,7 +43,7 @@ int Font::getWidth(const std::string& text) {
 void Font::draw(const int x,
                 const int y,
                 const std::string& text,
-                const ALLEGRO_COLOR colour,
+                const SDL_Color colour,
                 const int flags) {
   if (!font) {
     return;
@@ -53,9 +53,9 @@ void Font::draw(const int x,
 }
 
 // Load font from file
-ALLEGRO_FONT* Font::loadFont(const std::string& path, const int size) {
+TTF_Font* Font::loadFont(const std::string& path, const int size) {
   // Attempt to load
-  ALLEGRO_FONT* temp_font = al_load_font(path.c_str(), size, 0);
+  TTF_Font* temp_font = TTF_OpenFont(path.c_str(), size);
 
   if (!temp_font) {
     throw FileIOException("There was an error loading font " + path);

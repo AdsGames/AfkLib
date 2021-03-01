@@ -34,7 +34,7 @@ SceneService::~SceneService() {
 }
 
 // Process event notification
-void SceneService::notify(const ALLEGRO_EVENT& event) {
+void SceneService::notify(const SDL_Event& event) {
   // Update timer
   if (event.type == ALLEGRO_EVENT_TIMER && event.timer.source == update_timer) {
     // Change scene (if needed)

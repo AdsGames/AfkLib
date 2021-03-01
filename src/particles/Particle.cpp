@@ -3,7 +3,7 @@
 // Constructor
 Particle::Particle(float x,
                    float y,
-                   ALLEGRO_COLOR color,
+                   SDL_Color color,
                    float velocity_x,
                    float velocity_y,
                    int size,

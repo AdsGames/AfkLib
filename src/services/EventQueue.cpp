@@ -1,7 +1,7 @@
-#include "services/EventQueue.h"
-
+#include <SDL2/SDL_events.h>
 #include <algorithm>
 
+#include "services/EventQueue.h"
 #include "services/Locator.h"
 
 // Create event queue
@@ -17,8 +17,8 @@ EventQueue::~EventQueue() {
 }
 
 void EventQueue::process() {
-  ALLEGRO_EVENT ev;
-  al_wait_for_event(event_queue, &ev);
+  SDL_Event ev;
+  SDL_PollEvent(&ev);
 
   for (Service* service : services) {
     service->notify(ev);

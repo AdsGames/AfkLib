@@ -1,6 +1,6 @@
-#include "services/display/DisplayService.h"
+#include <SDL2/SDL_image.h>
 
-#include <allegro5/allegro.h>
+#include "services/display/DisplayService.h"
 
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
@@ -42,7 +42,7 @@ DisplayService::~DisplayService() {
   }
 
   if (buffer) {
-    al_destroy_bitmap(buffer);
+    SDL_FreeSurface(buffer);
   }
 
   if (fps_timer) {
@@ -215,11 +215,12 @@ void DisplayService::setTitle(const std::string& title) {
 
 // Set display icon
 void DisplayService::setIcon(const std::string& path) {
-  ALLEGRO_BITMAP* icon = al_load_bitmap(path.c_str());
+  SDL_Surface* icon = IMG_Load(path.c_str());
   if (!icon) {
     throw FileIOException("Could not load icon " + path);
   }
-  al_set_display_icon(display, icon);
+  SDL_SetWindowIcon(display, icon);
+  SDL_FreeSurface(icon);
 }
 
 // Get fps
@@ -239,7 +240,8 @@ void DisplayService::setMode(const DISPLAY_MODE mode) {
 
   // Create buffer
   if (!buffer) {
-    buffer = al_create_bitmap(getDrawWidth(), getDrawHeight());
+    buffer =
+        SDL_CreateRGBSurface(0, getDrawWidth(), getDrawHeight(), 32, 0, 0, 0);
   }
 
   // Set mode

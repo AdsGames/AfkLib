@@ -1,8 +1,7 @@
 #ifndef ASSETS_FONT_H
 #define ASSETS_FONT_H
 
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_font.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
 #include "../color/Color.h"
@@ -51,7 +50,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const ALLEGRO_COLOR colour = Color::rgb(0, 0, 0),
+            const SDL_Color colour = Color::rgb(0, 0, 0),
             const int flags = 0);
 
   /**
@@ -85,10 +84,10 @@ class Font {
    * @return ALLEGRO_FONT* File that has been loaded
    * @throws FileIOException If font can not be found at path
    */
-  static ALLEGRO_FONT* loadFont(const std::string& path, const int size);
+  static TTF_Font* loadFont(const std::string& path, const int size);
 
   /// Pointer to referenced font
-  ALLEGRO_FONT* font;
+  TTF_Font* font;
 
   /// Size of font
   int font_size;

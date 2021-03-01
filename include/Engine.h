@@ -6,7 +6,7 @@
 #include "services/Service.h"
 
 /**
- * @brief Core engine class, manages scenes and sets up locator and allegro
+ * @brief Core engine class, manages scenes and sets up locator and sdl
  *
  * @author Allan Legemaate
  * @date 7/11/2020
@@ -35,7 +35,7 @@ class Engine : public Service {
 
  private:
   /**
-   * @brief Sets up core engine features and allegro 5
+   * @brief Sets up core engine features and sdl2
    *
    */
   void setup();

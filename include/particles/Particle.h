@@ -19,7 +19,7 @@ class Particle {
  public:
   Particle(float x,
            float y,
-           ALLEGRO_COLOR color,
+           SDL_Color color,
            float velocity_x,
            float velocity_y,
            int size,
@@ -37,7 +37,7 @@ class Particle {
 
   float velocity_x, velocity_y;
 
-  ALLEGRO_COLOR color;
+  SDL_Color color;
 };
 
 #endif  // PARTICLES_PARTICLE_H

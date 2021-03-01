@@ -2,7 +2,7 @@
 #ifndef SERVICES_DISPLAY_DISPLAY_SERVICE_H
 #define SERVICES_DISPLAY_DISPLAY_SERVICE_H
 
-#include <allegro5/display.h>
+#include <SDL2/SDL.h>
 #include <string>
 
 #include "../Service.h"
@@ -223,10 +223,10 @@ class DisplayService : public Service {
   DISPLAY_MODE display_mode = DISPLAY_MODE::WINDOWED;
 
   /// Active display
-  ALLEGRO_DISPLAY* display = nullptr;
+  SDL_WINDOW* display = nullptr;
 
   /// Drawing buffer
-  ALLEGRO_BITMAP* buffer = nullptr;
+  SDL_Surface* buffer = nullptr;
 
   /// Fps timer
   double old_time = 0;

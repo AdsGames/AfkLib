@@ -1,7 +1,14 @@
 #include "color/Color.h"
 
-ALLEGRO_COLOR Color::rgb(const unsigned char r,
-                         const unsigned char g,
-                         const unsigned char b) {
-  return al_map_rgb(r, g, b);
+SDL_Colour Color::rgb(const unsigned char r,
+                      const unsigned char g,
+                      const unsigned char b) {
+  return {r, g, b, 255};
+}
+
+SDL_Colour Color::rgba(const unsigned char r,
+                       const unsigned char g,
+                       const unsigned char b,
+                       const unsigned char a) {
+  return {r, g, b, a};
 }
