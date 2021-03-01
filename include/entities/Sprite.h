@@ -3,8 +3,8 @@
 
 #include <vector>
 
+#include "../assets/Texture.h"
 #include "../particles/Particle.h"
-#include "../textures/Texture.h"
 #include "GameObject.h"
 
 /**

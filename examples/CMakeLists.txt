@@ -21,7 +21,7 @@ find_library(ALLEGRO_PRIMITIVES_LIBRARY NAMES liballegro_primitives REQUIRED)
 find_library(ALLEGRO_TTF_LIBRARY NAMES liballegro_ttf REQUIRED)
 
 # Build examples
-set(EXAMPLES ex_display ex_sprite)
+set(EXAMPLES ex_display ex_sprite ex_button ex_message_box ex_fps)
 
 foreach(EX_NAME ${EXAMPLES})
   add_executable(${EX_NAME} ${CMAKE_CURRENT_LIST_DIR}/${EX_NAME}.cpp)

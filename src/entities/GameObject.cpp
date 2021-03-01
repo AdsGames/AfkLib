@@ -32,6 +32,18 @@ void GameObject::onCollide(const GameObject& other) {
   (void)(other);
 }
 
+// Set the size of game object in pixels
+void GameObject::setSize(const unsigned int width, const unsigned int height) {
+  this->width = width;
+  this->height = height;
+}
+
+// Set the position of game object in pixels
+void GameObject::setPosition(const float x, const float y) {
+  this->x = x;
+  this->y = y;
+}
+
 // Get z index
 int GameObject::getWidth() const {
   return width;

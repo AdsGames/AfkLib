@@ -1,12 +1,11 @@
-#ifndef ENGINE_SCENE_SCENE_H
-#define ENGINE_SCENE_SCENE_H
+#ifndef SCENE_SCENE_H
+#define SCENE_SCENE_H
 
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "../Locator.h"
 #include "../common/Exceptions.h"
 #include "../entities/GameObject.h"
 
@@ -77,8 +76,7 @@ class Scene {
    */
   template <typename T, typename... Args>
   ObjId add(Args&&... args) {
-    std::unique_ptr<GameObject> obj =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
+    std::unique_ptr<GameObject> obj = std::make_unique<T>((args)...);
     const int id = obj.get()->getId();
     update_pool.push_back(std::move(obj));
     sortGameObjects();
@@ -138,54 +136,6 @@ class Scene {
    */
   void addCollider(const ObjId obj1, const ObjId obj2);
 
-  /**
-   * @brief Set the next scene to be loaded in. Upon calling, deletes this scene
-   *
-   * @param scene_id Id of next scene to load
-   */
-  static void setNextScene(const std::string& scene_id);
-
-  /// Current scene
-  static std::string scene_id;
-
-  /// Next scene to load
-  static std::string next_scene;
-
-  /**
-   * @brief Get the AudioService registered with the game
-   *
-   * @return Reference to the audioservice
-   */
-  static AudioService& getAudio();
-
-  /**
-   * @brief Get the AssetManager registered with the game
-   *
-   * @return Reference to the asset manager
-   */
-  static AssetManager& getAsset();
-
-  /**
-   * @brief Get the Window registered with the game
-   *
-   * @return Reference to the window
-   */
-  static Window& getWindow();
-
-  /**
-   * @brief Get the SettingManager registered with the game
-   *
-   * @return Reference to the setting manager
-   */
-  static SettingManager& getSettings();
-
-  /**
-   * @brief Get the Input registered with the game
-   *
-   * @return Reference to the input
-   */
-  static Input& getInput();
-
  private:
   /**
    * @brief Sort game object by Z index
@@ -203,4 +153,4 @@ class Scene {
   std::map<ObjId, std::vector<ObjId>> collider_map;
 };
 
-#endif  // ENGINE_SCENE_SCENE_H
+#endif  // SCENE_SCENE_H

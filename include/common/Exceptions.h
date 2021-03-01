@@ -1,5 +1,5 @@
-#ifndef ENGINE_COMMON_EXCEPTIONS_H
-#define ENGINE_COMMON_EXCEPTIONS_H
+#ifndef COMMON_EXCEPTIONS_H
+#define COMMON_EXCEPTIONS_H
 
 #include <stdexcept>
 #include <string>
@@ -77,4 +77,19 @@ class InvalidParameterException : public std::runtime_error {
       : std::runtime_error(msg) {}
 };
 
-#endif  // ENGINE_COMMON_EXCEPTIONS_H
+/**
+ * @brief Exception raised when a scene can not be found
+ *
+ */
+class SceneLookupException : public std::runtime_error {
+ public:
+  /**
+   * @brief Construct a new Invalid Parameter Exception object
+   *
+   * @param msg Message to pass to runtime_error.
+   */
+  explicit SceneLookupException(const std::string& msg)
+      : std::runtime_error(msg) {}
+};
+
+#endif  // COMMON_EXCEPTIONS_H

@@ -1,28 +1,28 @@
-#include <iostream>
-
 #include "../include/Engine.h"
 #include "../include/scene/Scene.h"
+#include "../include/services/Locator.h"
 
 class DemoScene : public Scene {
  public:
   void start() {
-    std::cout << "Starting!";
-    this->getWindow().setWindowSize(100, 100);
-    this->getWindow().setBufferSize(100, 100);
-    this->getWindow().setMode(DISPLAY_MODE::WINDOWED);
-    this->getWindow().setTitle("ex_display");
+    Locator::getLogger().log("Starting!");
+    Locator::getDisplay().setWindowSize(100, 100);
+    Locator::getDisplay().setBufferSize(100, 100);
+    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
+    Locator::getDisplay().setTitle("ex_display");
   }
 
   void draw() {}
 
   void update() {}
 
-  void stop() { std::cout << "Stopping!"; }
+  void stop() { Locator::getLogger().log("Stopping!"); }
 };
 
 int main() {
   Engine game = Engine();
-  game.addScene<DemoScene>("demo");
-  game.start("demo");
+  Locator::getScene().addScene<DemoScene>("demo");
+  Locator::getScene().setNextScene("demo");
+  game.start();
   return 0;
 }

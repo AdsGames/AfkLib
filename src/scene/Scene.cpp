@@ -4,10 +4,6 @@
 
 #include "entities/GameObject.h"
 
-// Static
-std::string Scene::scene_id = "";
-std::string Scene::next_scene = "";
-
 // Internal cleanup (on switch scene)
 void Scene::stopInternal() {
   update_pool.clear();
@@ -88,38 +84,4 @@ void Scene::sortGameObjects() {
     const int id = update_pool.at(i)->getId();
     lookup_map[id] = i;
   }
-}
-
-// Set next scene to load
-void Scene::setNextScene(const std::string& scene_id) {
-  // If the user doesn't want to exit
-  if (Scene::next_scene != "exit") {
-    // Set the next scene
-    Scene::next_scene = scene_id;
-  }
-}
-
-// Get provided audio service
-AudioService& Scene::getAudio() {
-  return Locator::getAudio();
-}
-
-// Get provided asset manager
-AssetManager& Scene::getAsset() {
-  return Locator::getAsset();
-}
-
-// Get provided window
-Window& Scene::getWindow() {
-  return Locator::getWindow();
-}
-
-// Get provided settings manager
-SettingManager& Scene::getSettings() {
-  return Locator::getSettings();
-}
-
-// Get provided input
-Input& Scene::getInput() {
-  return Locator::getInput();
 }

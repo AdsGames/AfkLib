@@ -1,5 +1,5 @@
-#ifndef ENGINE_COMMON_STRING_FNS_H
-#define ENGINE_COMMON_STRING_FNS_H
+#ifndef COMMON_STRING_FNS_H
+#define COMMON_STRING_FNS_H
 
 #include <memory>
 #include <string>
@@ -88,4 +88,4 @@ std::string format(const std::string& format, Args... args) {
 
 }  // namespace stringFns
 
-#endif  // ENGINE_COMMON_STRING_FNS_H
+#endif  // COMMON_STRING_FNS_H

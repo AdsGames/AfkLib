@@ -1,8 +1,10 @@
 #include "entities/Sprite.h"
 
-#include "scene/Scene.h"
 #include "color/Color.h"
 #include "primitives/Primitives.h"
+#include "scene/Scene.h"
+
+#include "services/Locator.h"
 
 // Constructor
 Sprite::Sprite(Scene& scene, const float x, const float y, const int z)
@@ -26,7 +28,7 @@ void Sprite::setVisible(const bool visible) {
 }
 
 void Sprite::setTexture(const std::string& texture) {
-  this->texture = scene.getAsset().getImage(texture);
+  this->texture = Locator::getAsset().getImage(texture);
   this->width = this->texture.getWidth();
   this->height = this->texture.getHeight();
 }
@@ -42,14 +44,14 @@ void Sprite::draw() {
   texture.drawScaled(x, y, width, height);
 
   // Draw particles
-  if (scene.getSettings().get<int>("particleType", 0) != 3) {
+  if (Locator::getConfig().get<int>("particleType", 0) != 3) {
     for (unsigned int i = 0; i < parts.size(); i++) {
       parts.at(i).draw();
     }
   }
 
   // Draw bounding box
-  if (scene.getSettings().get<bool>("debug", false)) {
+  if (Locator::getConfig().get<bool>("debug", false)) {
     Primitives::rect(x, y, x + width, y + height, Color::rgb(88, 88, 88), 1);
   }
 }
