@@ -3,6 +3,7 @@
 #define SERVICES_DISPLAY_DISPLAY_SERVICE_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
 #include <string>
 
 #include "../Service.h"
@@ -48,11 +49,18 @@ class DisplayService : public Service {
   virtual ~DisplayService();
 
   /**
+   * @brief Get the name of service
+   *
+   * @return name
+   */
+  std::string getName() const;
+
+  /**
    * @brief Notify about event updates
    *
    * @param event Event which happened
    */
-  virtual void notify(const ALLEGRO_EVENT& event);
+  virtual void notify(const SDL_Event& event);
 
   /**
    * @brief Set the current display mode. Should be called once on
@@ -194,6 +202,20 @@ class DisplayService : public Service {
    */
   int getFps();
 
+  /**
+   * @brief Get the window renderer
+   *
+   * @return SDL_Renderer* pointer to window renderer
+   */
+  SDL_Renderer* getRenderer();
+
+  /**
+   * @brief Get the window
+   *
+   * @return SDL_Window* pointer to window
+   */
+  SDL_Window* getWindow();
+
  private:
   /// Width of buffer
   unsigned int draw_w = 0;
@@ -222,11 +244,11 @@ class DisplayService : public Service {
   /// Current display mode
   DISPLAY_MODE display_mode = DISPLAY_MODE::WINDOWED;
 
-  /// Active display
-  SDL_WINDOW* display = nullptr;
+  /// Active window
+  SDL_Window* window = nullptr;
 
-  /// Drawing buffer
-  SDL_Surface* buffer = nullptr;
+  /// Renderer
+  SDL_Renderer* renderer = nullptr;
 
   /// Fps timer
   double old_time = 0;
@@ -237,8 +259,8 @@ class DisplayService : public Service {
   /// Current fps
   unsigned int fps = 0;
 
-  /// FPS timer
-  ALLEGRO_TIMER* fps_timer = nullptr;
+  /// Timer id
+  SDL_TimerID draw_timer = 0;
 
   /**
    * @brief Sets the window scaling in percent

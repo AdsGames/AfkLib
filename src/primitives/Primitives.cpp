@@ -1,32 +1,36 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 #include "primitives/Primitives.h"
+#include "services/Locator.h"
 
-void Primitives::rect(const float x1,
-                      const float y1,
-                      const float x2,
-                      const float y2,
-                      SDL_Color color,
-                      const float thickness) {
-  SDL_Rect fillRect = {x1, y1, x2, y2};
-  SDL_SetRenderDrawColor(gRenderer, color.r, color.g, color.b, color.a);
-  SDL_RenderFillRect(gRenderer, &fillRect);
+void Primitives::rect(const int x,
+                      const int y,
+                      const int w,
+                      const int h,
+                      SDL_Color colour) {
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+
+  SDL_Rect bounds = {x, y, w, h};
+  SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+  SDL_RenderDrawRect(renderer, &bounds);
 }
 
-void Primitives::rectfill(const float x1,
-                          const float y1,
-                          const float x2,
-                          const float y2,
-                          SDL_Color color) {
-  SDL_Rect fillRect = {x1, y1, x2, y2};
-  SDL_SetRenderDrawColor(gRenderer, color.r, color.g, color.b, color.a);
-  SDL_RenderDrawRect(gRenderer, &fillRect);
+void Primitives::rectfill(const int x,
+                          const int y,
+                          const int w,
+                          const int h,
+                          SDL_Color colour) {
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+
+  SDL_Rect bounds = {x, y, w, h};
+  SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+  SDL_RenderFillRect(renderer, &bounds);
 }
 
-void Primitives::circle(const float cx,
-                        const float cy,
-                        const float r,
-                        SDL_Color color,
-                        const float thickness) {
-    al_draw_circle(cx, cy, r, color, thickness);
+void Primitives::circle(const int cx,
+                        const int cy,
+                        const int r,
+                        SDL_Color colour) {
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  circleColor(renderer, cx, cy, r, Color::colorToInt(colour));
 }

@@ -52,6 +52,6 @@ void Sprite::draw() {
 
   // Draw bounding box
   if (Locator::getConfig().get<bool>("debug", false)) {
-    Primitives::rect(x, y, x + width, y + height, Color::rgb(88, 88, 88), 1);
+    Primitives::rect(x, y, width, height, Color::rgb(88, 88, 88));
   }
 }

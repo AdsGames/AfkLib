@@ -40,8 +40,10 @@ void Button::draw() {
     image.draw(x, y);
   } else {
     // Draw button background
-    Primitives::rectfill(x, y, x + width, y + height,
-                         Color::rgb(255, 255, 255));
+    Primitives::rectfill(x, y, width, height, Color::rgb(255, 255, 255));
+
+    // Draw button border
+    Primitives::rect(x, y, width, height, Color::rgb(0, 0, 0));
 
     // Text
     font.draw(x, y, text, Color::rgb(0, 0, 0));

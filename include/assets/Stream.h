@@ -1,7 +1,7 @@
 #ifndef ASSETS_STREAM_H
 #define ASSETS_STREAM_H
 
-#include <allegro5/allegro_audio.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
 
 /**
@@ -63,10 +63,10 @@ class Stream {
    * @return ALLEGRO_AUDIO_STREAM* Loaded allegro audio stream
    * @throws FileIOException If stream can not be found at path
    */
-  static ALLEGRO_AUDIO_STREAM* loadStream(const std::string& path);
+  static Mix_Chunk* loadStream(const std::string& path);
 
   /// Pointer to associated ALLEGRO_AUDIO_STREAM*
-  ALLEGRO_AUDIO_STREAM* stream;
+  Mix_Chunk* stream;
 };
 
 #endif  // ASSETS_STREAM_H

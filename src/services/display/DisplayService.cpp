@@ -1,6 +1,6 @@
-#include <SDL2/SDL_image.h>
-
 #include "services/display/DisplayService.h"
+
+#include <SDL2/SDL_image.h>
 
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
@@ -9,53 +9,48 @@
 #include "services/Locator.h"
 
 // Draw ticks per second
-const float DRAWS_PER_SECOND = 60;
+const Uint32 MS_PER_DRAW = 17;
 
 // Setup DisplayService
 DisplayService::DisplayService() {
-  Locator::getLogger().log("[Display Service]: Starting up");
-
-  // Create timer
-  fps_timer = al_create_timer(1.0 / DRAWS_PER_SECOND);
-  al_start_timer(fps_timer);
-
   // Register timer events
-  Locator::getEventQueue().registerSource(al_get_timer_event_source(fps_timer));
+  draw_timer = Locator::getEventQueue().registerTimer(MS_PER_DRAW, 0);
 
   // Register self
   Locator::getEventQueue().registerService(this);
 
   // Set initial time
-  old_time = al_get_time();
+  old_time = SDL_GetTicks();
 }
 
 // Cleanup window
 DisplayService::~DisplayService() {
-  Locator::getLogger().log("[Display Service]: Shutting down");
-
   // Unregister self
   Locator::getEventQueue().unregisterService(this);
 
+  // Remove timer
+  Locator::getEventQueue().unregisterTimer(draw_timer);
+
   // Cleanup
-  if (display) {
-    al_destroy_display(display);
+  if (window) {
+    SDL_DestroyWindow(window);
   }
 
-  if (buffer) {
-    SDL_FreeSurface(buffer);
-  }
-
-  if (fps_timer) {
-    al_destroy_timer(fps_timer);
+  if (renderer) {
+    SDL_DestroyRenderer(renderer);
   }
 }
 
+// Get the name of service
+std::string DisplayService::getName() const {
+  return "Display Service";
+}
+
 // Notify
-void DisplayService::notify(const ALLEGRO_EVENT& event) {
-  if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
+void DisplayService::notify(const SDL_Event& event) {
+  if (event.type == SDL_DISPLAYEVENT) {
     // resize(event.display.width, event.display.height);
-  } else if (event.type == ALLEGRO_EVENT_TIMER &&
-             event.timer.source == fps_timer) {
+  } else if (event.type == SDL_USEREVENT && event.user.code == 0) {
     draw(Locator::getScene().getScene());
   }
 }
@@ -107,30 +102,30 @@ float DisplayService::getScaleY() const {
 
 // Hide mouse from display
 void DisplayService::hideMouse() {
-  al_hide_mouse_cursor(display);
+  SDL_ShowCursor(false);
 }
 
 // Show mouse on display
 void DisplayService::showMouse() {
-  al_show_mouse_cursor(display);
+  SDL_ShowCursor(true);
 }
 
 // Resize window
 void DisplayService::resize(const unsigned int window_w,
                             const unsigned int window_h) {
   // Get monitor width
-  ALLEGRO_MONITOR_INFO info;
-  al_get_monitor_info(0, &info);
+  SDL_DisplayMode info;
+  SDL_GetCurrentDisplayMode(0, &info);
 
   // Window mode
   switch (display_mode) {
     // Fullscreen windowed stretch
     case DISPLAY_MODE::FULLSCREEN_WINDOW_STRETCH:
       // Set flags
-      al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+      SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
       // Set up screen size and positions
-      setWindowSize(info.x2 - info.x1, info.y2 - info.y1);
+      setWindowSize(info.w, info.h);
       setScale((float)window_w / draw_w, (float)window_h / draw_h);
       setTranslation(0.0f, 0.0f);
 
@@ -139,10 +134,10 @@ void DisplayService::resize(const unsigned int window_w,
     // Fullscreen window center
     case DISPLAY_MODE::FULLSCREEN_WINDOW_CENTER:
       // Set flags
-      al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+      SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
       // Set up screen size and positions
-      setWindowSize(info.x2 - info.x1, info.y2 - info.y1);
+      setWindowSize(info.w, info.h);
       setScale(1.0f, 1.0f);
       setTranslation((window_w - scale_x * draw_w) / 2,
                      (window_h - scale_y * draw_h) / 2);
@@ -152,10 +147,10 @@ void DisplayService::resize(const unsigned int window_w,
     // Fullscreen window center
     case DISPLAY_MODE::FULLSCREEN_WINDOW_LETTERBOX:
       // Set flags
-      al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+      SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
       // Set up screen size and positions
-      setWindowSize(info.x2 - info.x1, info.y2 - info.y1);
+      setWindowSize(info.w, info.h);
       setScale(std::min((float)window_w / draw_w, (float)window_h / draw_h),
                std::min((float)window_w / draw_w, (float)window_h / draw_h));
       setTranslation((window_w - scale_x * draw_w) / 2,
@@ -166,7 +161,7 @@ void DisplayService::resize(const unsigned int window_w,
     // Windowed
     case DISPLAY_MODE::WINDOWED:
       // Set flags
-      al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
+      SDL_SetWindowFullscreen(window, 0);
 
       // Set up screen size and positions
       setWindowSize(window_w, window_h);
@@ -179,6 +174,9 @@ void DisplayService::resize(const unsigned int window_w,
     default:
       throw InvalidParameterException("Invalid display mode passed");
   }
+
+  // Set scale
+  SDL_RenderSetScale(renderer, draw_w, draw_h);
 }
 
 // Set window size
@@ -210,7 +208,7 @@ void DisplayService::setTranslation(const unsigned int x,
 
 // Set window
 void DisplayService::setTitle(const std::string& title) {
-  al_set_window_title(display, title.c_str());
+  SDL_SetWindowTitle(window, title.c_str());
 }
 
 // Set display icon
@@ -219,7 +217,7 @@ void DisplayService::setIcon(const std::string& path) {
   if (!icon) {
     throw FileIOException("Could not load icon " + path);
   }
-  SDL_SetWindowIcon(display, icon);
+  SDL_SetWindowIcon(window, icon);
   SDL_FreeSurface(icon);
 }
 
@@ -228,20 +226,21 @@ int DisplayService::getFps() {
   return fps;
 }
 
+// Get the window renderer
+SDL_Renderer* DisplayService::getRenderer() {
+  return renderer;
+}
+
+// Get window
+SDL_Window* DisplayService::getWindow() {
+  return window;
+}
+
 // Change display mode
 void DisplayService::setMode(const DISPLAY_MODE mode) {
   // Destroy existing display
-  if (display) {
-    Locator::getEventQueue().unregisterSource(
-        al_get_display_event_source(display));
-    al_destroy_display(display);
-    display = nullptr;
-  }
-
-  // Create buffer
-  if (!buffer) {
-    buffer =
-        SDL_CreateRGBSurface(0, getDrawWidth(), getDrawHeight(), 32, 0, 0, 0);
+  if (window) {
+    SDL_DestroyWindow(window);
   }
 
   // Set mode
@@ -251,37 +250,41 @@ void DisplayService::setMode(const DISPLAY_MODE mode) {
   resize(window_w, window_h);
 
   // Create display
-  display = al_create_display(window_w, window_h);
-  Locator::getEventQueue().registerSource(al_get_display_event_source(display));
+  window =
+      SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                       window_w, window_h, SDL_WINDOW_RESIZABLE);
+  if (!window) {
+    throw InitException("Could not create window");
+  }
+
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  if (!renderer) {
+    throw InitException("Could not create renderer");
+  }
 }
 
 void DisplayService::draw(Scene* current_scene) {
-  if (!display || !buffer) {
+  if (!window || !renderer) {
     return;
   }
 
   // Render a frame
-  al_set_target_bitmap(buffer);
-  al_clear_to_color(Color::rgb(0, 0, 0));
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_RenderClear(renderer);
 
   current_scene->drawInternal();
   current_scene->draw();
 
-  al_set_target_backbuffer(display);
-  al_clear_to_color(Color::rgb(0, 0, 0));
-  al_draw_scaled_bitmap(buffer, 0, 0, draw_w, draw_h, translation_x,
-                        translation_y, window_w, window_h, 0);
-
-  // Flip (OpenGL)
-  al_flip_display();
+  // Flip
+  SDL_RenderPresent(renderer);
 
   // Shift fps buffer
   for (unsigned int i = FRAME_BUFFER_SIZE - 1; i > 0; i--) {
     frames_array[i] = frames_array[i - 1];
   }
 
-  frames_array[0] = (1.0 / (al_get_time() - old_time));
-  old_time = al_get_time();
+  frames_array[0] = (1.0 / (SDL_GetTicks() - old_time));
+  old_time = SDL_GetTicks();
 
   unsigned int fps_total = 0;
 

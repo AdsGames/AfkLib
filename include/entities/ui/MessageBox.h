@@ -11,9 +11,7 @@
 enum MessageBoxType {
   WARN,
   ERROR,
-  QUESTION,
-  OK_CANCEL,
-  YES_NO,
+  INFO,
 };
 
 /**

@@ -7,19 +7,12 @@
 #include "services/Locator.h"
 
 // Update ticks per second
-const float UPDATES_PER_SECOND = 20;
+const Uint32 MS_PER_UPDATE = 50;
 
 // Register events
 SceneService::SceneService() {
-  Locator::getLogger().log("[Scene Service]: Starting up");
-
-  // Create timer
-  update_timer = al_create_timer(1.0 / UPDATES_PER_SECOND);
-  al_start_timer(update_timer);
-
   // Register timer events
-  Locator::getEventQueue().registerSource(
-      al_get_timer_event_source(update_timer));
+  update_timer = Locator::getEventQueue().registerTimer(MS_PER_UPDATE, 1);
 
   // Register self
   Locator::getEventQueue().registerService(this);
@@ -27,16 +20,22 @@ SceneService::SceneService() {
 
 // Unregister events
 SceneService::~SceneService() {
-  Locator::getLogger().log("[Scene Service]: Shutting down");
-
   // Unregister self
   Locator::getEventQueue().unregisterService(this);
+
+  // Remove timer
+  Locator::getEventQueue().unregisterTimer(update_timer);
+}
+
+// Get the name of service
+std::string SceneService::getName() const {
+  return "Scene Service";
 }
 
 // Process event notification
 void SceneService::notify(const SDL_Event& event) {
   // Update timer
-  if (event.type == ALLEGRO_EVENT_TIMER && event.timer.source == update_timer) {
+  if (event.type == SDL_USEREVENT && event.user.code == 1) {
     // Change scene (if needed)
     changeScene();
 
@@ -94,9 +93,4 @@ void SceneService::setNextScene(const std::string& scene_id) {
     // Set the next scene
     next_scene = scene_id;
   }
-}
-
-// Get the update timer (useful for checking if timer event is from here)
-ALLEGRO_TIMER* SceneService::getUpdateTimer() {
-  return update_timer;
 }

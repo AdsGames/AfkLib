@@ -50,8 +50,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const SDL_Color colour = Color::rgb(0, 0, 0),
-            const int flags = 0);
+            const SDL_Color colour = Color::rgb(0, 0, 0));
 
   /**
    * @brief Get the height of the font
@@ -91,6 +90,16 @@ class Font {
 
   /// Size of font
   int font_size;
+
+  /**
+   * @brief Helper for rendering text
+   *
+   * @param text String to draw
+   * @return SDL_Texture* New texture containing string
+   */
+  SDL_Texture* renderText(SDL_Renderer* renderer,
+                          const std::string text,
+                          const SDL_Color colour);
 };
 
 #endif  // ASSETS_FONT_H

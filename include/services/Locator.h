@@ -176,29 +176,29 @@ class Locator {
   static SceneService& getScene();
 
  private:
-  /// Internal pointer to current AudioService instance
-  static inline std::unique_ptr<AudioService> audio_service;
-
-  /// Internal pointer to current AssetService instance
-  static inline std::unique_ptr<AssetService> asset_service;
-
-  /// Internal pointer to current DisplayService instance
-  static inline std::unique_ptr<DisplayService> display_service;
-
-  /// Internal pointer to current ConfigService instance
-  static inline std::unique_ptr<ConfigService> config_service;
-
   /// Internal pointer to current LoggingService instance
   static inline std::unique_ptr<LoggingService> logging_service;
-
-  /// Internal pointer to current InputService instance
-  static inline std::unique_ptr<InputService> input_service;
 
   /// Internal pointer to current Event queue instance
   static inline std::unique_ptr<EventQueue> event_service;
 
   /// Internal pointer to current SceneService queue instance
   static inline std::unique_ptr<SceneService> scene_service;
+
+  /// Internal pointer to current DisplayService instance
+  static inline std::unique_ptr<DisplayService> display_service;
+
+  /// Internal pointer to current InputService instance
+  static inline std::unique_ptr<InputService> input_service;
+
+  /// Internal pointer to current AudioService instance
+  static inline std::unique_ptr<AudioService> audio_service;
+
+  /// Internal pointer to current AssetService instance
+  static inline std::unique_ptr<AssetService> asset_service;
+
+  /// Internal pointer to current ConfigService instance
+  static inline std::unique_ptr<ConfigService> config_service;
 };
 
 #endif  // SERVICES_LOCATOR_H

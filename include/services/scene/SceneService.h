@@ -1,7 +1,7 @@
 #ifndef SERVICES_SCENE_SCENE_SERVICE_H
 #define SERVICES_SCENE_SCENE_SERVICE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL_timer.h>
 #include <string>
 #include <vector>
 
@@ -41,6 +41,13 @@ class SceneService : public Service {
   virtual ~SceneService();
 
   /**
+   * @brief Get the name of service
+   *
+   * @return name
+   */
+  std::string getName() const;
+
+  /**
    * @brief Add scene to engine
    *
    * @param scene_id to add to engine
@@ -55,7 +62,7 @@ class SceneService : public Service {
    *
    * @param ev event to be processed
    */
-  void notify(const ALLEGRO_EVENT& ev);
+  void notify(const SDL_Event& ev);
 
   /**
    * @brief Get the current scene
@@ -71,13 +78,6 @@ class SceneService : public Service {
    */
   void setNextScene(const std::string& scene_id);
 
-  /**
-   * @brief Get the Update Timer
-   *
-   * @return ALLEGRO_TIMER
-   */
-  ALLEGRO_TIMER* getUpdateTimer();
-
  private:
   /**
    * @brief Check for new scene, and change it accordingly
@@ -91,14 +91,14 @@ class SceneService : public Service {
   /// List of scene ids
   std::vector<SceneType> scenes;
 
-  /// Update timer
-  ALLEGRO_TIMER* update_timer = nullptr;
-
   /// Current scene
   std::string scene_id;
 
   /// Next scene to load
   std::string next_scene;
+
+  /// Timer id
+  SDL_TimerID update_timer = 0;
 };
 
 #endif  // SERVICES_SCENE_SCENE_SERVICE_H

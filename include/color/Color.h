@@ -5,13 +5,18 @@
 
 namespace Color {
 
-SDL_Color rgb(const unsigned char r,
-              const unsigned char g,
-              const unsigned char b);
-SDL_Color rgba(const unsigned char r,
-               const unsigned char g,
-               const unsigned char b,
-               const unsigned char a);
+SDL_Color rgb(const Uint8 r, const Uint8 g, const Uint8 b);
+
+SDL_Color rgba(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
+
+SDL_Color intToColor(const Uint32 colour);
+
+Uint32 rgbToInt(const Uint8 r, const Uint8 g, const Uint8 b);
+
+Uint32 rgbaToInt(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
+
+Uint32 colorToInt(const SDL_Color colour);
+
 }  // namespace Color
 
 #endif  // ENGINE_COLOR_COLOR_H

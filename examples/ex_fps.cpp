@@ -7,7 +7,7 @@
 #include "../include/scene/Scene.h"
 #include "../include/services/Locator.h"
 
-const int NUM_SPRITE = 10;
+const int NUM_SPRITE = 100;
 const int SCREEN_H = 400;
 const int SCREEN_W = 400;
 const int SPRITE_SIZE = 20;
@@ -58,7 +58,7 @@ class DemoScene : public Scene {
   unsigned int iter = 0;
 };
 
-int main() {
+int main(int argv, char** args) {
   Engine game = Engine();
   Locator::getScene().addScene<DemoScene>("demo");
   Locator::getScene().setNextScene("demo");

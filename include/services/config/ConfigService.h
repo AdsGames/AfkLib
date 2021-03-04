@@ -33,6 +33,12 @@ class ConfigService {
   ConfigService();
 
   /**
+   * @brief Destroy
+   *
+   */
+  ~ConfigService();
+
+  /**
    * @brief Load settings from file
    *
    * @param path File to load from

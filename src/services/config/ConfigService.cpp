@@ -8,7 +8,14 @@
 #include "services/Locator.h"
 
 // Constructor
-ConfigService::ConfigService() : autosave(false) {}
+ConfigService::ConfigService() : autosave(false) {
+  Locator::getLogger().log("[Config Service]: Starting up");
+}
+
+// Destructor
+ConfigService::~ConfigService() {
+  Locator::getLogger().log("[Config Service]: Shutting down");
+}
 
 // Load file
 void ConfigService::load(const std::string& path) {

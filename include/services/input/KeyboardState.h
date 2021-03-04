@@ -2,7 +2,9 @@
 #ifndef SERVICES_INPUT_KEYBOARD_STATE_H
 #define SERVICES_INPUT_KEYBOARD_STATE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keyboard.h>
+#include <SDL2/SDL_keycode.h>
 
 /**
  * @brief Keyboard state
@@ -10,13 +12,13 @@
  */
 struct KeyboardState {
   /// Individual key states
-  bool key[ALLEGRO_KEY_MAX] = {false};
+  bool key[SDL_NUM_SCANCODES] = {false};
 
   /// keys just pressed
-  bool keyPressed[ALLEGRO_KEY_MAX] = {false};
+  bool keyPressed[SDL_NUM_SCANCODES] = {false};
 
   /// keys just released
-  bool keyReleased[ALLEGRO_KEY_MAX] = {false};
+  bool keyReleased[SDL_NUM_SCANCODES] = {false};
 
   /// Id of last key pressed
   int lastKeyPressed = -1;
@@ -28,7 +30,7 @@ struct KeyboardState {
   bool anyKeyPressed = -1;
 
   /// Previous key states
-  bool lastTicksKey[ALLEGRO_KEY_MAX] = {false};
+  bool lastTicksKey[SDL_NUM_SCANCODES] = {false};
 
   /**
    * @brief Update the keyboard state
@@ -41,7 +43,7 @@ struct KeyboardState {
     anyKeyPressed = false;
 
     // Check key just pressed
-    for (int i = 0; i < ALLEGRO_KEY_MAX; i++) {
+    for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
       // Clear old values
       keyPressed[i] = false;
       keyReleased[i] = false;

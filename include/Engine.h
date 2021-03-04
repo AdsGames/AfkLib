@@ -20,6 +20,19 @@ class Engine : public Service {
   Engine();
 
   /**
+   * @brief Destroy the Engine
+   *
+   */
+  ~Engine();
+
+  /**
+   * @brief Get the name of service
+   *
+   * @return name
+   */
+  std::string getName() const;
+
+  /**
    * @brief Starts the main game loop
    *
    * @param scene_id Initial scene to start with
@@ -31,7 +44,7 @@ class Engine : public Service {
    *
    * @param ev event to be processed
    */
-  void notify(const ALLEGRO_EVENT& ev);
+  void notify(const SDL_Event& ev);
 
  private:
   /**

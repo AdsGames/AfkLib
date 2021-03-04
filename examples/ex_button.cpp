@@ -18,7 +18,7 @@ class DemoScene : public Scene {
         this->add<Button>(*this, 10, 10, 10, "CLICK ME", "freesans");
 
     this->get<Button>(button_id).setOnClick([]() {
-      MessageBox message_box(QUESTION);
+      MessageBox message_box(INFO);
       message_box.setTitle("Nice");
       message_box.setHeading("You Clicked");
       message_box.setText("The button");
@@ -33,7 +33,7 @@ class DemoScene : public Scene {
   void stop() { Locator::getLogger().log("Stopping!"); }
 };
 
-int main() {
+int main(int argv, char** args) {
   Engine game = Engine();
   Locator::getScene().addScene<DemoScene>("demo");
   Locator::getScene().setNextScene("demo");

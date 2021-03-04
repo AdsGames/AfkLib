@@ -3,6 +3,7 @@
 #include "assets/Texture.h"
 
 #include "common/Exceptions.h"
+#include "services/Locator.h"
 
 // Constructor
 Texture::Texture() : bitmap(nullptr) {}
@@ -19,7 +20,22 @@ void Texture::load(const std::string& path) {
 
 // Create texture with specified dimensions
 void Texture::create(const int width, const int height) {
-  bitmap = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0);
+  SDL_Surface* temp_surface =
+      SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+  if (!temp_surface) {
+    throw InitException("There was an error creating surface ");
+  }
+
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+
+  SDL_Texture* temp_texture =
+      SDL_CreateTextureFromSurface(renderer, temp_surface);
+  if (!temp_texture) {
+    throw InitException("There was an error creating texture ");
+  }
+  SDL_FreeSurface(temp_surface);
+
+  bitmap = temp_texture;
 }
 
 // Return height of loaded texture
@@ -28,7 +44,9 @@ int Texture::getHeight() const {
     return 0;
   }
 
-  return bitmap->h;
+  int h;
+  SDL_QueryTexture(bitmap, nullptr, nullptr, nullptr, &h);
+  return h;
 }
 
 // Return if it exists
@@ -42,16 +60,21 @@ int Texture::getWidth() const {
     return 0;
   }
 
-  return bitmap->w;
+  int w;
+  SDL_QueryTexture(bitmap, nullptr, nullptr, &w, nullptr);
+  return w;
 }
 
 // Draw texture to screen
-void Texture::draw(const int x, const int y, const int flags) const {
+void Texture::draw(const int x, const int y) const {
   if (!bitmap) {
     return;
   }
 
-  al_draw_bitmap(bitmap, x, y, flags);
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+
+  SDL_Rect target = {x, y, getWidth(), getHeight()};
+  SDL_RenderCopy(renderer, bitmap, nullptr, &target);
 }
 
 // Draw scaled texture to screen
@@ -64,56 +87,34 @@ void Texture::drawScaled(const int x,
     return;
   }
 
-  al_draw_scaled_bitmap(bitmap, 0, 0, getWidth(), getHeight(), x, y, width,
-                        height, flags);
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+
+  SDL_Rect target = {x, y, width, height};
+  SDL_RenderCopy(renderer, bitmap, nullptr, &target);
 }
 
 // Get colour at pixel
 SDL_Color Texture::getPixel(const int x, const int y) const {
-  int bpp = bitmap->format->BytesPerPixel;
-
-  /* Here p is the address to the pixel we want to retrieve */
-  Uint8* p = (Uint8*)bitmap->pixels + y * bitmap->pitch + x * bpp;
-  Uint32 data = 0;
-
-  switch (bpp) {
-    case 1:
-      data = *p;
-      break;
-
-    case 2:
-      data = *(Uint16*)p;
-      break;
-
-    case 3:
-      if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
-        data = p[0] << 16 | p[1] << 8 | p[2];
-      else
-        data = p[0] | p[1] << 8 | p[2] << 16;
-      break;
-
-    case 4:
-      data = *(Uint32*)p;
-      break;
-
-    default:
-      data = 0;
-  }
-
-  SDL_Color rgb;
-  SDL_GetRGB(data, bitmap->format, &rgb.r, &rgb.g, &rgb.b);
-
+  SDL_Color rgb = {0, 0, 0};
   return rgb;
 }
 
 // Load allegro bitmap from file
-SDL_Surface* Texture::loadBitmap(const std::string& path) {
+SDL_Texture* Texture::loadBitmap(const std::string& path) {
   // Attempt to load
-  SDL_Surface* temp_bitmap = IMG_Load(path.c_str());
-
-  if (!temp_bitmap) {
-    throw FileIOException("There was an error loading texture " + path);
+  SDL_Surface* temp_surface = IMG_Load(path.c_str());
+  if (!temp_surface) {
+    throw FileIOException("There was an error loading surface " + path);
   }
 
-  return temp_bitmap;
+  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+
+  SDL_Texture* temp_texture =
+      SDL_CreateTextureFromSurface(renderer, temp_surface);
+  if (!temp_texture) {
+    throw InitException("There was an error creating texture " + path);
+  }
+  SDL_FreeSurface(temp_surface);
+
+  return temp_texture;
 }

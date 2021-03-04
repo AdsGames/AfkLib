@@ -11,6 +11,20 @@
 #include "services/logging/DebugLoggingService.h"
 #include "services/scene/SceneService.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <emscripten/html5.h>
+#include <functional>
+#endif
+
+// Loop (emscripten compatibility)
+#ifdef __EMSCRIPTEN__
+EM_BOOL loop(double time, void* userData) {
+  Locator::getEventQueue().process();
+  return EM_FALSE;
+}
+#endif
+
 // Exit helper
 void showErrorDialog(const std::string& title,
                      const std::string& message = "") {
@@ -27,13 +41,29 @@ Engine::Engine() : closing(false) {
   setup();
 }
 
+// Shutdown engine
+Engine::~Engine() {
+  Locator::getEventQueue().unregisterService(this);
+
+  SDL_Quit();
+}
+
+// Get the name of service
+std::string Engine::getName() const {
+  return "Engine Service";
+}
+
 // Start your engine!
 void Engine::start() {
   try {
+#ifdef __EMSCRIPTEN__
+    emscripten_request_animation_frame_loop(loop, 0);
+#else
     // Loop
     while (!closing) {
       Locator::getEventQueue().process();
     }
+#endif
   } catch (const FileIOException& e) {
     showErrorDialog("File Error", e.what());
   } catch (const std::runtime_error& e) {
@@ -44,9 +74,9 @@ void Engine::start() {
 }
 
 // Get event notification
-void Engine::notify(const ALLEGRO_EVENT& event) {
+void Engine::notify(const SDL_Event& event) {
   // Exit
-  if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+  if (event.type == SDL_QUIT) {
     closing = true;
   }
 }
@@ -54,8 +84,8 @@ void Engine::notify(const ALLEGRO_EVENT& event) {
 // Sets up game
 void Engine::setup() {
   // Init allegro 5
-  if (!al_init()) {
-    throw InitException("Could not init allegro");
+  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
+    throw InitException("Could not init sdl");
   }
 
   // Setup logger

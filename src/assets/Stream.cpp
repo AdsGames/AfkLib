@@ -27,13 +27,7 @@ void Stream::play(const bool loop) {
     return;
   }
 
-  float stream_length = al_get_audio_stream_length_secs(stream);
-  ALLEGRO_PLAYMODE playMode =
-      loop ? ALLEGRO_PLAYMODE_LOOP : ALLEGRO_PLAYMODE_ONCE;
-
-  al_set_audio_stream_loop_secs(stream, 0.0f, stream_length);
-  al_set_audio_stream_playmode(stream, playMode);
-  al_attach_audio_stream_to_mixer(stream, al_get_default_mixer());
+  Mix_PlayChannel(-1, stream, loop);
 }
 
 // Stop stream
@@ -42,19 +36,18 @@ void Stream::stop() {
     return;
   }
 
-  al_detach_audio_stream(stream);
+  // al_detach_audio_stream(stream);
 }
 
 // Return if the audio is playing
 bool Stream::isPlaying() const {
-  return al_get_audio_stream_playing(stream);
+  return false;  // al_get_audio_stream_playing(stream);
 }
 
 // Load allegro sample from file
-ALLEGRO_AUDIO_STREAM* Stream::loadStream(const std::string& path) {
+Mix_Chunk* Stream::loadStream(const std::string& path) {
   // Attempt to load
-  ALLEGRO_AUDIO_STREAM* temp_stream =
-      al_load_audio_stream(path.c_str(), BUFFER_COUNT, SAMPLES);
+  Mix_Chunk* temp_stream = Mix_LoadWAV(path.c_str());
 
   // Throw exception if file is not loaded
   if (!temp_stream) {

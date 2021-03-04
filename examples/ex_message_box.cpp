@@ -11,15 +11,15 @@ class DemoScene : public Scene {
     Locator::getDisplay().setWindowSize(256, 256);
     Locator::getDisplay().setBufferSize(256, 256);
     Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
-    Locator::getDisplay().setTitle("ex_button");
+    Locator::getDisplay().setTitle("ex_message_box");
     Locator::getAsset().loadFont("freesans", "assets/freesans.ttf", 12);
 
     ObjId button_id_1 =
         this->add<Button>(*this, 10, 10, 10, "Question Message", "freesans");
 
     this->get<Button>(button_id_1).setOnClick([button_id_1]() {
-      MessageBox message_box(QUESTION);
-      message_box.setTitle("Question");
+      MessageBox message_box(INFO);
+      message_box.setTitle("Info");
       message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
@@ -46,28 +46,6 @@ class DemoScene : public Scene {
       message_box.setText("Text");
       message_box.show();
     });
-
-    ObjId button_id_4 =
-        this->add<Button>(*this, 10, 70, 10, "OK Cancel Message", "freesans");
-
-    this->get<Button>(button_id_4).setOnClick([button_id_4]() {
-      MessageBox message_box(OK_CANCEL);
-      message_box.setTitle("OK Cancel");
-      message_box.setHeading("Heading");
-      message_box.setText("Text");
-      message_box.show();
-    });
-
-    ObjId button_id_5 =
-        this->add<Button>(*this, 10, 90, 10, "Yes No Message", "freesans");
-
-    this->get<Button>(button_id_5).setOnClick([button_id_5]() {
-      MessageBox message_box(YES_NO);
-      message_box.setTitle("Yes No");
-      message_box.setHeading("Heading");
-      message_box.setText("Text");
-      message_box.show();
-    });
   }
 
   void draw() {}
@@ -77,7 +55,7 @@ class DemoScene : public Scene {
   void stop() { Locator::getLogger().log("Stopping!"); }
 };
 
-int main() {
+int main(int argv, char** args) {
   Engine game = Engine();
   Locator::getScene().addScene<DemoScene>("demo");
   Locator::getScene().setNextScene("demo");

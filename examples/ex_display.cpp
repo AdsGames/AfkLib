@@ -19,7 +19,7 @@ class DemoScene : public Scene {
   void stop() { Locator::getLogger().log("Stopping!"); }
 };
 
-int main() {
+int main(int argv, char** args) {
   Engine game = Engine();
   Locator::getScene().addScene<DemoScene>("demo");
   Locator::getScene().setNextScene("demo");

@@ -2,8 +2,14 @@
 
 #include "common/Exceptions.h"
 
+// Set channel counter to 0
+unsigned int Sound::channel_counter = 0;
+
 // Default constructor
-Sound::Sound() : sample(nullptr) {}
+Sound::Sound() : sample(nullptr) {
+  channel = channel_counter;
+  Sound::channel_counter++;
+}
 
 // Constructor with path
 Sound::Sound(const std::string& path) : Sound() {
@@ -21,17 +27,16 @@ void Sound::play(const PlaySoundConfig& config) {
     return;
   }
 
-  ALLEGRO_PLAYMODE playMode =
-      config.loop ? ALLEGRO_PLAYMODE_LOOP : ALLEGRO_PLAYMODE_ONCE;
-
-  al_play_sample(sample, config.gain, config.pan, config.speed, playMode,
-                 nullptr);
+  // TODO: Frequency
+  Mix_SetPanning(channel, config.pan, 255 - config.pan);
+  Mix_Volume(channel, config.gain);
+  Mix_PlayChannel(channel, sample, config.loop);
 }
 
 // Load sample from file
-ALLEGRO_SAMPLE* Sound::loadSample(const std::string& path) {
+Mix_Chunk* Sound::loadSample(const std::string& path) {
   // Attempt to load
-  ALLEGRO_SAMPLE* temp_sample = al_load_sample(path.c_str());
+  Mix_Chunk* temp_sample = Mix_LoadWAV(path.c_str());
 
   // Throw exception if file is not loaded
   if (!temp_sample) {

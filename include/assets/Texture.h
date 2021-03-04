@@ -50,7 +50,7 @@ class Texture {
    * @param flags Additional flags to pass to allegro draw routine
    * @see drawScaled
    */
-  void draw(const int x, const int y, const int flags = 0) const;
+  void draw(const int x, const int y) const;
 
   /**
    * @brief Draw scaled texture to screen
@@ -99,16 +99,16 @@ class Texture {
 
  private:
   /**
-   * @brief Helper which loads an SDL_Surface* from a file
+   * @brief Helper which loads an SDL_Texture* from a file
    *
    * @param path Path to file
-   * @return SDL_Surface* File that has been loaded
+   * @return SDL_Texture* File that has been loaded
    * @throws FileIOException If texture can not be found at path
    */
-  static SDL_Surface* loadBitmap(const std::string& path);
+  static SDL_Texture* loadBitmap(const std::string& path);
 
   /// Pointer to referenced bitmap
-  SDL_Surface* bitmap;
+  SDL_Texture* bitmap;
 };
 
 #endif  // ASSETS_TEXTURE_H

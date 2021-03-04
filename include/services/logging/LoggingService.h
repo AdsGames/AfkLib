@@ -12,6 +12,8 @@
  **/
 class LoggingService {
  public:
+  virtual ~LoggingService(){};
+
   /**
    * @brief Does nothing
    *

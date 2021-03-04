@@ -1,8 +1,8 @@
 #include "services/assets/AssetService.h"
 
-#include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <algorithm>
 
 #include "common/Exceptions.h"
@@ -13,37 +13,26 @@ const int NUM_SAMPLES = 20;
 
 // Constructor
 AssetService::AssetService() {
-  // Fonts
-  if (!al_init_font_addon()) {
-    throw InitException("Could not init font addon");
+  // Images
+  if (!IMG_Init(IMG_INIT_PNG)) {
+    throw InitException("Could not init image addon");
   }
-  if (!al_init_ttf_addon()) {
+
+  // Fonts
+  if (TTF_Init()) {
     throw InitException("Could not init ttf addon");
   }
 
-  // Graphics
-  if (!al_init_image_addon()) {
-    throw InitException("Could not init image addon");
-  }
-  if (!al_init_primitives_addon()) {
-    throw InitException("Could not init primitives addon");
-  }
-
   // Audio
-  if (!al_install_audio()) {
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
     throw InitException("Could not init audio addon");
-  }
-  if (!al_init_acodec_addon()) {
-    throw InitException("Could not init acodec addon");
-  }
-
-  if (!al_reserve_samples(NUM_SAMPLES)) {
-    throw InitException("Could not reserve samples");
   }
 }
 
 // Destructor
-AssetService::~AssetService() {}
+AssetService::~AssetService() {
+  // Todo cleanup
+}
 
 // Load image from disk and assign key
 void AssetService::loadImage(const std::string& key, const std::string& path) {
@@ -75,6 +64,8 @@ void AssetService::loadFont(const std::string& key,
 
   try {
     loaded_font[key] = Font(path, size);
+  } catch (const std::runtime_error& e) {
+    throw FileIOException(e.what());
   } catch (...) {
     throw FileIOException("Could not load font " + key);
   }

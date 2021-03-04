@@ -1,6 +1,9 @@
 #ifndef SERVICES_INPUT_MOUSE_STATE_H
 #define SERVICES_INPUT_MOUSE_STATE_H
 
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_mouse.h>
+
 const int MAX_MOUSE_BUTTONS = 3;
 const int MOUSE_LEFT = 1;
 const int MOUSE_RIGHT = 2;

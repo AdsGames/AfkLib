@@ -3,6 +3,7 @@
 #include <string>
 #include "scene/Scene.h"
 #include "services/Locator.h"
+
 // Constructor
 UIElement::UIElement(Scene& scene,
                      const float x,
