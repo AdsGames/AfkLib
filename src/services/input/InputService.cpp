@@ -87,8 +87,7 @@ void InputService::onJoystickEvent(const Uint32 event_type,
 }
 
 // Joystick axis event
-void InputService::onJoystickEvent(const Uint32 event_type,
-                                   const SDL_JoyAxisEvent event) {
+void InputService::onJoystickEvent(const SDL_JoyAxisEvent event) {
   // Translated axis
   const int trans_axis = (JOY_MAX_AXES + event.axis) * 2;
 

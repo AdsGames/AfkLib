@@ -87,7 +87,7 @@ class InputService : public Service {
    * @param axis Axis moved
    * @param position Axis/Stick position
    */
-  void onJoystickEvent(const Uint32 event_type, const SDL_JoyAxisEvent event);
+  void onJoystickEvent(const SDL_JoyAxisEvent event);
 
   /**
    * @brief Joystick configuration event
