@@ -4,7 +4,9 @@
 
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Update ticks per second
 const Uint32 MS_PER_UPDATE = 50;
@@ -12,19 +14,19 @@ const Uint32 MS_PER_UPDATE = 50;
 // Register events
 SceneService::SceneService() {
   // Register timer events
-  update_timer = Locator::getEventQueue().registerTimer(MS_PER_UPDATE, 1);
+  update_timer = Services::getEventQueue().registerTimer(MS_PER_UPDATE, 1);
 
   // Register self
-  Locator::getEventQueue().registerService(this);
+  Services::getEventQueue().registerService(this);
 }
 
 // Unregister events
 SceneService::~SceneService() {
   // Unregister self
-  Locator::getEventQueue().unregisterService(this);
+  Services::getEventQueue().unregisterService(this);
 
   // Remove timer
-  Locator::getEventQueue().unregisterTimer(update_timer);
+  Services::getEventQueue().unregisterTimer(update_timer);
 }
 
 // Get the name of service
@@ -48,7 +50,7 @@ void SceneService::notify(const SDL_Event& event) {
 }
 
 // Get scene
-Scene* SceneService::getScene() {
+afk::Scene* SceneService::getSceneService() {
   return this->current_scene;
 }
 
@@ -93,4 +95,6 @@ void SceneService::setNextScene(const std::string& scene_id) {
     // Set the next scene
     next_scene = scene_id;
   }
+}
+
 }

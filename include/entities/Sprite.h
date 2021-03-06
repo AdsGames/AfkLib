@@ -7,6 +7,8 @@
 #include "../particles/Particle.h"
 #include "GameObject.h"
 
+namespace afk {
+
 /**
  * @brief A simple texturable game object
  *
@@ -23,7 +25,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit Sprite(Scene& scene,
+  explicit Sprite(afk::Scene& scene,
                   const float x = 0.0f,
                   const float y = 0.0f,
                   const int z = 0);
@@ -37,7 +39,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  Sprite(Scene& scene,
+  Sprite(afk::Scene& scene,
          const std::string& texture,
          const float x = 0.0f,
          const float y = 0.0f,
@@ -79,5 +81,7 @@ class Sprite : public GameObject {
   /// Particles
   std::vector<Particle> parts;
 };
+
+}  // namespace afk
 
 #endif  // ENGINE_ENTITIES_SPRITE_H

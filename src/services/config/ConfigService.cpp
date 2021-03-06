@@ -5,16 +5,18 @@
 
 #include "common/Exceptions.h"
 #include "common/stringFns.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constructor
 ConfigService::ConfigService() : autosave(false) {
-  Locator::getLogger().log("[Config Service]: Starting up");
+  Services::getLoggingService().log("[Config Service]: Starting up");
 }
 
 // Destructor
 ConfigService::~ConfigService() {
-  Locator::getLogger().log("[Config Service]: Shutting down");
+  Services::getLoggingService().log("[Config Service]: Shutting down");
 }
 
 // Load file
@@ -52,8 +54,8 @@ void ConfigService::load(const std::string& path) {
   fileStream.close();
 
   // Log
-  Locator::getLogger().log("[Setting Manager] Loaded settings from file " +
-                           path);
+  Services::getLoggingService().log(
+      "[Setting Manager] Loaded settings from file " + path);
 
   // Set internal file name
   file_name = path;
@@ -110,3 +112,5 @@ const Setting ConfigService::findSetting(const std::string& key) const {
 void ConfigService::setAutosave(const bool autosave) {
   this->autosave = autosave;
 }
+
+}  // namespace afk

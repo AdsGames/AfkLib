@@ -2,6 +2,8 @@
 
 #include "common/Exceptions.h"
 
+namespace afk {
+
 // Buffer count
 const size_t BUFFER_COUNT = 4;
 
@@ -55,4 +57,6 @@ Mix_Chunk* Stream::loadStream(const std::string& path) {
   }
 
   return temp_stream;
+}
+
 }

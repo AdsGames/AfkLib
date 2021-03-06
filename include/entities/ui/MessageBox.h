@@ -4,6 +4,8 @@
 
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Allowed types for message box
  *
@@ -75,5 +77,7 @@ class MessageBox {
    */
   int resolveType();
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_MESSAGE_BOX

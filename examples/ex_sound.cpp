@@ -13,32 +13,18 @@ class DemoScene : public afk::Scene {
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DISPLAY_MODE::WINDOWED);
-    display.setTitle("ex_keyboard");
+    display.setTitle("ex_mouse");
 
     afk::AssetService& assets = afk::Services::getAssetService();
-    assets.loadImage("lenna", "assets/lenna.png");
-
-    afk::Sprite& lenna = addObj<afk::Sprite>(*this, "lenna");
-    lenna.setSize(30, 30);
-    lenna.setPosition(100, 100);
-    lennaId = lenna.getId();
+    assets.loadAudio("win", "assets/win.wav");
   }
 
   void update() {
     afk::InputService& input = afk::Services::getInputService();
-    afk::Sprite& lenna = get<afk::Sprite>(lennaId);
+    afk::AudioService& audio = afk::Services::getAudioService();
 
-    if (input.keyDown(afk::Keys::KEY_UP)) {
-      lenna.setPosition(lenna.getX(), lenna.getY() - 5);
-    }
-    if (input.keyDown(afk::Keys::KEY_DOWN)) {
-      lenna.setPosition(lenna.getX(), lenna.getY() + 5);
-    }
-    if (input.keyDown(afk::Keys::KEY_LEFT)) {
-      lenna.setPosition(lenna.getX() - 5, lenna.getY());
-    }
-    if (input.keyDown(afk::Keys::KEY_RIGHT)) {
-      lenna.setPosition(lenna.getX() + 5, lenna.getY());
+    if (input.mousePressed(afk::MouseButtons::BUTTON_LEFT)) {
+      audio.playSound("win", {127, 0, 1.0f, false});
     }
   }
 

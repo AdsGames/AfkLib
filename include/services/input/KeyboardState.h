@@ -2,9 +2,9 @@
 #ifndef SERVICES_INPUT_KEYBOARD_STATE_H
 #define SERVICES_INPUT_KEYBOARD_STATE_H
 
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_keyboard.h>
-#include <SDL2/SDL_keycode.h>
+#include "KeyboardKeys.h"
+
+namespace afk {
 
 /**
  * @brief Keyboard state
@@ -12,13 +12,13 @@
  */
 struct KeyboardState {
   /// Individual key states
-  bool key[SDL_NUM_SCANCODES] = {false};
+  bool key[Keys::KEY_MAX] = {false};
 
   /// keys just pressed
-  bool keyPressed[SDL_NUM_SCANCODES] = {false};
+  bool keyPressed[Keys::KEY_MAX] = {false};
 
   /// keys just released
-  bool keyReleased[SDL_NUM_SCANCODES] = {false};
+  bool keyReleased[Keys::KEY_MAX] = {false};
 
   /// Id of last key pressed
   int lastKeyPressed = -1;
@@ -30,7 +30,7 @@ struct KeyboardState {
   bool anyKeyPressed = -1;
 
   /// Previous key states
-  bool lastTicksKey[SDL_NUM_SCANCODES] = {false};
+  bool lastTicksKey[Keys::KEY_MAX] = {false};
 
   /**
    * @brief Update the keyboard state
@@ -43,7 +43,7 @@ struct KeyboardState {
     anyKeyPressed = false;
 
     // Check key just pressed
-    for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
+    for (int i = 0; i < Keys::KEY_MAX; i++) {
       // Clear old values
       keyPressed[i] = false;
       keyReleased[i] = false;
@@ -69,5 +69,7 @@ struct KeyboardState {
     }
   }
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_KEYBOARD_STATE_H

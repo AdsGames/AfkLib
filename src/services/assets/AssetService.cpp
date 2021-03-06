@@ -6,7 +6,9 @@
 #include <algorithm>
 
 #include "common/Exceptions.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constant defining number of samples to reserve
 const int NUM_SAMPLES = 20;
@@ -36,7 +38,7 @@ AssetService::~AssetService() {
 
 // Load image from disk and assign key
 void AssetService::loadImage(const std::string& key, const std::string& path) {
-  Locator::getLogger().log("[Asset Manager] Loading image: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading image: " + key);
 
   try {
     loaded_image[key] = Texture(path);
@@ -47,7 +49,7 @@ void AssetService::loadImage(const std::string& key, const std::string& path) {
 
 // Load audio from disk and assign key
 void AssetService::loadAudio(const std::string& key, const std::string& path) {
-  Locator::getLogger().log("[Asset Manager] Loading audio: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading audio: " + key);
 
   try {
     loaded_audio[key] = Sound(path);
@@ -60,7 +62,7 @@ void AssetService::loadAudio(const std::string& key, const std::string& path) {
 void AssetService::loadFont(const std::string& key,
                             const std::string& path,
                             const int size) {
-  Locator::getLogger().log("[Asset Manager] Loading font: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading font: " + key);
 
   try {
     loaded_font[key] = Font(path, size);
@@ -73,7 +75,7 @@ void AssetService::loadFont(const std::string& key,
 
 // Load stream from disk and assign key
 void AssetService::loadStream(const std::string& key, const std::string& path) {
-  Locator::getLogger().log("[Asset Manager] Loading stream: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading stream: " + key);
 
   try {
     loaded_stream[key] = Stream(path);
@@ -92,7 +94,7 @@ const Texture& AssetService::getImage(const std::string& key) {
 }
 
 // Get audio reference
-const Sound& AssetService::getAudio(const std::string& key) {
+const Sound& AssetService::getAudioService(const std::string& key) {
   try {
     return loaded_audio.at(key);
   } catch (const std::out_of_range&) {
@@ -116,4 +118,6 @@ const Stream& AssetService::getStream(const std::string& key) {
   } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find stream " + key);
   }
+}
+
 }

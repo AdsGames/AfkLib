@@ -2,7 +2,9 @@
 
 #include "color/Color.h"
 #include "common/Exceptions.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constructor
 Font::Font() : font(nullptr), font_size(0) {}
@@ -24,7 +26,7 @@ int Font::getHeight() {
     return 0;
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
   SDL_Texture* texture = renderText(renderer, "a", Color::rgb(0, 0, 0));
 
   int h;
@@ -44,7 +46,7 @@ int Font::getWidth(const std::string& text) {
     return 0;
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
   SDL_Texture* texture =
       renderText(renderer, text.c_str(), Color::rgb(0, 0, 0));
 
@@ -63,7 +65,7 @@ void Font::draw(const int x,
     return;
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
   SDL_Texture* texture = renderText(renderer, text.c_str(), colour);
 
   int w, h;
@@ -94,4 +96,6 @@ SDL_Texture* Font::renderText(SDL_Renderer* renderer,
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 
   return texture;
+}
+
 }

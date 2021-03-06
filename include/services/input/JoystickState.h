@@ -6,6 +6,8 @@
 
 #include "JoystickCodes.h"
 
+namespace afk {
+
 /// Max sticks
 const int JOY_MAX_STICKS = 128;
 
@@ -116,5 +118,7 @@ struct JoystickState {
     }
   }
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_JOYSTICK_STATE_H

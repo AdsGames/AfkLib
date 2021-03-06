@@ -8,6 +8,8 @@
 #include "KeyboardState.h"
 #include "MouseState.h"
 
+namespace afk {
+
 /**
  * @brief General Purpose input listener
  *
@@ -44,25 +46,60 @@ class InputService : public Service {
   void notify(const SDL_Event& event);
 
   /**
-   * @brief Get keyboard state
+   * @brief Get key just down state
    *
-   * @return Keyboard state
+   * @return Key state
    */
-  const KeyboardState& keyboard();
+  bool keyPressed(const Keys key) const;
 
   /**
-   * @brief Get mouse state
+   * @brief Get key just up state
    *
-   * @return Mouse state
+   * @return Key state
    */
-  const MouseState& mouse();
+  bool keyReleased(const Keys key) const;
 
   /**
-   * @brief Get joystick state
+   * @brief Get key down state
    *
-   * @return Joystick state
+   * @return Key state
    */
-  const JoystickState& joystick();
+  bool keyDown(const Keys key) const;
+
+  /**
+   * @brief Get mouse button just down state
+   *
+   * @return Key state
+   */
+  bool mousePressed(const MouseButtons button) const;
+
+  /**
+   * @brief Get mouse button just up state
+   *
+   * @return Key state
+   */
+  bool mouseReleased(const MouseButtons button) const;
+
+  /**
+   * @brief Get mouse button down state
+   *
+   * @return Key state
+   */
+  bool mouseDown(const MouseButtons button) const;
+
+  /**
+   * @brief Get mouse x position
+   *
+   * @return Mouse x position
+   */
+  int mouseX() const;
+
+  /**
+   * @brief Get mouse y position
+   *
+   * @return Mouse y position
+   */
+  int mouseY() const;
 
  private:
   /**
@@ -134,5 +171,7 @@ class InputService : public Service {
   /// Current joystick state
   JoystickState joystick_state;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_INPUT_SERVICE_H

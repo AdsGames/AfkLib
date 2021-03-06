@@ -1,55 +1,61 @@
 #include <string>
 
-#include "../include/Engine.h"
+#include "../include/Game.h"
 #include "../include/entities/Sprite.h"
 #include "../include/entities/ui/Label.h"
 #include "../include/random/RandomGenerator.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Locator.h"
+#include "../include/services/Services.h"
 
 const int NUM_SPRITE = 100;
 const int SCREEN_H = 400;
 const int SCREEN_W = 400;
 const int SPRITE_SIZE = 20;
 
-class DemoScene : public Scene {
+class DemoScene : public afk::Scene {
  public:
   void start() {
-    Locator::getLogger().log("Starting!");
-    Locator::getDisplay().setWindowSize(SCREEN_W, SCREEN_H);
-    Locator::getDisplay().setBufferSize(SCREEN_W, SCREEN_H);
-    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
-    Locator::getDisplay().setTitle("ex_fps");
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Starting!");
 
-    Locator::getAsset().loadFont("freesans", "assets/freesans.ttf", 64);
-    Locator::getAsset().loadImage("lenna", "assets/lenna.png");
+    afk::DisplayService& display = afk::Services::getDisplayService();
+    display.setWindowSize(SCREEN_W, SCREEN_H);
+    display.setBufferSize(SCREEN_W, SCREEN_H);
+    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setTitle("ex_fps");
 
-    label_id = this->add<Label>(*this, 10, 5, 0, "fps", "freesans");
+    afk::AssetService& assets = afk::Services::getAssetService();
+    assets.loadFont("freesans", "assets/freesans.ttf", 64);
+    assets.loadImage("lenna", "assets/lenna.png");
+
+    label_id = add<afk::Label>(*this, 10, 5, 0, "fps", "freesans");
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       int x = RandomGenerator::randomInt(0, SCREEN_W);
       int y = RandomGenerator::randomInt(0, SCREEN_H);
-      sprites[i] = this->add<Sprite>(*this, "lenna", x, y);
-      this->get<Sprite>(sprites[i]).setSize(SPRITE_SIZE, SPRITE_SIZE);
+      sprites[i] = add<afk::Sprite>(*this, "lenna", x, y);
+      get<afk::Sprite>(sprites[i]).setSize(SPRITE_SIZE, SPRITE_SIZE);
     }
   }
-
-  void draw() {}
 
   void update() {
     iter++;
 
-    unsigned int fps = Locator::getDisplay().getFps();
-    this->get<Label>(label_id).setText(std::to_string(fps));
+    unsigned int fps = afk::Services::getDisplayService().getFps();
+
+    get<afk::Label>(label_id).setText(std::to_string(fps));
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
-      Sprite& sprite = this->get<Sprite>(sprites[i]);
+      afk::Sprite& sprite = get<afk::Sprite>(sprites[i]);
       sprite.setPosition((iter + i) % SCREEN_W,
                          sin(iter / 100.0f + i) * SCREEN_H / 2 + SCREEN_H / 2);
     }
   }
 
-  void stop() { Locator::getLogger().log("Stopping!"); }
+  void stop() {
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Stopping!");
+  }
 
  private:
   ObjId label_id = -1;
@@ -59,9 +65,12 @@ class DemoScene : public Scene {
 };
 
 int main(int argv, char** args) {
-  Engine game = Engine();
-  Locator::getScene().addScene<DemoScene>("demo");
-  Locator::getScene().setNextScene("demo");
+  afk::Game game = afk::Game();
+
+  afk::SceneService& scenes = afk::Services::getSceneService();
+  scenes.addScene<DemoScene>("demo");
+  scenes.setNextScene("demo");
+
   game.start();
   return 0;
 }

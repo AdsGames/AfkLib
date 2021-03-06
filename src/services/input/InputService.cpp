@@ -1,14 +1,16 @@
 #include "services/input/InputService.h"
 
 #include "common/Exceptions.h"
-#include "services/Locator.h"
+#include "services/Services.h"
 
 const float JOYSTICK_DEADZONE = 0.6f;
+
+namespace afk {
 
 // Install core input services
 InputService::InputService() {
   // Register service
-  Locator::getEventQueue().registerService(this);
+  Services::getEventQueue().registerService(this);
 
   // Set joystick enabled
   joystick_state.enabled = SDL_NumJoysticks() > 0;
@@ -21,7 +23,7 @@ InputService::InputService() {
 
 InputService::~InputService() {
   // Unregister self
-  Locator::getEventQueue().unregisterService(this);
+  Services::getEventQueue().unregisterService(this);
 }
 
 // Get the name of service
@@ -129,10 +131,10 @@ void InputService::onKeyboardEvent(const Uint32 event_type,
 
 // Mouse axis handler
 void InputService::onMouseEvent(const SDL_MouseMotionEvent event) {
-  mouse_state.x = (event.x - Locator::getDisplay().getTranslationX()) /
-                  Locator::getDisplay().getScaleX();
-  mouse_state.y = (event.y - Locator::getDisplay().getTranslationY()) /
-                  Locator::getDisplay().getScaleY();
+  mouse_state.x = (event.x - Services::getDisplayService().getTranslationX()) /
+                  Services::getDisplayService().getScaleX();
+  mouse_state.y = (event.y - Services::getDisplayService().getTranslationY()) /
+                  Services::getDisplayService().getScaleY();
 }
 
 // Mouse axis handler
@@ -145,12 +147,12 @@ void InputService::onMouseEvent(const Uint32 event_type,
                                 const SDL_MouseButtonEvent event) {
   switch (event_type) {
     case SDL_MOUSEBUTTONUP:
-      if (event.button < MAX_MOUSE_BUTTONS) {
+      if (event.button < MouseButtons::BUTTON_MAX) {
         mouse_state.button[event.button] = false;
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      if (event.button < MAX_MOUSE_BUTTONS) {
+      if (event.button < MouseButtons::BUTTON_MAX) {
         mouse_state.button[event.button] = true;
       }
       break;
@@ -159,17 +161,62 @@ void InputService::onMouseEvent(const Uint32 event_type,
   }
 }
 
-// Get keyboard state
-const KeyboardState& InputService::keyboard() {
-  return keyboard_state;
+// brief Get key just down state
+bool InputService::keyPressed(const Keys key) const {
+  if (key > Keys::KEY_MAX) {
+    return false;
+  }
+  return keyboard_state.keyPressed[key];
 }
 
-// Get mouse state
-const MouseState& InputService::mouse() {
-  return mouse_state;
+// brief Get key just up state
+bool InputService::keyReleased(const Keys key) const {
+  if (key > Keys::KEY_MAX) {
+    return false;
+  }
+  return keyboard_state.keyReleased[key];
 }
 
-// Get joystick state
-const JoystickState& InputService::joystick() {
-  return joystick_state;
+// brief Get key down state
+bool InputService::keyDown(const Keys key) const {
+  if (key > Keys::KEY_MAX) {
+    return false;
+  }
+  return keyboard_state.key[key];
 }
+
+// Get mouse button just down state
+bool InputService::mousePressed(const MouseButtons button) const {
+  if (button > MouseButtons::BUTTON_MAX) {
+    return false;
+  }
+  return mouse_state.down[button];
+}
+
+// Get mouse button just up state
+bool InputService::mouseReleased(const MouseButtons button) const {
+  if (button > MouseButtons::BUTTON_MAX) {
+    return false;
+  }
+  return mouse_state.up[button];
+}
+
+// Get mouse button down state
+bool InputService::mouseDown(const MouseButtons button) const {
+  if (button > MouseButtons::BUTTON_MAX) {
+    return false;
+  }
+  return mouse_state.button[button];
+}
+
+// Get mouse x position
+int InputService::mouseX() const {
+  return mouse_state.x;
+}
+
+// Get mouse y position
+int InputService::mouseY() const {
+  return mouse_state.y;
+}
+
+}  // namespace afk

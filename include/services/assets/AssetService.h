@@ -9,6 +9,8 @@
 #include "../../assets/Stream.h"
 #include "../../assets/Texture.h"
 
+namespace afk {
+
 /**
  * Asset Service
  * @brief Hold and manages Sound, Texture, Stream and Font assets
@@ -40,7 +42,7 @@ class AssetService {
    * @throws KeyLookupException Thrown if no object can be found for `key`
    * @see loadAudio
    */
-  const Sound& getAudio(const std::string& key);
+  const Sound& getAudioService(const std::string& key);
 
   /**
    * @brief Get reference to audio by key reference
@@ -90,7 +92,7 @@ class AssetService {
    * @param key unique id to assign to audio file
    * @param path path to asset
    * @throws FileIOException Thrown if file can not be loaded
-   * @see getAudio
+   * @see getAudioService
    */
   void loadAudio(const std::string& key, const std::string& path);
 
@@ -132,5 +134,7 @@ class AssetService {
   /// Container that stores all Stream assets
   std::map<std::string, Stream> loaded_stream;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_ASSETS_ASSET_SERVICE_H

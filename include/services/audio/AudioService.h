@@ -6,6 +6,8 @@
 #include "../../assets/Sound.h"
 #include "../../assets/Stream.h"
 
+namespace afk {
+
 /**
  * @brief Default audio service, other audio services should inherit from this
  * class.
@@ -45,5 +47,7 @@ class AudioService {
    */
   virtual void stopStream(const std::string& key) = 0;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_AUDIO_AUDIO_SERVICE_H

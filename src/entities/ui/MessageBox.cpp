@@ -1,6 +1,8 @@
 #include "entities/ui/MessageBox.h"
 
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 MessageBox::MessageBox(MessageBoxType type)
     : title(""), heading(""), text(""), type(type) {}
@@ -22,7 +24,7 @@ void MessageBox::setText(const std::string& text) {
 
 // Show the message box on screen
 int MessageBox::show() {
-  SDL_Window* window = Locator::getDisplay().getWindow();
+  SDL_Window* window = Services::getDisplayService().getWindow();
   int return_code = SDL_ShowSimpleMessageBox(resolveType(), title.c_str(),
                                              text.c_str(), window);
 
@@ -40,4 +42,6 @@ int MessageBox::resolveType() {
     default:
       return SDL_MESSAGEBOX_WARNING;
   }
+}
+
 }

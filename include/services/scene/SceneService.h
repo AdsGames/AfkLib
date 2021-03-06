@@ -7,18 +7,9 @@
 
 #include "../Service.h"
 
-class Scene;
+namespace afk {
 
-/**
- * @brief Simple struct which binds scenes to scene ids
- *
- */
-struct SceneType {
-  /// Id of scene
-  std::string scene_id;
-  /// Scene object
-  Scene* scene;
-};
+class Scene;
 
 /**
  * @brief Manages scenes (updates)
@@ -69,10 +60,11 @@ class SceneService : public Service {
    *
    * @return pointer to current scene
    */
-  Scene* getScene();
+  afk::Scene* getSceneService();
 
   /**
-   * @brief Set the next scene to be loaded in. Upon calling, deletes this scene
+   * @brief Set the next scene to be loaded in. Upon calling, deletes current
+   * scene
    *
    * @param scene_id Id of next scene to load
    */
@@ -80,13 +72,25 @@ class SceneService : public Service {
 
  private:
   /**
+   * @brief Simple struct which binds scenes to scene ids
+   *
+   */
+  struct SceneType {
+    /// Id of scene
+    std::string scene_id;
+
+    /// Scene object
+    afk::Scene* scene;
+  };
+
+  /**
    * @brief Check for new scene, and change it accordingly
    *
    */
   void changeScene();
 
   /// Current scene pointer
-  Scene* current_scene = nullptr;
+  afk::Scene* current_scene = nullptr;
 
   /// List of scene ids
   std::vector<SceneType> scenes;
@@ -100,5 +104,7 @@ class SceneService : public Service {
   /// Timer id
   SDL_TimerID update_timer = 0;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_SCENE_SCENE_SERVICE_H

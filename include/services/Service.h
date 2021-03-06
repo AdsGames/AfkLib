@@ -4,6 +4,8 @@
 #include <SDL2/SDL_events.h>
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Service parent type
  *
@@ -26,5 +28,7 @@ class Service {
    */
   virtual std::string getName() const = 0;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_SERVICE_H

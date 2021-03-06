@@ -6,7 +6,9 @@
 #include "scene/Scene.h"
 
 #include "color/Color.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Draw ticks per second
 const Uint32 MS_PER_DRAW = 17;
@@ -14,10 +16,10 @@ const Uint32 MS_PER_DRAW = 17;
 // Setup DisplayService
 DisplayService::DisplayService() {
   // Register timer events
-  draw_timer = Locator::getEventQueue().registerTimer(MS_PER_DRAW, 0);
+  draw_timer = Services::getEventQueue().registerTimer(MS_PER_DRAW, 0);
 
   // Register self
-  Locator::getEventQueue().registerService(this);
+  Services::getEventQueue().registerService(this);
 
   // Set initial time
   old_time = SDL_GetTicks();
@@ -26,10 +28,10 @@ DisplayService::DisplayService() {
 // Cleanup window
 DisplayService::~DisplayService() {
   // Unregister self
-  Locator::getEventQueue().unregisterService(this);
+  Services::getEventQueue().unregisterService(this);
 
   // Remove timer
-  Locator::getEventQueue().unregisterTimer(draw_timer);
+  Services::getEventQueue().unregisterTimer(draw_timer);
 
   // Cleanup
   if (window) {
@@ -51,12 +53,12 @@ void DisplayService::notify(const SDL_Event& event) {
   if (event.type == SDL_DISPLAYEVENT) {
     // resize(event.display.width, event.display.height);
   } else if (event.type == SDL_USEREVENT && event.user.code == 0) {
-    draw(Locator::getScene().getScene());
+    draw(Services::getSceneService().getSceneService());
   }
 }
 
 // Returns current display mode
-int DisplayService::getDisplayMode() const {
+int DisplayService::getDisplayServiceMode() const {
   return display_mode;
 }
 
@@ -81,12 +83,12 @@ unsigned int DisplayService::getTranslationY() const {
 }
 
 // Gets scale width
-unsigned int DisplayService::getDisplayWidth() const {
+unsigned int DisplayService::getDisplayServiceWidth() const {
   return window_w;
 }
 
 // Gets scale height
-unsigned int DisplayService::getDisplayHeight() const {
+unsigned int DisplayService::getDisplayServiceHeight() const {
   return window_h;
 }
 
@@ -263,7 +265,7 @@ void DisplayService::setMode(const DISPLAY_MODE mode) {
   }
 }
 
-void DisplayService::draw(Scene* current_scene) {
+void DisplayService::draw(afk::Scene* current_scene) {
   if (!window || !renderer) {
     return;
   }
@@ -273,7 +275,6 @@ void DisplayService::draw(Scene* current_scene) {
   SDL_RenderClear(renderer);
 
   current_scene->drawInternal();
-  current_scene->draw();
 
   // Flip
   SDL_RenderPresent(renderer);
@@ -294,4 +295,6 @@ void DisplayService::draw(Scene* current_scene) {
 
   // FPS = average
   fps = fps_total / FRAME_BUFFER_SIZE;
+}
+
 }

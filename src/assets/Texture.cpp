@@ -3,7 +3,9 @@
 #include "assets/Texture.h"
 
 #include "common/Exceptions.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constructor
 Texture::Texture() : bitmap(nullptr) {}
@@ -26,7 +28,7 @@ void Texture::create(const int width, const int height) {
     throw InitException("There was an error creating surface ");
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Texture* temp_texture =
       SDL_CreateTextureFromSurface(renderer, temp_surface);
@@ -71,7 +73,7 @@ void Texture::draw(const int x, const int y) const {
     return;
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Rect target = {x, y, getWidth(), getHeight()};
   SDL_RenderCopy(renderer, bitmap, nullptr, &target);
@@ -87,7 +89,7 @@ void Texture::drawScaled(const int x,
     return;
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Rect target = {x, y, width, height};
   SDL_RenderCopy(renderer, bitmap, nullptr, &target);
@@ -107,7 +109,7 @@ SDL_Texture* Texture::loadBitmap(const std::string& path) {
     throw FileIOException("There was an error loading surface " + path);
   }
 
-  SDL_Renderer* renderer = Locator::getDisplay().getRenderer();
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Texture* temp_texture =
       SDL_CreateTextureFromSurface(renderer, temp_surface);
@@ -117,4 +119,6 @@ SDL_Texture* Texture::loadBitmap(const std::string& path) {
   SDL_FreeSurface(temp_surface);
 
   return temp_texture;
+}
+
 }

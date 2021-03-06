@@ -6,24 +6,26 @@
 #include "services/Service.h"
 
 /**
- * @brief Core engine class, manages scenes and sets up locator and sdl
+ * @brief Core game class, manages scenes and sets up locator and sdl
  *
  * @author Allan Legemaate
  * @date 7/11/2020
  */
-class Engine : public Service {
+namespace afk {
+
+class Game : public Service {
  public:
   /**
-   * @brief Construct a new Engine object
+   * @brief Construct a new Game object
    *
    */
-  Engine();
+  Game();
 
   /**
-   * @brief Destroy the Engine
+   * @brief Destroy the Game
    *
    */
-  ~Engine();
+  ~Game();
 
   /**
    * @brief Get the name of service
@@ -46,6 +48,7 @@ class Engine : public Service {
    */
   void notify(const SDL_Event& ev);
 
+ 
  private:
   /**
    * @brief Sets up core engine features and sdl2
@@ -57,4 +60,6 @@ class Engine : public Service {
   bool closing = false;
 };
 
-#endif  // ENGINE_H
+}  // namespace afk
+
+#endif  // GAME_H

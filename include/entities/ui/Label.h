@@ -3,6 +3,8 @@
 
 #include "UIElement.h"
 
+namespace afk {
+
 /**
  * @brief Implementation of UI Label.
  *
@@ -21,7 +23,7 @@ class Label : public UIElement {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  Label(Scene& scene,
+  Label(afk::Scene& scene,
         const int x,
         const int y,
         const int z,
@@ -34,5 +36,7 @@ class Label : public UIElement {
    */
   virtual void draw() override;
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_LABEL_H

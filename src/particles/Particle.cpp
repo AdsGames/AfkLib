@@ -1,5 +1,7 @@
 #include "particles/Particle.h"
 
+namespace afk {
+
 // Constructor
 Particle::Particle(float x,
                    float y,
@@ -32,15 +34,17 @@ void Particle::scroll(float x, float y) {
 void Particle::draw() {
   switch (type) {
     case ParticleType::SQUARE:
-      Primitives::rect(x, y, size, size, color);
+      primitives::rect(x, y, size, size, color);
       break;
     case ParticleType::CIRCLE:
-      Primitives::circle(x, y, size, color);
+      primitives::circle(x, y, size, color);
       break;
     case ParticleType::PIXEL:
-      Primitives::rect(x, y, 1, 1, color);
+      primitives::rect(x, y, 1, 1, color);
       break;
     default:
       break;
   }
 }
+
+}  // namespace afk

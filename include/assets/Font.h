@@ -6,6 +6,8 @@
 
 #include "../color/Color.h"
 
+namespace afk {
+
 /**
  * @brief Easy interface to interact with allegro fonts
  *
@@ -101,5 +103,7 @@ class Font {
                           const std::string text,
                           const SDL_Color colour);
 };
+
+}
 
 #endif  // ASSETS_FONT_H

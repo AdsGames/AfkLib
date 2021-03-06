@@ -4,8 +4,10 @@
 #include <functional>
 #include <string>
 
-#include "../GameObject.h"
 #include "../../assets/Font.h"
+#include "../GameObject.h"
+
+namespace afk {
 
 /**
  * @brief Parent class for other UI elements such as buttons and labels.
@@ -25,7 +27,7 @@ class UIElement : public GameObject {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  UIElement(Scene& scene,
+  UIElement(afk::Scene& scene,
             const float x,
             const float y,
             const int z,
@@ -88,5 +90,7 @@ class UIElement : public GameObject {
   /// Holds reference to onClick function
   std::function<void(void)> onClick;
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_UIELEMENT

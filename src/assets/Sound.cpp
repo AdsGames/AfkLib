@@ -2,6 +2,8 @@
 
 #include "common/Exceptions.h"
 
+namespace afk {
+
 // Set channel counter to 0
 unsigned int Sound::channel_counter = 0;
 
@@ -44,4 +46,6 @@ Mix_Chunk* Sound::loadSample(const std::string& path) {
   }
 
   return temp_sample;
+}
+
 }

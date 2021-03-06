@@ -8,6 +8,8 @@
 #ifndef SERVICES_INPUT_JOYSTICK_CODES_H
 #define SERVICES_INPUT_JOYSTICK_CODES_H
 
+namespace afk {
+
 enum {
   JOY_XBOX_A = 0,
   JOY_XBOX_B = 1,
@@ -35,5 +37,7 @@ enum {
   LEFT_TRIGGER = 12,
   RIGHT_TRIGGER = 18
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_JOYSTICK_CODES_H

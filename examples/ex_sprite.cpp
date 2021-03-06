@@ -1,31 +1,41 @@
-#include "../include/Engine.h"
+#include "../include/Game.h"
 #include "../include/entities/Sprite.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Locator.h"
+#include "../include/services/Services.h"
 
-class DemoScene : public Scene {
+class DemoScene : public afk::Scene {
  public:
   void start() {
-    Locator::getLogger().log("Starting!");
-    Locator::getDisplay().setWindowSize(512, 512);
-    Locator::getDisplay().setBufferSize(512, 512);
-    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
-    Locator::getDisplay().setTitle("ex_sprite");
-    Locator::getAsset().loadImage("lenna", "assets/lenna.png");
-    this->add<Sprite>(*this, "lenna");
-  }
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Starting!");
 
-  void draw() {}
+    afk::DisplayService& display = afk::Services::getDisplayService();
+    display.setWindowSize(512, 512);
+    display.setBufferSize(512, 512);
+    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setTitle("ex_sprite");
+
+    afk::AssetService& assets = afk::Services::getAssetService();
+    assets.loadImage("lenna", "assets/lenna.png");
+
+    add<afk::Sprite>(*this, "lenna");
+  }
 
   void update() {}
 
-  void stop() { Locator::getLogger().log("Stopping!"); }
+  void stop() {
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Stopping!");
+  }
 };
 
 int main(int argv, char** args) {
-  Engine game = Engine();
-  Locator::getScene().addScene<DemoScene>("demo");
-  Locator::getScene().setNextScene("demo");
+  afk::Game game = afk::Game();
+
+  afk::SceneService& scenes = afk::Services::getSceneService();
+  scenes.addScene<DemoScene>("demo");
+  scenes.setNextScene("demo");
+
   game.start();
   return 0;
 }

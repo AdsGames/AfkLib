@@ -4,6 +4,8 @@
 #include <SDL2/SDL_mixer.h>
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Configuration for playing audio file
  *
@@ -77,5 +79,7 @@ class Sound {
   /// Current number of channels
   static unsigned int channel_counter;
 };
+
+}
 
 #endif  // ASSETS_SOUND_H

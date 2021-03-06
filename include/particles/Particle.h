@@ -8,6 +8,8 @@
 
 #include "primitives/Primitives.h"
 
+namespace afk {
+
 enum class ParticleType : int {
   PIXEL,
   SQUARE,
@@ -39,5 +41,7 @@ class Particle {
 
   SDL_Color color;
 };
+
+}  // namespace afk
 
 #endif  // PARTICLES_PARTICLE_H

@@ -1,64 +1,68 @@
-#include "services/Locator.h"
+#include "services/Services.h"
 
 #include "common/Exceptions.h"
 #include "services/audio/NullAudioService.h"
+
+namespace afk {
 
 // Init audio service
 static std::unique_ptr<AudioService> audio_service =
     std::make_unique<NullAudioService>(NullAudioService());
 
-AudioService& Locator::getAudio() {
+AudioService& Services::getAudioService() {
   if (!audio_service.get()) {
     throw CoreServiceLookupException("Audio service not found");
   }
   return *audio_service;
 }
 
-AssetService& Locator::getAsset() {
+AssetService& Services::getAssetService() {
   if (!asset_service.get()) {
     throw CoreServiceLookupException("Asset service not found");
   }
   return *asset_service;
 }
 
-DisplayService& Locator::getDisplay() {
+DisplayService& Services::getDisplayService() {
   if (!display_service.get()) {
     throw CoreServiceLookupException("Display service not found");
   }
   return *display_service;
 }
 
-ConfigService& Locator::getConfig() {
+ConfigService& Services::getConfigService() {
   if (!config_service.get()) {
     throw CoreServiceLookupException("Config service not found");
   }
   return *config_service;
 }
 
-LoggingService& Locator::getLogger() {
+LoggingService& Services::getLoggingService() {
   if (!logging_service.get()) {
     throw CoreServiceLookupException("Logging service not found");
   }
   return *logging_service;
 }
 
-InputService& Locator::getInput() {
+InputService& Services::getInputService() {
   if (!input_service.get()) {
     throw CoreServiceLookupException("Input service not found");
   }
   return *input_service;
 }
 
-SceneService& Locator::getScene() {
+SceneService& Services::getSceneService() {
   if (!scene_service.get()) {
     throw CoreServiceLookupException("Scene service not found");
   }
   return *scene_service;
 }
 
-EventQueue& Locator::getEventQueue() {
+EventQueue& Services::getEventQueue() {
   if (!event_service.get()) {
     throw CoreServiceLookupException("Event queue not found");
   }
   return *event_service;
 }
+
+}  // namespace afk

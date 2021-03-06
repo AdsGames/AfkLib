@@ -5,6 +5,8 @@
 
 #include "../../assets/Texture.h"
 
+namespace afk {
+
 /**
  * @brief Implementation of clickable UI button.
  *
@@ -23,7 +25,7 @@ class Button : public UIElement {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  Button(Scene& scene,
+  Button(afk::Scene& scene,
          const int x,
          const int y,
          const int z,
@@ -39,7 +41,7 @@ class Button : public UIElement {
    * @param z Z position of element (for sorting)
    * @param image_id Id of image to assign to button
    */
-  Button(Scene& scene,
+  Button(afk::Scene& scene,
          const int x,
          const int y,
          const int z,
@@ -55,5 +57,7 @@ class Button : public UIElement {
   /// Texture for textured buttons
   Texture image;
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_BUTTON_H

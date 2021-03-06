@@ -4,6 +4,8 @@
 #include <SDL2/SDL_mixer.h>
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Wrapper for allegro sample including ability to store stream pointer.
  * Use for single instance sounds like music
@@ -68,5 +70,7 @@ class Stream {
   /// Pointer to associated ALLEGRO_AUDIO_STREAM*
   Mix_Chunk* stream;
 };
+
+}  // namespace afk
 
 #endif  // ASSETS_STREAM_H

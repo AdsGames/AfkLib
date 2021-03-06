@@ -4,7 +4,9 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-#include "Service.h"
+#include "../Service.h"
+
+namespace afk {
 
 /**
  * @brief Houses event queue and works as
@@ -72,5 +74,7 @@ class EventQueue {
   /// List of services which must be notified
   std::vector<Service*> services;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_EVENT_QUEUE_H

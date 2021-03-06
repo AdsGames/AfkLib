@@ -4,6 +4,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Easy interface to interact with allegro bitmaps
  *
@@ -110,5 +112,7 @@ class Texture {
   /// Pointer to referenced bitmap
   SDL_Texture* bitmap;
 };
+
+}
 
 #endif  // ASSETS_TEXTURE_H

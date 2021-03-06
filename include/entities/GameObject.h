@@ -4,7 +4,9 @@
 /// Unique id type alias
 using ObjId = unsigned int;
 
-// Forward declare sprite class
+namespace afk {
+
+// Forward declare scene class
 class Scene;
 
 /**
@@ -23,7 +25,7 @@ class GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit GameObject(Scene& scene,
+  explicit GameObject(afk::Scene& scene,
                       const float x = 0.0f,
                       const float y = 0.0f,
                       const int z = 0);
@@ -129,7 +131,7 @@ class GameObject {
 
  protected:
   /// Reference to registered scene
-  Scene& scene;
+  afk::Scene& scene;
 
   /// X position on x y plane
   float x;
@@ -153,5 +155,6 @@ class GameObject {
   /// Static id counter
   static ObjId index;
 };
+}  // namespace afk
 
 #endif  // ENTITIES_GAME_OBJECT_H

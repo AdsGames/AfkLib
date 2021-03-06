@@ -2,16 +2,18 @@
 #include <algorithm>
 #include <functional>
 
-#include "services/EventQueue.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+#include "services/events/EventQueue.h"
+
+namespace afk {
 
 // Create event queue
 EventQueue::EventQueue() {
-  Locator::getLogger().log("[Event Queue]: Starting up");
+  Services::getLoggingService().log("[Event Queue]: Starting up");
 }
 
 EventQueue::~EventQueue() {
-  Locator::getLogger().log("[Event Queue]: Shutting down");
+  Services::getLoggingService().log("[Event Queue]: Shutting down");
 }
 
 void EventQueue::process() {
@@ -24,13 +26,14 @@ void EventQueue::process() {
 
 // Register service with event queue
 void EventQueue::registerService(Service* service) {
-  Locator::getLogger().log("[" + service->getName() + "] Starting up");
+  Services::getLoggingService().log("[" + service->getName() + "] Starting up");
   services.push_back(service);
 }
 
 // Unregister service from event queue
 void EventQueue::unregisterService(Service* service) {
-  Locator::getLogger().log("[" + service->getName() + "] Shutting down");
+  Services::getLoggingService().log("[" + service->getName() +
+                                    "] Shutting down");
   services.erase(std::remove(services.begin(), services.end(), service));
 }
 
@@ -66,3 +69,5 @@ Uint32 EventQueue::timerCallback(Uint32 interval, void* param) {
   SDL_PushEvent(&event);
   return interval;
 }
+
+}  // namespace afk

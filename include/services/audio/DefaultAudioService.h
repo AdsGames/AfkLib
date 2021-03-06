@@ -3,6 +3,8 @@
 
 #include "AudioService.h"
 
+namespace afk {
+
 /**
  * @brief Implementation of audio service
  *
@@ -31,5 +33,7 @@ class DefaultAudioService : public AudioService {
    */
   virtual void stopStream(const std::string& key) override;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_AUDIO_DEFAULT_AUDIO_SERVICE_H

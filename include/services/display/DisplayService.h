@@ -10,6 +10,8 @@
 
 const int FRAME_BUFFER_SIZE = 20;
 
+namespace afk {
+
 class Scene;
 
 /**
@@ -93,7 +95,7 @@ class DisplayService : public Service {
    * @return Selected display mode
    * @see DISPLAY_MODE
    */
-  int getDisplayMode() const;
+  int getDisplayServiceMode() const;
 
   /**
    * @brief Get the buffer width
@@ -128,14 +130,14 @@ class DisplayService : public Service {
    *
    * @return width of window
    */
-  unsigned int getDisplayWidth() const;
+  unsigned int getDisplayServiceWidth() const;
 
   /**
    * @brief Get the current height of window
    *
    * @return height of window
    */
-  unsigned int getDisplayHeight() const;
+  unsigned int getDisplayServiceHeight() const;
 
   /**
    * @brief Get the scaling being done on buffer. This is equivalent to buffer
@@ -179,7 +181,7 @@ class DisplayService : public Service {
    *
    * @param current_scene Scene to draw
    */
-  void draw(Scene* current_scene);
+  void draw(afk::Scene* current_scene);
 
   /**
    * @brief Set the window title
@@ -278,6 +280,8 @@ class DisplayService : public Service {
    */
   void setTranslation(const unsigned int x, const unsigned int y);
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_DISPLAY_DISPLAY_SERVICE_H
 
