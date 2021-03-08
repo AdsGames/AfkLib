@@ -1,4 +1,15 @@
-
+/**
+ * @file DisplayService.h
+ * @author
+ *  Allan Legemaate (alegemaate@gmail.com)
+ *  Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Service that encapsulates SDL display related functionality.
+ * @version 0.1
+ * @date 2018-11-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
 #define INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
 
@@ -32,8 +43,6 @@ enum class DisplayMode {
  * @brief Manages sdl display pointer and allows easy manipulation of
  * configuration
  *
- * @author Danny Van Stemp and Allan Legemaate
- * @date 20/11/2018
  */
 class DisplayService {
  public:

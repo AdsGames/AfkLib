@@ -1,3 +1,15 @@
+/**
+ * @file Button.cpp
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Implementation of Button
+ * @version 0.1
+ * @date 2017-04-11
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/Button.h"
 
 #include "color/Color.h"

@@ -1,3 +1,15 @@
+/**
+ * @file DisplayService.cpp
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Implementation of DisplayService
+ * @version 0.1
+ * @date 2018-11-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/display/DisplayService.h"
 
 #include <SDL2/SDL_image.h>

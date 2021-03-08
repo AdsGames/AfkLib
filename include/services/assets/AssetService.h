@@ -1,3 +1,13 @@
+/**
+ * @file AssetService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Service for managing Sound, Texture, Font and Stream assets
+ * @version 0.1
+ * @date 2020-08-05
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
 #define INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
 
@@ -12,11 +22,8 @@
 namespace afk {
 
 /**
- * Asset Service
  * @brief Hold and manages Sound, Texture, Stream and Font assets
  *
- * @author Allan Legemaate
- * @date 05/08/2020
  **/
 class AssetService {
  public:

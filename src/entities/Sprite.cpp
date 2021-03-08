@@ -1,3 +1,13 @@
+/**
+ * @file Sprite.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Sprite
+ * @version 0.1
+ * @date 2020-10-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/Sprite.h"
 
 #include "color/Color.h"
@@ -43,7 +53,7 @@ void Sprite::draw() {
   }
 
   // Draw image
-  texture.drawScaled(x, y, width, height);
+  texture.drawEx(x, y, width, height, angle);
 
   // Draw bounding box
   if (Services::getConfigService().get<bool>("debug", false)) {

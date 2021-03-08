@@ -1,3 +1,13 @@
+/**
+ * @file ConfigService.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of default Config Service
+ * @version 0.1
+ * @date 2020-11-05
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/config/ConfigService.h"
 
 #include <algorithm>

@@ -1,3 +1,13 @@
+/**
+ * @file UIElement.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of UIElement
+ * @version 0.1
+ * @date 2020-11-01
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/UIElement.h"
 
 #include <string>

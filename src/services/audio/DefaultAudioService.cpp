@@ -1,3 +1,13 @@
+/**
+ * @file DefaultAudioService.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of DefaultAudioService
+ * @version 0.1
+ * @date 2020-10-30
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/audio/DefaultAudioService.h"
 
 #include "services/Services.h"

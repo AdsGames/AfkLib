@@ -1,4 +1,15 @@
-
+/**
+ * @file JoystickState.h
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Container for storing Joystick state
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
 #define INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
 

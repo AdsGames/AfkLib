@@ -1,3 +1,13 @@
+/**
+ * @file Game.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Game
+ * @version 0.1
+ * @date 2020-11-07
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "Game.h"
 
 #include "common/Exceptions.h"

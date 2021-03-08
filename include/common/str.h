@@ -1,3 +1,13 @@
+/**
+ * @file str.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Helpers which can manipulate or get data from strings
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_COMMON_STR_H_
 #define INCLUDE_COMMON_STR_H_
 

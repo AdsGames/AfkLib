@@ -1,3 +1,14 @@
+/**
+ * @file InputService.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of InputService. Handles mouse, keyboard and
+ * joystick.
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/input/InputService.h"
 
 #include "common/Exceptions.h"

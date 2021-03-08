@@ -1,3 +1,15 @@
+/**
+ * @file Label.cpp
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Implementation of Label class
+ * @version 0.1
+ * @date 2018-11-25
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/Label.h"
 
 #include "color/Color.h"

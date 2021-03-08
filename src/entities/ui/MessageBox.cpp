@@ -1,3 +1,13 @@
+/**
+ * @file MessageBox.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of MessageBox
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/MessageBox.h"
 
 #include "services/Services.h"

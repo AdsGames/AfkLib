@@ -1,9 +1,20 @@
+/**
+ * @file Scene.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Parent scene class. Children can be added to scene manager.
+ * @version 0.1
+ * @date 2016-12-30
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SCENE_SCENE_H_
 #define INCLUDE_SCENE_SCENE_H_
 
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "../common/Exceptions.h"
@@ -12,8 +23,6 @@
 /**
  * @brief Scene for state machine
  *
- * @author Allan Legemaate
- * @date 30/12/2016
  */
 namespace afk {
 class Scene {
@@ -22,7 +31,7 @@ class Scene {
    * @brief Destroy the Scene object
    *
    */
-  virtual ~Scene(){};
+  virtual ~Scene() {}
 
   /**
    * @brief Start the scene
@@ -65,24 +74,6 @@ class Scene {
    *
    */
   void updateInternal();
-
-  /**
-   * @brief Add existing game object to update and draw pool
-   *
-   * @tparam T Type of game object
-   * @tparam Args Arguments to forward to T
-   * @param args Argument values which will be forwarded to T when constructing
-   * a new game object
-   * @return Unique id of created object
-   */
-  template <typename T>
-  ObjId addExisting(T obj) {
-    std::unique_ptr<GameObject> objp = std::make_unique<T>(obj);
-    const int id = objp.get()->getId();
-    update_pool.push_back(std::move(objp));
-    sortGameObjects();
-    return id;
-  }
 
   /**
    * @brief Add game object to update and draw pool

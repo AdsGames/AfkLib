@@ -1,5 +1,5 @@
 /**
- * @file ex_button.cpp
+ * @file ex_rotate.cpp
  * @author Allan Legemaate (alegemaate@gmail.com)
  * @brief
  * @version 0.1
@@ -9,8 +9,7 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/ui/Button.h"
-#include "../include/entities/ui/MessageBox.h"
+#include "../include/entities/Sprite.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -24,31 +23,29 @@ class DemoScene : public afk::Scene {
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
-    display.setTitle("ex_button");
+    display.setTitle("ex_sprite");
 
     afk::AssetService& assets = afk::Services::getAssetService();
-    assets.loadFont("freesans", "assets/freesans.ttf", 12);
+    assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Button& button =
-        addObj<afk::Button>(*this, 10, 10, 10, "CLICK ME", "freesans");
-
-    button.setOnClick([]() {
-      afk::MessageBox message_box(afk::MessageBoxType::INFO);
-      message_box.setTitle("Nice");
-      message_box.setHeading("You Clicked");
-      message_box.setText("The button");
-      message_box.show();
-    });
+    lennaId = add<afk::Sprite>(*this, "lenna");
   }
 
   void draw() {}
 
-  void update() {}
+  void update() {
+    afk::Sprite& lenna = get<afk::Sprite>(lennaId);
+
+    lenna.setAngle(lenna.getAngle() + 0.1f);
+  }
 
   void stop() {
     afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Stopping!");
   }
+
+ private:
+  ObjId lennaId;
 };
 
 int main(int argv, char** args) {

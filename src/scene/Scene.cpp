@@ -1,3 +1,13 @@
+/**
+ * @file Scene.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Scene class
+ * @version 0.1
+ * @date 2016-12-30
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "scene/Scene.h"
 
 #include <algorithm>

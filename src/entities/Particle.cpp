@@ -1,3 +1,13 @@
+/**
+ * @file Particle.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Particle
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/Particle.h"
 
 namespace afk {
@@ -5,7 +15,7 @@ namespace afk {
 // Constructor
 Particle::Particle(float x,
                    float y,
-                   SDL_Color color,
+                   color::Color color,
                    float velocity_x,
                    float velocity_y,
                    int size,
@@ -34,7 +44,7 @@ void Particle::draw() {
       primitives::circle(x, y, size, color);
       break;
     case ParticleType::PIXEL:
-      primitives::rect(x, y, 1, 1, color);
+      primitives::pixel(x, y, color);
       break;
     default:
       break;

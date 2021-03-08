@@ -1,3 +1,13 @@
+/**
+ * @file DefaultAudioService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Default audio service, can actually play audio.
+ * @version 0.1
+ * @date 2020-10-30
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_AUDIO_DEFAULTAUDIOSERVICE_H_
 #define INCLUDE_SERVICES_AUDIO_DEFAULTAUDIOSERVICE_H_
 
@@ -10,8 +20,6 @@ namespace afk {
 /**
  * @brief Implementation of audio service
  *
- * @author Allan Legemaate
- * @date 30/10/2020
  **/
 class DefaultAudioService : public AudioService {
  public:

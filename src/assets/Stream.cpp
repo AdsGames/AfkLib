@@ -1,3 +1,13 @@
+/**
+ * @file Stream.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Stream
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "assets/Stream.h"
 
 #include "common/Exceptions.h"

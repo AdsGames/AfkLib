@@ -1,3 +1,14 @@
+/**
+ * @file EventQueue.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Handles SDL_Events from main SDL_Queue.
+ * Can be hooked  into by other services and notified when changes happen.
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
 #define INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
 
@@ -11,8 +22,6 @@ namespace afk {
 /**
  * @brief Houses event queue and works as
  *
- * @author Allan Legemaate
- * @date 27/11/2020
  */
 class EventQueue {
  public:

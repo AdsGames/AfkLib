@@ -1,3 +1,13 @@
+/**
+ * @file Services.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of core Services class.
+ * @version 0.1
+ * @date 2020-11-07
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/Services.h"
 
 #include "common/Exceptions.h"

@@ -1,3 +1,14 @@
+/**
+ * @file Stream.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Wrapper for sdl stream including ability to store stream pointer.
+ * Use for single instance sounds like music
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_ASSETS_STREAM_H_
 #define INCLUDE_ASSETS_STREAM_H_
 
@@ -10,8 +21,6 @@ namespace afk {
  * @brief Wrapper for sdl stream including ability to store stream pointer.
  * Use for single instance sounds like music
  *
- * @author Allan Legemaate
- * @date 10/08/2020
  */
 class Stream {
  public:

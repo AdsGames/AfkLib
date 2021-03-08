@@ -1,3 +1,13 @@
+/**
+ * @file InputService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief General Purpose input listener. Handles Mouse, Keyboard, Joystick
+ * @version 0.1
+ * @date 2020-11-07
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
 #define INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
 
@@ -15,8 +25,6 @@ namespace afk {
 /**
  * @brief General Purpose input listener
  *
- * @date 2020-11-07
- * @author Allan Legemaate (alegemaate@gmail.com)
  */
 class InputService : public Service {
  public:

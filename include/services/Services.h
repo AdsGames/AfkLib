@@ -1,7 +1,7 @@
 /**
  * @file Services.h
  * @author Allan Legemaate (alegemaate@gmail.com)
- * @brief
+ * @brief Service locator in charge of finding core engine services.
  * @version 0.1
  * @date 2020-11-07
  *

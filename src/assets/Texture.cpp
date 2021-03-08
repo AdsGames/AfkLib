@@ -1,14 +1,25 @@
-#include <SDL2/SDL_image.h>
-
+/**
+ * @file Texture.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Texture
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "assets/Texture.h"
 
+#include <SDL2/SDL_image.h>
+
+#include "color/Color.h"
 #include "common/Exceptions.h"
 #include "services/Services.h"
 
 namespace afk {
 
 // Constructor
-Texture::Texture() : bitmap(nullptr) {}
+Texture::Texture() : texture(nullptr) {}
 
 // Constructor with path
 Texture::Texture(const std::string& path) {
@@ -17,7 +28,7 @@ Texture::Texture(const std::string& path) {
 
 // Load texture from file
 void Texture::load(const std::string& path) {
-  bitmap = loadBitmap(path);
+  texture = loadTexture(path);
 }
 
 // Create texture with specified dimensions
@@ -37,72 +48,70 @@ void Texture::create(const int width, const int height) {
   }
   SDL_FreeSurface(temp_surface);
 
-  bitmap = temp_texture;
+  texture = temp_texture;
 }
 
 // Return height of loaded texture
 int Texture::getHeight() const {
-  if (!bitmap) {
+  if (!texture) {
     return 0;
   }
 
   int h;
-  SDL_QueryTexture(bitmap, nullptr, nullptr, nullptr, &h);
+  SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &h);
   return h;
 }
 
 // Return if it exists
 bool Texture::exists() const {
-  return bitmap != nullptr;
+  return texture != nullptr;
 }
 
 // Return width of loaded texture
 int Texture::getWidth() const {
-  if (!bitmap) {
+  if (!texture) {
     return 0;
   }
 
   int w;
-  SDL_QueryTexture(bitmap, nullptr, nullptr, &w, nullptr);
+  SDL_QueryTexture(texture, nullptr, nullptr, &w, nullptr);
   return w;
 }
 
 // Draw texture to screen
 void Texture::draw(const int x, const int y) const {
-  if (!bitmap) {
+  if (!texture) {
     return;
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Rect target = {x, y, getWidth(), getHeight()};
-  SDL_RenderCopy(renderer, bitmap, nullptr, &target);
+  SDL_RenderCopy(renderer, texture, nullptr, &target);
 }
 
-// Draw scaled texture to screen
-void Texture::drawScaled(const int x,
-                         const int y,
-                         const int width,
-                         const int height,
-                         const int flags) const {
-  if (!bitmap) {
+// Draw extended mode
+void Texture::drawEx(const int x,
+                     const int y,
+                     const int width,
+                     const int height,
+                     const float angle,
+                     const TextureDrawMode mode) const {
+  if (!texture) {
     return;
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Rect target = {x, y, width, height};
-  SDL_RenderCopy(renderer, bitmap, nullptr, &target);
-}
+  SDL_Point center = {width / 2, height / 2};
+  SDL_RendererFlip flip = static_cast<SDL_RendererFlip>(mode);
 
-// Get colour at pixel
-SDL_Color Texture::getPixel(const int x, const int y) const {
-  SDL_Color rgb = {0, 0, 0, 0};
-  return rgb;
+  SDL_RenderCopyEx(renderer, texture, nullptr, &target, angle, &center, flip);
 }
 
 // Load SDL texture from file
-SDL_Texture* Texture::loadBitmap(const std::string& path) {
+SDL_Texture* Texture::loadTexture(const std::string& path) {
   // Attempt to load
   SDL_Surface* temp_surface = IMG_Load(path.c_str());
   if (!temp_surface) {

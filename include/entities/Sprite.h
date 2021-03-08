@@ -1,3 +1,13 @@
+/**
+ * @file Sprite.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Simple textured GameObject
+ * @version 0.1
+ * @date 2020-10-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_ENTITIES_SPRITE_H_
 #define INCLUDE_ENTITIES_SPRITE_H_
 
@@ -12,8 +22,6 @@ namespace afk {
 /**
  * @brief A simple texturable game object
  *
- * @author Allan Legemaate
- * @date 30/10/2020
  */
 class Sprite : public GameObject {
  public:

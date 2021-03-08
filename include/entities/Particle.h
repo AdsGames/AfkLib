@@ -34,7 +34,7 @@ class Particle {
  public:
   Particle(float x,
            float y,
-           SDL_Color color,
+           color::Color color,
            float velocity_x,
            float velocity_y,
            int size,
@@ -52,7 +52,7 @@ class Particle {
 
   float velocity_x, velocity_y;
 
-  SDL_Color color;
+  color::Color color;
 };
 
 }  // namespace afk

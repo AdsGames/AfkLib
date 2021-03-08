@@ -1,3 +1,13 @@
+/**
+ * @file ex_sprite.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "../include/Game.h"
 #include "../include/entities/Sprite.h"
 #include "../include/scene/Scene.h"

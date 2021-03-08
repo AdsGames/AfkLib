@@ -3,7 +3,7 @@
  * @author
  *   Allan Legemaate (alegemaate@gmail.com)
  *   Danny Van Stemp (dannyvanstemp@gmail.com)
- * @brief Implementation of clickable UI Button
+ * @brief A ui elemenent that accepts a click callback.
  * @version 0.1
  * @date 2017-04-11
  *

@@ -3,7 +3,7 @@
  * @author
  *   Allan Legemaate (alegemaate@gmail.com)
  *   Danny Van Stemp (dannyvanstemp@gmail.com)
- * @brief Implementation of Label class
+ * @brief UI Label that simply displays text.
  * @version 0.1
  * @date 2018-11-25
  *

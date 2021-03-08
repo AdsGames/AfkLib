@@ -61,7 +61,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const SDL_Color colour = color::rgb(0, 0, 0),
+            const color::Color colour = color::rgb(0, 0, 0),
             const FontAlign align = FontAlign::ALIGN_LEFT);
 
   /**
@@ -114,7 +114,7 @@ class Font {
    */
   SDL_Texture* renderText(SDL_Renderer* renderer,
                           const std::string text,
-                          const SDL_Color colour);
+                          const color::Color colour);
 };
 
 }  // namespace afk

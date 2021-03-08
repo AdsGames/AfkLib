@@ -1,3 +1,13 @@
+/**
+ * @file AudioService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Parent audio service, other audio services should inherit from this
+ * @version 0.1
+ * @date 2020-10-30
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
 #define INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
 
@@ -9,11 +19,9 @@
 namespace afk {
 
 /**
- * @brief Default audio service, other audio services should inherit from this
+ * @brief Parent audio service, other audio services should inherit from this
  * class.
  *
- * @author Allan Legemaate
- * @date 30/10/2020
  */
 class AudioService {
  public:
@@ -21,7 +29,7 @@ class AudioService {
    * @brief Destroy the Audio Service
    *
    */
-  virtual ~AudioService(){};
+  virtual ~AudioService() {}
 
   /**
    * @brief Play sound by id

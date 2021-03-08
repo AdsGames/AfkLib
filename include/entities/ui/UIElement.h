@@ -1,3 +1,14 @@
+/**
+ * @file UIElement.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Parent class of many other UIElement subclasses. Handles most things
+ * that all UIElements may need.
+ * @version 0.1
+ * @date 2020-11-01
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #ifndef INCLUDE_ENTITIES_UI_UIELEMENT_H_
 #define INCLUDE_ENTITIES_UI_UIELEMENT_H_
 
@@ -12,8 +23,6 @@ namespace afk {
 /**
  * @brief Parent class for other UI elements such as buttons and labels.
  *
- * @author Allan Legemaate
- * @date 01/11/2020
  */
 class UIElement : public GameObject {
  public:

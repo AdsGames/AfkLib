@@ -1,3 +1,13 @@
+/**
+ * @file Font.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Font
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "assets/Font.h"
 
 #include "color/Color.h"
@@ -64,7 +74,7 @@ int Font::getWidth(const std::string& text) {
 void Font::draw(const int x,
                 const int y,
                 const std::string& text,
-                const SDL_Color colour,
+                const color::Color colour,
                 const FontAlign align) {
   if (!font) {
     return;
@@ -113,8 +123,9 @@ TTF_Font* Font::loadFont(const std::string& path, const int size) {
 // Render font to texture
 SDL_Texture* Font::renderText(SDL_Renderer* renderer,
                               const std::string text,
-                              const SDL_Color colour) {
-  SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), colour);
+                              const color::Color colour) {
+  SDL_Surface* surface = TTF_RenderText_Solid(
+      font, text.c_str(), {colour.r, colour.g, colour.b, colour.a});
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
