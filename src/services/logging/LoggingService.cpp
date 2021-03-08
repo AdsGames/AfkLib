@@ -7,4 +7,4 @@ void LoggingService::log(const std::string& message) {
   (void)(message);
 }
 
-}
+}  // namespace afk

@@ -9,11 +9,11 @@
 namespace afk {
 
 // Constructor
-Sprite::Sprite(Scene& scene, const float x, const float y, const int z)
+Sprite::Sprite(const Scene& scene, const float x, const float y, const int z)
     : GameObject(scene, x, y, z), visible(true) {}
 
 // Constructor
-Sprite::Sprite(Scene& scene,
+Sprite::Sprite(const Scene& scene,
                const std::string& texture,
                const float x,
                const float y,

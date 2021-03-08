@@ -1,5 +1,7 @@
-#ifndef SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H
-#define SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H
+#ifndef INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
+#define INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
+
+#include <string>
 
 #include "LoggingService.h"
 
@@ -19,9 +21,9 @@ class DebugLoggingService : public LoggingService {
    *
    * @param msg Message to log
    */
-  virtual void log(const std::string& msg) override;
+  void log(const std::string& msg) override;
 };
 
 }  // namespace afk
 
-#endif  // SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H
+#endif  // INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_

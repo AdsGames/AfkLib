@@ -1,5 +1,7 @@
-#ifndef SERVICES_AUDIO_NULL_AUDIO_SERVICE_H
-#define SERVICES_AUDIO_NULL_AUDIO_SERVICE_H
+#ifndef INCLUDE_SERVICES_AUDIO_NULLAUDIOSERVICE_H_
+#define INCLUDE_SERVICES_AUDIO_NULLAUDIOSERVICE_H_
+
+#include <string>
 
 #include "AudioService.h"
 
@@ -13,7 +15,7 @@ namespace afk {
  */
 class NullAudioService : public AudioService {
  public:
-  virtual ~NullAudioService(){};
+  virtual ~NullAudioService() {}
 
   /**
    * @brief Does nothing
@@ -37,4 +39,4 @@ class NullAudioService : public AudioService {
 
 }  // namespace afk
 
-#endif  // SERVICES_AUDIO_NULL_AUDIO_SERVICE_H
+#endif  // INCLUDE_SERVICES_AUDIO_NULLAUDIOSERVICE_H_

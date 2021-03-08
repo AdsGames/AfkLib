@@ -19,4 +19,4 @@ int Random::randomInt(const int min, const int max) {
   return int_dist(rng);
 }
 
-}
+}  // namespace afk

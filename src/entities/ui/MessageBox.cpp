@@ -31,7 +31,7 @@ int MessageBox::show() {
   return return_code;
 }
 
-// Get type of box in allegro terms
+// Get type of box in SDL terms
 int MessageBox::resolveType() {
   switch (type) {
     case MessageBoxType::ERROR:
@@ -44,4 +44,4 @@ int MessageBox::resolveType() {
   }
 }
 
-}
+}  // namespace afk

@@ -7,7 +7,7 @@
 namespace afk {
 
 // Constructor
-UIElement::UIElement(Scene& scene,
+UIElement::UIElement(const Scene& scene,
                      const float x,
                      const float y,
                      const int z,

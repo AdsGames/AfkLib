@@ -94,7 +94,6 @@ void Game::start() {
       timeAcc += SDL_GetTicks() - startTime;
     }
 #endif
-
   } catch (const FileIOException& e) {
     showErrorDialog("File Error", e.what());
   } catch (const std::runtime_error& e) {
@@ -114,7 +113,7 @@ void Game::notify(const SDL_Event& event) {
 
 // Sets up game
 void Game::setup() {
-  // Init allegro 5
+  // Init SDL2
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
     throw InitException("Could not init sdl");
   }

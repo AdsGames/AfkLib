@@ -1,5 +1,5 @@
-#ifndef ENGINE_PRIMITIVES_PRIMITIVES_H
-#define ENGINE_PRIMITIVES_PRIMITIVES_H
+#ifndef INCLUDE_PRIMITIVES_PRIMITIVES_H_
+#define INCLUDE_PRIMITIVES_PRIMITIVES_H_
 
 #include "../color/Color.h"
 
@@ -17,4 +17,4 @@ void circle(const int cx, const int cy, const int r, SDL_Color colour);
 
 }  // namespace afk::primitives
 
-#endif  // ENGINE_PRIMITIVES_PRIMITIVES_H
+#endif  // INCLUDE_PRIMITIVES_PRIMITIVES_H_

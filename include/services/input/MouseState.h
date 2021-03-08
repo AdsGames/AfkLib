@@ -1,5 +1,5 @@
-#ifndef SERVICES_INPUT_MOUSE_STATE_H
-#define SERVICES_INPUT_MOUSE_STATE_H
+#ifndef INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
+#define INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
 
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_mouse.h>
@@ -34,19 +34,19 @@ struct MouseState {
   int old_y = 0;
 
   /// Individual button states
-  bool button[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool button[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
 
   /// Buttons just pressed
-  bool down[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool down[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
 
   /// Buttons just released
-  bool up[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool up[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
 
   /// Mouse just moved
   bool moved = false;
 
   /// Previous button states
-  bool button_old[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool button_old[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
 
   /**
    * @brief Update the mouse state
@@ -59,7 +59,7 @@ struct MouseState {
     old_y = y;
 
     // Check button just pressed
-    for (int i = 0; i < (int)MouseButtons::BUTTON_MAX; i++) {
+    for (int i = 0; i < static_cast<int>(MouseButtons::BUTTON_MAX); i++) {
       // Just up
       if (button_old[i] && !button[i]) {
         up[i] = true;
@@ -84,4 +84,4 @@ struct MouseState {
 
 }  // namespace afk
 
-#endif  // SERVICES_INPUT_MOUSE_STATE_H
+#endif  // INCLUDE_SERVICES_INPUT_MOUSESTATE_H_

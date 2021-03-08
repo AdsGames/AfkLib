@@ -1,10 +1,11 @@
 #include "entities/ui/Label.h"
+
 #include "color/Color.h"
 
 namespace afk {
 
 // Detailed constructor
-Label::Label(Scene& scene,
+Label::Label(const Scene& scene,
              const int x,
              const int y,
              const int z,
@@ -25,4 +26,4 @@ void Label::draw() {
   font.draw(x, y, text, color::rgb(0, 0, 0));
 }
 
-}
+}  // namespace afk

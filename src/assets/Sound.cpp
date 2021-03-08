@@ -29,7 +29,7 @@ void Sound::play(const PlaySoundConfig& config) {
     return;
   }
 
-  // TODO: Frequency
+  // TODO(alegemaate): Frequency
   Mix_SetPanning(channel, config.pan, 255 - config.pan);
   Mix_Volume(channel, config.gain);
   Mix_PlayChannel(channel, sample, config.loop);

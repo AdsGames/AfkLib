@@ -1,5 +1,15 @@
-#ifndef ASSETS_FONT_H
-#define ASSETS_FONT_H
+/**
+ * @file Font.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Easy interface to interact with SDL fonts
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ASSETS_FONT_H_
+#define INCLUDE_ASSETS_FONT_H_
 
 #include <SDL2/SDL_ttf.h>
 #include <string>
@@ -11,10 +21,7 @@ namespace afk {
 enum class FontAlign { ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER };
 
 /**
- * @brief Easy interface to interact with allegro fonts
- *
- * @author Allan Legemaate
- * @date 10/08/2020
+ * @brief Easy interface to interact with SDL fonts
  */
 class Font {
  public:
@@ -48,7 +55,7 @@ class Font {
    * @param x X position in pixels
    * @param y Y position in pixels
    * @param text Text to draw with font
-   * @param colour Allegro colour to colour text
+   * @param colour colour to colour text
    * @param align Text alignment, defaults to left
    */
   void draw(const int x,
@@ -81,11 +88,12 @@ class Font {
 
  private:
   /**
-   * @brief Helper which loads an ALLEGRO_FONT* from a file
+   * @brief Helper which loads an TTF_Font* from a file
    *
    * @param path Path to file
    * @param size Size of font to generate
-   * @return ALLEGRO_FONT* File that has been loaded
+   *
+   * @return TTF_Font* File that has been loaded
    * @throws FileIOException If font can not be found at path
    */
   static TTF_Font* loadFont(const std::string& path, const int size);
@@ -99,7 +107,9 @@ class Font {
   /**
    * @brief Helper for rendering text
    *
+   * @param renderer SDL Renderer to draw to
    * @param text String to draw
+   * @param colour Color of text
    * @return SDL_Texture* New texture containing string
    */
   SDL_Texture* renderText(SDL_Renderer* renderer,
@@ -109,4 +119,4 @@ class Font {
 
 }  // namespace afk
 
-#endif  // ASSETS_FONT_H
+#endif  // INCLUDE_ASSETS_FONT_H_

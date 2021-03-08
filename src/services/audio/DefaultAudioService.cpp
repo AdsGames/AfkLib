@@ -20,4 +20,4 @@ void DefaultAudioService::stopStream(const std::string& key) {
   stream.stop();
 }
 
-}
+}  // namespace afk

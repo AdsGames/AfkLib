@@ -1,8 +1,7 @@
-#ifndef SERVICES_LOGGING_LOGGING_SERVICE_H
-#define SERVICES_LOGGING_LOGGING_SERVICE_H
+#ifndef INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
+#define INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
 
 #include <string>
-
 namespace afk {
 
 /**
@@ -14,7 +13,7 @@ namespace afk {
  **/
 class LoggingService {
  public:
-  virtual ~LoggingService(){};
+  virtual ~LoggingService() {}
 
   /**
    * @brief Does nothing
@@ -26,4 +25,4 @@ class LoggingService {
 
 }  // namespace afk
 
-#endif  // SERVICES_LOGGING_LOGGING_SERVICE_H
+#endif  // INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_

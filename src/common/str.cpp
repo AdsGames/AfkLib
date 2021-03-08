@@ -5,7 +5,7 @@
 namespace afk::str {
 
 // Checks
-bool isInteger(std::string str) {
+bool isInteger(const std::string& str) {
   try {
     std::stoi(str);
     return true;
@@ -14,12 +14,13 @@ bool isInteger(std::string str) {
   }
 }
 
-bool isBoolean(std::string str) {
-  std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-  return str == "true" || str == "false";
+bool isBoolean(const std::string& str) {
+  std::string copy = str;
+  std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
+  return copy == "true" || copy == "false";
 }
 
-bool isFloat(std::string str) {
+bool isFloat(const std::string& str) {
   try {
     std::stof(str);
     return true;
@@ -29,17 +30,18 @@ bool isFloat(std::string str) {
 }
 
 // Conversions
-int toInteger(std::string str) {
+int toInteger(const std::string& str) {
   return std::stoi(str);
 }
 
-bool toBoolean(std::string str) {
-  std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-  return str == "true";
+bool toBoolean(const std::string& str) {
+  std::string copy = str;
+  std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
+  return copy == "true";
 }
 
-float toFloat(std::string str) {
+float toFloat(const std::string& str) {
   return std::stof(str);
 }
 
-}
+}  // namespace afk::str

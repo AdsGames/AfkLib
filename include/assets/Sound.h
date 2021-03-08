@@ -1,5 +1,5 @@
-#ifndef ASSETS_SOUND_H
-#define ASSETS_SOUND_H
+#ifndef INCLUDE_ASSETS_SOUND_H_
+#define INCLUDE_ASSETS_SOUND_H_
 
 #include <SDL2/SDL_mixer.h>
 #include <string>
@@ -24,7 +24,7 @@ struct PlaySoundConfig {
 const PlaySoundConfig defaultConfig;
 
 /**
- * @brief Wrapper for allegro sample. Easy interface to interact with samples.
+ * @brief Wrapper for SDL Mix_Chunk. Easy interface to interact with samples.
  *
  * @author Danny Van Stemp and Allan Legemaate
  * @date 23/11/2018
@@ -62,15 +62,15 @@ class Sound {
 
  private:
   /**
-   * @brief Helper which loads an ALLEGRO_SAMPLE* from a file
+   * @brief Helper which loads an Mix_Chunk* from a file
    *
    * @param path Path to file
-   * @return ALLEGRO_SAMPLE* File that has been loaded
+   * @return Mix_Chunk* File that has been loaded
    * @throws FileIOException If sound can not be found at path
    */
   static Mix_Chunk* loadSample(const std::string& path);
 
-  /// Pointer to ALLEGRO_SAMPLE
+  /// Pointer to Mix_Chunk
   Mix_Chunk* sample;
 
   /// Allocated channel
@@ -80,6 +80,6 @@ class Sound {
   static unsigned int channel_counter;
 };
 
-}
+}  // namespace afk
 
-#endif  // ASSETS_SOUND_H
+#endif  // INCLUDE_ASSETS_SOUND_H_

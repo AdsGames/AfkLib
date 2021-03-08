@@ -101,7 +101,7 @@ SDL_Color Texture::getPixel(const int x, const int y) const {
   return rgb;
 }
 
-// Load allegro bitmap from file
+// Load SDL texture from file
 SDL_Texture* Texture::loadBitmap(const std::string& path) {
   // Attempt to load
   SDL_Surface* temp_surface = IMG_Load(path.c_str());

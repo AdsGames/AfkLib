@@ -1,5 +1,5 @@
-#ifndef ENTITIES_GAME_OBJECT_H
-#define ENTITIES_GAME_OBJECT_H
+#ifndef INCLUDE_ENTITIES_GAMEOBJECT_H_
+#define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 /// Unique id type alias
 using ObjId = unsigned int;
@@ -25,7 +25,7 @@ class GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit GameObject(Scene& scene,
+  explicit GameObject(const Scene& scene,
                       const float x = 0.0f,
                       const float y = 0.0f,
                       const int z = 0);
@@ -131,7 +131,7 @@ class GameObject {
 
  protected:
   /// Reference to registered scene
-  Scene& scene;
+  const Scene& scene;
 
   /// X position on x y plane
   float x;
@@ -157,4 +157,4 @@ class GameObject {
 };
 }  // namespace afk
 
-#endif  // ENTITIES_GAME_OBJECT_H
+#endif  // INCLUDE_ENTITIES_GAMEOBJECT_H_

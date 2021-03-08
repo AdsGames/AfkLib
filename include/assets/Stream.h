@@ -1,5 +1,5 @@
-#ifndef ASSETS_STREAM_H
-#define ASSETS_STREAM_H
+#ifndef INCLUDE_ASSETS_STREAM_H_
+#define INCLUDE_ASSETS_STREAM_H_
 
 #include <SDL2/SDL_mixer.h>
 #include <string>
@@ -7,7 +7,7 @@
 namespace afk {
 
 /**
- * @brief Wrapper for allegro sample including ability to store stream pointer.
+ * @brief Wrapper for sdl stream including ability to store stream pointer.
  * Use for single instance sounds like music
  *
  * @author Allan Legemaate
@@ -59,18 +59,18 @@ class Stream {
 
  private:
   /**
-   * @brief Load an ALLEGRO_AUDIO_STREAM* from file
+   * @brief Load an Mix_Chunk* from file
    *
    * @param path Path to stream
-   * @return ALLEGRO_AUDIO_STREAM* Loaded allegro audio stream
+   * @return Mix_Chunk* Loaded SDL audio stream
    * @throws FileIOException If stream can not be found at path
    */
   static Mix_Chunk* loadStream(const std::string& path);
 
-  /// Pointer to associated ALLEGRO_AUDIO_STREAM*
+  /// Pointer to associated Mix_Chunk*
   Mix_Chunk* stream;
 };
 
 }  // namespace afk
 
-#endif  // ASSETS_STREAM_H
+#endif  // INCLUDE_ASSETS_STREAM_H_

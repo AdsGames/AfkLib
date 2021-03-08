@@ -1,5 +1,5 @@
-#ifndef ENTITIES_UI_UIELEMENT
-#define ENTITIES_UI_UIELEMENT
+#ifndef INCLUDE_ENTITIES_UI_UIELEMENT_H_
+#define INCLUDE_ENTITIES_UI_UIELEMENT_H_
 
 #include <functional>
 #include <string>
@@ -27,7 +27,7 @@ class UIElement : public GameObject {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  UIElement(Scene& scene,
+  UIElement(const Scene& scene,
             const float x,
             const float y,
             const int z,
@@ -39,13 +39,13 @@ class UIElement : public GameObject {
    * elements.
    *
    */
-  virtual void draw() override;
+  void draw() override;
 
   /**
    * @brief Update ui element. Checks for collisions and clicks.
    *
    */
-  virtual void update() override;
+  void update() override;
 
   /**
    * @brief Set the visibility of element. When invisible, they will not be
@@ -93,4 +93,4 @@ class UIElement : public GameObject {
 
 }  // namespace afk
 
-#endif  // ENTITIES_UI_UIELEMENT
+#endif  // INCLUDE_ENTITIES_UI_UIELEMENT_H_

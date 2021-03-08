@@ -1,6 +1,6 @@
 
-#ifndef SERVICES_DISPLAY_DISPLAY_SERVICE_H
-#define SERVICES_DISPLAY_DISPLAY_SERVICE_H
+#ifndef INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
+#define INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
 
 #include <SDL2/SDL.h>
 #include <string>
@@ -29,7 +29,7 @@ enum class DisplayMode {
 };
 
 /**
- * @brief Manages allegro display pointer and allows easy manipulation of
+ * @brief Manages sdl display pointer and allows easy manipulation of
  * configuration
  *
  * @author Danny Van Stemp and Allan Legemaate
@@ -178,7 +178,7 @@ class DisplayService {
   /**
    * @brief Set the window icon
    *
-   * @param path Path to allegro compatible image
+   * @param path Path to sdl compatible image
    */
   void setIcon(const std::string& path);
 
@@ -268,7 +268,7 @@ class DisplayService {
 
 }  // namespace afk
 
-#endif  // SERVICES_DISPLAY_DISPLAY_SERVICE_H
+#endif  // INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
 
 /**
  * @example ex_display.cpp

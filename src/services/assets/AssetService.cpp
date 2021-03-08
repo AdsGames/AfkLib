@@ -123,4 +123,4 @@ const Stream& AssetService::getStream(const std::string& key) {
   }
 }
 
-}
+}  // namespace afk

@@ -1,5 +1,5 @@
-#ifndef ASSETS_TEXTURE_H
-#define ASSETS_TEXTURE_H
+#ifndef INCLUDE_ASSETS_TEXTURE_H_
+#define INCLUDE_ASSETS_TEXTURE_H_
 
 #include <SDL2/SDL.h>
 #include <string>
@@ -7,7 +7,7 @@
 namespace afk {
 
 /**
- * @brief Easy interface to interact with allegro bitmaps
+ * @brief Easy interface to interact with sdl bitmaps
  *
  * @author Allan Legemaate
  * @date 10/08/2020
@@ -49,7 +49,7 @@ class Texture {
    *
    * @param x X position to draw to
    * @param y Y position to draw to
-   * @param flags Additional flags to pass to allegro draw routine
+   * @param flags Additional flags to pass to sdl draw routine
    * @see drawScaled
    */
   void draw(const int x, const int y) const;
@@ -61,7 +61,7 @@ class Texture {
    * @param y Y position to draw to
    * @param width Width to scale to
    * @param height Height to scale to
-   * @param flags Additional flags to pass to allegro draw routine
+   * @param flags Additional flags to pass to sdl draw routine
    */
   void drawScaled(const int x,
                   const int y,
@@ -113,6 +113,6 @@ class Texture {
   SDL_Texture* bitmap;
 };
 
-}
+}  // namespace afk
 
-#endif  // ASSETS_TEXTURE_H
+#endif  // INCLUDE_ASSETS_TEXTURE_H_

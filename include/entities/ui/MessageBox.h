@@ -1,6 +1,15 @@
-
-#ifndef ENTITIES_UI_MESSAGE_BOX
-#define ENTITIES_UI_MESSAGE_BOX
+/**
+ * @file MessageBox.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Native message box
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ENTITIES_UI_MESSAGEBOX_H_
+#define INCLUDE_ENTITIES_UI_MESSAGEBOX_H_
 
 #include <string>
 
@@ -19,8 +28,6 @@ enum class MessageBoxType {
 /**
  * @brief Native message box
  *
- * @author Allan Legemaate
- * @date 27/11/2020
  */
 class MessageBox {
  public:
@@ -28,7 +35,7 @@ class MessageBox {
    * @brief Construct a new Message Box object
    *
    */
-  MessageBox(MessageBoxType type);
+  explicit MessageBox(MessageBoxType type);
 
   /**
    * @brief Set the title of the message box
@@ -71,13 +78,13 @@ class MessageBox {
   MessageBoxType type;
 
   /**
-   * @brief Resolve type of box in allegro terms
+   * @brief Resolve type of box in sdl terms
    *
-   * @returns Type that allegro understands
+   * @returns Type that sdl understands
    */
   int resolveType();
 };
 
 }  // namespace afk
 
-#endif  // ENTITIES_UI_MESSAGE_BOX
+#endif  // INCLUDE_ENTITIES_UI_MESSAGEBOX_H_

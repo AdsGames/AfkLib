@@ -17,4 +17,4 @@ void NullAudioService::stopStream(const std::string& key) {
   (void)(key);
 }
 
-}
+}  // namespace afk

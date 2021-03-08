@@ -1,5 +1,7 @@
-#ifndef SERVICES_AUDIO_DEFAULT_AUDIO_SERVICE_H
-#define SERVICES_AUDIO_DEFAULT_AUDIO_SERVICE_H
+#ifndef INCLUDE_SERVICES_AUDIO_DEFAULTAUDIOSERVICE_H_
+#define INCLUDE_SERVICES_AUDIO_DEFAULTAUDIOSERVICE_H_
+
+#include <string>
 
 #include "AudioService.h"
 
@@ -17,23 +19,22 @@ class DefaultAudioService : public AudioService {
    * @brief Implementation of playSound
    *
    */
-  virtual void playSound(const std::string& key,
-                         const PlaySoundConfig& config) override;
+  void playSound(const std::string& key,
+                 const PlaySoundConfig& config) override;
 
   /**
    * @brief Implementation of playStream
    *
    */
-  virtual void playStream(const std::string& key,
-                          const bool loop = false) override;
+  void playStream(const std::string& key, const bool loop = false) override;
 
   /**
    * @brief Implementation of stopStream
    *
    */
-  virtual void stopStream(const std::string& key) override;
+  void stopStream(const std::string& key) override;
 };
 
 }  // namespace afk
 
-#endif  // SERVICES_AUDIO_DEFAULT_AUDIO_SERVICE_H
+#endif  // INCLUDE_SERVICES_AUDIO_DEFAULTAUDIOSERVICE_H_

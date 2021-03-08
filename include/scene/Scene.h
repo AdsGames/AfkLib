@@ -1,5 +1,5 @@
-#ifndef SCENE_SCENE_H
-#define SCENE_SCENE_H
+#ifndef INCLUDE_SCENE_SCENE_H_
+#define INCLUDE_SCENE_SCENE_H_
 
 #include <map>
 #include <memory>
@@ -173,4 +173,4 @@ class Scene {
 };
 }  // namespace afk
 
-#endif  // SCENE_SCENE_H
+#endif  // INCLUDE_SCENE_SCENE_H_

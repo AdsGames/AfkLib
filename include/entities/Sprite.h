@@ -1,6 +1,7 @@
-#ifndef ENGINE_ENTITIES_SPRITE_H
-#define ENGINE_ENTITIES_SPRITE_H
+#ifndef INCLUDE_ENTITIES_SPRITE_H_
+#define INCLUDE_ENTITIES_SPRITE_H_
 
+#include <string>
 #include <vector>
 
 #include "../assets/Texture.h"
@@ -24,7 +25,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit Sprite(Scene& scene,
+  explicit Sprite(const Scene& scene,
                   const float x = 0.0f,
                   const float y = 0.0f,
                   const int z = 0);
@@ -38,7 +39,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  Sprite(Scene& scene,
+  Sprite(const Scene& scene,
          const std::string& texture,
          const float x = 0.0f,
          const float y = 0.0f,
@@ -54,7 +55,7 @@ class Sprite : public GameObject {
    * @brief Hook into draw loop
    *
    */
-  virtual void draw() override;
+  void draw() override;
 
   /**
    * @brief Set the visibility of the sprite. Will not draw when not visible.
@@ -80,4 +81,4 @@ class Sprite : public GameObject {
 
 }  // namespace afk
 
-#endif  // ENGINE_ENTITIES_SPRITE_H
+#endif  // INCLUDE_ENTITIES_SPRITE_H_

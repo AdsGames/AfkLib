@@ -1,6 +1,6 @@
 
-#ifndef SERVICES_INPUT_KEYBOARD_STATE_H
-#define SERVICES_INPUT_KEYBOARD_STATE_H
+#ifndef INCLUDE_SERVICES_INPUT_KEYBOARDSTATE_H_
+#define INCLUDE_SERVICES_INPUT_KEYBOARDSTATE_H_
 
 #include "KeyboardKeys.h"
 
@@ -12,25 +12,25 @@ namespace afk {
  */
 struct KeyboardState {
   /// Individual key states
-  bool key[(int)Keys::KEY_MAX] = {false};
+  bool key[static_cast<int>(Keys::KEY_MAX)] = {false};
 
   /// keys just pressed
-  bool keyPressed[(int)Keys::KEY_MAX] = {false};
+  bool keyPressed[static_cast<int>(Keys::KEY_MAX)] = {false};
 
   /// keys just released
-  bool keyReleased[(int)Keys::KEY_MAX] = {false};
+  bool keyReleased[static_cast<int>(Keys::KEY_MAX)] = {false};
 
   /// Id of last key pressed
-  int lastKeyPressed = (int)Keys::KEY_UNKNOWN;
+  int lastKeyPressed = static_cast<int>(Keys::KEY_UNKNOWN);
 
   /// Id of last key released
-  int lastKeyReleased = (int)Keys::KEY_UNKNOWN;
+  int lastKeyReleased = static_cast<int>(Keys::KEY_UNKNOWN);
 
   /// True if any key down
   bool anyKeyDown = -1;
 
   /// Previous key states
-  bool lastTicksKey[(int)Keys::KEY_MAX] = {false};
+  bool lastTicksKey[static_cast<int>(Keys::KEY_MAX)] = {false};
 
   /**
    * @brief Update the keyboard state
@@ -43,7 +43,7 @@ struct KeyboardState {
     anyKeyDown = false;
 
     // Check key just pressed
-    for (int i = 0; i < (int)Keys::KEY_MAX; i++) {
+    for (int i = 0; i < static_cast<int>(Keys::KEY_MAX); i++) {
       // Clear old values
       keyPressed[i] = false;
       keyReleased[i] = false;
@@ -72,4 +72,4 @@ struct KeyboardState {
 
 }  // namespace afk
 
-#endif  // SERVICES_INPUT_KEYBOARD_STATE_H
+#endif  // INCLUDE_SERVICES_INPUT_KEYBOARDSTATE_H_

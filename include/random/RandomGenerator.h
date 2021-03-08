@@ -1,5 +1,5 @@
-#ifndef RANDOM_RANDOM_GENERATOR_H
-#define RANDOM_RANDOM_GENERATOR_H
+#ifndef INCLUDE_RANDOM_RANDOMGENERATOR_H_
+#define INCLUDE_RANDOM_RANDOMGENERATOR_H_
 
 #include <random>
 
@@ -37,4 +37,4 @@ class Random {
 
 }  // namespace afk
 
-#endif  // RANDOM_RANDOM_GENERATOR_H
+#endif  // INCLUDE_RANDOM_RANDOMGENERATOR_H_

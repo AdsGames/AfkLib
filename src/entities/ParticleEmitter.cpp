@@ -9,7 +9,7 @@
 namespace afk {
 
 // Constructor
-ParticleEmitter::ParticleEmitter(Scene& scene,
+ParticleEmitter::ParticleEmitter(const Scene& scene,
                                  Particle particle,
                                  const float x,
                                  const float y,

@@ -46,7 +46,7 @@ bool Stream::isPlaying() const {
   return false;  // al_get_audio_stream_playing(stream);
 }
 
-// Load allegro sample from file
+// Load SDL sample from file
 Mix_Chunk* Stream::loadStream(const std::string& path) {
   // Attempt to load
   Mix_Chunk* temp_stream = Mix_LoadWAV(path.c_str());
@@ -60,4 +60,4 @@ Mix_Chunk* Stream::loadStream(const std::string& path) {
   return temp_stream;
 }
 
-}
+}  // namespace afk

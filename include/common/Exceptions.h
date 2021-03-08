@@ -1,5 +1,5 @@
-#ifndef COMMON_EXCEPTIONS_H
-#define COMMON_EXCEPTIONS_H
+#ifndef INCLUDE_COMMON_EXCEPTIONS_H_
+#define INCLUDE_COMMON_EXCEPTIONS_H_
 
 #include <stdexcept>
 #include <string>
@@ -96,4 +96,4 @@ class SceneLookupException : public std::runtime_error {
 
 }  // namespace afk
 
-#endif  // COMMON_EXCEPTIONS_H
+#endif  // INCLUDE_COMMON_EXCEPTIONS_H_

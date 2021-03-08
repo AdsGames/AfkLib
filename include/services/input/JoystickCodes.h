@@ -1,12 +1,15 @@
 /**
- * Joystick Codes
- * Danny Van Stemp
- * Defines for codes used for joystick
- * 20/11/2018
- **/
-
-#ifndef SERVICES_INPUT_JOYSTICK_CODES_H
-#define SERVICES_INPUT_JOYSTICK_CODES_H
+ * @file JoystickCodes.h
+ * @author Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Defines for codes used for joystick
+ * @version 0.1
+ * @date 2018-11-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_INPUT_JOYSTICKCODES_H_
+#define INCLUDE_SERVICES_INPUT_JOYSTICKCODES_H_
 
 namespace afk {
 
@@ -40,4 +43,4 @@ enum class JoystickSticks {
 
 }  // namespace afk
 
-#endif  // SERVICES_INPUT_JOYSTICK_CODES_H
+#endif  // INCLUDE_SERVICES_INPUT_JOYSTICKCODES_H_

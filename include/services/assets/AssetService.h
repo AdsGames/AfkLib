@@ -1,5 +1,5 @@
-#ifndef SERVICES_ASSETS_ASSET_SERVICE_H
-#define SERVICES_ASSETS_ASSET_SERVICE_H
+#ifndef INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
+#define INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
 
 #include <map>
 #include <string>
@@ -137,4 +137,4 @@ class AssetService {
 
 }  // namespace afk
 
-#endif  // SERVICES_ASSETS_ASSET_SERVICE_H
+#endif  // INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_

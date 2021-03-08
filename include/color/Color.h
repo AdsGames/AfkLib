@@ -1,5 +1,5 @@
-#ifndef ENGINE_COLOR_COLOR_H
-#define ENGINE_COLOR_COLOR_H
+#ifndef INCLUDE_COLOR_COLOR_H_
+#define INCLUDE_COLOR_COLOR_H_
 
 #include <SDL2/SDL2_gfxPrimitives.h>
 
@@ -19,4 +19,4 @@ Uint32 colorToInt(const SDL_Color colour);
 
 }  // namespace afk::color
 
-#endif  // ENGINE_COLOR_COLOR_H
+#endif  // INCLUDE_COLOR_COLOR_H_
