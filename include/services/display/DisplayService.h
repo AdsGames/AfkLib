@@ -176,14 +176,6 @@ class DisplayService : public Service {
   void resize(const unsigned int window_w, const unsigned int window_h);
 
   /**
-   * @brief Draw a scene. Calls the draw and draw_internal functions of a given
-   * Scene object
-   *
-   * @param current_scene Scene to draw
-   */
-  void draw(afk::Scene* current_scene);
-
-  /**
    * @brief Set the window title
    *
    * @param title String to show in title
@@ -219,6 +211,14 @@ class DisplayService : public Service {
   SDL_Window* getWindow();
 
  private:
+  /**
+   * @brief Draw a scene. Calls the draw and draw_internal functions of a given
+   * Scene object
+   *
+   * @param current_scene Scene to draw
+   */
+  void draw(Scene* current_scene);
+
   /// Width of buffer
   unsigned int draw_w = 0;
 

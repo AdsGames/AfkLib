@@ -8,7 +8,7 @@
 namespace afk {
 
 // Ctor
-Button::Button(afk::Scene& scene,
+Button::Button(Scene& scene,
                const int x,
                const int y,
                const int z,
@@ -19,7 +19,7 @@ Button::Button(afk::Scene& scene,
   this->width = this->font.getWidth(text);
 }
 
-Button::Button(afk::Scene& scene,
+Button::Button(Scene& scene,
                const int x,
                const int y,
                const int z,
@@ -42,13 +42,13 @@ void Button::draw() {
     image.draw(x, y);
   } else {
     // Draw button background
-    primitives::rectfill(x, y, width, height, Color::rgb(255, 255, 255));
+    primitives::rectfill(x, y, width, height, color::rgb(255, 255, 255));
 
     // Draw button border
-    primitives::rect(x, y, width, height, Color::rgb(0, 0, 0));
+    primitives::rect(x, y, width, height, color::rgb(0, 0, 0));
 
     // Text
-    font.draw(x, y, text, Color::rgb(0, 0, 0));
+    font.draw(x, y, text, color::rgb(0, 0, 0));
   }
 }
 

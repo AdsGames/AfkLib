@@ -28,7 +28,7 @@ class Particle {
            ParticleType type);
 
   void update();
-  void scroll(float x, float y);
+
   void draw();
 
  private:

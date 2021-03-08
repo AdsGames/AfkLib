@@ -27,7 +27,7 @@ int Font::getHeight() {
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  SDL_Texture* texture = renderText(renderer, "a", Color::rgb(0, 0, 0));
+  SDL_Texture* texture = renderText(renderer, "a", color::rgb(0, 0, 0));
 
   int h;
   SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &h);
@@ -48,7 +48,7 @@ int Font::getWidth(const std::string& text) {
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
   SDL_Texture* texture =
-      renderText(renderer, text.c_str(), Color::rgb(0, 0, 0));
+      renderText(renderer, text.c_str(), color::rgb(0, 0, 0));
 
   int w;
   SDL_QueryTexture(texture, nullptr, nullptr, &w, nullptr);

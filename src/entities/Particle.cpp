@@ -1,4 +1,4 @@
-#include "particles/Particle.h"
+#include "entities/Particle.h"
 
 namespace afk {
 
@@ -22,12 +22,6 @@ Particle::Particle(float x,
 void Particle::update() {
   x += velocity_x;
   y += velocity_y;
-}
-
-// Scroll by
-void Particle::scroll(float x, float y) {
-  this->x += x;
-  this->y += y;
 }
 
 // Draw

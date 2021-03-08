@@ -97,7 +97,7 @@ void Texture::drawScaled(const int x,
 
 // Get colour at pixel
 SDL_Color Texture::getPixel(const int x, const int y) const {
-  SDL_Color rgb = {0, 0, 0};
+  SDL_Color rgb = {0, 0, 0, 0};
   return rgb;
 }
 

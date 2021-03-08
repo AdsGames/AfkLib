@@ -60,7 +60,7 @@ class SceneService : public Service {
    *
    * @return pointer to current scene
    */
-  afk::Scene* getSceneService();
+  Scene* getSceneService();
 
   /**
    * @brief Set the next scene to be loaded in. Upon calling, deletes current
@@ -80,7 +80,7 @@ class SceneService : public Service {
     std::string scene_id;
 
     /// Scene object
-    afk::Scene* scene;
+    Scene* scene;
   };
 
   /**
@@ -90,7 +90,7 @@ class SceneService : public Service {
   void changeScene();
 
   /// Current scene pointer
-  afk::Scene* current_scene = nullptr;
+  Scene* current_scene = nullptr;
 
   /// List of scene ids
   std::vector<SceneType> scenes;

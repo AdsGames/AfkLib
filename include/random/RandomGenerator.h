@@ -3,12 +3,14 @@
 
 #include <random>
 
+namespace afk {
+
 /**
  * @brief Random number generator
  * @author Allan Legemaate
  * @date 11/08/2020
  */
-class RandomGenerator {
+class Random {
  public:
   /**
    * @brief Returns a random float between two numbers
@@ -32,5 +34,7 @@ class RandomGenerator {
   /// Random number generator
   static std::mt19937 rng;
 };
+
+}  // namespace afk
 
 #endif  // RANDOM_RANDOM_GENERATOR_H

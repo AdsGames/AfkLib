@@ -52,7 +52,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const SDL_Color colour = Color::rgb(0, 0, 0));
+            const SDL_Color colour = color::rgb(0, 0, 0));
 
   /**
    * @brief Get the height of the font

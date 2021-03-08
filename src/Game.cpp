@@ -17,6 +17,8 @@
 #include <functional>
 #endif
 
+namespace afk {
+
 // Loop (emscripten compatibility)
 #ifdef __EMSCRIPTEN__
 EM_BOOL loop(double time, void* userData) {
@@ -28,7 +30,7 @@ EM_BOOL loop(double time, void* userData) {
 // Exit helper
 void showErrorDialog(const std::string& title,
                      const std::string& message = "") {
-  afk::MessageBox error(afk::ERROR);
+  MessageBox error(ERROR);
   error.setTitle(title);
   error.setHeading(title);
   error.setText(message);
@@ -36,25 +38,25 @@ void showErrorDialog(const std::string& title,
 }
 
 // Setup engine
-afk::Game::Game() : closing(false) {
+Game::Game() : closing(false) {
   // Setup engine
   setup();
 }
 
 // Shutdown engine
-afk::Game::~Game() {
+Game::~Game() {
   Services::getEventQueue().unregisterService(this);
 
   SDL_Quit();
 }
 
 // Get the name of service
-std::string afk::Game::getName() const {
+std::string Game::getName() const {
   return "Game Service";
 }
 
 // Start your engine!
-void afk::Game::start() {
+void Game::start() {
   try {
 #ifdef __EMSCRIPTEN__
     emscripten_request_animation_frame_loop(loop, 0);
@@ -74,7 +76,7 @@ void afk::Game::start() {
 }
 
 // Get event notification
-void afk::Game::notify(const SDL_Event& event) {
+void Game::notify(const SDL_Event& event) {
   // Exit
   if (event.type == SDL_QUIT) {
     closing = true;
@@ -82,7 +84,7 @@ void afk::Game::notify(const SDL_Event& event) {
 }
 
 // Sets up game
-void afk::Game::setup() {
+void Game::setup() {
   // Init allegro 5
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
     throw InitException("Could not init sdl");
@@ -114,4 +116,6 @@ void afk::Game::setup() {
 
   // Register self with event queue
   Services::getEventQueue().registerService(this);
+}
+
 }

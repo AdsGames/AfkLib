@@ -4,7 +4,7 @@
 #include <fstream>
 
 #include "common/Exceptions.h"
-#include "common/stringFns.h"
+#include "common/str.h"
 #include "services/Services.h"
 
 namespace afk {
@@ -40,12 +40,12 @@ void ConfigService::load(const std::string& path) {
     std::string value = line.substr(delimLoc + 1, line.length());
 
     // Conversion
-    if (stringFns::isBoolean(value)) {
-      settings[key] = stringFns::toBoolean(value);
-    } else if (stringFns::isInteger(value)) {
-      settings[key] = stringFns::toInteger(value);
-    } else if (stringFns::isFloat(value)) {
-      settings[key] = stringFns::toFloat(value);
+    if (str::isBoolean(value)) {
+      settings[key] = str::toBoolean(value);
+    } else if (str::isInteger(value)) {
+      settings[key] = str::toInteger(value);
+    } else if (str::isFloat(value)) {
+      settings[key] = str::toFloat(value);
     } else {
       settings[key] = value;
     }

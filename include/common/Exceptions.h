@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Exception raised when a file is not found
  *
@@ -91,5 +93,7 @@ class SceneLookupException : public std::runtime_error {
   explicit SceneLookupException(const std::string& msg)
       : std::runtime_error(msg) {}
 };
+
+}  // namespace afk
 
 #endif  // COMMON_EXCEPTIONS_H

@@ -50,7 +50,7 @@ void SceneService::notify(const SDL_Event& event) {
 }
 
 // Get scene
-afk::Scene* SceneService::getSceneService() {
+Scene* SceneService::getSceneService() {
   return this->current_scene;
 }
 

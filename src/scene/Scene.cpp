@@ -4,15 +4,17 @@
 
 #include "entities/GameObject.h"
 
+namespace afk {
+
 // Internal cleanup (on switch scene)
-void afk::Scene::stopInternal() {
+void Scene::stopInternal() {
   update_pool.clear();
   lookup_map.clear();
   collider_map.clear();
 }
 
 // Draw internal method
-void afk::Scene::drawInternal() {
+void Scene::drawInternal() {
   // Draw
   for (auto& obj : update_pool) {
     obj->draw();
@@ -20,7 +22,7 @@ void afk::Scene::drawInternal() {
 }
 
 // Internal update method
-void afk::Scene::updateInternal() {
+void Scene::updateInternal() {
   // Update all
   for (unsigned int i = 0; i < update_pool.size(); i++) {
     GameObject& obj = *update_pool.at(i);
@@ -47,14 +49,14 @@ void afk::Scene::updateInternal() {
 }
 
 // Remove game object from scene
-void afk::Scene::remove(const ObjId id) {
+void Scene::remove(const ObjId id) {
   const unsigned int index = lookup_map.at(id);
   update_pool.erase(update_pool.begin() + index);
   sortGameObjects();
 }
 
 // Add collider between two game objects
-void afk::Scene::addCollider(const ObjId id1, const ObjId id2) {
+void Scene::addCollider(const ObjId id1, const ObjId id2) {
   // Add collider 1
   if (collider_map.count(id1) > 0) {
     collider_map.at(id1).push_back(id2);
@@ -71,7 +73,7 @@ void afk::Scene::addCollider(const ObjId id1, const ObjId id2) {
 }
 
 // Sort game objects by Z
-void afk::Scene::sortGameObjects() {
+void Scene::sortGameObjects() {
   // Z sort, use defined < operator
   std::sort(update_pool.begin(), update_pool.end(),
             [](auto& obj1, auto& obj2) -> bool { return *obj1 < *obj2; });
@@ -84,4 +86,6 @@ void afk::Scene::sortGameObjects() {
     const int id = update_pool.at(i)->getId();
     lookup_map[id] = i;
   }
+}
+
 }

@@ -265,7 +265,7 @@ void DisplayService::setMode(const DISPLAY_MODE mode) {
   }
 }
 
-void DisplayService::draw(afk::Scene* current_scene) {
+void DisplayService::draw(Scene* current_scene) {
   if (!window || !renderer) {
     return;
   }
@@ -284,7 +284,7 @@ void DisplayService::draw(afk::Scene* current_scene) {
     frames_array[i] = frames_array[i - 1];
   }
 
-  frames_array[0] = (1.0 / (SDL_GetTicks() - old_time));
+  frames_array[0] = (1000.0 / (SDL_GetTicks() - old_time));
   old_time = SDL_GetTicks();
 
   unsigned int fps_total = 0;

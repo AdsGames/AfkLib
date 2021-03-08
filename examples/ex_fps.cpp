@@ -31,8 +31,8 @@ class DemoScene : public afk::Scene {
     label_id = add<afk::Label>(*this, 10, 5, 0, "fps", "freesans");
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
-      int x = RandomGenerator::randomInt(0, SCREEN_W);
-      int y = RandomGenerator::randomInt(0, SCREEN_H);
+      int x = afk::Random::randomInt(0, SCREEN_W);
+      int y = afk::Random::randomInt(0, SCREEN_H);
       sprites[i] = add<afk::Sprite>(*this, "lenna", x, y);
       get<afk::Sprite>(sprites[i]).setSize(SPRITE_SIZE, SPRITE_SIZE);
     }
