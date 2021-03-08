@@ -1,18 +1,26 @@
-#ifndef ENGINE_H
-#define ENGINE_H
+/**
+ * @file Game.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief The main entry point of a AFK program
+ * @version 0.1
+ * @date 2020-11-07
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_GAME_H_
+#define INCLUDE_GAME_H_
 
 #include <string>
 
 #include "services/Service.h"
 
+namespace afk {
+
 /**
  * @brief Core game class, manages scenes and sets up locator and sdl
  *
- * @author Allan Legemaate
- * @date 7/11/2020
  */
-namespace afk {
-
 class Game : public Service {
  public:
   /**
@@ -48,7 +56,7 @@ class Game : public Service {
    */
   void notify(const SDL_Event& ev);
 
-  private:
+ private:
   /**
    * @brief Sets up core engine features and sdl2
    *
@@ -61,4 +69,4 @@ class Game : public Service {
 
 }  // namespace afk
 
-#endif  // GAME_H
+#endif  // INCLUDE_GAME_H_

@@ -1,5 +1,15 @@
-#ifndef SERVICES_SERVICE_H
-#define SERVICES_SERVICE_H
+/**
+ * @file Service.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Service subscriber that can listen for events
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_SERVICE_H_
+#define INCLUDE_SERVICES_SERVICE_H_
 
 #include <SDL2/SDL_events.h>
 #include <string>
@@ -7,10 +17,7 @@
 namespace afk {
 
 /**
- * @brief Service parent type
- *
- * @author Allan Legemaate
- * @date 27/11/2020
+ * @brief Service parent type, interface to allow listening for events
  */
 class Service {
  public:
@@ -31,4 +38,4 @@ class Service {
 
 }  // namespace afk
 
-#endif  // SERVICES_SERVICE_H
+#endif  // INCLUDE_SERVICES_SERVICE_H_
