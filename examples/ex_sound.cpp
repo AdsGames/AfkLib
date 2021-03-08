@@ -12,12 +12,14 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_mouse");
 
     afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadAudio("win", "assets/win.wav");
   }
+
+  void draw() {}
 
   void update() {
     afk::InputService& input = afk::Services::getInputService();
@@ -32,9 +34,6 @@ class DemoScene : public afk::Scene {
     afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Stopping!");
   }
-
- private:
-  ObjId lennaId;
 };
 
 int main(int argv, char** args) {

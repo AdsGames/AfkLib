@@ -6,7 +6,7 @@ namespace afk {
 
 void DefaultAudioService::playSound(const std::string& key,
                                     const PlaySoundConfig& config) {
-  Sound sound = Services::getAssetService().getAudioService(key);
+  Sound sound = Services::getAssetService().getAudio(key);
   sound.play(config);
 }
 

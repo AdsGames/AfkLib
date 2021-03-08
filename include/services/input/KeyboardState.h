@@ -12,25 +12,25 @@ namespace afk {
  */
 struct KeyboardState {
   /// Individual key states
-  bool key[Keys::KEY_MAX] = {false};
+  bool key[(int)Keys::KEY_MAX] = {false};
 
   /// keys just pressed
-  bool keyPressed[Keys::KEY_MAX] = {false};
+  bool keyPressed[(int)Keys::KEY_MAX] = {false};
 
   /// keys just released
-  bool keyReleased[Keys::KEY_MAX] = {false};
+  bool keyReleased[(int)Keys::KEY_MAX] = {false};
 
   /// Id of last key pressed
-  int lastKeyPressed = -1;
+  int lastKeyPressed = (int)Keys::KEY_UNKNOWN;
 
   /// Id of last key released
-  int lastKeyReleased = -1;
+  int lastKeyReleased = (int)Keys::KEY_UNKNOWN;
 
   /// True if any key down
-  bool anyKeyPressed = -1;
+  bool anyKeyDown = -1;
 
   /// Previous key states
-  bool lastTicksKey[Keys::KEY_MAX] = {false};
+  bool lastTicksKey[(int)Keys::KEY_MAX] = {false};
 
   /**
    * @brief Update the keyboard state
@@ -40,16 +40,16 @@ struct KeyboardState {
     // Reset last key
     lastKeyPressed = -1;
     lastKeyReleased = -1;
-    anyKeyPressed = false;
+    anyKeyDown = false;
 
     // Check key just pressed
-    for (int i = 0; i < Keys::KEY_MAX; i++) {
+    for (int i = 0; i < (int)Keys::KEY_MAX; i++) {
       // Clear old values
       keyPressed[i] = false;
       keyReleased[i] = false;
 
       if (key[i]) {
-        anyKeyPressed = true;
+        anyKeyDown = true;
       }
 
       // Pressed since last tick?

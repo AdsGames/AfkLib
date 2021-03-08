@@ -42,7 +42,7 @@ class AssetService {
    * @throws KeyLookupException Thrown if no object can be found for `key`
    * @see loadAudio
    */
-  const Sound& getAudioService(const std::string& key);
+  const Sound& getAudio(const std::string& key);
 
   /**
    * @brief Get reference to audio by key reference

@@ -88,4 +88,4 @@ void Scene::sortGameObjects() {
   }
 }
 
-}
+}  // namespace afk

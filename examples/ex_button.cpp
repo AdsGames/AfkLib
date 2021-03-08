@@ -13,7 +13,7 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_button");
 
     afk::AssetService& assets = afk::Services::getAssetService();
@@ -23,13 +23,15 @@ class DemoScene : public afk::Scene {
         addObj<afk::Button>(*this, 10, 10, 10, "CLICK ME", "freesans");
 
     button.setOnClick([]() {
-      afk::MessageBox message_box(afk::INFO);
+      afk::MessageBox message_box(afk::MessageBoxType::INFO);
       message_box.setTitle("Nice");
       message_box.setHeading("You Clicked");
       message_box.setText("The button");
       message_box.show();
     });
   }
+
+  void draw() {}
 
   void update() {}
 

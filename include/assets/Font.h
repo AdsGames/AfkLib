@@ -8,6 +8,8 @@
 
 namespace afk {
 
+enum class FontAlign { ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER };
+
 /**
  * @brief Easy interface to interact with allegro fonts
  *
@@ -47,12 +49,13 @@ class Font {
    * @param y Y position in pixels
    * @param text Text to draw with font
    * @param colour Allegro colour to colour text
-   * @param flags Additional ALLEGRO_FONT flags
+   * @param align Text alignment, defaults to left
    */
   void draw(const int x,
             const int y,
             const std::string& text,
-            const SDL_Color colour = color::rgb(0, 0, 0));
+            const SDL_Color colour = color::rgb(0, 0, 0),
+            const FontAlign align = FontAlign::ALIGN_LEFT);
 
   /**
    * @brief Get the height of the font
@@ -104,6 +107,6 @@ class Font {
                           const SDL_Color colour);
 };
 
-}
+}  // namespace afk
 
 #endif  // ASSETS_FONT_H

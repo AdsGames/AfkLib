@@ -10,9 +10,6 @@
 
 namespace afk {
 
-// Constant defining number of samples to reserve
-const int NUM_SAMPLES = 20;
-
 // Constructor
 AssetService::AssetService() {
   // Images
@@ -42,6 +39,8 @@ void AssetService::loadImage(const std::string& key, const std::string& path) {
 
   try {
     loaded_image[key] = Texture(path);
+  } catch (const std::runtime_error& e) {
+    throw FileIOException(e.what());
   } catch (...) {
     throw FileIOException("Could not load image " + key);
   }
@@ -53,6 +52,8 @@ void AssetService::loadAudio(const std::string& key, const std::string& path) {
 
   try {
     loaded_audio[key] = Sound(path);
+  } catch (const std::runtime_error& e) {
+    throw FileIOException(e.what());
   } catch (...) {
     throw FileIOException("Could not load sound " + key);
   }
@@ -79,6 +80,8 @@ void AssetService::loadStream(const std::string& key, const std::string& path) {
 
   try {
     loaded_stream[key] = Stream(path);
+  } catch (const std::runtime_error& e) {
+    throw FileIOException(e.what());
   } catch (...) {
     throw FileIOException("Could not load stream " + key);
   }
@@ -94,7 +97,7 @@ const Texture& AssetService::getImage(const std::string& key) {
 }
 
 // Get audio reference
-const Sound& AssetService::getAudioService(const std::string& key) {
+const Sound& AssetService::getAudio(const std::string& key) {
   try {
     return loaded_audio.at(key);
   } catch (const std::out_of_range&) {

@@ -11,9 +11,11 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(100, 100);
     display.setBufferSize(100, 100);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_display");
   }
+
+  void draw() {}
 
   void update() {}
 

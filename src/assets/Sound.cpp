@@ -42,10 +42,11 @@ Mix_Chunk* Sound::loadSample(const std::string& path) {
 
   // Throw exception if file is not loaded
   if (!temp_sample) {
-    throw FileIOException("There was an error loading sound " + path);
+    throw FileIOException("There was an error loading sound " + path + " (" +
+                          Mix_GetError() + ")");
   }
 
   return temp_sample;
 }
 
-}
+}  // namespace afk

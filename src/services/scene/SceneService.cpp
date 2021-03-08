@@ -8,45 +8,27 @@
 
 namespace afk {
 
-// Update ticks per second
-const Uint32 MS_PER_UPDATE = 50;
-
 // Register events
-SceneService::SceneService() {
-  // Register timer events
-  update_timer = Services::getEventQueue().registerTimer(MS_PER_UPDATE, 1);
-
-  // Register self
-  Services::getEventQueue().registerService(this);
-}
+SceneService::SceneService() {}
 
 // Unregister events
-SceneService::~SceneService() {
-  // Unregister self
-  Services::getEventQueue().unregisterService(this);
+SceneService::~SceneService() {}
 
-  // Remove timer
-  Services::getEventQueue().unregisterTimer(update_timer);
-}
+// Update scene
+void SceneService::update() {
+  // Change scene (if needed)
+  changeScene();
 
-// Get the name of service
-std::string SceneService::getName() const {
-  return "Scene Service";
-}
-
-// Process event notification
-void SceneService::notify(const SDL_Event& event) {
-  // Update timer
-  if (event.type == SDL_USEREVENT && event.user.code == 1) {
-    // Change scene (if needed)
-    changeScene();
-
-    // Update scene
-    if (current_scene) {
-      current_scene->update();
-      current_scene->updateInternal();
-    }
+  // Update scene
+  if (current_scene) {
+    current_scene->update();
+    current_scene->updateInternal();
   }
+}
+
+// Update scene
+void SceneService::draw() {
+  Services::getDisplayService().draw(current_scene);
 }
 
 // Get scene
@@ -74,7 +56,7 @@ void SceneService::changeScene() {
 
   // Dad not found
   if (it == scenes.end()) {
-    throw SceneLookupException("Scene not found" + next_scene);
+    throw SceneLookupException("Scene not found (" + next_scene + ")");
   }
 
   // Create scene
@@ -97,4 +79,4 @@ void SceneService::setNextScene(const std::string& scene_id) {
   }
 }
 
-}
+}  // namespace afk

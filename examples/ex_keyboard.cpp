@@ -38,7 +38,7 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_keyboard");
 
     afk::AssetService& assets = afk::Services::getAssetService();
@@ -46,6 +46,8 @@ class DemoScene : public afk::Scene {
 
     add<Character>(*this, 100, 100);
   }
+
+  void draw() {}
 
   void update() {}
 

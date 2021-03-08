@@ -31,7 +31,7 @@ void rectfill(const int x,
 
 void circle(const int cx, const int cy, const int r, SDL_Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  circleColor(renderer, cx, cy, r, color::colorToInt(colour));
+  // circleColor(renderer, cx, cy, r, color::colorToInt(colour));
 }
 
 }  // namespace afk::primitives

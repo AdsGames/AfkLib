@@ -34,11 +34,11 @@ int MessageBox::show() {
 // Get type of box in allegro terms
 int MessageBox::resolveType() {
   switch (type) {
-    case ERROR:
+    case MessageBoxType::ERROR:
       return SDL_MESSAGEBOX_ERROR;
-    case INFO:
+    case MessageBoxType::INFO:
       return SDL_MESSAGEBOX_INFORMATION;
-    case WARN:
+    case MessageBoxType::WARN:
     default:
       return SDL_MESSAGEBOX_WARNING;
   }

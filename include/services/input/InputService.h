@@ -32,6 +32,12 @@ class InputService : public Service {
   virtual ~InputService();
 
   /**
+   * @brief Update last keys/buttons etc.
+   *
+   */
+  void update();
+
+  /**
    * @brief Get the name of service
    *
    * @return name
@@ -65,6 +71,27 @@ class InputService : public Service {
    * @return Key state
    */
   bool keyDown(const Keys key) const;
+
+  /**
+   * @brief Get if any key is down
+   *
+   * @return Key down state
+   */
+  bool anyKeyDown() const;
+
+  /**
+   * @brief Get last key down
+   *
+   * @return Last key
+   */
+  int lastKeyPressed() const;
+
+  /**
+   * @brief Get last key released
+   *
+   * @return Last key
+   */
+  int lastKeyReleased() const;
 
   /**
    * @brief Get mouse button just down state
@@ -101,13 +128,35 @@ class InputService : public Service {
    */
   int mouseY() const;
 
- private:
   /**
-   * @brief Update last keys/buttons etc.
+   * @brief Get joystick status
    *
+   * @return Joystick enabled status
    */
-  void update();
+  bool joyEnabled() const;
 
+  /**
+   * @brief Get joy button just down state
+   *
+   * @return Key state
+   */
+  bool joyPressed(const JoystickButtons button) const;
+
+  /**
+   * @brief Get joy button just up state
+   *
+   * @return Key state
+   */
+  bool joyReleased(const JoystickButtons button) const;
+
+  /**
+   * @brief Get joy button down state
+   *
+   * @return Key state
+   */
+  bool joyDown(const JoystickButtons button) const;
+
+ private:
   /**
    * @brief Joystick button event handler
    *

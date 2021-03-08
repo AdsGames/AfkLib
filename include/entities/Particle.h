@@ -6,7 +6,7 @@
 #ifndef PARTICLES_PARTICLE_H
 #define PARTICLES_PARTICLE_H
 
-#include "primitives/Primitives.h"
+#include "../primitives/Primitives.h"
 
 namespace afk {
 

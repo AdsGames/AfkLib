@@ -13,11 +13,8 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_mouse");
-
-    afk::AssetService& assets = afk::Services::getAssetService();
-    assets.loadImage("lenna", "assets/lenna.png");
 
     afk::Particle particle(0, 0, afk::color::rgb(0, 255, 127), 1, 1, 2,
                            afk::ParticleType::SQUARE);
@@ -27,6 +24,8 @@ class DemoScene : public afk::Scene {
     emitter.setSize(30, 30);
     emitter.setPosition(100, 100);
   }
+
+  void draw() {}
 
   void update() {}
 

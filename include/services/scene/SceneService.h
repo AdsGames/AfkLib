@@ -1,7 +1,6 @@
 #ifndef SERVICES_SCENE_SCENE_SERVICE_H
 #define SERVICES_SCENE_SCENE_SERVICE_H
 
-#include <SDL2/SDL_timer.h>
 #include <string>
 #include <vector>
 
@@ -17,7 +16,7 @@ class Scene;
  * @author Allan Legemaate
  * @date 28/11/2020
  */
-class SceneService : public Service {
+class SceneService {
  public:
   /**
    * @brief Construct a new SceneService object
@@ -32,13 +31,6 @@ class SceneService : public Service {
   virtual ~SceneService();
 
   /**
-   * @brief Get the name of service
-   *
-   * @return name
-   */
-  std::string getName() const;
-
-  /**
    * @brief Add scene to engine
    *
    * @param scene_id to add to engine
@@ -49,11 +41,14 @@ class SceneService : public Service {
   }
 
   /**
-   * @brief Notify about changes in queue
-   *
-   * @param ev event to be processed
+   * @brief Update state
    */
-  void notify(const SDL_Event& ev);
+  void update();
+
+  /**
+   * @brief Draw state
+   */
+  void draw();
 
   /**
    * @brief Get the current scene
@@ -100,9 +95,6 @@ class SceneService : public Service {
 
   /// Next scene to load
   std::string next_scene;
-
-  /// Timer id
-  SDL_TimerID update_timer = 0;
 };
 
 }  // namespace afk

@@ -18,9 +18,10 @@ EventQueue::~EventQueue() {
 
 void EventQueue::process() {
   SDL_Event ev;
-  SDL_PollEvent(&ev);
-  for (Service* service : services) {
-    service->notify(ev);
+  while (SDL_PollEvent(&ev)) {
+    for (Service* service : services) {
+      service->notify(ev);
+    }
   }
 }
 
