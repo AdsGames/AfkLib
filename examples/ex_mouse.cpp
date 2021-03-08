@@ -31,10 +31,10 @@ class DemoScene : public afk::Scene {
     afk::InputService& input = afk::Services::getInputService();
     afk::Sprite& lenna = get<afk::Sprite>(lennaId);
 
-    if (input.mousePressed(afk::MouseButtons::BUTTON_LEFT)) {
+    if (input.mousePressed(afk::MouseButtons::LEFT)) {
       lenna.setPosition(input.mouseX(), input.mouseY());
     }
-    if (input.mouseDown(afk::MouseButtons::BUTTON_RIGHT)) {
+    if (input.mouseDown(afk::MouseButtons::RIGHT)) {
       lenna.setSize(input.mouseX(), input.mouseY());
     }
   }

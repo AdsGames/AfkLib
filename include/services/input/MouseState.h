@@ -7,10 +7,10 @@
 namespace afk {
 
 enum class MouseButtons {
-  BUTTON_LEFT = 1,
-  BUTTON_CENTER = 2,
-  BUTTON_RIGHT = 3,
-  BUTTON_MAX = 4,
+  LEFT = 1,
+  CENTER = 2,
+  RIGHT = 3,
+  MAX = 4,
 };
 
 /**
@@ -34,19 +34,19 @@ struct MouseState {
   int old_y = 0;
 
   /// Individual button states
-  bool button[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
+  bool button[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /// Buttons just pressed
-  bool down[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
+  bool down[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /// Buttons just released
-  bool up[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
+  bool up[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /// Mouse just moved
   bool moved = false;
 
   /// Previous button states
-  bool button_old[static_cast<int>(MouseButtons::BUTTON_MAX)] = {false};
+  bool button_old[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /**
    * @brief Update the mouse state
@@ -59,7 +59,7 @@ struct MouseState {
     old_y = y;
 
     // Check button just pressed
-    for (int i = 0; i < static_cast<int>(MouseButtons::BUTTON_MAX); i++) {
+    for (int i = 0; i < static_cast<int>(MouseButtons::MAX); i++) {
       // Just up
       if (button_old[i] && !button[i]) {
         up[i] = true;

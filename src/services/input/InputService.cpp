@@ -142,12 +142,12 @@ void InputService::onMouseEvent(const Uint32 event_type,
                                 const SDL_MouseButtonEvent event) {
   switch (event_type) {
     case SDL_MOUSEBUTTONUP:
-      if (event.button < static_cast<int>(MouseButtons::BUTTON_MAX)) {
+      if (event.button < static_cast<int>(MouseButtons::MAX)) {
         mouse_state.button[event.button] = false;
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      if (event.button < static_cast<int>(MouseButtons::BUTTON_MAX)) {
+      if (event.button < static_cast<int>(MouseButtons::MAX)) {
         mouse_state.button[event.button] = true;
       }
       break;
@@ -158,7 +158,7 @@ void InputService::onMouseEvent(const Uint32 event_type,
 
 // Get key just down state
 bool InputService::keyPressed(const Keys key) const {
-  if (key > Keys::KEY_MAX) {
+  if (key > Keys::MAX) {
     return false;
   }
   return keyboard_state.keyPressed[static_cast<int>(key)];
@@ -166,7 +166,7 @@ bool InputService::keyPressed(const Keys key) const {
 
 // Get key just up state
 bool InputService::keyReleased(const Keys key) const {
-  if (key > Keys::KEY_MAX) {
+  if (key > Keys::MAX) {
     return false;
   }
   return keyboard_state.keyReleased[static_cast<int>(key)];
@@ -174,7 +174,7 @@ bool InputService::keyReleased(const Keys key) const {
 
 // Get key down state
 bool InputService::keyDown(const Keys key) const {
-  if (key > Keys::KEY_MAX) {
+  if (key > Keys::MAX) {
     return false;
   }
   return keyboard_state.key[static_cast<int>(key)];
@@ -197,7 +197,7 @@ int InputService::lastKeyReleased() const {
 
 // Get mouse button just down state
 bool InputService::mousePressed(const MouseButtons button) const {
-  if (button > MouseButtons::BUTTON_MAX) {
+  if (button > MouseButtons::MAX) {
     return false;
   }
   return mouse_state.down[static_cast<int>(button)];
@@ -205,7 +205,7 @@ bool InputService::mousePressed(const MouseButtons button) const {
 
 // Get mouse button just up state
 bool InputService::mouseReleased(const MouseButtons button) const {
-  if (button > MouseButtons::BUTTON_MAX) {
+  if (button > MouseButtons::MAX) {
     return false;
   }
   return mouse_state.up[static_cast<int>(button)];
@@ -213,7 +213,7 @@ bool InputService::mouseReleased(const MouseButtons button) const {
 
 // Get mouse button down state
 bool InputService::mouseDown(const MouseButtons button) const {
-  if (button > MouseButtons::BUTTON_MAX) {
+  if (button > MouseButtons::MAX) {
     return false;
   }
   return mouse_state.button[static_cast<int>(button)];

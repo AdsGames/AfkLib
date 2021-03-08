@@ -42,7 +42,7 @@ void UIElement::update() {
 
   InputService& input = Services::getInputService();
 
-  if (input.mousePressed(MouseButtons::BUTTON_LEFT)) {
+  if (input.mousePressed(MouseButtons::LEFT)) {
     bool is_colliding = input.mouseX() < x + width &&
                         input.mouseY() < y + height && input.mouseX() > x &&
                         input.mouseY() > y;

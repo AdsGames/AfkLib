@@ -14,16 +14,16 @@ class Character : public afk::Sprite {
   void update() {
     afk::InputService& input = afk::Services::getInputService();
 
-    if (input.keyDown(afk::Keys::KEY_UP)) {
+    if (input.keyDown(afk::Keys::UP)) {
       setPosition(x, y - 5);
     }
-    if (input.keyDown(afk::Keys::KEY_DOWN)) {
+    if (input.keyDown(afk::Keys::DOWN)) {
       setPosition(x, y + 5);
     }
-    if (input.keyDown(afk::Keys::KEY_LEFT)) {
+    if (input.keyDown(afk::Keys::LEFT)) {
       setPosition(x - 5, y);
     }
-    if (input.keyDown(afk::Keys::KEY_RIGHT)) {
+    if (input.keyDown(afk::Keys::RIGHT)) {
       setPosition(x + 5, y);
     }
   }

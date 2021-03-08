@@ -25,7 +25,7 @@ class DemoScene : public afk::Scene {
     afk::InputService& input = afk::Services::getInputService();
     afk::AudioService& audio = afk::Services::getAudioService();
 
-    if (input.mousePressed(afk::MouseButtons::BUTTON_LEFT)) {
+    if (input.mousePressed(afk::MouseButtons::LEFT)) {
       audio.playSound("win", {127, 0, 1.0f, false});
     }
   }

@@ -14,18 +14,18 @@
 namespace afk {
 
 enum class JoystickButtons {
-  JOY_XBOX_A = 0,
-  JOY_XBOX_B = 1,
-  JOY_XBOX_X = 2,
-  JOY_XBOX_Y = 3,
-  JOY_XBOX_BUMPER_RIGHT = 4,
-  JOY_XBOX_BUMPER_LEFT = 5,
-  JOY_XBOX_BACK = 8,
-  JOY_XBOX_START = 9,
-  JOY_XBOX_PAD_RIGHT = 10,
-  JOY_XBOX_PAD_LEFT = 11,
-  JOY_XBOX_PAD_DOWN = 12,
-  JOY_XBOX_PAD_UP = 13
+  A = 0,
+  B = 1,
+  X = 2,
+  Y = 3,
+  BUMPER_RIGHT = 4,
+  BUMPER_LEFT = 5,
+  BACK = 8,
+  START = 9,
+  PAD_RIGHT = 10,
+  PAD_LEFT = 11,
+  PAD_DOWN = 12,
+  PAD_UP = 13
 };
 
 enum class JoystickSticks {
