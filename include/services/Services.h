@@ -1,5 +1,15 @@
-#ifndef SERVICES_LOCATOR_H
-#define SERVICES_LOCATOR_H
+/**
+ * @file Services.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Service locator in charge of finding core engine services.
+ * @version 0.1
+ * @date 2020-11-07
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_SERVICES_H_
+#define INCLUDE_SERVICES_SERVICES_H_
 
 #include <memory>
 
@@ -16,9 +26,6 @@ namespace afk {
 
 /**
  * @brief Core service locator for engine services
- *
- * @author Allan Legemaate
- * @date 7/11/2020
  */
 class Services {
  public:
@@ -205,4 +212,4 @@ class Services {
 
 }  // namespace afk
 
-#endif  // SERVICES_LOCATOR_H
+#endif  // INCLUDE_SERVICES_SERVICES_H_

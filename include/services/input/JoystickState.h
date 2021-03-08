@@ -1,6 +1,17 @@
-
-#ifndef SERVICES_INPUT_JOYSTICK_STATE_H
-#define SERVICES_INPUT_JOYSTICK_STATE_H
+/**
+ * @file JoystickState.h
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Container for storing Joystick state
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
+#define INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
 
 #include <SDL2/SDL_events.h>
 
@@ -121,4 +132,4 @@ struct JoystickState {
 
 }  // namespace afk
 
-#endif  // SERVICES_INPUT_JOYSTICK_STATE_H
+#endif  // INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_

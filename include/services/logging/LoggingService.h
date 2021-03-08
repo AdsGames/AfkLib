@@ -1,20 +1,27 @@
-#ifndef SERVICES_LOGGING_LOGGING_SERVICE_H
-#define SERVICES_LOGGING_LOGGING_SERVICE_H
+/**
+ * @file LoggingService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Default logging service. Does nothing. Use in production.
+ * @version 0.1
+ * @date 2020-10-06
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
+#define INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
 
 #include <string>
-
 namespace afk {
 
 /**
  * Logging Service
  * @brief Default logger class, can be overridden
  *
- * @author Allan Legemaate
- * @date 06/10/2020
  **/
 class LoggingService {
  public:
-  virtual ~LoggingService(){};
+  virtual ~LoggingService() {}
 
   /**
    * @brief Does nothing
@@ -26,4 +33,4 @@ class LoggingService {
 
 }  // namespace afk
 
-#endif  // SERVICES_LOGGING_LOGGING_SERVICE_H
+#endif  // INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_

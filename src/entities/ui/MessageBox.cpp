@@ -1,3 +1,13 @@
+/**
+ * @file MessageBox.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of MessageBox
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/MessageBox.h"
 
 #include "services/Services.h"
@@ -31,7 +41,7 @@ int MessageBox::show() {
   return return_code;
 }
 
-// Get type of box in allegro terms
+// Get type of box in SDL terms
 int MessageBox::resolveType() {
   switch (type) {
     case MessageBoxType::ERROR:
@@ -44,4 +54,4 @@ int MessageBox::resolveType() {
   }
 }
 
-}
+}  // namespace afk

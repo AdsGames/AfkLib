@@ -1,3 +1,13 @@
+/**
+ * @file SceneService.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of SceneService
+ * @version 0.1
+ * @date 2020-11-28
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/scene/SceneService.h"
 
 #include <algorithm>

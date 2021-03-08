@@ -1,5 +1,16 @@
-#ifndef ENTITIES_UI_UIELEMENT
-#define ENTITIES_UI_UIELEMENT
+/**
+ * @file UIElement.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Parent class of many other UIElement subclasses. Handles most things
+ * that all UIElements may need.
+ * @version 0.1
+ * @date 2020-11-01
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ENTITIES_UI_UIELEMENT_H_
+#define INCLUDE_ENTITIES_UI_UIELEMENT_H_
 
 #include <functional>
 #include <string>
@@ -12,8 +23,6 @@ namespace afk {
 /**
  * @brief Parent class for other UI elements such as buttons and labels.
  *
- * @author Allan Legemaate
- * @date 01/11/2020
  */
 class UIElement : public GameObject {
  public:
@@ -27,7 +36,7 @@ class UIElement : public GameObject {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  UIElement(Scene& scene,
+  UIElement(const Scene& scene,
             const float x,
             const float y,
             const int z,
@@ -39,13 +48,13 @@ class UIElement : public GameObject {
    * elements.
    *
    */
-  virtual void draw() override;
+  void draw() override;
 
   /**
    * @brief Update ui element. Checks for collisions and clicks.
    *
    */
-  virtual void update() override;
+  void update() override;
 
   /**
    * @brief Set the visibility of element. When invisible, they will not be
@@ -93,4 +102,4 @@ class UIElement : public GameObject {
 
 }  // namespace afk
 
-#endif  // ENTITIES_UI_UIELEMENT
+#endif  // INCLUDE_ENTITIES_UI_UIELEMENT_H_

@@ -1,3 +1,14 @@
+/**
+ * @file InputService.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of InputService. Handles mouse, keyboard and
+ * joystick.
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/input/InputService.h"
 
 #include "common/Exceptions.h"
@@ -142,12 +153,12 @@ void InputService::onMouseEvent(const Uint32 event_type,
                                 const SDL_MouseButtonEvent event) {
   switch (event_type) {
     case SDL_MOUSEBUTTONUP:
-      if (event.button < (int)MouseButtons::BUTTON_MAX) {
+      if (event.button < static_cast<int>(MouseButtons::MAX)) {
         mouse_state.button[event.button] = false;
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      if (event.button < (int)MouseButtons::BUTTON_MAX) {
+      if (event.button < static_cast<int>(MouseButtons::MAX)) {
         mouse_state.button[event.button] = true;
       }
       break;
@@ -158,26 +169,26 @@ void InputService::onMouseEvent(const Uint32 event_type,
 
 // Get key just down state
 bool InputService::keyPressed(const Keys key) const {
-  if (key > Keys::KEY_MAX) {
+  if (key > Keys::MAX) {
     return false;
   }
-  return keyboard_state.keyPressed[(int)key];
+  return keyboard_state.keyPressed[static_cast<int>(key)];
 }
 
 // Get key just up state
 bool InputService::keyReleased(const Keys key) const {
-  if (key > Keys::KEY_MAX) {
+  if (key > Keys::MAX) {
     return false;
   }
-  return keyboard_state.keyReleased[(int)key];
+  return keyboard_state.keyReleased[static_cast<int>(key)];
 }
 
 // Get key down state
 bool InputService::keyDown(const Keys key) const {
-  if (key > Keys::KEY_MAX) {
+  if (key > Keys::MAX) {
     return false;
   }
-  return keyboard_state.key[(int)key];
+  return keyboard_state.key[static_cast<int>(key)];
 }
 
 // Get any key down state
@@ -197,26 +208,26 @@ int InputService::lastKeyReleased() const {
 
 // Get mouse button just down state
 bool InputService::mousePressed(const MouseButtons button) const {
-  if (button > MouseButtons::BUTTON_MAX) {
+  if (button > MouseButtons::MAX) {
     return false;
   }
-  return mouse_state.down[(int)button];
+  return mouse_state.down[static_cast<int>(button)];
 }
 
 // Get mouse button just up state
 bool InputService::mouseReleased(const MouseButtons button) const {
-  if (button > MouseButtons::BUTTON_MAX) {
+  if (button > MouseButtons::MAX) {
     return false;
   }
-  return mouse_state.up[(int)button];
+  return mouse_state.up[static_cast<int>(button)];
 }
 
 // Get mouse button down state
 bool InputService::mouseDown(const MouseButtons button) const {
-  if (button > MouseButtons::BUTTON_MAX) {
+  if (button > MouseButtons::MAX) {
     return false;
   }
-  return mouse_state.button[(int)button];
+  return mouse_state.button[static_cast<int>(button)];
 }
 
 // Get mouse x position
@@ -236,17 +247,17 @@ bool InputService::joyEnabled() const {
 
 // Get joy button just down state
 bool InputService::joyPressed(const JoystickButtons button) const {
-  return joystick_state.buttonPressed[(int)button];
+  return joystick_state.buttonPressed[static_cast<int>(button)];
 }
 
 // Get joy button just up state
 bool InputService::joyReleased(const JoystickButtons button) const {
-  return joystick_state.buttonReleased[(int)button];
+  return joystick_state.buttonReleased[static_cast<int>(button)];
 }
 
 // Get joy button down state
 bool InputService::joyDown(const JoystickButtons button) const {
-  return joystick_state.button[(int)button];
+  return joystick_state.button[static_cast<int>(button)];
 }
 
 }  // namespace afk

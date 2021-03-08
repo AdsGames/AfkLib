@@ -1,9 +1,20 @@
-#ifndef SERVICES_CONFIG_CONFIG_SERVICE_H
-#define SERVICES_CONFIG_CONFIG_SERVICE_H
+/**
+ * @file ConfigService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Header for default Config Service
+ * @version 0.1
+ * @date 2020-11-05
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
+#define INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
 
 #include <iostream>
 #include <map>
 #include <string>
+#include <utility>
 #include <variant>
 
 namespace afk {
@@ -24,8 +35,6 @@ typedef std::pair<std::string, SettingType> Setting;
  * @brief Class which can load and store setting key pair values in different
  * formats
  *
- * @author Allan Legemaate
- * @date 05/11/2020
  */
 class ConfigService {
  public:
@@ -143,4 +152,4 @@ class ConfigService {
 
 }  // namespace afk
 
-#endif  // SERVICES_CONFIG_CONFIG_SERVICE_H
+#endif  // INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_

@@ -1,27 +1,30 @@
+/**
+ * @file Color.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of color helper functions
+ * @version 0.1
+ * @date 2021-03-05
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "color/Color.h"
 
 namespace afk::color {
 
-SDL_Colour rgb(const unsigned char r,
-               const unsigned char g,
-               const unsigned char b) {
+// Create color from RGB
+Color rgb(const Uint8 r, const Uint8 g, const Uint8 b) {
   return rgba(r, g, b, 255);
 }
 
-SDL_Colour rgba(const unsigned char r,
-                const unsigned char g,
-                const unsigned char b,
-                const unsigned char a) {
-  SDL_Colour tempcol;
-  tempcol.r = r;
-  tempcol.g = g;
-  tempcol.b = b;
-  tempcol.a = a;
-  return tempcol;
+// Create color from rgba
+Color rgba(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a) {
+  return {r, g, b, a};
 }
 
-SDL_Color intToColor(const Uint32 colour) {
-  SDL_Colour tempcol;
+// Create color from int
+Color intToColor(const Uint32 colour) {
+  Color tempcol;
   tempcol.r = (colour >> 16) & 0xFF;
   tempcol.g = (colour >> 8) & 0xFF;
   tempcol.b = colour & 0xFF;
@@ -29,15 +32,18 @@ SDL_Color intToColor(const Uint32 colour) {
   return tempcol;
 }
 
+// Convert rgb to int
 Uint32 rgbToInt(const Uint8 r, const Uint8 g, const Uint8 b) {
   return rgbaToInt(r, g, b, 255);
 }
 
+// Convert rgba to int
 Uint32 rgbaToInt(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a) {
   return (Uint32)((a << 24) + (r << 16) + (g << 8) + (b << 0));
 }
 
-Uint32 colorToInt(const SDL_Color colour) {
+// Convert color to int
+Uint32 colorToInt(const Color colour) {
   return rgbaToInt(colour.r, colour.g, colour.b, colour.a);
 }
 

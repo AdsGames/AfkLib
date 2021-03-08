@@ -1,16 +1,36 @@
-#ifndef ASSETS_TEXTURE_H
-#define ASSETS_TEXTURE_H
+/**
+ * @file Texture.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Easy interface to interact with sdl bitmaps
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ASSETS_TEXTURE_H_
+#define INCLUDE_ASSETS_TEXTURE_H_
 
 #include <SDL2/SDL.h>
 #include <string>
 
+#include "color/Color.h"
+
 namespace afk {
 
 /**
- * @brief Easy interface to interact with allegro bitmaps
+ * @brief Flags to pass to draw mode
  *
- * @author Allan Legemaate
- * @date 10/08/2020
+ */
+enum class TextureDrawMode {
+  DEFAULT = 0,
+  FLIP_H = 2,
+  FLIP_V = 1,
+};
+
+/**
+ * @brief Easy interface to interact with sdl bitmaps
+ *
  */
 class Texture {
  public:
@@ -49,7 +69,6 @@ class Texture {
    *
    * @param x X position to draw to
    * @param y Y position to draw to
-   * @param flags Additional flags to pass to allegro draw routine
    * @see drawScaled
    */
   void draw(const int x, const int y) const;
@@ -61,22 +80,15 @@ class Texture {
    * @param y Y position to draw to
    * @param width Width to scale to
    * @param height Height to scale to
-   * @param flags Additional flags to pass to allegro draw routine
+   * @param angle Rotation of draw
+   * @param mode Optinal draw mode
    */
-  void drawScaled(const int x,
-                  const int y,
-                  const int width,
-                  const int height,
-                  const int flags = 0) const;
-
-  /**
-   * @brief Get the color at given position
-   *
-   * @param x X position to sample
-   * @param y Y position to sample
-   * @return Colour at pixel x y
-   */
-  SDL_Color getPixel(const int x, const int y) const;
+  void drawEx(const int x,
+              const int y,
+              const int width,
+              const int height,
+              const float angle = 180.0f,
+              const TextureDrawMode mode = TextureDrawMode::DEFAULT) const;
 
   /**
    * @brief Get the width of the texture
@@ -107,12 +119,12 @@ class Texture {
    * @return SDL_Texture* File that has been loaded
    * @throws FileIOException If texture can not be found at path
    */
-  static SDL_Texture* loadBitmap(const std::string& path);
+  static SDL_Texture* loadTexture(const std::string& path);
 
-  /// Pointer to referenced bitmap
-  SDL_Texture* bitmap;
+  /// Pointer to referenced texture
+  SDL_Texture* texture;
 };
 
-}
+}  // namespace afk
 
-#endif  // ASSETS_TEXTURE_H
+#endif  // INCLUDE_ASSETS_TEXTURE_H_

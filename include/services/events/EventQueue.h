@@ -1,5 +1,16 @@
-#ifndef SERVICES_EVENT_QUEUE_H
-#define SERVICES_EVENT_QUEUE_H
+/**
+ * @file EventQueue.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Handles SDL_Events from main SDL_Queue.
+ * Can be hooked  into by other services and notified when changes happen.
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
+#define INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
 
 #include <SDL2/SDL.h>
 #include <vector>
@@ -11,8 +22,6 @@ namespace afk {
 /**
  * @brief Houses event queue and works as
  *
- * @author Allan Legemaate
- * @date 27/11/2020
  */
 class EventQueue {
  public:
@@ -37,36 +46,37 @@ class EventQueue {
   /**
    * @brief Register service to be notified
    *
-   * @param service to hook into queue
+   * @param service Service to hook into queue
    */
   void registerService(Service* service);
 
   /**
    * @brief Unregister service from queue
    *
-   * @param service to remove from queue
+   * @param service Service to remove from queue
    */
   void unregisterService(Service* service);
 
   /**
    * @brief Register user timer
    *
-   * @param source to hook into queue
+   * @param time Time in ms to call timer at
+   * @param code User defined code to inject into timer
    */
   SDL_TimerID registerTimer(const Uint32 time, const char code);
 
   /**
    * @brief Unregister user timer
    *
-   * @param source to remove from queue
+   * @param timer Timer to remove from queue
    */
-  void unregisterTimer(const SDL_TimerID code);
+  void unregisterTimer(const SDL_TimerID timer);
 
   /**
    * @brief Timer callback for registered timers
    *
-   * @param interval to run at
-   * @param param user defined params
+   * @param interval MS per call, interval to run at
+   * @param param User defined params
    */
   static Uint32 timerCallback(Uint32 interval, void* param);
 
@@ -77,4 +87,4 @@ class EventQueue {
 
 }  // namespace afk
 
-#endif  // SERVICES_EVENT_QUEUE_H
+#endif  // INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_

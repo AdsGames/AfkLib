@@ -1,5 +1,17 @@
-#ifndef SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H
-#define SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H
+/**
+ * @file DebugLoggingService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Logging service that does the logging. Used for development
+ * @version 0.1
+ * @date 2020-10-06
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
+#define INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
+
+#include <string>
 
 #include "LoggingService.h"
 
@@ -9,8 +21,6 @@ namespace afk {
  * Debug Logger
  * @brief Actually logs messages
  *
- * @author Allan Legemaate
- * @date 06/10/2020
  **/
 class DebugLoggingService : public LoggingService {
  public:
@@ -19,9 +29,9 @@ class DebugLoggingService : public LoggingService {
    *
    * @param msg Message to log
    */
-  virtual void log(const std::string& msg) override;
+  void log(const std::string& msg) override;
 };
 
 }  // namespace afk
 
-#endif  // SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H
+#endif  // INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_

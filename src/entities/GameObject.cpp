@@ -1,3 +1,13 @@
+/**
+ * @file GameObject.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of GameObject class
+ * @version 0.1
+ * @date 2017-01-03
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/GameObject.h"
 
 #include "scene/Scene.h"
@@ -8,8 +18,11 @@ namespace afk {
 ObjId GameObject::index = 0;
 
 // Constructor
-GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
-    : scene(scene), x(x), y(y), z(z), height(0), width(0) {
+GameObject::GameObject(const Scene& scene,
+                       const float x,
+                       const float y,
+                       const int z)
+    : scene(scene), x(x), y(y), z(z), height(0), width(0), angle(180.0f) {
   this->id = GameObject::index;
   GameObject::index += 1;
 }
@@ -46,6 +59,11 @@ void GameObject::setPosition(const float x, const float y) {
   this->y = y;
 }
 
+// Set angle of game object in degrees
+void GameObject::setAngle(const float angle) {
+  this->angle = angle;
+}
+
 // Get z index
 int GameObject::getWidth() const {
   return width;
@@ -69,6 +87,11 @@ float GameObject::getY() const {
 // Get z index
 int GameObject::getZ() const {
   return z;
+}
+
+// Get z index
+float GameObject::getAngle() const {
+  return angle;
 }
 
 // Get unique id

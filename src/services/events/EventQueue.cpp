@@ -1,3 +1,13 @@
+/**
+ * @file EventQueue.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of EventQueue
+ * @version 0.1
+ * @date 2020-11-27
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include <SDL2/SDL_events.h>
 #include <algorithm>
 #include <functional>
@@ -57,7 +67,7 @@ Uint32 EventQueue::timerCallback(Uint32 interval, void* param) {
   SDL_Event event;
   SDL_UserEvent userevent;
 
-  char code = *((char*)param);
+  char code = *(reinterpret_cast<char*>(param));
 
   userevent.type = SDL_USEREVENT;
   userevent.code = code;

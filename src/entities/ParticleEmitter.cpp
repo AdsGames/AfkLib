@@ -1,3 +1,14 @@
+/**
+ * @file ParticleEmitter.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of a particle emitter.
+ * and configured.
+ * @version 0.1
+ * @date 2021-03-06
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ParticleEmitter.h"
 
 #include "color/Color.h"
@@ -9,7 +20,7 @@
 namespace afk {
 
 // Constructor
-ParticleEmitter::ParticleEmitter(Scene& scene,
+ParticleEmitter::ParticleEmitter(const Scene& scene,
                                  Particle particle,
                                  const float x,
                                  const float y,

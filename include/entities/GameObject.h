@@ -1,5 +1,17 @@
-#ifndef ENTITIES_GAME_OBJECT_H
-#define ENTITIES_GAME_OBJECT_H
+/**
+ * @file GameObject.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief A general purpose game object, generally absctracted in sub classes.
+ * @see Sprite
+ * @see Button
+ * @version 0.1
+ * @date 2017-01-03
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ENTITIES_GAMEOBJECT_H_
+#define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 /// Unique id type alias
 using ObjId = unsigned int;
@@ -12,8 +24,6 @@ class Scene;
 /**
  * @brief A collidable object! Parent class for many others
  *
- * @author Allan Legemaate
- * @date 03/01/2017
  */
 class GameObject {
  public:
@@ -25,7 +35,7 @@ class GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit GameObject(Scene& scene,
+  explicit GameObject(const Scene& scene,
                       const float x = 0.0f,
                       const float y = 0.0f,
                       const int z = 0);
@@ -79,6 +89,12 @@ class GameObject {
   void setPosition(const float x, const float y);
 
   /**
+   * @brief Set angle of game object in degrees
+   *
+   */
+  void setAngle(const float angle);
+
+  /**
    * @brief Get the width of the game object
    *
    * @return Width of game object
@@ -114,6 +130,13 @@ class GameObject {
   int getZ() const;
 
   /**
+   * @brief Get the angle of the game object.
+   *
+   * @return Angle
+   */
+  float getAngle() const;
+
+  /**
    * @brief Definition for < operator. Less than if z is less than the other
    * game object.
    *
@@ -131,7 +154,7 @@ class GameObject {
 
  protected:
   /// Reference to registered scene
-  Scene& scene;
+  const Scene& scene;
 
   /// X position on x y plane
   float x;
@@ -148,6 +171,9 @@ class GameObject {
   /// Width in pixels of game object
   int width;
 
+  /// Rotation
+  float angle;
+
  private:
   /// Autoassigned unique id
   ObjId id;
@@ -157,4 +183,4 @@ class GameObject {
 };
 }  // namespace afk
 
-#endif  // ENTITIES_GAME_OBJECT_H
+#endif  // INCLUDE_ENTITIES_GAMEOBJECT_H_

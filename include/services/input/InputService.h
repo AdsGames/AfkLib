@@ -1,7 +1,19 @@
-#ifndef SERVICES_INPUT_INPUT_SERVICE_H
-#define SERVICES_INPUT_INPUT_SERVICE_H
+/**
+ * @file InputService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief General Purpose input listener. Handles Mouse, Keyboard, Joystick
+ * @version 0.1
+ * @date 2020-11-07
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
+#define INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
 
 #include <SDL2/SDL_events.h>
+#include <iostream>
+#include <string>
 
 #include "../Service.h"
 #include "JoystickState.h"
@@ -13,8 +25,6 @@ namespace afk {
 /**
  * @brief General Purpose input listener
  *
- * @date 2020-11-07
- * @author Allan Legemaate (alegemaate@gmail.com)
  */
 class InputService : public Service {
  public:
@@ -47,12 +57,14 @@ class InputService : public Service {
   /**
    * @brief Notify input service of recent event
    *
-   * @param event to process
+   * @param event SDL event to process
    */
   void notify(const SDL_Event& event);
 
   /**
    * @brief Get key just down state
+   *
+   * @param key Key to check state of
    *
    * @return Key state
    */
@@ -61,12 +73,16 @@ class InputService : public Service {
   /**
    * @brief Get key just up state
    *
+   * @param key Key to check state of
+   *
    * @return Key state
    */
   bool keyReleased(const Keys key) const;
 
   /**
    * @brief Get key down state
+   *
+   * @param key Key to check state of
    *
    * @return Key state
    */
@@ -96,6 +112,8 @@ class InputService : public Service {
   /**
    * @brief Get mouse button just down state
    *
+   * @param button Button to check state of
+   *
    * @return Key state
    */
   bool mousePressed(const MouseButtons button) const;
@@ -103,12 +121,16 @@ class InputService : public Service {
   /**
    * @brief Get mouse button just up state
    *
+   * @param button Button to check state of
+   *
    * @return Key state
    */
   bool mouseReleased(const MouseButtons button) const;
 
   /**
    * @brief Get mouse button down state
+   *
+   * @param button Button to check state of
    *
    * @return Key state
    */
@@ -138,6 +160,8 @@ class InputService : public Service {
   /**
    * @brief Get joy button just down state
    *
+   * @param button Button to check state of
+   *
    * @return Key state
    */
   bool joyPressed(const JoystickButtons button) const;
@@ -145,12 +169,16 @@ class InputService : public Service {
   /**
    * @brief Get joy button just up state
    *
+   * @param button Button to check state of
+   *
    * @return Key state
    */
   bool joyReleased(const JoystickButtons button) const;
 
   /**
    * @brief Get joy button down state
+   *
+   * @param button Button to check state of
    *
    * @return Key state
    */
@@ -161,7 +189,7 @@ class InputService : public Service {
    * @brief Joystick button event handler
    *
    * @param event_type Type of sdl event
-   * @param keycode Keycode pressed
+   * @param event Sdl event to be processed
    */
   void onJoystickEvent(const Uint32 event_type, const SDL_JoyButtonEvent event);
 
@@ -169,9 +197,7 @@ class InputService : public Service {
    * @brief Joystick axis and stick event handler
    *
    * @param event_type Type of sdl event
-   * @param stick Stick moved
-   * @param axis Axis moved
-   * @param position Axis/Stick position
+   * @param event Sdl event to be processed
    */
   void onJoystickEvent(const SDL_JoyAxisEvent event);
 
@@ -185,21 +211,21 @@ class InputService : public Service {
    * @brief Keyboard event handler
    *
    * @param event_type Type of sdl event
-   * @param keycode Keycode
+   * @param event Sdl event to be processed
    */
   void onKeyboardEvent(const Uint32 event_type, const SDL_KeyboardEvent event);
 
   /**
    * @brief Mouse axis handler
    *
-   * @param event motion event
+   * @param event Sdl event to be processed
    */
   void onMouseEvent(const SDL_MouseWheelEvent event);
 
   /**
    * @brief Mouse wheel handler
    *
-   * @param button button changed
+   * @param event Sdl event to be processed
    */
   void onMouseEvent(const SDL_MouseMotionEvent event);
 
@@ -207,7 +233,7 @@ class InputService : public Service {
    * @brief Mouse button handler
    *
    * @param event_type Type of sdl event
-   * @param event button event
+   * @param event Sdl event to be processed
    */
   void onMouseEvent(const Uint32 event_type, const SDL_MouseButtonEvent event);
 
@@ -223,4 +249,4 @@ class InputService : public Service {
 
 }  // namespace afk
 
-#endif  // SERVICES_INPUT_INPUT_SERVICE_H
+#endif  // INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_

@@ -1,5 +1,17 @@
-#ifndef SERVICES_AUDIO_NULL_AUDIO_SERVICE_H
-#define SERVICES_AUDIO_NULL_AUDIO_SERVICE_H
+/**
+ * @file NullAudioService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Null audio service, use when you want to disable sound.
+ * @version 0.1
+ * @date 2020-10-30
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_AUDIO_NULLAUDIOSERVICE_H_
+#define INCLUDE_SERVICES_AUDIO_NULLAUDIOSERVICE_H_
+
+#include <string>
 
 #include "AudioService.h"
 
@@ -8,12 +20,10 @@ namespace afk {
 /**
  * @brief Null audio service, disables audio
  *
- * @author Allan Legemaate
- * @date 30/10/2020
  */
 class NullAudioService : public AudioService {
  public:
-  virtual ~NullAudioService(){};
+  virtual ~NullAudioService() {}
 
   /**
    * @brief Does nothing
@@ -37,4 +47,4 @@ class NullAudioService : public AudioService {
 
 }  // namespace afk
 
-#endif  // SERVICES_AUDIO_NULL_AUDIO_SERVICE_H
+#endif  // INCLUDE_SERVICES_AUDIO_NULLAUDIOSERVICE_H_

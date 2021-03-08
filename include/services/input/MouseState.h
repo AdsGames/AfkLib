@@ -1,5 +1,17 @@
-#ifndef SERVICES_INPUT_MOUSE_STATE_H
-#define SERVICES_INPUT_MOUSE_STATE_H
+/**
+ * @file MouseState.h
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Container for storing Mouse state
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
+#define INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
 
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_mouse.h>
@@ -7,10 +19,10 @@
 namespace afk {
 
 enum class MouseButtons {
-  BUTTON_LEFT = 1,
-  BUTTON_CENTER = 2,
-  BUTTON_RIGHT = 3,
-  BUTTON_MAX = 4,
+  LEFT = 1,
+  CENTER = 2,
+  RIGHT = 3,
+  MAX = 4,
 };
 
 /**
@@ -34,19 +46,19 @@ struct MouseState {
   int old_y = 0;
 
   /// Individual button states
-  bool button[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool button[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /// Buttons just pressed
-  bool down[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool down[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /// Buttons just released
-  bool up[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool up[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /// Mouse just moved
   bool moved = false;
 
   /// Previous button states
-  bool button_old[(int)MouseButtons::BUTTON_MAX] = {false};
+  bool button_old[static_cast<int>(MouseButtons::MAX)] = {false};
 
   /**
    * @brief Update the mouse state
@@ -59,7 +71,7 @@ struct MouseState {
     old_y = y;
 
     // Check button just pressed
-    for (int i = 0; i < (int)MouseButtons::BUTTON_MAX; i++) {
+    for (int i = 0; i < static_cast<int>(MouseButtons::MAX); i++) {
       // Just up
       if (button_old[i] && !button[i]) {
         up[i] = true;
@@ -84,4 +96,4 @@ struct MouseState {
 
 }  // namespace afk
 
-#endif  // SERVICES_INPUT_MOUSE_STATE_H
+#endif  // INCLUDE_SERVICES_INPUT_MOUSESTATE_H_

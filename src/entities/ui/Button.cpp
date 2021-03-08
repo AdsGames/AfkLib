@@ -1,3 +1,15 @@
+/**
+ * @file Button.cpp
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Implementation of Button
+ * @version 0.1
+ * @date 2017-04-11
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/Button.h"
 
 #include "color/Color.h"
@@ -8,7 +20,7 @@
 namespace afk {
 
 // Ctor
-Button::Button(Scene& scene,
+Button::Button(const Scene& scene,
                const int x,
                const int y,
                const int z,
@@ -19,7 +31,7 @@ Button::Button(Scene& scene,
   this->width = this->font.getWidth(text);
 }
 
-Button::Button(Scene& scene,
+Button::Button(const Scene& scene,
                const int x,
                const int y,
                const int z,

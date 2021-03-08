@@ -1,3 +1,13 @@
+/**
+ * @file ex_keyboard.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "../include/Game.h"
 #include "../include/entities/Sprite.h"
 #include "../include/scene/Scene.h"
@@ -5,28 +15,29 @@
 
 class Character : public afk::Sprite {
  public:
-  Character(afk::Scene& scene, const float x, const float y)
-      : Sprite(scene, x, y) {
+  Character(const afk::Scene& scene, const float x, const float y)
+      : Sprite(scene, x, y), input(afk::Services::getInputService()) {
     setTexture("lenna");
     setSize(30, 30);
   }
 
   void update() {
-    afk::InputService& input = afk::Services::getInputService();
-
-    if (input.keyDown(afk::Keys::KEY_UP)) {
+    if (input.keyDown(afk::Keys::UP)) {
       setPosition(x, y - 5);
     }
-    if (input.keyDown(afk::Keys::KEY_DOWN)) {
+    if (input.keyDown(afk::Keys::DOWN)) {
       setPosition(x, y + 5);
     }
-    if (input.keyDown(afk::Keys::KEY_LEFT)) {
+    if (input.keyDown(afk::Keys::LEFT)) {
       setPosition(x - 5, y);
     }
-    if (input.keyDown(afk::Keys::KEY_RIGHT)) {
+    if (input.keyDown(afk::Keys::RIGHT)) {
       setPosition(x + 5, y);
     }
   }
+
+ private:
+  afk::InputService& input;
 };
 
 class DemoScene : public afk::Scene {

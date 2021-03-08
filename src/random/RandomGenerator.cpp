@@ -1,3 +1,13 @@
+/**
+ * @file RandomGenerator.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Random class methods
+ * @version 0.1
+ * @date 2020-08-11
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "random/RandomGenerator.h"
 
 #include <chrono>
@@ -19,4 +29,4 @@ int Random::randomInt(const int min, const int max) {
   return int_dist(rng);
 }
 
-}
+}  // namespace afk

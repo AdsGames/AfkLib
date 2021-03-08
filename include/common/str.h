@@ -1,5 +1,15 @@
-#ifndef COMMON_STRING_FNS_H
-#define COMMON_STRING_FNS_H
+/**
+ * @file str.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Helpers which can manipulate or get data from strings
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_COMMON_STR_H_
+#define INCLUDE_COMMON_STR_H_
 
 #include <memory>
 #include <string>
@@ -15,7 +25,7 @@ namespace afk::str {
  * @return True if the string is an integer
  * @see toInteger
  */
-extern bool isInteger(std::string str);
+extern bool isInteger(const std::string& str);
 
 /**
  * @brief Check if string is a boolean
@@ -24,7 +34,7 @@ extern bool isInteger(std::string str);
  * @return True if the string is a boolean
  * @see toBoolean
  */
-extern bool isBoolean(std::string str);
+extern bool isBoolean(const std::string& str);
 
 /**
  * @brief Check if string is a float
@@ -33,7 +43,7 @@ extern bool isBoolean(std::string str);
  * @return True if the string is a float
  * @see toFloat
  */
-extern bool isFloat(std::string str);
+extern bool isFloat(const std::string& str);
 
 /**
  * @brief Convert string to integer. Should check first with isInteger if it can
@@ -44,7 +54,7 @@ extern bool isFloat(std::string str);
  * @throws std::invalid_argument exception if it could not be converted
  * @see isInteger
  */
-extern int toInteger(std::string str);
+extern int toInteger(const std::string& str);
 
 /**
  * @brief Convert string to boolean
@@ -53,7 +63,7 @@ extern int toInteger(std::string str);
  * @return True of string is "true" false otherwise
  * @see isBoolean
  */
-extern bool toBoolean(std::string str);
+extern bool toBoolean(const std::string& str);
 
 /**
  * @brief Convert string to float. Should check first with isFloat if it can
@@ -64,7 +74,7 @@ extern bool toBoolean(std::string str);
  * @throws std::invalid_argument exception if it could not be converted
  * @see isFloat
  */
-extern float toFloat(std::string str);
+extern float toFloat(const std::string& str);
 
 /**
  * @brief Format string according to arguments. Uses snprintf internally
@@ -88,4 +98,4 @@ std::string format(const std::string& format, Args... args) {
 
 }  // namespace afk::str
 
-#endif  // COMMON_STRING_FNS_H
+#endif  // INCLUDE_COMMON_STR_H_

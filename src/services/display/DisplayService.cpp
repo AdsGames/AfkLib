@@ -1,3 +1,15 @@
+/**
+ * @file DisplayService.cpp
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Implementation of DisplayService
+ * @version 0.1
+ * @date 2018-11-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/display/DisplayService.h"
 
 #include <SDL2/SDL_image.h>
@@ -127,7 +139,8 @@ void DisplayService::resize(const Uint32 window_w, const Uint32 window_h) {
 
       // Set up screen size and positions
       setWindowSize(info.w, info.h);
-      setScale((float)window_w / draw_w, (float)window_h / draw_h);
+      setScale(static_cast<float>(window_w) / draw_w,
+               static_cast<float>(window_h) / draw_h);
       setTranslation(0.0f, 0.0f);
 
       break;
@@ -152,8 +165,10 @@ void DisplayService::resize(const Uint32 window_w, const Uint32 window_h) {
 
       // Set up screen size and positions
       setWindowSize(info.w, info.h);
-      setScale(std::min((float)window_w / draw_w, (float)window_h / draw_h),
-               std::min((float)window_w / draw_w, (float)window_h / draw_h));
+      setScale(std::min(static_cast<float>(window_w) / draw_w,
+                        static_cast<float>(window_h) / draw_h),
+               std::min(static_cast<float>(window_w) / draw_w,
+                        static_cast<float>(window_h) / draw_h));
       setTranslation((window_w - scale_x * draw_w) / 2,
                      (window_h - scale_y * draw_h) / 2);
 
@@ -166,7 +181,8 @@ void DisplayService::resize(const Uint32 window_w, const Uint32 window_h) {
 
       // Set up screen size and positions
       setWindowSize(window_w, window_h);
-      setScale((float)window_w / draw_w, (float)window_h / draw_h);
+      setScale(static_cast<float>(window_w) / draw_w,
+               static_cast<float>(window_h) / draw_h);
       setTranslation(0.0f, 0.0f);
 
       break;

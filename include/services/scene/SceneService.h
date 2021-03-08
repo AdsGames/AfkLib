@@ -1,5 +1,15 @@
-#ifndef SERVICES_SCENE_SCENE_SERVICE_H
-#define SERVICES_SCENE_SCENE_SERVICE_H
+/**
+ * @file SceneService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Service in charge of managing scenes
+ * @version 0.1
+ * @date 2020-11-28
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_SERVICES_SCENE_SCENESERVICE_H_
+#define INCLUDE_SERVICES_SCENE_SCENESERVICE_H_
 
 #include <string>
 #include <vector>
@@ -8,13 +18,11 @@
 
 namespace afk {
 
+// Forward declare scene
 class Scene;
 
 /**
  * @brief Manages scenes (updates)
- *
- * @author Allan Legemaate
- * @date 28/11/2020
  */
 class SceneService {
  public:
@@ -99,4 +107,4 @@ class SceneService {
 
 }  // namespace afk
 
-#endif  // SERVICES_SCENE_SCENE_SERVICE_H
+#endif  // INCLUDE_SERVICES_SCENE_SCENESERVICE_H_

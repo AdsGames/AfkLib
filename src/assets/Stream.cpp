@@ -1,3 +1,13 @@
+/**
+ * @file Stream.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Stream
+ * @version 0.1
+ * @date 2020-08-10
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "assets/Stream.h"
 
 #include "common/Exceptions.h"
@@ -46,7 +56,7 @@ bool Stream::isPlaying() const {
   return false;  // al_get_audio_stream_playing(stream);
 }
 
-// Load allegro sample from file
+// Load SDL sample from file
 Mix_Chunk* Stream::loadStream(const std::string& path) {
   // Attempt to load
   Mix_Chunk* temp_stream = Mix_LoadWAV(path.c_str());
@@ -60,4 +70,4 @@ Mix_Chunk* Stream::loadStream(const std::string& path) {
   return temp_stream;
 }
 
-}
+}  // namespace afk

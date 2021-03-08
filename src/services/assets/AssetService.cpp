@@ -1,3 +1,13 @@
+/**
+ * @file AssetService.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of AssetService
+ * @version 0.1
+ * @date 2020-08-05
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "services/assets/AssetService.h"
 
 #include <SDL2/SDL_image.h>
@@ -123,4 +133,4 @@ const Stream& AssetService::getStream(const std::string& key) {
   }
 }
 
-}
+}  // namespace afk

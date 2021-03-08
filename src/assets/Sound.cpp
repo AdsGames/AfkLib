@@ -1,3 +1,15 @@
+/**
+ * @file Sound.h
+ * @author
+ *  Allan Legemaate (alegemaate@gmail.com)
+ *  Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief Implementation of Sound
+ * @version 0.1
+ * @date 2018-11-23
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "assets/Sound.h"
 
 #include "common/Exceptions.h"
@@ -5,7 +17,7 @@
 namespace afk {
 
 // Set channel counter to 0
-unsigned int Sound::channel_counter = 0;
+Uint32 Sound::channel_counter = 0;
 
 // Default constructor
 Sound::Sound() : sample(nullptr) {
@@ -29,7 +41,7 @@ void Sound::play(const PlaySoundConfig& config) {
     return;
   }
 
-  // TODO: Frequency
+  // TODO(alegemaate): Frequency
   Mix_SetPanning(channel, config.pan, 255 - config.pan);
   Mix_Volume(channel, config.gain);
   Mix_PlayChannel(channel, sample, config.loop);

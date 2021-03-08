@@ -1,3 +1,13 @@
+/**
+ * @file UIElement.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of UIElement
+ * @version 0.1
+ * @date 2020-11-01
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include "entities/ui/UIElement.h"
 
 #include <string>
@@ -7,7 +17,7 @@
 namespace afk {
 
 // Constructor
-UIElement::UIElement(Scene& scene,
+UIElement::UIElement(const Scene& scene,
                      const float x,
                      const float y,
                      const int z,
@@ -42,7 +52,7 @@ void UIElement::update() {
 
   InputService& input = Services::getInputService();
 
-  if (input.mousePressed(MouseButtons::BUTTON_LEFT)) {
+  if (input.mousePressed(MouseButtons::LEFT)) {
     bool is_colliding = input.mouseX() < x + width &&
                         input.mouseY() < y + height && input.mouseX() > x &&
                         input.mouseY() > y;

@@ -1,17 +1,29 @@
-#ifndef ENTITIES_UI_BUTTON_H
-#define ENTITIES_UI_BUTTON_H
+/**
+ * @file Button.h
+ * @author
+ *   Allan Legemaate (alegemaate@gmail.com)
+ *   Danny Van Stemp (dannyvanstemp@gmail.com)
+ * @brief A ui elemenent that accepts a click callback.
+ * @version 0.1
+ * @date 2017-04-11
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ENTITIES_UI_BUTTON_H_
+#define INCLUDE_ENTITIES_UI_BUTTON_H_
 
 #include "UIElement.h"
+
+#include <string>
 
 #include "../../assets/Texture.h"
 
 namespace afk {
 
 /**
- * @brief Implementation of clickable UI button.
+ * @brief Implementation of clickable UI Button
  *
- * @author Danny Van Stemp and Allan Legemaate
- * @date 11/04/2017
  */
 class Button : public UIElement {
  public:
@@ -25,7 +37,7 @@ class Button : public UIElement {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  Button(Scene& scene,
+  Button(const Scene& scene,
          const int x,
          const int y,
          const int z,
@@ -41,7 +53,7 @@ class Button : public UIElement {
    * @param z Z position of element (for sorting)
    * @param image_id Id of image to assign to button
    */
-  Button(Scene& scene,
+  Button(const Scene& scene,
          const int x,
          const int y,
          const int z,
@@ -51,7 +63,7 @@ class Button : public UIElement {
    * @brief Draw the button to the screen.
    *
    */
-  virtual void draw() override;
+  void draw() override;
 
  private:
   /// Texture for textured buttons
@@ -60,4 +72,4 @@ class Button : public UIElement {
 
 }  // namespace afk
 
-#endif  // ENTITIES_UI_BUTTON_H
+#endif  // INCLUDE_ENTITIES_UI_BUTTON_H_

@@ -1,3 +1,13 @@
+/**
+ * @file Primitives.cpp
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Implementation of Primitives namespace helpers
+ * @version 0.1
+ * @date 2021-03-06
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 #include "primitives/Primitives.h"
@@ -5,11 +15,12 @@
 
 namespace afk::primitives {
 
-void rect(const int x,
-          const int y,
-          const int w,
-          const int h,
-          SDL_Color colour) {
+// Draw a rectangle
+void rect(const Sint32 x,
+          const Sint32 y,
+          const Sint32 w,
+          const Sint32 h,
+          color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Rect bounds = {x, y, w, h};
@@ -17,11 +28,12 @@ void rect(const int x,
   SDL_RenderDrawRect(renderer, &bounds);
 }
 
-void rectfill(const int x,
-              const int y,
-              const int w,
-              const int h,
-              SDL_Color colour) {
+// Draw a filled rectangle
+void rectfill(const Sint32 x,
+              const Sint32 y,
+              const Sint32 w,
+              const Sint32 h,
+              color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
   SDL_Rect bounds = {x, y, w, h};
@@ -29,9 +41,19 @@ void rectfill(const int x,
   SDL_RenderFillRect(renderer, &bounds);
 }
 
-void circle(const int cx, const int cy, const int r, SDL_Color colour) {
+// Draw a circle
+void circle(const Sint16 cx,
+            const Sint16 cy,
+            const Sint16 r,
+            color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  // circleColor(renderer, cx, cy, r, color::colorToInt(colour));
+  circleColor(renderer, cx, cy, r, color::colorToInt(colour));
+}
+
+// Draw a pixel
+void pixel(const Sint16 x, const Sint16 y, color::Color colour) {
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+  pixelColor(renderer, x, y, color::colorToInt(colour));
 }
 
 }  // namespace afk::primitives

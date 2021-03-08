@@ -1,5 +1,16 @@
-#ifndef COMMON_EXCEPTIONS_H
-#define COMMON_EXCEPTIONS_H
+/**
+ * @file Exceptions.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Interally used exceptions. These can be handled properly in the main
+ * game class.
+ * @version 0.1
+ * @date 2021-03-08
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_COMMON_EXCEPTIONS_H_
+#define INCLUDE_COMMON_EXCEPTIONS_H_
 
 #include <stdexcept>
 #include <string>
@@ -96,4 +107,4 @@ class SceneLookupException : public std::runtime_error {
 
 }  // namespace afk
 
-#endif  // COMMON_EXCEPTIONS_H
+#endif  // INCLUDE_COMMON_EXCEPTIONS_H_

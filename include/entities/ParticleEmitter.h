@@ -1,5 +1,16 @@
-#ifndef ENGINE_ENTITIES_PARTICLE_EMITTER_H
-#define ENGINE_ENTITIES_PARTICLE_EMITTER_H
+/**
+ * @file ParticleEmitter.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief A particle emitter. Can be fed a particle to emit
+ * and configured.
+ * @version 0.1
+ * @date 2021-03-06
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ENTITIES_PARTICLEEMITTER_H_
+#define INCLUDE_ENTITIES_PARTICLEEMITTER_H_
 
 #include <vector>
 
@@ -11,8 +22,6 @@ namespace afk {
 /**
  * @brief Particle Emitter
  *
- * @author Allan Legemaate
- * @date 06/03/2021
  */
 class ParticleEmitter : public GameObject {
  public:
@@ -25,7 +34,7 @@ class ParticleEmitter : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit ParticleEmitter(Scene& scene,
+  explicit ParticleEmitter(const Scene& scene,
                            const Particle particle,
                            const float x = 0.0f,
                            const float y = 0.0f,
@@ -41,13 +50,13 @@ class ParticleEmitter : public GameObject {
    * @brief Hook into draw loop
    *
    */
-  virtual void draw() override;
+  void draw() override;
 
   /**
    * @brief Hook into update loop
    *
    */
-  virtual void update() override;
+  void update() override;
 
  protected:
   /// Particles
@@ -59,4 +68,4 @@ class ParticleEmitter : public GameObject {
 
 }  // namespace afk
 
-#endif  // ENGINE_ENTITIES_PARTICLE_EMITTER_H
+#endif  // INCLUDE_ENTITIES_PARTICLEEMITTER_H_

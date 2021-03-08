@@ -1,5 +1,15 @@
-#ifndef RANDOM_RANDOM_GENERATOR_H
-#define RANDOM_RANDOM_GENERATOR_H
+/**
+ * @file RandomGenerator.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Static helper class that can create random numbers.
+ * @version 0.1
+ * @date 2020-08-11
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_RANDOM_RANDOMGENERATOR_H_
+#define INCLUDE_RANDOM_RANDOMGENERATOR_H_
 
 #include <random>
 
@@ -7,8 +17,7 @@ namespace afk {
 
 /**
  * @brief Random number generator
- * @author Allan Legemaate
- * @date 11/08/2020
+ *
  */
 class Random {
  public:
@@ -37,4 +46,4 @@ class Random {
 
 }  // namespace afk
 
-#endif  // RANDOM_RANDOM_GENERATOR_H
+#endif  // INCLUDE_RANDOM_RANDOMGENERATOR_H_

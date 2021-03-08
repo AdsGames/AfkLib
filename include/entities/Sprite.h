@@ -1,6 +1,17 @@
-#ifndef ENGINE_ENTITIES_SPRITE_H
-#define ENGINE_ENTITIES_SPRITE_H
+/**
+ * @file Sprite.h
+ * @author Allan Legemaate (alegemaate@gmail.com)
+ * @brief Simple textured GameObject
+ * @version 0.1
+ * @date 2020-10-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef INCLUDE_ENTITIES_SPRITE_H_
+#define INCLUDE_ENTITIES_SPRITE_H_
 
+#include <string>
 #include <vector>
 
 #include "../assets/Texture.h"
@@ -11,8 +22,6 @@ namespace afk {
 /**
  * @brief A simple texturable game object
  *
- * @author Allan Legemaate
- * @date 30/10/2020
  */
 class Sprite : public GameObject {
  public:
@@ -24,7 +33,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit Sprite(Scene& scene,
+  explicit Sprite(const Scene& scene,
                   const float x = 0.0f,
                   const float y = 0.0f,
                   const int z = 0);
@@ -38,7 +47,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  Sprite(Scene& scene,
+  Sprite(const Scene& scene,
          const std::string& texture,
          const float x = 0.0f,
          const float y = 0.0f,
@@ -54,7 +63,7 @@ class Sprite : public GameObject {
    * @brief Hook into draw loop
    *
    */
-  virtual void draw() override;
+  void draw() override;
 
   /**
    * @brief Set the visibility of the sprite. Will not draw when not visible.
@@ -80,4 +89,4 @@ class Sprite : public GameObject {
 
 }  // namespace afk
 
-#endif  // ENGINE_ENTITIES_SPRITE_H
+#endif  // INCLUDE_ENTITIES_SPRITE_H_
