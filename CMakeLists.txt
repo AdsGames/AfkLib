@@ -32,7 +32,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 if(EMSCRIPTEN) 
     target_compile_options(
       ${PROJECT_NAME}
-      PUBLIC  
+      PRIVATE  
       -sUSE_SDL=2 
       -sUSE_SDL_IMAGE=2 
       -sUSE_SDL_TTF=2 
