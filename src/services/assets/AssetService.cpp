@@ -1,53 +1,44 @@
 #include "services/assets/AssetService.h"
 
-#include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <algorithm>
 
 #include "common/Exceptions.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constant defining number of samples to reserve
 const int NUM_SAMPLES = 20;
 
 // Constructor
 AssetService::AssetService() {
-  // Fonts
-  if (!al_init_font_addon()) {
-    throw InitException("Could not init font addon");
+  // Images
+  if (!IMG_Init(IMG_INIT_PNG)) {
+    throw InitException("Could not init image addon");
   }
-  if (!al_init_ttf_addon()) {
+
+  // Fonts
+  if (TTF_Init()) {
     throw InitException("Could not init ttf addon");
   }
 
-  // Graphics
-  if (!al_init_image_addon()) {
-    throw InitException("Could not init image addon");
-  }
-  if (!al_init_primitives_addon()) {
-    throw InitException("Could not init primitives addon");
-  }
-
   // Audio
-  if (!al_install_audio()) {
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
     throw InitException("Could not init audio addon");
-  }
-  if (!al_init_acodec_addon()) {
-    throw InitException("Could not init acodec addon");
-  }
-
-  if (!al_reserve_samples(NUM_SAMPLES)) {
-    throw InitException("Could not reserve samples");
   }
 }
 
 // Destructor
-AssetService::~AssetService() {}
+AssetService::~AssetService() {
+  // Todo cleanup
+}
 
 // Load image from disk and assign key
 void AssetService::loadImage(const std::string& key, const std::string& path) {
-  Locator::getLogger().log("[Asset Manager] Loading image: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading image: " + key);
 
   try {
     loaded_image[key] = Texture(path);
@@ -58,7 +49,7 @@ void AssetService::loadImage(const std::string& key, const std::string& path) {
 
 // Load audio from disk and assign key
 void AssetService::loadAudio(const std::string& key, const std::string& path) {
-  Locator::getLogger().log("[Asset Manager] Loading audio: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading audio: " + key);
 
   try {
     loaded_audio[key] = Sound(path);
@@ -71,10 +62,12 @@ void AssetService::loadAudio(const std::string& key, const std::string& path) {
 void AssetService::loadFont(const std::string& key,
                             const std::string& path,
                             const int size) {
-  Locator::getLogger().log("[Asset Manager] Loading font: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading font: " + key);
 
   try {
     loaded_font[key] = Font(path, size);
+  } catch (const std::runtime_error& e) {
+    throw FileIOException(e.what());
   } catch (...) {
     throw FileIOException("Could not load font " + key);
   }
@@ -82,7 +75,7 @@ void AssetService::loadFont(const std::string& key,
 
 // Load stream from disk and assign key
 void AssetService::loadStream(const std::string& key, const std::string& path) {
-  Locator::getLogger().log("[Asset Manager] Loading stream: " + key);
+  Services::getLoggingService().log("[Asset Manager] Loading stream: " + key);
 
   try {
     loaded_stream[key] = Stream(path);
@@ -101,7 +94,7 @@ const Texture& AssetService::getImage(const std::string& key) {
 }
 
 // Get audio reference
-const Sound& AssetService::getAudio(const std::string& key) {
+const Sound& AssetService::getAudioService(const std::string& key) {
   try {
     return loaded_audio.at(key);
   } catch (const std::out_of_range&) {
@@ -125,4 +118,6 @@ const Stream& AssetService::getStream(const std::string& key) {
   } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find stream " + key);
   }
+}
+
 }

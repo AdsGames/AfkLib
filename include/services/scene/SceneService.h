@@ -1,24 +1,15 @@
 #ifndef SERVICES_SCENE_SCENE_SERVICE_H
 #define SERVICES_SCENE_SCENE_SERVICE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL_timer.h>
 #include <string>
 #include <vector>
 
 #include "../Service.h"
 
-class Scene;
+namespace afk {
 
-/**
- * @brief Simple struct which binds scenes to scene ids
- *
- */
-struct SceneType {
-  /// Id of scene
-  std::string scene_id;
-  /// Scene object
-  Scene* scene;
-};
+class Scene;
 
 /**
  * @brief Manages scenes (updates)
@@ -41,6 +32,13 @@ class SceneService : public Service {
   virtual ~SceneService();
 
   /**
+   * @brief Get the name of service
+   *
+   * @return name
+   */
+  std::string getName() const;
+
+  /**
    * @brief Add scene to engine
    *
    * @param scene_id to add to engine
@@ -55,30 +53,36 @@ class SceneService : public Service {
    *
    * @param ev event to be processed
    */
-  void notify(const ALLEGRO_EVENT& ev);
+  void notify(const SDL_Event& ev);
 
   /**
    * @brief Get the current scene
    *
    * @return pointer to current scene
    */
-  Scene* getScene();
+  Scene* getSceneService();
 
   /**
-   * @brief Set the next scene to be loaded in. Upon calling, deletes this scene
+   * @brief Set the next scene to be loaded in. Upon calling, deletes current
+   * scene
    *
    * @param scene_id Id of next scene to load
    */
   void setNextScene(const std::string& scene_id);
 
-  /**
-   * @brief Get the Update Timer
-   *
-   * @return ALLEGRO_TIMER
-   */
-  ALLEGRO_TIMER* getUpdateTimer();
-
  private:
+  /**
+   * @brief Simple struct which binds scenes to scene ids
+   *
+   */
+  struct SceneType {
+    /// Id of scene
+    std::string scene_id;
+
+    /// Scene object
+    Scene* scene;
+  };
+
   /**
    * @brief Check for new scene, and change it accordingly
    *
@@ -91,14 +95,16 @@ class SceneService : public Service {
   /// List of scene ids
   std::vector<SceneType> scenes;
 
-  /// Update timer
-  ALLEGRO_TIMER* update_timer = nullptr;
-
   /// Current scene
   std::string scene_id;
 
   /// Next scene to load
   std::string next_scene;
+
+  /// Timer id
+  SDL_TimerID update_timer = 0;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_SCENE_SCENE_SERVICE_H

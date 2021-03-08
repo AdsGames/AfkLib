@@ -5,6 +5,8 @@
 
 #include "../../assets/Texture.h"
 
+namespace afk {
+
 /**
  * @brief Implementation of clickable UI button.
  *
@@ -55,5 +57,7 @@ class Button : public UIElement {
   /// Texture for textured buttons
   Texture image;
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_BUTTON_H

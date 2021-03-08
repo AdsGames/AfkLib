@@ -1,8 +1,8 @@
 #include "entities/ui/MessageBox.h"
 
-#include <allegro5/allegro_native_dialog.h>
+#include "services/Services.h"
 
-#include "services/Locator.h"
+namespace afk {
 
 MessageBox::MessageBox(MessageBoxType type)
     : title(""), heading(""), text(""), type(type) {}
@@ -24,9 +24,9 @@ void MessageBox::setText(const std::string& text) {
 
 // Show the message box on screen
 int MessageBox::show() {
-  int return_code =
-      al_show_native_message_box(nullptr, title.c_str(), heading.c_str(),
-                                 text.c_str(), nullptr, resolveType());
+  SDL_Window* window = Services::getDisplayService().getWindow();
+  int return_code = SDL_ShowSimpleMessageBox(resolveType(), title.c_str(),
+                                             text.c_str(), window);
 
   return return_code;
 }
@@ -35,15 +35,13 @@ int MessageBox::show() {
 int MessageBox::resolveType() {
   switch (type) {
     case ERROR:
-      return ALLEGRO_MESSAGEBOX_ERROR;
-    case QUESTION:
-      return ALLEGRO_MESSAGEBOX_QUESTION;
-    case OK_CANCEL:
-      return ALLEGRO_MESSAGEBOX_OK_CANCEL;
-    case YES_NO:
-      return ALLEGRO_MESSAGEBOX_YES_NO;
+      return SDL_MESSAGEBOX_ERROR;
+    case INFO:
+      return SDL_MESSAGEBOX_INFORMATION;
     case WARN:
     default:
-      return ALLEGRO_MESSAGEBOX_WARN;
+      return SDL_MESSAGEBOX_WARNING;
   }
+}
+
 }

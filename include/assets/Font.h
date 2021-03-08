@@ -1,11 +1,12 @@
 #ifndef ASSETS_FONT_H
 #define ASSETS_FONT_H
 
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_font.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
 #include "../color/Color.h"
+
+namespace afk {
 
 /**
  * @brief Easy interface to interact with allegro fonts
@@ -51,8 +52,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const ALLEGRO_COLOR colour = Color::rgb(0, 0, 0),
-            const int flags = 0);
+            const SDL_Color colour = color::rgb(0, 0, 0));
 
   /**
    * @brief Get the height of the font
@@ -85,13 +85,25 @@ class Font {
    * @return ALLEGRO_FONT* File that has been loaded
    * @throws FileIOException If font can not be found at path
    */
-  static ALLEGRO_FONT* loadFont(const std::string& path, const int size);
+  static TTF_Font* loadFont(const std::string& path, const int size);
 
   /// Pointer to referenced font
-  ALLEGRO_FONT* font;
+  TTF_Font* font;
 
   /// Size of font
   int font_size;
+
+  /**
+   * @brief Helper for rendering text
+   *
+   * @param text String to draw
+   * @return SDL_Texture* New texture containing string
+   */
+  SDL_Texture* renderText(SDL_Renderer* renderer,
+                          const std::string text,
+                          const SDL_Color colour);
 };
+
+}
 
 #endif  // ASSETS_FONT_H

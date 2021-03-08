@@ -4,11 +4,20 @@
 #include <fstream>
 
 #include "common/Exceptions.h"
-#include "common/stringFns.h"
-#include "services/Locator.h"
+#include "common/str.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constructor
-ConfigService::ConfigService() : autosave(false) {}
+ConfigService::ConfigService() : autosave(false) {
+  Services::getLoggingService().log("[Config Service]: Starting up");
+}
+
+// Destructor
+ConfigService::~ConfigService() {
+  Services::getLoggingService().log("[Config Service]: Shutting down");
+}
 
 // Load file
 void ConfigService::load(const std::string& path) {
@@ -31,12 +40,12 @@ void ConfigService::load(const std::string& path) {
     std::string value = line.substr(delimLoc + 1, line.length());
 
     // Conversion
-    if (stringFns::isBoolean(value)) {
-      settings[key] = stringFns::toBoolean(value);
-    } else if (stringFns::isInteger(value)) {
-      settings[key] = stringFns::toInteger(value);
-    } else if (stringFns::isFloat(value)) {
-      settings[key] = stringFns::toFloat(value);
+    if (str::isBoolean(value)) {
+      settings[key] = str::toBoolean(value);
+    } else if (str::isInteger(value)) {
+      settings[key] = str::toInteger(value);
+    } else if (str::isFloat(value)) {
+      settings[key] = str::toFloat(value);
     } else {
       settings[key] = value;
     }
@@ -45,8 +54,8 @@ void ConfigService::load(const std::string& path) {
   fileStream.close();
 
   // Log
-  Locator::getLogger().log("[Setting Manager] Loaded settings from file " +
-                           path);
+  Services::getLoggingService().log(
+      "[Setting Manager] Loaded settings from file " + path);
 
   // Set internal file name
   file_name = path;
@@ -103,3 +112,5 @@ const Setting ConfigService::findSetting(const std::string& key) const {
 void ConfigService::setAutosave(const bool autosave) {
   this->autosave = autosave;
 }
+
+}  // namespace afk

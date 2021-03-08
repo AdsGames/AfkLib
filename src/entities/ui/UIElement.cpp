@@ -2,7 +2,10 @@
 
 #include <string>
 #include "scene/Scene.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
+
 // Constructor
 UIElement::UIElement(Scene& scene,
                      const float x,
@@ -20,7 +23,7 @@ void UIElement::setVisible(const bool visible) {
 
 void UIElement::setFont(const std::string& text) {
   if (text != "") {
-    this->font = Locator::getAsset().getFont(text);
+    this->font = Services::getAssetService().getFont(text);
   }
 }
 
@@ -37,11 +40,12 @@ void UIElement::update() {
     return;
   }
 
-  if (Locator::getInput().mouse().down[1]) {
-    bool is_colliding = Locator::getInput().mouse().x < x + width &&
-                        Locator::getInput().mouse().y < y + height &&
-                        Locator::getInput().mouse().x > x &&
-                        Locator::getInput().mouse().y > y;
+  InputService& input = Services::getInputService();
+
+  if (input.mousePressed(MouseButtons::BUTTON_LEFT)) {
+    bool is_colliding = input.mouseX() < x + width &&
+                        input.mouseY() < y + height && input.mouseX() > x &&
+                        input.mouseY() > y;
 
     if (is_colliding) {
       onClick();
@@ -53,3 +57,5 @@ void UIElement::update() {
 void UIElement::setOnClick(std::function<void(void)> func) {
   this->onClick = func;
 }
+
+}  // namespace afk

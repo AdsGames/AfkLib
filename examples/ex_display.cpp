@@ -1,28 +1,35 @@
-#include "../include/Engine.h"
+#include "../include/Game.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Locator.h"
+#include "../include/services/Services.h"
 
-class DemoScene : public Scene {
+class DemoScene : public afk::Scene {
  public:
   void start() {
-    Locator::getLogger().log("Starting!");
-    Locator::getDisplay().setWindowSize(100, 100);
-    Locator::getDisplay().setBufferSize(100, 100);
-    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
-    Locator::getDisplay().setTitle("ex_display");
-  }
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Starting!");
 
-  void draw() {}
+    afk::DisplayService& display = afk::Services::getDisplayService();
+    display.setWindowSize(100, 100);
+    display.setBufferSize(100, 100);
+    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setTitle("ex_display");
+  }
 
   void update() {}
 
-  void stop() { Locator::getLogger().log("Stopping!"); }
+  void stop() {
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Stopping!");
+  }
 };
 
-int main() {
-  Engine game = Engine();
-  Locator::getScene().addScene<DemoScene>("demo");
-  Locator::getScene().setNextScene("demo");
+int main(int argv, char** args) {
+  afk::Game game = afk::Game();
+
+  afk::SceneService& scenes = afk::Services::getSceneService();
+  scenes.addScene<DemoScene>("demo");
+  scenes.setNextScene("demo");
+
   game.start();
   return 0;
 }

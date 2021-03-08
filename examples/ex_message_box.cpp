@@ -1,86 +1,76 @@
-#include "../include/Engine.h"
+#include "../include/Game.h"
 #include "../include/entities/ui/Button.h"
 #include "../include/entities/ui/MessageBox.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Locator.h"
+#include "../include/services/Services.h"
 
-class DemoScene : public Scene {
+class DemoScene : public afk::Scene {
  public:
   void start() {
-    Locator::getLogger().log("Starting!");
-    Locator::getDisplay().setWindowSize(256, 256);
-    Locator::getDisplay().setBufferSize(256, 256);
-    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
-    Locator::getDisplay().setTitle("ex_button");
-    Locator::getAsset().loadFont("freesans", "assets/freesans.ttf", 12);
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Starting!");
 
-    ObjId button_id_1 =
-        this->add<Button>(*this, 10, 10, 10, "Question Message", "freesans");
+    afk::DisplayService& display = afk::Services::getDisplayService();
+    display.setWindowSize(256, 256);
+    display.setBufferSize(256, 256);
+    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setTitle("ex_message_box");
 
-    this->get<Button>(button_id_1).setOnClick([button_id_1]() {
-      MessageBox message_box(QUESTION);
-      message_box.setTitle("Question");
+    afk::AssetService& assets = afk::Services::getAssetService();
+    assets.loadFont("freesans", "assets/freesans.ttf", 12);
+
+    afk::Button& button1 =
+        addObj<afk::Button>(*this, 10, 10, 10, "Question Message", "freesans");
+
+    button1.setOnClick([]() {
+      afk::MessageBox message_box(afk::INFO);
+      message_box.setTitle("Info");
       message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
 
-    ObjId button_id_2 =
-        this->add<Button>(*this, 10, 30, 10, "Warning Message", "freesans");
+    afk::Button& button2 =
+        addObj<afk::Button>(*this, 10, 30, 10, "Warning Message", "freesans");
 
-    this->get<Button>(button_id_2).setOnClick([button_id_2]() {
-      MessageBox message_box(WARN);
+    button2.setOnClick([]() {
+      afk::MessageBox message_box(afk::WARN);
       message_box.setTitle("Warning");
       message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
 
-    ObjId button_id_3 =
-        this->add<Button>(*this, 10, 50, 10, "Error Message", "freesans");
+    afk::Button& button3 =
+        addObj<afk::Button>(*this, 10, 50, 10, "Error Message", "freesans");
 
-    this->get<Button>(button_id_3).setOnClick([button_id_3]() {
-      MessageBox message_box(ERROR);
+    button3.setOnClick([]() {
+      afk::MessageBox message_box(afk::ERROR);
       message_box.setTitle("Error");
-      message_box.setHeading("Heading");
-      message_box.setText("Text");
-      message_box.show();
-    });
-
-    ObjId button_id_4 =
-        this->add<Button>(*this, 10, 70, 10, "OK Cancel Message", "freesans");
-
-    this->get<Button>(button_id_4).setOnClick([button_id_4]() {
-      MessageBox message_box(OK_CANCEL);
-      message_box.setTitle("OK Cancel");
-      message_box.setHeading("Heading");
-      message_box.setText("Text");
-      message_box.show();
-    });
-
-    ObjId button_id_5 =
-        this->add<Button>(*this, 10, 90, 10, "Yes No Message", "freesans");
-
-    this->get<Button>(button_id_5).setOnClick([button_id_5]() {
-      MessageBox message_box(YES_NO);
-      message_box.setTitle("Yes No");
       message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
   }
 
-  void draw() {}
-
   void update() {}
 
-  void stop() { Locator::getLogger().log("Stopping!"); }
+  void stop() { afk::Services::getLoggingService().log("Stopping!"); }
 };
 
-int main() {
-  Engine game = Engine();
-  Locator::getScene().addScene<DemoScene>("demo");
-  Locator::getScene().setNextScene("demo");
-  game.start();
+class MainGame : public afk::Game {
+ public:
+  MainGame() : Game() {
+    afk::SceneService& scene = afk::Services::getSceneService();
+    scene.addScene<DemoScene>("demo");
+    scene.setNextScene("demo");
+
+    start();
+  }
+};
+
+int main(int argv, char** args) {
+  MainGame game = MainGame();
+
   return 0;
 }

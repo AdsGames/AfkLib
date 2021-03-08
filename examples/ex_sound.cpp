@@ -13,20 +13,28 @@ class DemoScene : public afk::Scene {
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DISPLAY_MODE::WINDOWED);
-    display.setTitle("ex_sprite");
+    display.setTitle("ex_mouse");
 
     afk::AssetService& assets = afk::Services::getAssetService();
-    assets.loadImage("lenna", "assets/lenna.png");
-
-    add<afk::Sprite>(*this, "lenna");
+    assets.loadAudio("win", "assets/win.wav");
   }
 
-  void update() {}
+  void update() {
+    afk::InputService& input = afk::Services::getInputService();
+    afk::AudioService& audio = afk::Services::getAudioService();
+
+    if (input.mousePressed(afk::MouseButtons::BUTTON_LEFT)) {
+      audio.playSound("win", {127, 0, 1.0f, false});
+    }
+  }
 
   void stop() {
     afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Stopping!");
   }
+
+ private:
+  ObjId lennaId;
 };
 
 int main(int argv, char** args) {

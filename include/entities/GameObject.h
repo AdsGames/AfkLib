@@ -4,7 +4,9 @@
 /// Unique id type alias
 using ObjId = unsigned int;
 
-// Forward declare sprite class
+namespace afk {
+
+// Forward declare scene class
 class Scene;
 
 /**
@@ -153,5 +155,6 @@ class GameObject {
   /// Static id counter
   static ObjId index;
 };
+}  // namespace afk
 
 #endif  // ENTITIES_GAME_OBJECT_H

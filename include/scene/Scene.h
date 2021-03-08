@@ -15,6 +15,7 @@
  * @author Allan Legemaate
  * @date 30/12/2016
  */
+namespace afk {
 class Scene {
  public:
   /**
@@ -28,12 +29,6 @@ class Scene {
    *
    */
   virtual void start() = 0;
-
-  /**
-   * @brief Draw to be overridden by derived scenes
-   *
-   */
-  virtual void draw() = 0;
 
   /**
    * @brief Update to be overridden by derived scenes
@@ -64,6 +59,24 @@ class Scene {
    *
    */
   void updateInternal();
+
+  /**
+   * @brief Add existing game object to update and draw pool
+   *
+   * @tparam T Type of game object
+   * @tparam Args Arguments to forward to T
+   * @param args Argument values which will be forwarded to T when constructing
+   * a new game object
+   * @return Unique id of created object
+   */
+  template <typename T>
+  ObjId addExisting(T obj) {
+    std::unique_ptr<GameObject> objp = std::make_unique<T>(obj);
+    const int id = objp.get()->getId();
+    update_pool.push_back(std::move(objp));
+    sortGameObjects();
+    return id;
+  }
 
   /**
    * @brief Add game object to update and draw pool
@@ -152,5 +165,6 @@ class Scene {
   /// Quick collider lookup
   std::map<ObjId, std::vector<ObjId>> collider_map;
 };
+}  // namespace afk
 
 #endif  // SCENE_SCENE_H

@@ -1,6 +1,11 @@
+#include <SDL2/SDL_image.h>
+
 #include "assets/Texture.h"
 
 #include "common/Exceptions.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constructor
 Texture::Texture() : bitmap(nullptr) {}
@@ -17,7 +22,22 @@ void Texture::load(const std::string& path) {
 
 // Create texture with specified dimensions
 void Texture::create(const int width, const int height) {
-  bitmap = al_create_bitmap(width, height);
+  SDL_Surface* temp_surface =
+      SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+  if (!temp_surface) {
+    throw InitException("There was an error creating surface ");
+  }
+
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+
+  SDL_Texture* temp_texture =
+      SDL_CreateTextureFromSurface(renderer, temp_surface);
+  if (!temp_texture) {
+    throw InitException("There was an error creating texture ");
+  }
+  SDL_FreeSurface(temp_surface);
+
+  bitmap = temp_texture;
 }
 
 // Return height of loaded texture
@@ -26,7 +46,9 @@ int Texture::getHeight() const {
     return 0;
   }
 
-  return al_get_bitmap_height(bitmap);
+  int h;
+  SDL_QueryTexture(bitmap, nullptr, nullptr, nullptr, &h);
+  return h;
 }
 
 // Return if it exists
@@ -40,16 +62,21 @@ int Texture::getWidth() const {
     return 0;
   }
 
-  return al_get_bitmap_width(bitmap);
+  int w;
+  SDL_QueryTexture(bitmap, nullptr, nullptr, &w, nullptr);
+  return w;
 }
 
 // Draw texture to screen
-void Texture::draw(const int x, const int y, const int flags) const {
+void Texture::draw(const int x, const int y) const {
   if (!bitmap) {
     return;
   }
 
-  al_draw_bitmap(bitmap, x, y, flags);
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+
+  SDL_Rect target = {x, y, getWidth(), getHeight()};
+  SDL_RenderCopy(renderer, bitmap, nullptr, &target);
 }
 
 // Draw scaled texture to screen
@@ -62,23 +89,36 @@ void Texture::drawScaled(const int x,
     return;
   }
 
-  al_draw_scaled_bitmap(bitmap, 0, 0, getWidth(), getHeight(), x, y, width,
-                        height, flags);
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+
+  SDL_Rect target = {x, y, width, height};
+  SDL_RenderCopy(renderer, bitmap, nullptr, &target);
 }
 
 // Get colour at pixel
-ALLEGRO_COLOR Texture::getPixel(const int x, const int y) const {
-  return al_get_pixel(this->bitmap, x, y);
+SDL_Color Texture::getPixel(const int x, const int y) const {
+  SDL_Color rgb = {0, 0, 0, 0};
+  return rgb;
 }
 
 // Load allegro bitmap from file
-ALLEGRO_BITMAP* Texture::loadBitmap(const std::string& path) {
+SDL_Texture* Texture::loadBitmap(const std::string& path) {
   // Attempt to load
-  ALLEGRO_BITMAP* temp_bitmap = al_load_bitmap(path.c_str());
-
-  if (!temp_bitmap) {
-    throw FileIOException("There was an error loading texture " + path);
+  SDL_Surface* temp_surface = IMG_Load(path.c_str());
+  if (!temp_surface) {
+    throw FileIOException("There was an error loading surface " + path);
   }
 
-  return temp_bitmap;
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+
+  SDL_Texture* temp_texture =
+      SDL_CreateTextureFromSurface(renderer, temp_surface);
+  if (!temp_texture) {
+    throw InitException("There was an error creating texture " + path);
+  }
+  SDL_FreeSurface(temp_surface);
+
+  return temp_texture;
+}
+
 }

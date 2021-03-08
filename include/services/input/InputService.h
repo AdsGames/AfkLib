@@ -1,12 +1,14 @@
 #ifndef SERVICES_INPUT_INPUT_SERVICE_H
 #define SERVICES_INPUT_INPUT_SERVICE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL_events.h>
 
 #include "../Service.h"
 #include "JoystickState.h"
 #include "KeyboardState.h"
 #include "MouseState.h"
+
+namespace afk {
 
 /**
  * @brief General Purpose input listener
@@ -30,32 +32,74 @@ class InputService : public Service {
   virtual ~InputService();
 
   /**
+   * @brief Get the name of service
+   *
+   * @return name
+   */
+  std::string getName() const;
+
+  /**
    * @brief Notify input service of recent event
    *
    * @param event to process
    */
-  void notify(const ALLEGRO_EVENT& event);
+  void notify(const SDL_Event& event);
 
   /**
-   * @brief Get keyboard state
+   * @brief Get key just down state
    *
-   * @return Keyboard state
+   * @return Key state
    */
-  const KeyboardState& keyboard();
+  bool keyPressed(const Keys key) const;
 
   /**
-   * @brief Get mouse state
+   * @brief Get key just up state
    *
-   * @return Mouse state
+   * @return Key state
    */
-  const MouseState& mouse();
+  bool keyReleased(const Keys key) const;
 
   /**
-   * @brief Get joystick state
+   * @brief Get key down state
    *
-   * @return Joystick state
+   * @return Key state
    */
-  const JoystickState& joystick();
+  bool keyDown(const Keys key) const;
+
+  /**
+   * @brief Get mouse button just down state
+   *
+   * @return Key state
+   */
+  bool mousePressed(const MouseButtons button) const;
+
+  /**
+   * @brief Get mouse button just up state
+   *
+   * @return Key state
+   */
+  bool mouseReleased(const MouseButtons button) const;
+
+  /**
+   * @brief Get mouse button down state
+   *
+   * @return Key state
+   */
+  bool mouseDown(const MouseButtons button) const;
+
+  /**
+   * @brief Get mouse x position
+   *
+   * @return Mouse x position
+   */
+  int mouseX() const;
+
+  /**
+   * @brief Get mouse y position
+   *
+   * @return Mouse y position
+   */
+  int mouseY() const;
 
  private:
   /**
@@ -67,23 +111,20 @@ class InputService : public Service {
   /**
    * @brief Joystick button event handler
    *
-   * @param event_type Type of allegro event
+   * @param event_type Type of sdl event
    * @param keycode Keycode pressed
    */
-  void onJoystickEvent(ALLEGRO_EVENT_TYPE event_type, const int keycode);
+  void onJoystickEvent(const Uint32 event_type, const SDL_JoyButtonEvent event);
 
   /**
    * @brief Joystick axis and stick event handler
    *
-   * @param event_type Type of allegro event
+   * @param event_type Type of sdl event
    * @param stick Stick moved
    * @param axis Axis moved
    * @param position Axis/Stick position
    */
-  void onJoystickEvent(ALLEGRO_EVENT_TYPE event_type,
-                       const int stick,
-                       const int axis,
-                       const float position);
+  void onJoystickEvent(const SDL_JoyAxisEvent event);
 
   /**
    * @brief Joystick configuration event
@@ -94,31 +135,32 @@ class InputService : public Service {
   /**
    * @brief Keyboard event handler
    *
-   * @param event_type Type of allegro event
+   * @param event_type Type of sdl event
    * @param keycode Keycode
    */
-  void onKeyboardEvent(ALLEGRO_EVENT_TYPE event_type, const int keycode);
+  void onKeyboardEvent(const Uint32 event_type, const SDL_KeyboardEvent event);
 
   /**
    * @brief Mouse axis handler
    *
-   * @param event_type Type of allegro event
-   * @param x X position of mouse
-   * @param y Y position of mouse
-   * @param z Z position of mouse
+   * @param event motion event
    */
-  void onMouseEvent(ALLEGRO_EVENT_TYPE event_type,
-                    const int x,
-                    const int y,
-                    const int z);
+  void onMouseEvent(const SDL_MouseWheelEvent event);
+
+  /**
+   * @brief Mouse wheel handler
+   *
+   * @param button button changed
+   */
+  void onMouseEvent(const SDL_MouseMotionEvent event);
 
   /**
    * @brief Mouse button handler
    *
-   * @param event_type Type of allegro event
-   * @param button button changed
+   * @param event_type Type of sdl event
+   * @param event button event
    */
-  void onMouseEvent(ALLEGRO_EVENT_TYPE event_type, const unsigned int button);
+  void onMouseEvent(const Uint32 event_type, const SDL_MouseButtonEvent event);
 
   /// Current keyboard state
   KeyboardState keyboard_state;
@@ -129,5 +171,7 @@ class InputService : public Service {
   /// Current joystick state
   JoystickState joystick_state;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_INPUT_SERVICE_H

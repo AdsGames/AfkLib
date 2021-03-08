@@ -1,7 +1,10 @@
 #ifndef SERVICES_SERVICE_H
 #define SERVICES_SERVICE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL_events.h>
+#include <string>
+
+namespace afk {
 
 /**
  * @brief Service parent type
@@ -16,7 +19,16 @@ class Service {
    *
    * @param event Allegero event to be processed
    */
-  virtual void notify(const ALLEGRO_EVENT& event) = 0;
+  virtual void notify(const SDL_Event& event) = 0;
+
+  /**
+   * @brief Get the Name of the service
+   *
+   * @return Name
+   */
+  virtual std::string getName() const = 0;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_SERVICE_H

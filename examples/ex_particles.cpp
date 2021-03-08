@@ -1,5 +1,6 @@
 #include "../include/Game.h"
-#include "../include/entities/Sprite.h"
+#include "../include/color/Color.h"
+#include "../include/entities/ParticleEmitter.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -13,12 +14,18 @@ class DemoScene : public afk::Scene {
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DISPLAY_MODE::WINDOWED);
-    display.setTitle("ex_sprite");
+    display.setTitle("ex_mouse");
 
     afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadImage("lenna", "assets/lenna.png");
 
-    add<afk::Sprite>(*this, "lenna");
+    afk::Particle particle(0, 0, afk::color::rgb(0, 255, 127), 1, 1, 2,
+                           afk::ParticleType::SQUARE);
+
+    afk::ParticleEmitter& emitter =
+        addObj<afk::ParticleEmitter>(*this, particle, 256, 256);
+    emitter.setSize(30, 30);
+    emitter.setPosition(100, 100);
   }
 
   void update() {}

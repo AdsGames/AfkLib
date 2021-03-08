@@ -3,6 +3,8 @@
 
 #include "UIElement.h"
 
+namespace afk {
+
 /**
  * @brief Implementation of UI Label.
  *
@@ -34,5 +36,7 @@ class Label : public UIElement {
    */
   virtual void draw() override;
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_LABEL_H

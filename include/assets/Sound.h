@@ -1,8 +1,10 @@
 #ifndef ASSETS_SOUND_H
 #define ASSETS_SOUND_H
 
-#include <allegro5/allegro_audio.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
+
+namespace afk {
 
 /**
  * @brief Configuration for playing audio file
@@ -66,10 +68,18 @@ class Sound {
    * @return ALLEGRO_SAMPLE* File that has been loaded
    * @throws FileIOException If sound can not be found at path
    */
-  static ALLEGRO_SAMPLE* loadSample(const std::string& path);
+  static Mix_Chunk* loadSample(const std::string& path);
 
   /// Pointer to ALLEGRO_SAMPLE
-  ALLEGRO_SAMPLE* sample;
+  Mix_Chunk* sample;
+
+  /// Allocated channel
+  unsigned int channel;
+
+  /// Current number of channels
+  static unsigned int channel_counter;
 };
+
+}
 
 #endif  // ASSETS_SOUND_H

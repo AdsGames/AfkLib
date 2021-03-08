@@ -4,6 +4,8 @@
 
 #include "entities/GameObject.h"
 
+namespace afk {
+
 // Internal cleanup (on switch scene)
 void Scene::stopInternal() {
   update_pool.clear();
@@ -37,7 +39,7 @@ void Scene::updateInternal() {
       for (const int otherId : collider_map[id]) {
         // Get other
         GameObject& other = *update_pool.at(lookup_map[otherId]);
-        if (update_pool.at(i)->colliding(other)) {
+        if (obj.colliding(other)) {
           obj.onCollide(other);
           other.onCollide(obj);
         }
@@ -84,4 +86,6 @@ void Scene::sortGameObjects() {
     const int id = update_pool.at(i)->getId();
     lookup_map[id] = i;
   }
+}
+
 }

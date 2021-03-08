@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace afk {
+
 /**
  * Logging Service
  * @brief Default logger class, can be overridden
@@ -12,6 +14,8 @@
  **/
 class LoggingService {
  public:
+  virtual ~LoggingService(){};
+
   /**
    * @brief Does nothing
    *
@@ -19,5 +23,7 @@ class LoggingService {
    */
   virtual void log(const std::string& msg);
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_LOGGING_LOGGING_SERVICE_H

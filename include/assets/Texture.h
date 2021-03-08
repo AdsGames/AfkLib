@@ -1,9 +1,10 @@
 #ifndef ASSETS_TEXTURE_H
 #define ASSETS_TEXTURE_H
 
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
+#include <SDL2/SDL.h>
 #include <string>
+
+namespace afk {
 
 /**
  * @brief Easy interface to interact with allegro bitmaps
@@ -51,7 +52,7 @@ class Texture {
    * @param flags Additional flags to pass to allegro draw routine
    * @see drawScaled
    */
-  void draw(const int x, const int y, const int flags = 0) const;
+  void draw(const int x, const int y) const;
 
   /**
    * @brief Draw scaled texture to screen
@@ -75,7 +76,7 @@ class Texture {
    * @param y Y position to sample
    * @return Colour at pixel x y
    */
-  ALLEGRO_COLOR getPixel(const int x, const int y) const;
+  SDL_Color getPixel(const int x, const int y) const;
 
   /**
    * @brief Get the width of the texture
@@ -100,16 +101,18 @@ class Texture {
 
  private:
   /**
-   * @brief Helper which loads an ALLEGRO_BITMAP* from a file
+   * @brief Helper which loads an SDL_Texture* from a file
    *
    * @param path Path to file
-   * @return ALLEGRO_BITMAP* File that has been loaded
+   * @return SDL_Texture* File that has been loaded
    * @throws FileIOException If texture can not be found at path
    */
-  static ALLEGRO_BITMAP* loadBitmap(const std::string& path);
+  static SDL_Texture* loadBitmap(const std::string& path);
 
   /// Pointer to referenced bitmap
-  ALLEGRO_BITMAP* bitmap;
+  SDL_Texture* bitmap;
 };
+
+}
 
 #endif  // ASSETS_TEXTURE_H

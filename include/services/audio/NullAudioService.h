@@ -3,6 +3,8 @@
 
 #include "AudioService.h"
 
+namespace afk {
+
 /**
  * @brief Null audio service, disables audio
  *
@@ -32,5 +34,7 @@ class NullAudioService : public AudioService {
    */
   virtual void stopStream(const std::string& key);
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_AUDIO_NULL_AUDIO_SERVICE_H

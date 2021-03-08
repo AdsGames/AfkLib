@@ -1,10 +1,17 @@
 #ifndef SERVICES_INPUT_MOUSE_STATE_H
 #define SERVICES_INPUT_MOUSE_STATE_H
 
-const int MAX_MOUSE_BUTTONS = 3;
-const int MOUSE_LEFT = 1;
-const int MOUSE_RIGHT = 2;
-const int MOUSE_CENTER = 4;
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_mouse.h>
+
+namespace afk {
+
+enum MouseButtons {
+  BUTTON_LEFT = 1,
+  BUTTON_CENTER = 2,
+  BUTTON_RIGHT = 3,
+  BUTTON_MAX = 4,
+};
 
 /**
  * @brief Mouse State
@@ -27,19 +34,19 @@ struct MouseState {
   int old_y = 0;
 
   /// Individual button states
-  bool button[MAX_MOUSE_BUTTONS] = {false};
+  bool button[MouseButtons::BUTTON_MAX] = {false};
 
   /// Buttons just pressed
-  bool down[MAX_MOUSE_BUTTONS] = {false};
+  bool down[MouseButtons::BUTTON_MAX] = {false};
 
   /// Buttons just released
-  bool up[MAX_MOUSE_BUTTONS] = {false};
+  bool up[MouseButtons::BUTTON_MAX] = {false};
 
   /// Mouse just moved
   bool moved = false;
 
   /// Previous button states
-  bool button_old[MAX_MOUSE_BUTTONS] = {false};
+  bool button_old[MouseButtons::BUTTON_MAX] = {false};
 
   /**
    * @brief Update the mouse state
@@ -52,7 +59,7 @@ struct MouseState {
     old_y = y;
 
     // Check button just pressed
-    for (int i = 0; i < MAX_MOUSE_BUTTONS; i++) {
+    for (int i = 0; i < MouseButtons::BUTTON_MAX; i++) {
       // Just up
       if (button_old[i] && !button[i]) {
         up[i] = true;
@@ -74,5 +81,7 @@ struct MouseState {
     }
   }
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_MOUSE_STATE_H

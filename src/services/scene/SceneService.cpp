@@ -4,39 +4,40 @@
 
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Update ticks per second
-const float UPDATES_PER_SECOND = 20;
+const Uint32 MS_PER_UPDATE = 50;
 
 // Register events
 SceneService::SceneService() {
-  Locator::getLogger().log("[Scene Service]: Starting up");
-
-  // Create timer
-  update_timer = al_create_timer(1.0 / UPDATES_PER_SECOND);
-  al_start_timer(update_timer);
-
   // Register timer events
-  Locator::getEventQueue().registerSource(
-      al_get_timer_event_source(update_timer));
+  update_timer = Services::getEventQueue().registerTimer(MS_PER_UPDATE, 1);
 
   // Register self
-  Locator::getEventQueue().registerService(this);
+  Services::getEventQueue().registerService(this);
 }
 
 // Unregister events
 SceneService::~SceneService() {
-  Locator::getLogger().log("[Scene Service]: Shutting down");
-
   // Unregister self
-  Locator::getEventQueue().unregisterService(this);
+  Services::getEventQueue().unregisterService(this);
+
+  // Remove timer
+  Services::getEventQueue().unregisterTimer(update_timer);
+}
+
+// Get the name of service
+std::string SceneService::getName() const {
+  return "Scene Service";
 }
 
 // Process event notification
-void SceneService::notify(const ALLEGRO_EVENT& event) {
+void SceneService::notify(const SDL_Event& event) {
   // Update timer
-  if (event.type == ALLEGRO_EVENT_TIMER && event.timer.source == update_timer) {
+  if (event.type == SDL_USEREVENT && event.user.code == 1) {
     // Change scene (if needed)
     changeScene();
 
@@ -49,7 +50,7 @@ void SceneService::notify(const ALLEGRO_EVENT& event) {
 }
 
 // Get scene
-Scene* SceneService::getScene() {
+Scene* SceneService::getSceneService() {
   return this->current_scene;
 }
 
@@ -96,7 +97,4 @@ void SceneService::setNextScene(const std::string& scene_id) {
   }
 }
 
-// Get the update timer (useful for checking if timer event is from here)
-ALLEGRO_TIMER* SceneService::getUpdateTimer() {
-  return update_timer;
 }

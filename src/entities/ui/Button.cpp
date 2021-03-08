@@ -3,7 +3,9 @@
 #include "color/Color.h"
 #include "primitives/Primitives.h"
 #include "scene/Scene.h"
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Ctor
 Button::Button(Scene& scene,
@@ -23,7 +25,7 @@ Button::Button(Scene& scene,
                const int z,
                const std::string& textureId)
     : UIElement(scene, x, y, z, "", "") {
-  this->image = Locator::getAsset().getImage(textureId);
+  this->image = Services::getAssetService().getImage(textureId);
   this->height = this->image.getHeight();
   this->width = this->image.getWidth();
 }
@@ -40,10 +42,14 @@ void Button::draw() {
     image.draw(x, y);
   } else {
     // Draw button background
-    Primitives::rectfill(x, y, x + width, y + height,
-                         Color::rgb(255, 255, 255));
+    primitives::rectfill(x, y, width, height, color::rgb(255, 255, 255));
+
+    // Draw button border
+    primitives::rect(x, y, width, height, color::rgb(0, 0, 0));
 
     // Text
-    font.draw(x, y, text, Color::rgb(0, 0, 0));
+    font.draw(x, y, text, color::rgb(0, 0, 0));
   }
 }
+
+}  // namespace afk

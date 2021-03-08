@@ -1,9 +1,11 @@
-#include "particles/Particle.h"
+#include "entities/Particle.h"
+
+namespace afk {
 
 // Constructor
 Particle::Particle(float x,
                    float y,
-                   ALLEGRO_COLOR color,
+                   SDL_Color color,
                    float velocity_x,
                    float velocity_y,
                    int size,
@@ -22,25 +24,21 @@ void Particle::update() {
   y += velocity_y;
 }
 
-// Scroll by
-void Particle::scroll(float x, float y) {
-  this->x += x;
-  this->y += y;
-}
-
 // Draw
 void Particle::draw() {
   switch (type) {
     case ParticleType::SQUARE:
-      Primitives::rect(x, y, x + size, y + size, color, 1);
+      primitives::rect(x, y, size, size, color);
       break;
     case ParticleType::CIRCLE:
-      Primitives::circle(x, y, size, color, 1);
+      primitives::circle(x, y, size, color);
       break;
     case ParticleType::PIXEL:
-      Primitives::rect(x, y, x, y, color, 1);
+      primitives::rect(x, y, 1, 1, color);
       break;
     default:
       break;
   }
 }
+
+}  // namespace afk

@@ -4,6 +4,8 @@
 
 #include <string>
 
+namespace afk {
+
 /**
  * @brief Allowed types for message box
  *
@@ -11,9 +13,7 @@
 enum MessageBoxType {
   WARN,
   ERROR,
-  QUESTION,
-  OK_CANCEL,
-  YES_NO,
+  INFO,
 };
 
 /**
@@ -77,5 +77,7 @@ class MessageBox {
    */
   int resolveType();
 };
+
+}  // namespace afk
 
 #endif  // ENTITIES_UI_MESSAGE_BOX

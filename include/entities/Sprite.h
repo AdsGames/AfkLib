@@ -4,8 +4,9 @@
 #include <vector>
 
 #include "../assets/Texture.h"
-#include "../particles/Particle.h"
 #include "GameObject.h"
+
+namespace afk {
 
 /**
  * @brief A simple texturable game object
@@ -75,9 +76,8 @@ class Sprite : public GameObject {
 
   /// Visibility
   bool visible;
-
-  /// Particles
-  std::vector<Particle> parts;
 };
+
+}  // namespace afk
 
 #endif  // ENGINE_ENTITIES_SPRITE_H

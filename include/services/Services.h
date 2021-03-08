@@ -3,14 +3,16 @@
 
 #include <memory>
 
-#include "EventQueue.h"
 #include "assets/AssetService.h"
 #include "audio/AudioService.h"
 #include "config/ConfigService.h"
 #include "display/DisplayService.h"
+#include "events/EventQueue.h"
 #include "input/InputService.h"
 #include "logging/LoggingService.h"
 #include "scene/SceneService.h"
+
+namespace afk {
 
 /**
  * @brief Core service locator for engine services
@@ -18,7 +20,7 @@
  * @author Allan Legemaate
  * @date 7/11/2020
  */
-class Locator {
+class Services {
  public:
   /**
    * @brief Provide instance of audio service
@@ -29,8 +31,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideAudio(Args&&... args) {
-    audio_service = std::make_unique<T>((args)...);
+  static void provideAudioService(Args&&... args) {
+    audio_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -41,8 +43,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideAsset(Args&&... args) {
-    asset_service = std::make_unique<T>((args)...);
+  static void provideAssetService(Args&&... args) {
+    asset_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -53,8 +55,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideDisplay(Args&&... args) {
-    display_service = std::make_unique<T>((args)...);
+  static void provideDisplayService(Args&&... args) {
+    display_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -66,8 +68,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideConfig(Args&&... args) {
-    config_service = std::make_unique<T>((args)...);
+  static void provideConfigService(Args&&... args) {
+    config_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -79,8 +81,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideLogging(Args&&... args) {
-    logging_service = std::make_unique<T>((args)...);
+  static void provideLoggingService(Args&&... args) {
+    logging_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -91,8 +93,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideInput(Args&&... args) {
-    input_service = std::make_unique<T>((args)...);
+  static void provideInputService(Args&&... args) {
+    input_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -104,7 +106,7 @@ class Locator {
    */
   template <class T, class... Args>
   static void provideEventQueue(Args&&... args) {
-    event_service = std::make_unique<T>((args)...);
+    event_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -115,8 +117,8 @@ class Locator {
    * @param args Argument values to be forwarded to constructor of T
    */
   template <class T, class... Args>
-  static void provideScene(Args&&... args) {
-    scene_service = std::make_unique<T>((args)...);
+  static void provideSceneService(Args&&... args) {
+    scene_service = std::make_shared<T>((args)...);
   }
 
   /**
@@ -124,42 +126,42 @@ class Locator {
    *
    * @return AudioService& Reference to current audio service
    */
-  static AudioService& getAudio();
+  static AudioService& getAudioService();
 
   /**
    * @brief Get the AssetService
    *
    * @return AssetService& Reference to current asset service
    */
-  static AssetService& getAsset();
+  static AssetService& getAssetService();
 
   /**
    * @brief Get the DisplayService
    *
    * @return DisplayService& Reference to current display service
    */
-  static DisplayService& getDisplay();
+  static DisplayService& getDisplayService();
 
   /**
    * @brief Get the ConfigService
    *
    * @return ConfigService& Reference to current config service
    */
-  static ConfigService& getConfig();
+  static ConfigService& getConfigService();
 
   /**
    * @brief Get the LoggingService
    *
    * @return LoggingService& Reference to current logging service
    */
-  static LoggingService& getLogger();
+  static LoggingService& getLoggingService();
 
   /**
    * @brief Get the InputService
    *
    * @return InputService& Reference to current input service
    */
-  static InputService& getInput();
+  static InputService& getInputService();
 
   /**
    * @brief Get the EventQueue
@@ -173,32 +175,34 @@ class Locator {
    *
    * @return SceneService& Reference to current scene service
    */
-  static SceneService& getScene();
+  static SceneService& getSceneService();
 
  private:
-  /// Internal pointer to current AudioService instance
-  static inline std::unique_ptr<AudioService> audio_service;
-
-  /// Internal pointer to current AssetService instance
-  static inline std::unique_ptr<AssetService> asset_service;
-
-  /// Internal pointer to current DisplayService instance
-  static inline std::unique_ptr<DisplayService> display_service;
-
-  /// Internal pointer to current ConfigService instance
-  static inline std::unique_ptr<ConfigService> config_service;
-
   /// Internal pointer to current LoggingService instance
-  static inline std::unique_ptr<LoggingService> logging_service;
-
-  /// Internal pointer to current InputService instance
-  static inline std::unique_ptr<InputService> input_service;
+  static inline std::shared_ptr<LoggingService> logging_service;
 
   /// Internal pointer to current Event queue instance
-  static inline std::unique_ptr<EventQueue> event_service;
+  static inline std::shared_ptr<EventQueue> event_service;
 
   /// Internal pointer to current SceneService queue instance
-  static inline std::unique_ptr<SceneService> scene_service;
+  static inline std::shared_ptr<SceneService> scene_service;
+
+  /// Internal pointer to current DisplayService instance
+  static inline std::shared_ptr<DisplayService> display_service;
+
+  /// Internal pointer to current InputService instance
+  static inline std::shared_ptr<InputService> input_service;
+
+  /// Internal pointer to current AudioService instance
+  static inline std::shared_ptr<AudioService> audio_service;
+
+  /// Internal pointer to current AssetService instance
+  static inline std::shared_ptr<AssetService> asset_service;
+
+  /// Internal pointer to current ConfigService instance
+  static inline std::shared_ptr<ConfigService> config_service;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_LOCATOR_H

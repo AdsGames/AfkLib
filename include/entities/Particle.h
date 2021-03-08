@@ -8,6 +8,8 @@
 
 #include "primitives/Primitives.h"
 
+namespace afk {
+
 enum class ParticleType : int {
   PIXEL,
   SQUARE,
@@ -19,14 +21,14 @@ class Particle {
  public:
   Particle(float x,
            float y,
-           ALLEGRO_COLOR color,
+           SDL_Color color,
            float velocity_x,
            float velocity_y,
            int size,
            ParticleType type);
 
   void update();
-  void scroll(float x, float y);
+
   void draw();
 
  private:
@@ -37,7 +39,9 @@ class Particle {
 
   float velocity_x, velocity_y;
 
-  ALLEGRO_COLOR color;
+  SDL_Color color;
 };
+
+}  // namespace afk
 
 #endif  // PARTICLES_PARTICLE_H

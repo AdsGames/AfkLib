@@ -1,24 +1,29 @@
-#include "../include/Engine.h"
+#include "../include/Game.h"
 #include "../include/entities/ui/Button.h"
 #include "../include/entities/ui/MessageBox.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Locator.h"
+#include "../include/services/Services.h"
 
-class DemoScene : public Scene {
+class DemoScene : public afk::Scene {
  public:
   void start() {
-    Locator::getLogger().log("Starting!");
-    Locator::getDisplay().setWindowSize(512, 512);
-    Locator::getDisplay().setBufferSize(512, 512);
-    Locator::getDisplay().setMode(DISPLAY_MODE::WINDOWED);
-    Locator::getDisplay().setTitle("ex_button");
-    Locator::getAsset().loadFont("freesans", "assets/freesans.ttf", 12);
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Starting!");
 
-    int button_id =
-        this->add<Button>(*this, 10, 10, 10, "CLICK ME", "freesans");
+    afk::DisplayService& display = afk::Services::getDisplayService();
+    display.setWindowSize(512, 512);
+    display.setBufferSize(512, 512);
+    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setTitle("ex_button");
 
-    this->get<Button>(button_id).setOnClick([]() {
-      MessageBox message_box(QUESTION);
+    afk::AssetService& assets = afk::Services::getAssetService();
+    assets.loadFont("freesans", "assets/freesans.ttf", 12);
+
+    afk::Button& button =
+        addObj<afk::Button>(*this, 10, 10, 10, "CLICK ME", "freesans");
+
+    button.setOnClick([]() {
+      afk::MessageBox message_box(afk::INFO);
       message_box.setTitle("Nice");
       message_box.setHeading("You Clicked");
       message_box.setText("The button");
@@ -26,17 +31,22 @@ class DemoScene : public Scene {
     });
   }
 
-  void draw() {}
-
   void update() {}
 
-  void stop() { Locator::getLogger().log("Stopping!"); }
+  void stop() {
+    afk::LoggingService& logger = afk::Services::getLoggingService();
+    logger.log("Stopping!");
+  }
 };
 
-int main() {
-  Engine game = Engine();
-  Locator::getScene().addScene<DemoScene>("demo");
-  Locator::getScene().setNextScene("demo");
+int main(int argv, char** args) {
+  afk::Game game = afk::Game();
+
+  afk::SceneService& scenes = afk::Services::getSceneService();
+  scenes.addScene<DemoScene>("demo");
+  scenes.setNextScene("demo");
+
   game.start();
+
   return 0;
 }

@@ -5,6 +5,8 @@
 #include <string>
 #include <variant>
 
+namespace afk {
+
 /**
  * @brief Varient defining allowed setting types
  *
@@ -31,6 +33,12 @@ class ConfigService {
    *
    */
   ConfigService();
+
+  /**
+   * @brief Destroy
+   *
+   */
+  ~ConfigService();
 
   /**
    * @brief Load settings from file
@@ -135,5 +143,7 @@ class ConfigService {
   /// Container which stores all settings
   std::map<std::string, SettingType> settings;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_CONFIG_CONFIG_SERVICE_H

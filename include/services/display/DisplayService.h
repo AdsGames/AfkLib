@@ -2,12 +2,15 @@
 #ifndef SERVICES_DISPLAY_DISPLAY_SERVICE_H
 #define SERVICES_DISPLAY_DISPLAY_SERVICE_H
 
-#include <allegro5/display.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
 #include <string>
 
 #include "../Service.h"
 
 const int FRAME_BUFFER_SIZE = 20;
+
+namespace afk {
 
 class Scene;
 
@@ -48,11 +51,18 @@ class DisplayService : public Service {
   virtual ~DisplayService();
 
   /**
+   * @brief Get the name of service
+   *
+   * @return name
+   */
+  std::string getName() const;
+
+  /**
    * @brief Notify about event updates
    *
    * @param event Event which happened
    */
-  virtual void notify(const ALLEGRO_EVENT& event);
+  virtual void notify(const SDL_Event& event);
 
   /**
    * @brief Set the current display mode. Should be called once on
@@ -85,7 +95,7 @@ class DisplayService : public Service {
    * @return Selected display mode
    * @see DISPLAY_MODE
    */
-  int getDisplayMode() const;
+  int getDisplayServiceMode() const;
 
   /**
    * @brief Get the buffer width
@@ -120,14 +130,14 @@ class DisplayService : public Service {
    *
    * @return width of window
    */
-  unsigned int getDisplayWidth() const;
+  unsigned int getDisplayServiceWidth() const;
 
   /**
    * @brief Get the current height of window
    *
    * @return height of window
    */
-  unsigned int getDisplayHeight() const;
+  unsigned int getDisplayServiceHeight() const;
 
   /**
    * @brief Get the scaling being done on buffer. This is equivalent to buffer
@@ -166,14 +176,6 @@ class DisplayService : public Service {
   void resize(const unsigned int window_w, const unsigned int window_h);
 
   /**
-   * @brief Draw a scene. Calls the draw and draw_internal functions of a given
-   * Scene object
-   *
-   * @param current_scene Scene to draw
-   */
-  void draw(Scene* current_scene);
-
-  /**
    * @brief Set the window title
    *
    * @param title String to show in title
@@ -194,7 +196,29 @@ class DisplayService : public Service {
    */
   int getFps();
 
+  /**
+   * @brief Get the window renderer
+   *
+   * @return SDL_Renderer* pointer to window renderer
+   */
+  SDL_Renderer* getRenderer();
+
+  /**
+   * @brief Get the window
+   *
+   * @return SDL_Window* pointer to window
+   */
+  SDL_Window* getWindow();
+
  private:
+  /**
+   * @brief Draw a scene. Calls the draw and draw_internal functions of a given
+   * Scene object
+   *
+   * @param current_scene Scene to draw
+   */
+  void draw(Scene* current_scene);
+
   /// Width of buffer
   unsigned int draw_w = 0;
 
@@ -222,11 +246,11 @@ class DisplayService : public Service {
   /// Current display mode
   DISPLAY_MODE display_mode = DISPLAY_MODE::WINDOWED;
 
-  /// Active display
-  ALLEGRO_DISPLAY* display = nullptr;
+  /// Active window
+  SDL_Window* window = nullptr;
 
-  /// Drawing buffer
-  ALLEGRO_BITMAP* buffer = nullptr;
+  /// Renderer
+  SDL_Renderer* renderer = nullptr;
 
   /// Fps timer
   double old_time = 0;
@@ -237,8 +261,8 @@ class DisplayService : public Service {
   /// Current fps
   unsigned int fps = 0;
 
-  /// FPS timer
-  ALLEGRO_TIMER* fps_timer = nullptr;
+  /// Timer id
+  SDL_TimerID draw_timer = 0;
 
   /**
    * @brief Sets the window scaling in percent
@@ -256,6 +280,8 @@ class DisplayService : public Service {
    */
   void setTranslation(const unsigned int x, const unsigned int y);
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_DISPLAY_DISPLAY_SERVICE_H
 

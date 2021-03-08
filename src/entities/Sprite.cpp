@@ -4,7 +4,9 @@
 #include "primitives/Primitives.h"
 #include "scene/Scene.h"
 
-#include "services/Locator.h"
+#include "services/Services.h"
+
+namespace afk {
 
 // Constructor
 Sprite::Sprite(Scene& scene, const float x, const float y, const int z)
@@ -28,7 +30,7 @@ void Sprite::setVisible(const bool visible) {
 }
 
 void Sprite::setTexture(const std::string& texture) {
-  this->texture = Locator::getAsset().getImage(texture);
+  this->texture = Services::getAssetService().getImage(texture);
   this->width = this->texture.getWidth();
   this->height = this->texture.getHeight();
 }
@@ -43,15 +45,10 @@ void Sprite::draw() {
   // Draw image
   texture.drawScaled(x, y, width, height);
 
-  // Draw particles
-  if (Locator::getConfig().get<int>("particleType", 0) != 3) {
-    for (unsigned int i = 0; i < parts.size(); i++) {
-      parts.at(i).draw();
-    }
-  }
-
   // Draw bounding box
-  if (Locator::getConfig().get<bool>("debug", false)) {
-    Primitives::rect(x, y, x + width, y + height, Color::rgb(88, 88, 88), 1);
+  if (Services::getConfigService().get<bool>("debug", false)) {
+    primitives::rect(x, y, width, height, color::rgb(88, 88, 88));
   }
+}
+
 }

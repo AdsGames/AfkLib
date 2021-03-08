@@ -2,6 +2,8 @@
 
 #include "scene/Scene.h"
 
+namespace afk {
+
 // Set incrementing index count
 ObjId GameObject::index = 0;
 
@@ -73,3 +75,5 @@ int GameObject::getZ() const {
 ObjId GameObject::getId() const {
   return id;
 }
+
+}  // namespace afk

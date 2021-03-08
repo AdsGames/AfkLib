@@ -6,7 +6,7 @@
 
 #include "Exceptions.h"
 
-namespace stringFns {
+namespace afk::str {
 
 /**
  * @brief Check if string is an integer
@@ -86,6 +86,6 @@ std::string format(const std::string& format, Args... args) {
   return std::string(buf.get(), buf.get() + size - 1);
 }
 
-}  // namespace stringFns
+}  // namespace afk::str
 
 #endif  // COMMON_STRING_FNS_H

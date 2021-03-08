@@ -2,9 +2,9 @@ name: Build Mac OS
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -12,17 +12,17 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      
-    - name: Install Libraries
-      run: |
-        brew install allegro
-        
-    - name: Run CMake
-      run: cmake -G "Unix Makefiles" .
-    
-    - name: Make
-      run: |
-        export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include"
-        make
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Libraries
+        run: |
+          brew install sdl2 sdl2_image sdl2_gfx sdl2_ttf sdl2_mixer
+
+      - name: Run CMake
+        run: cmake -G "Unix Makefiles" .
+
+      - name: Make
+        run: |
+          export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include"
+          make

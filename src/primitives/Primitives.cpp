@@ -1,28 +1,37 @@
-#include <allegro5/allegro_primitives.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 #include "primitives/Primitives.h"
+#include "services/Services.h"
 
-void Primitives::rect(const float x1,
-                      const float y1,
-                      const float x2,
-                      const float y2,
-                      ALLEGRO_COLOR color,
-                      const float thickness) {
-  al_draw_rectangle(x1, y1, x2, y2, color, thickness);
+namespace afk::primitives {
+
+void rect(const int x,
+          const int y,
+          const int w,
+          const int h,
+          SDL_Color colour) {
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+
+  SDL_Rect bounds = {x, y, w, h};
+  SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+  SDL_RenderDrawRect(renderer, &bounds);
 }
 
-void Primitives::rectfill(const float x1,
-                          const float y1,
-                          const float x2,
-                          const float y2,
-                          ALLEGRO_COLOR color) {
-  al_draw_filled_rectangle(x1, y1, x2, y2, color);
+void rectfill(const int x,
+              const int y,
+              const int w,
+              const int h,
+              SDL_Color colour) {
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+
+  SDL_Rect bounds = {x, y, w, h};
+  SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+  SDL_RenderFillRect(renderer, &bounds);
 }
 
-void Primitives::circle(const float cx,
-                        const float cy,
-                        const float r,
-                        ALLEGRO_COLOR color,
-                        const float thickness) {
-  al_draw_circle(cx, cy, r, color, thickness);
+void circle(const int cx, const int cy, const int r, SDL_Color colour) {
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+  circleColor(renderer, cx, cy, r, color::colorToInt(colour));
 }
+
+}  // namespace afk::primitives

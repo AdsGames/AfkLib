@@ -2,22 +2,23 @@
 #ifndef SERVICES_INPUT_JOYSTICK_STATE_H
 #define SERVICES_INPUT_JOYSTICK_STATE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL_events.h>
 
 #include "JoystickCodes.h"
 
+namespace afk {
+
 /// Max sticks
-const int JOY_MAX_STICKS = _AL_MAX_JOYSTICK_STICKS;
+const int JOY_MAX_STICKS = 128;
 
 /// Max axes
-const int JOY_MAX_AXES = _AL_MAX_JOYSTICK_AXES;
+const int JOY_MAX_AXES = 128;
 
 /// Max sticks
-const int JOY_MAX_STICK_BOOLEANS =
-    _AL_MAX_JOYSTICK_STICKS * _AL_MAX_JOYSTICK_AXES * 2;
+const int JOY_MAX_STICK_BOOLEANS = JOY_MAX_STICKS * JOY_MAX_AXES * 2;
 
 /// Max buttons
-const int JOY_MAX_BUTTONS = _AL_MAX_JOYSTICK_BUTTONS;
+const int JOY_MAX_BUTTONS = 128;
 
 /**
  * @brief Joystick state
@@ -117,5 +118,7 @@ struct JoystickState {
     }
   }
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_JOYSTICK_STATE_H

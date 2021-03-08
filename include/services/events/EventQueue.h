@@ -1,10 +1,12 @@
 #ifndef SERVICES_EVENT_QUEUE_H
 #define SERVICES_EVENT_QUEUE_H
 
-#include <allegro5/allegro.h>
+#include <SDL2/SDL.h>
 #include <vector>
 
-#include "Service.h"
+#include "../Service.h"
+
+namespace afk {
 
 /**
  * @brief Houses event queue and works as
@@ -47,25 +49,32 @@ class EventQueue {
   void unregisterService(Service* service);
 
   /**
-   * @brief Register source with queue
+   * @brief Register user timer
    *
    * @param source to hook into queue
    */
-  void registerSource(ALLEGRO_EVENT_SOURCE* source);
+  SDL_TimerID registerTimer(const Uint32 time, const char code);
 
   /**
-   * @brief Unregister source with queue
+   * @brief Unregister user timer
    *
    * @param source to remove from queue
    */
-  void unregisterSource(ALLEGRO_EVENT_SOURCE* source);
+  void unregisterTimer(const SDL_TimerID code);
+
+  /**
+   * @brief Timer callback for registered timers
+   *
+   * @param interval to run at
+   * @param param user defined params
+   */
+  static Uint32 timerCallback(Uint32 interval, void* param);
 
  private:
-  /// Main event queue
-  ALLEGRO_EVENT_QUEUE* event_queue = nullptr;
-
   /// List of services which must be notified
   std::vector<Service*> services;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_EVENT_QUEUE_H

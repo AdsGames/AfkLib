@@ -3,6 +3,8 @@
 
 #include "LoggingService.h"
 
+namespace afk {
+
 /**
  * Debug Logger
  * @brief Actually logs messages
@@ -19,5 +21,7 @@ class DebugLoggingService : public LoggingService {
    */
   virtual void log(const std::string& msg) override;
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_LOGGING_DEBUG_LOGGING_SERVICE_H

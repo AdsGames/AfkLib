@@ -2,7 +2,9 @@
 #ifndef SERVICES_INPUT_KEYBOARD_STATE_H
 #define SERVICES_INPUT_KEYBOARD_STATE_H
 
-#include <allegro5/allegro.h>
+#include "KeyboardKeys.h"
+
+namespace afk {
 
 /**
  * @brief Keyboard state
@@ -10,13 +12,13 @@
  */
 struct KeyboardState {
   /// Individual key states
-  bool key[ALLEGRO_KEY_MAX] = {false};
+  bool key[Keys::KEY_MAX] = {false};
 
   /// keys just pressed
-  bool keyPressed[ALLEGRO_KEY_MAX] = {false};
+  bool keyPressed[Keys::KEY_MAX] = {false};
 
   /// keys just released
-  bool keyReleased[ALLEGRO_KEY_MAX] = {false};
+  bool keyReleased[Keys::KEY_MAX] = {false};
 
   /// Id of last key pressed
   int lastKeyPressed = -1;
@@ -28,7 +30,7 @@ struct KeyboardState {
   bool anyKeyPressed = -1;
 
   /// Previous key states
-  bool lastTicksKey[ALLEGRO_KEY_MAX] = {false};
+  bool lastTicksKey[Keys::KEY_MAX] = {false};
 
   /**
    * @brief Update the keyboard state
@@ -41,7 +43,7 @@ struct KeyboardState {
     anyKeyPressed = false;
 
     // Check key just pressed
-    for (int i = 0; i < ALLEGRO_KEY_MAX; i++) {
+    for (int i = 0; i < Keys::KEY_MAX; i++) {
       // Clear old values
       keyPressed[i] = false;
       keyReleased[i] = false;
@@ -67,5 +69,7 @@ struct KeyboardState {
     }
   }
 };
+
+}  // namespace afk
 
 #endif  // SERVICES_INPUT_KEYBOARD_STATE_H
