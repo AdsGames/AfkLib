@@ -34,7 +34,7 @@ class ParticleEmitter : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit ParticleEmitter(const Scene& scene,
+  explicit ParticleEmitter(Scene& scene,
                            const Particle particle,
                            const float x = 0.0f,
                            const float y = 0.0f,

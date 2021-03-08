@@ -33,7 +33,7 @@ class Label : public UIElement {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  Label(const Scene& scene,
+  Label(Scene& scene,
         const int x,
         const int y,
         const int z,

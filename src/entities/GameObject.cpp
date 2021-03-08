@@ -18,11 +18,8 @@ namespace afk {
 ObjId GameObject::index = 0;
 
 // Constructor
-GameObject::GameObject(const Scene& scene,
-                       const float x,
-                       const float y,
-                       const int z)
-    : scene(scene), x(x), y(y), z(z), height(0), width(0), angle(180.0f) {
+GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
+    : scene(scene), x(x), y(y), z(z), height(0), width(0), angle(0.0f) {
   this->id = GameObject::index;
   GameObject::index += 1;
 }

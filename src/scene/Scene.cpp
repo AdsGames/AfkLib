@@ -16,6 +16,16 @@
 
 namespace afk {
 
+// Constructor
+Scene::Scene()
+    : audio(afk::Services::getAudioService()),
+      logger(afk::Services::getLoggingService()),
+      display(afk::Services::getDisplayService()),
+      assets(afk::Services::getAssetService()),
+      input(afk::Services::getInputService()),
+      scene(afk::Services::getSceneService()),
+      config(afk::Services::getConfigService()) {}
+
 // Internal cleanup (on switch scene)
 void Scene::stopInternal() {
   update_pool.clear();

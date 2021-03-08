@@ -16,16 +16,13 @@
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
 
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_sprite");
 
-    afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadImage("lenna", "assets/lenna.png");
 
     add<afk::Sprite>(*this, "lenna");
@@ -35,10 +32,7 @@ class DemoScene : public afk::Scene {
 
   void update() {}
 
-  void stop() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
-    logger.log("Stopping!");
-  }
+  void stop() { logger.log("Stopping!"); }
 };
 
 int main(int argv, char** args) {

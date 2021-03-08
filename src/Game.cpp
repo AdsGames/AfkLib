@@ -14,13 +14,6 @@
 #include "entities/ui/MessageBox.h"
 #include "random/RandomGenerator.h"
 #include "services/Services.h"
-#include "services/assets/AssetService.h"
-#include "services/audio/DefaultAudioService.h"
-#include "services/config/ConfigService.h"
-#include "services/events/EventQueue.h"
-#include "services/input/InputService.h"
-#include "services/logging/DebugLoggingService.h"
-#include "services/scene/SceneService.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -127,30 +120,6 @@ void Game::setup() {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
     throw InitException("Could not init sdl");
   }
-
-  // Setup logger
-  Services::provideLoggingService<DebugLoggingService>();
-
-  // Setup event queue
-  Services::provideEventQueue<EventQueue>();
-
-  // Setup display
-  Services::provideDisplayService<DisplayService>();
-
-  // Setup service locator
-  Services::provideAudioService<DefaultAudioService>();
-
-  // Setup asset manager
-  Services::provideAssetService<AssetService>();
-
-  // Setup setting manager
-  Services::provideConfigService<ConfigService>();
-
-  // Setup input
-  Services::provideInputService<InputService>();
-
-  // Setup scene manager
-  Services::provideSceneService<SceneService>();
 
   // Register self with event queue
   Services::getEventQueue().registerService(this);

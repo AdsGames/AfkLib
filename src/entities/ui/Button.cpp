@@ -20,7 +20,7 @@
 namespace afk {
 
 // Ctor
-Button::Button(const Scene& scene,
+Button::Button(Scene& scene,
                const int x,
                const int y,
                const int z,
@@ -31,7 +31,7 @@ Button::Button(const Scene& scene,
   this->width = this->font.getWidth(text);
 }
 
-Button::Button(const Scene& scene,
+Button::Button(Scene& scene,
                const int x,
                const int y,
                const int z,

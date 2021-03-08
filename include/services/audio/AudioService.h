@@ -1,7 +1,7 @@
 /**
  * @file AudioService.h
  * @author Allan Legemaate (alegemaate@gmail.com)
- * @brief Parent audio service, other audio services should inherit from this
+ * @brief Default audio service, can actually play audio.
  * @version 0.1
  * @date 2020-10-30
  *
@@ -19,8 +19,7 @@
 namespace afk {
 
 /**
- * @brief Parent audio service, other audio services should inherit from this
- * class.
+ * @brief Implementation of audio service
  *
  */
 class AudioService {
@@ -37,8 +36,8 @@ class AudioService {
    * @param key Id of sound to play
    * @param config Play configuration
    */
-  virtual void playSound(const std::string& key,
-                         const PlaySoundConfig& config = PlaySoundConfig()) = 0;
+  void playSound(const std::string& key,
+                 const PlaySoundConfig& config = PlaySoundConfig());
 
   /**
    * @brief Play audio stream by id
@@ -46,14 +45,14 @@ class AudioService {
    * @param key Id of stream to play
    * @param loop Loop mode, true for looping, false for one shot
    */
-  virtual void playStream(const std::string& key, const bool loop = false) = 0;
+  void playStream(const std::string& key, const bool loop = false);
 
   /**
    * @brief Stop stream by id. Stops all instances of stream currently playing.
    *
    * @param key Id of stream to stop
    */
-  virtual void stopStream(const std::string& key) = 0;
+  void stopStream(const std::string& key);
 };
 
 }  // namespace afk

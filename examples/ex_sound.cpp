@@ -16,34 +16,23 @@
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
-
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_mouse");
-
-    afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadAudio("win", "assets/win.wav");
   }
 
   void draw() {}
 
   void update() {
-    afk::InputService& input = afk::Services::getInputService();
-    afk::AudioService& audio = afk::Services::getAudioService();
-
     if (input.mousePressed(afk::MouseButtons::LEFT)) {
       audio.playSound("win", {127, 0, 1.0f, false});
     }
   }
 
-  void stop() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
-    logger.log("Stopping!");
-  }
+  void stop() { logger.log("Stopping!"); }
 };
 
 int main(int argv, char** args) {

@@ -15,44 +15,38 @@
 
 class Character : public afk::Sprite {
  public:
-  Character(const afk::Scene& scene, const float x, const float y)
-      : Sprite(scene, x, y), input(afk::Services::getInputService()) {
+  Character(afk::Scene& scene, const float x, const float y)
+      : Sprite(scene, x, y) {
     setTexture("lenna");
     setSize(30, 30);
   }
 
   void update() {
-    if (input.keyDown(afk::Keys::UP)) {
+    if (scene.input.keyDown(afk::Keys::UP)) {
       setPosition(x, y - 5);
     }
-    if (input.keyDown(afk::Keys::DOWN)) {
+    if (scene.input.keyDown(afk::Keys::DOWN)) {
       setPosition(x, y + 5);
     }
-    if (input.keyDown(afk::Keys::LEFT)) {
+    if (scene.input.keyDown(afk::Keys::LEFT)) {
       setPosition(x - 5, y);
     }
-    if (input.keyDown(afk::Keys::RIGHT)) {
+    if (scene.input.keyDown(afk::Keys::RIGHT)) {
       setPosition(x + 5, y);
     }
   }
-
- private:
-  afk::InputService& input;
 };
 
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
 
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_keyboard");
 
-    afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadImage("lenna", "assets/lenna.png");
 
     add<Character>(*this, 100, 100);
@@ -62,10 +56,7 @@ class DemoScene : public afk::Scene {
 
   void update() {}
 
-  void stop() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
-    logger.log("Stopping!");
-  }
+  void stop() { logger.log("Stopping!"); }
 };
 
 class MainGame : public afk::Game {

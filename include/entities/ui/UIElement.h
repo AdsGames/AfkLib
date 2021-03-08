@@ -36,7 +36,7 @@ class UIElement : public GameObject {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  UIElement(const Scene& scene,
+  UIElement(Scene& scene,
             const float x,
             const float y,
             const int z,

@@ -24,16 +24,13 @@ const int SPRITE_SIZE = 20;
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
 
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(SCREEN_W, SCREEN_H);
     display.setBufferSize(SCREEN_W, SCREEN_H);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_fps");
 
-    afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadFont("freesans", "assets/freesans.ttf", 64);
     assets.loadImage("lenna", "assets/lenna.png");
 
@@ -52,7 +49,7 @@ class DemoScene : public afk::Scene {
   void update() {
     iter++;
 
-    unsigned int fps = afk::Services::getDisplayService().getFps();
+    unsigned int fps = display.getFps();
 
     get<afk::Label>(label_id).setText(std::to_string(fps));
 
@@ -63,10 +60,7 @@ class DemoScene : public afk::Scene {
     }
   }
 
-  void stop() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
-    logger.log("Stopping!");
-  }
+  void stop() { logger.log("Stopping!"); }
 
  private:
   ObjId label_id = -1;

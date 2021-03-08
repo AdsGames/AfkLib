@@ -15,10 +15,8 @@
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
 
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(100, 100);
     display.setBufferSize(100, 100);
     display.setMode(afk::DisplayMode::WINDOWED);
@@ -29,10 +27,7 @@ class DemoScene : public afk::Scene {
 
   void update() {}
 
-  void stop() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
-    logger.log("Stopping!");
-  }
+  void stop() { logger.log("Stopping!"); }
 };
 
 int main(int argv, char** args) {

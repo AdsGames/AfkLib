@@ -14,7 +14,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-#include "color/Color.h"
+#include "../color/Color.h"
 
 namespace afk {
 
@@ -87,7 +87,7 @@ class Texture {
               const int y,
               const int width,
               const int height,
-              const float angle = 180.0f,
+              const float angle = 0.0f,
               const TextureDrawMode mode = TextureDrawMode::DEFAULT) const;
 
   /**
