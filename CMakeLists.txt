@@ -35,12 +35,12 @@ if(EMSCRIPTEN)
     target_link_libraries(${PROJECT_NAME} -sUSE_SDL=2 ${AFK_LIBRARY})
 else(EMSCRIPTEN)
     # Find libs
-    find_library(SDL_LIBRARY NAMES libSDL2 REQUIRED)
-    find_library(SDL_MIXER_LIBRARY NAMES libSDL2_mixer REQUIRED)
-    find_library(SDL_IMAGE_LIBRARY NAMES libSDL2_image REQUIRED)
-    find_library(SDL_TTF_LIBRARY NAMES libSDL2_ttf REQUIRED)
-    find_library(SDL_GFX_LIBRARY NAMES libSDL2_gfx REQUIRED)
-    find_library(SDL_MAIN_LIBRARY NAMES libSDL2main REQUIRED)
+    find_library(SDL_LIBRARY NAMES SDL2 REQUIRED)
+    find_library(SDL_MIXER_LIBRARY NAMES SDL2_mixer REQUIRED)
+    find_library(SDL_IMAGE_LIBRARY NAMES SDL2_image REQUIRED)
+    find_library(SDL_TTF_LIBRARY NAMES SDL2_ttf REQUIRED)
+    find_library(SDL_GFX_LIBRARY NAMES SDL2_gfx REQUIRED)
+    find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
 
     # Link Libs
     target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY})
