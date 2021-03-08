@@ -1,7 +1,7 @@
 #ifndef ENGINE_PRIMITIVES_PRIMITIVES_H
 #define ENGINE_PRIMITIVES_PRIMITIVES_H
 
-#include "color/Color.h"
+#include "../color/Color.h"
 
 namespace afk::primitives {
 

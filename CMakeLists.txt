@@ -16,7 +16,7 @@ file(GLOB_RECURSE HEADERS ${CMAKE_BINARY_DIR}/include/*.h)
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
 # Add compile options
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
+target_compile_options(${PROJECT_NAME} PRIVATE -O2 -Wall -Wextra -pedantic)
 
 # Add include
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -31,8 +31,18 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 if(EMSCRIPTEN) 
     set(CMAKE_STATIC_LIBRARY_SUFFIX ".ajs")
-    target_compile_options(${PROJECT_NAME} PUBLIC -sWASM=1 -sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sUSE_SDL_MIXER=2 -sUSE_SDL_GFX=2 -sDEMANGLE_SUPPORT=1)
-    target_link_libraries(${PROJECT_NAME} -sUSE_SDL=2 ${AFK_LIBRARY})
+    target_link_libraries(
+      ${PROJECT_NAME} 
+      -sWASM=1 
+      -sUSE_SDL=2 
+      -sUSE_SDL_IMAGE=2 
+      -sUSE_SDL_TTF=2 
+      -sUSE_SDL_MIXER=2 
+      -sUSE_SDL_GFX=2 
+      -sSDL2_IMAGE_FORMATS=["png"]
+      -sDEMANGLE_SUPPORT=1
+    )
+    target_link_libraries(${PROJECT_NAME} -sUSE_SDL=2 -fsanitize=address)
 else(EMSCRIPTEN)
     # Find libs
     find_library(SDL_LIBRARY NAMES SDL2 REQUIRED)
@@ -43,21 +53,16 @@ else(EMSCRIPTEN)
     find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
 
     # Link Libs
-    target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY})
-    target_link_libraries(${PROJECT_NAME} ${SDL_MIXER_LIBRARY})
-    target_link_libraries(${PROJECT_NAME} ${SDL_IMAGE_LIBRARY})
-    target_link_libraries(${PROJECT_NAME} ${SDL_TTF_LIBRARY})
-    target_link_libraries(${PROJECT_NAME} ${SDL_GFX_LIBRARY})
-    target_link_libraries(${PROJECT_NAME} ${SDL_MAIN_LIBRARY})
+    target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_MIXER_LIBRARY} ${SDL_IMAGE_LIBRARY} ${SDL_TTF_LIBRARY} ${SDL_GFX_LIBRARY} ${SDL_MAIN_LIBRARY})
 endif(EMSCRIPTEN) 
 
 # Install info
-if(!EMSCRIPTEN)  
+if(NOT EMSCRIPTEN)  
     if (WIN32)
         install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
-                ARCHIVE  DESTINATION C:/msys64/mingw32/lib
-                LIBRARY  DESTINATION C:/msys64/mingw32/lib
-                RUNTIME  DESTINATION C:/msys64/mingw32/bin)
+                ARCHIVE DESTINATION C:/msys64/mingw32/lib
+                LIBRARY DESTINATION C:/msys64/mingw32/lib
+                RUNTIME DESTINATION C:/msys64/mingw32/bin)
 
         install(DIRECTORY include/ DESTINATION C:/msys64/mingw32/include/${PROJECT_NAME})
 
@@ -76,7 +81,7 @@ if(!EMSCRIPTEN)
         install(EXPORT ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
         export(TARGETS ${PROJECT_NAME} FILE ${PROJECT_NAME}.cmake)
     endif(WIN32)
-endif(!EMSCRIPTEN)
+endif(NOT EMSCRIPTEN)
 
 # Examples
 include(${CMAKE_BINARY_DIR}/examples/CMakeLists.txt)

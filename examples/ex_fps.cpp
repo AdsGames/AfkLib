@@ -21,7 +21,7 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(SCREEN_W, SCREEN_H);
     display.setBufferSize(SCREEN_W, SCREEN_H);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_fps");
 
     afk::AssetService& assets = afk::Services::getAssetService();
@@ -37,6 +37,8 @@ class DemoScene : public afk::Scene {
       get<afk::Sprite>(sprites[i]).setSize(SPRITE_SIZE, SPRITE_SIZE);
     }
   }
+
+  void draw() {}
 
   void update() {
     iter++;

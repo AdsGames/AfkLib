@@ -1,6 +1,7 @@
 #ifndef SERVICES_CONFIG_CONFIG_SERVICE_H
 #define SERVICES_CONFIG_CONFIG_SERVICE_H
 
+#include <iostream>
 #include <map>
 #include <string>
 #include <variant>
@@ -70,12 +71,13 @@ class ConfigService {
    */
   template <class T>
   T get(const std::string& key, T fallback) const {
-    try {
-      auto pair = this->findSetting(key);
-      return std::get<T>(pair.second);
-    } catch (...) {
-      return fallback;
+    auto it = settings.find(key);
+
+    if (it != settings.end()) {
+      return std::get<T>(it->second);
     }
+
+    return fallback;
   }
 
   /**
@@ -85,17 +87,21 @@ class ConfigService {
    * @return std::string String value or empty string if not found
    */
   std::string getString(const std::string& key) const {
-    auto pair = this->findSetting(key);
+    auto it = settings.find(key);
 
-    switch (pair.second.index()) {
+    if (it == settings.end()) {
+      return "";
+    }
+
+    switch (it->second.index()) {
       case 0:
-        return std::get<std::string>(pair.second);
+        return std::get<std::string>(it->second);
       case 1:
-        return std::to_string(std::get<int>(pair.second));
+        return std::to_string(std::get<int>(it->second));
       case 2:
-        return std::get<bool>(pair.second) ? "true" : "false";
+        return std::get<bool>(it->second) ? "true" : "false";
       case 3:
-        return std::to_string(std::get<float>(pair.second));
+        return std::to_string(std::get<float>(it->second));
       default:
         return "";
     }
@@ -125,15 +131,6 @@ class ConfigService {
   void setAutosave(const bool autosave);
 
  private:
-  /**
-   * @brief Find setting in settings map
-   *
-   * @param key Key of setting to lookup
-   * @return Setting if found
-   * @throws KeyLookupException is thrown if setting is not found
-   */
-  const Setting findSetting(const std::string& key) const;
-
   /// Name of file for save, and autosave reference
   std::string file_name;
 

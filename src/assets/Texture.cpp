@@ -106,7 +106,8 @@ SDL_Texture* Texture::loadBitmap(const std::string& path) {
   // Attempt to load
   SDL_Surface* temp_surface = IMG_Load(path.c_str());
   if (!temp_surface) {
-    throw FileIOException("There was an error loading surface " + path);
+    throw FileIOException("There was an error loading surface " + path + " (" +
+                          SDL_GetError() + ")");
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
@@ -114,11 +115,12 @@ SDL_Texture* Texture::loadBitmap(const std::string& path) {
   SDL_Texture* temp_texture =
       SDL_CreateTextureFromSurface(renderer, temp_surface);
   if (!temp_texture) {
-    throw InitException("There was an error creating texture " + path);
+    throw InitException("There was an error creating texture " + path + " (" +
+                        SDL_GetError() + ")");
   }
   SDL_FreeSurface(temp_surface);
 
   return temp_texture;
 }
 
-}
+}  // namespace afk

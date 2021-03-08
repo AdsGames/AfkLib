@@ -48,8 +48,7 @@ class Game : public Service {
    */
   void notify(const SDL_Event& ev);
 
- 
- private:
+  private:
   /**
    * @brief Sets up core engine features and sdl2
    *

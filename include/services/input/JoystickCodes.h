@@ -10,7 +10,7 @@
 
 namespace afk {
 
-enum {
+enum class JoystickButtons {
   JOY_XBOX_A = 0,
   JOY_XBOX_B = 1,
   JOY_XBOX_X = 2,
@@ -25,7 +25,7 @@ enum {
   JOY_XBOX_PAD_UP = 13
 };
 
-enum {
+enum class JoystickSticks {
   LEFT_STICK_LEFT = 1,
   LEFT_STICK_RIGHT = 0,
   LEFT_STICK_DOWN = 2,

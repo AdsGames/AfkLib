@@ -37,6 +37,12 @@ class Scene {
   virtual void update() = 0;
 
   /**
+   * @brief Draw to be overridden by derived scenes
+   *
+   */
+  virtual void draw() = 0;
+
+  /**
    * @brief Stop the scene
    *
    */

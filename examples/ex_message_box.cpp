@@ -13,7 +13,7 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(256, 256);
     display.setBufferSize(256, 256);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_message_box");
 
     afk::AssetService& assets = afk::Services::getAssetService();
@@ -23,7 +23,7 @@ class DemoScene : public afk::Scene {
         addObj<afk::Button>(*this, 10, 10, 10, "Question Message", "freesans");
 
     button1.setOnClick([]() {
-      afk::MessageBox message_box(afk::INFO);
+      afk::MessageBox message_box(afk::MessageBoxType::INFO);
       message_box.setTitle("Info");
       message_box.setHeading("Heading");
       message_box.setText("Text");
@@ -34,7 +34,7 @@ class DemoScene : public afk::Scene {
         addObj<afk::Button>(*this, 10, 30, 10, "Warning Message", "freesans");
 
     button2.setOnClick([]() {
-      afk::MessageBox message_box(afk::WARN);
+      afk::MessageBox message_box(afk::MessageBoxType::WARN);
       message_box.setTitle("Warning");
       message_box.setHeading("Heading");
       message_box.setText("Text");
@@ -45,13 +45,15 @@ class DemoScene : public afk::Scene {
         addObj<afk::Button>(*this, 10, 50, 10, "Error Message", "freesans");
 
     button3.setOnClick([]() {
-      afk::MessageBox message_box(afk::ERROR);
+      afk::MessageBox message_box(afk::MessageBoxType::ERROR);
       message_box.setTitle("Error");
       message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
   }
+
+  void draw() {}
 
   void update() {}
 
@@ -64,7 +66,6 @@ class MainGame : public afk::Game {
     afk::SceneService& scene = afk::Services::getSceneService();
     scene.addScene<DemoScene>("demo");
     scene.setNextScene("demo");
-
     start();
   }
 };

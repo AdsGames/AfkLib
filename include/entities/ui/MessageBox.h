@@ -10,7 +10,7 @@ namespace afk {
  * @brief Allowed types for message box
  *
  */
-enum MessageBoxType {
+enum class MessageBoxType {
   WARN,
   ERROR,
   INFO,

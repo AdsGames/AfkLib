@@ -3,12 +3,11 @@
 #define SERVICES_DISPLAY_DISPLAY_SERVICE_H
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
 #include <string>
 
 #include "../Service.h"
 
-const int FRAME_BUFFER_SIZE = 20;
+const int FRAME_BUFFER_SIZE = 50;
 
 namespace afk {
 
@@ -18,7 +17,7 @@ class Scene;
  * @brief Display modes supported by window object
  *
  */
-enum DISPLAY_MODE {
+enum class DisplayMode {
   /// Stretches window in fullscreen
   FULLSCREEN_WINDOW_STRETCH,
   /// Shows window in highest resolution without clipping or stretching
@@ -36,7 +35,7 @@ enum DISPLAY_MODE {
  * @author Danny Van Stemp and Allan Legemaate
  * @date 20/11/2018
  */
-class DisplayService : public Service {
+class DisplayService {
  public:
   /**
    * @brief Construct a new DisplayService object
@@ -51,27 +50,21 @@ class DisplayService : public Service {
   virtual ~DisplayService();
 
   /**
-   * @brief Get the name of service
+   * @brief Draw a scene. Calls the draw and draw_internal functions of a given
+   * Scene object
    *
-   * @return name
+   * @param current_scene Scene to draw
    */
-  std::string getName() const;
-
-  /**
-   * @brief Notify about event updates
-   *
-   * @param event Event which happened
-   */
-  virtual void notify(const SDL_Event& event);
+  void draw(Scene* current_scene);
 
   /**
    * @brief Set the current display mode. Should be called once on
    * initialization of game and any time the display mode needs to change
    *
    * @param mode Display mode to set it to
-   * @see DISPLAY_MODE
+   * @see DisplayMode
    */
-  void setMode(DISPLAY_MODE mode);
+  void setMode(const DisplayMode mode);
 
   /**
    * @brief Set the size of the buffer
@@ -79,7 +72,7 @@ class DisplayService : public Service {
    * @param width Width of buffer in pixels
    * @param height Height of buffer in pixels
    */
-  void setBufferSize(const unsigned int width, const unsigned int height);
+  void setBufferSize(const Uint32 width, const Uint32 height);
 
   /**
    * @brief Set the size of the window
@@ -87,57 +80,57 @@ class DisplayService : public Service {
    * @param width Width of window in pixels
    * @param height Height of window in pixels
    */
-  void setWindowSize(const unsigned int width, const unsigned int height);
+  void setWindowSize(const Uint32 width, const Uint32 height);
 
   /**
    * @brief Get the current display mode
    *
    * @return Selected display mode
-   * @see DISPLAY_MODE
+   * @see DisplayMode
    */
-  int getDisplayServiceMode() const;
+  DisplayMode getDisplayMode() const;
 
   /**
    * @brief Get the buffer width
    *
    * @return Width of buffer in pixels
    */
-  unsigned int getDrawWidth() const;
+  Uint32 getDrawWidth() const;
 
   /**
    * @brief Get the buffer height
    *
    * @return Height of buffer in pixels
    */
-  unsigned int getDrawHeight() const;
+  Uint32 getDrawHeight() const;
 
   /**
    * @brief Get the x translation of the window
    *
    * @return X translation in pixels
    */
-  unsigned int getTranslationX() const;
+  Uint32 getTranslationX() const;
 
   /**
    * @brief Get the y translation of the window
    *
    * @return Y translation in pixels
    */
-  unsigned int getTranslationY() const;
+  Uint32 getTranslationY() const;
 
   /**
    * @brief Get the current width of the winodw
    *
    * @return width of window
    */
-  unsigned int getDisplayServiceWidth() const;
+  Uint32 getDisplayServiceWidth() const;
 
   /**
    * @brief Get the current height of window
    *
    * @return height of window
    */
-  unsigned int getDisplayServiceHeight() const;
+  Uint32 getDisplayServiceHeight() const;
 
   /**
    * @brief Get the scaling being done on buffer. This is equivalent to buffer
@@ -173,7 +166,7 @@ class DisplayService : public Service {
    * @param window_w Width in pixels
    * @param window_h Height in pixels
    */
-  void resize(const unsigned int window_w, const unsigned int window_h);
+  void resize(const Uint32 window_w, const Uint32 window_h);
 
   /**
    * @brief Set the window title
@@ -211,31 +204,23 @@ class DisplayService : public Service {
   SDL_Window* getWindow();
 
  private:
-  /**
-   * @brief Draw a scene. Calls the draw and draw_internal functions of a given
-   * Scene object
-   *
-   * @param current_scene Scene to draw
-   */
-  void draw(Scene* current_scene);
-
   /// Width of buffer
-  unsigned int draw_w = 0;
+  Uint32 draw_w = 0;
 
   /// Height of buffer
-  unsigned int draw_h = 0;
+  Uint32 draw_h = 0;
 
   /// Width of window
-  unsigned int window_w = 0;
+  Uint32 window_w = 0;
 
   /// Height of window
-  unsigned int window_h = 0;
+  Uint32 window_h = 0;
 
   /// X translation of window
-  unsigned int translation_x = 0;
+  Uint32 translation_x = 0;
 
   /// Y translation of window
-  unsigned int translation_y = 0;
+  Uint32 translation_y = 0;
 
   /// X scaling amount
   float scale_x = 0;
@@ -244,7 +229,7 @@ class DisplayService : public Service {
   float scale_y = 0;
 
   /// Current display mode
-  DISPLAY_MODE display_mode = DISPLAY_MODE::WINDOWED;
+  DisplayMode display_mode = DisplayMode::WINDOWED;
 
   /// Active window
   SDL_Window* window = nullptr;
@@ -253,16 +238,16 @@ class DisplayService : public Service {
   SDL_Renderer* renderer = nullptr;
 
   /// Fps timer
-  double old_time = 0;
+  Uint32 old_time = 0;
 
   /// Frame array for calculating fps
-  unsigned int frames_array[FRAME_BUFFER_SIZE] = {0};
+  Uint32 frames_array[FRAME_BUFFER_SIZE] = {0};
 
   /// Current fps
-  unsigned int fps = 0;
+  Uint32 fps = 0;
 
-  /// Timer id
-  SDL_TimerID draw_timer = 0;
+  /// Frame index
+  Uint32 frame_index = 0;
 
   /**
    * @brief Sets the window scaling in percent
@@ -278,7 +263,7 @@ class DisplayService : public Service {
    * @param x X translation
    * @param y Y translation
    */
-  void setTranslation(const unsigned int x, const unsigned int y);
+  void setTranslation(const Uint32 x, const Uint32 y);
 };
 
 }  // namespace afk

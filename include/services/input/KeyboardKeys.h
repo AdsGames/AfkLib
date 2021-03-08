@@ -3,7 +3,7 @@
 
 namespace afk {
 
-enum Keys {
+enum class Keys {
   KEY_UNKNOWN = 0,
   KEY_A = 4,
   KEY_B = 5,

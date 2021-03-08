@@ -51,4 +51,4 @@ void Sprite::draw() {
   }
 }
 
-}
+}  // namespace afk

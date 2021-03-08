@@ -12,7 +12,7 @@ class DemoScene : public afk::Scene {
     afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DISPLAY_MODE::WINDOWED);
+    display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_sprite");
 
     afk::AssetService& assets = afk::Services::getAssetService();
@@ -20,6 +20,8 @@ class DemoScene : public afk::Scene {
 
     add<afk::Sprite>(*this, "lenna");
   }
+
+  void draw() {}
 
   void update() {}
 

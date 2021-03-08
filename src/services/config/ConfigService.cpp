@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <fstream>
 
-#include "common/Exceptions.h"
 #include "common/str.h"
 #include "services/Services.h"
 
@@ -93,19 +92,6 @@ void ConfigService::set(const Setting pair) {
   if (autosave) {
     save();
   }
-}
-
-// Find
-const Setting ConfigService::findSetting(const std::string& key) const {
-  auto it = std::find_if(
-      settings.begin(), settings.end(),
-      [key](const Setting& setting) { return setting.first == key; });
-
-  if (it != settings.end()) {
-    return *it;
-  }
-
-  throw KeyLookupException("Could not find setting " + key);
 }
 
 // Set autosave

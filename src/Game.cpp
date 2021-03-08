@@ -2,6 +2,7 @@
 
 #include "common/Exceptions.h"
 #include "entities/ui/MessageBox.h"
+#include "random/RandomGenerator.h"
 #include "services/Services.h"
 #include "services/assets/AssetService.h"
 #include "services/audio/DefaultAudioService.h"
@@ -14,23 +15,29 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #include <emscripten/html5.h>
-#include <functional>
 #endif
 
 namespace afk {
 
 // Loop (emscripten compatibility)
 #ifdef __EMSCRIPTEN__
-EM_BOOL loop(double time, void* userData) {
+void loop() {
+  // Process events
   Services::getEventQueue().process();
-  return EM_FALSE;
+
+  // Process logic
+  Services::getInputService().update();
+  Services::getSceneService().update();
+
+  // Draw
+  Services::getSceneService().draw();
 }
 #endif
 
 // Exit helper
 void showErrorDialog(const std::string& title,
                      const std::string& message = "") {
-  MessageBox error(ERROR);
+  MessageBox error(MessageBoxType::ERROR);
   error.setTitle(title);
   error.setHeading(title);
   error.setText(message);
@@ -59,13 +66,35 @@ std::string Game::getName() const {
 void Game::start() {
   try {
 #ifdef __EMSCRIPTEN__
-    emscripten_request_animation_frame_loop(loop, 0);
+    emscripten_set_main_loop(loop, 0, 1);
 #else
+    float timeDelta = 1000.0f / 30.0f;
+    float timeAcc = 0.0f;
+    Uint32 startTime = 0;
+
     // Loop
     while (!closing) {
+      // Add dt to acc
+      startTime = SDL_GetTicks();
+
+      // Process events
       Services::getEventQueue().process();
+
+      // Process logic
+      while (timeAcc >= timeDelta) {
+        Services::getInputService().update();
+        Services::getSceneService().update();
+        timeAcc -= timeDelta;
+      }
+
+      // Draw
+      Services::getSceneService().draw();
+
+      // Inc accumulator
+      timeAcc += SDL_GetTicks() - startTime;
     }
 #endif
+
   } catch (const FileIOException& e) {
     showErrorDialog("File Error", e.what());
   } catch (const std::runtime_error& e) {
@@ -118,4 +147,4 @@ void Game::setup() {
   Services::getEventQueue().registerService(this);
 }
 
-}
+}  // namespace afk

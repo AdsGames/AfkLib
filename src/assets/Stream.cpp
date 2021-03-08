@@ -53,7 +53,8 @@ Mix_Chunk* Stream::loadStream(const std::string& path) {
 
   // Throw exception if file is not loaded
   if (!temp_stream) {
-    throw FileIOException("There was an error loading stream " + path);
+    throw FileIOException("There was an error loading stream " + path + " (" +
+                          Mix_GetError() + ")");
   }
 
   return temp_stream;

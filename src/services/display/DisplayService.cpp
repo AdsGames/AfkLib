@@ -10,29 +10,14 @@
 
 namespace afk {
 
-// Draw ticks per second
-const Uint32 MS_PER_DRAW = 17;
-
 // Setup DisplayService
 DisplayService::DisplayService() {
-  // Register timer events
-  draw_timer = Services::getEventQueue().registerTimer(MS_PER_DRAW, 0);
-
-  // Register self
-  Services::getEventQueue().registerService(this);
-
   // Set initial time
   old_time = SDL_GetTicks();
 }
 
 // Cleanup window
 DisplayService::~DisplayService() {
-  // Unregister self
-  Services::getEventQueue().unregisterService(this);
-
-  // Remove timer
-  Services::getEventQueue().unregisterTimer(draw_timer);
-
   // Cleanup
   if (window) {
     SDL_DestroyWindow(window);
@@ -43,52 +28,67 @@ DisplayService::~DisplayService() {
   }
 }
 
-// Get the name of service
-std::string DisplayService::getName() const {
-  return "Display Service";
-}
-
-// Notify
-void DisplayService::notify(const SDL_Event& event) {
-  if (event.type == SDL_DISPLAYEVENT) {
-    // resize(event.display.width, event.display.height);
-  } else if (event.type == SDL_USEREVENT && event.user.code == 0) {
-    draw(Services::getSceneService().getSceneService());
+void DisplayService::draw(Scene* current_scene) {
+  if (!window || !renderer) {
+    return;
   }
+
+  // Render a frame
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_RenderClear(renderer);
+
+  current_scene->draw();
+  current_scene->drawInternal();
+
+  // Flip
+  SDL_RenderPresent(renderer);
+
+  // Update frame index
+  frames_array[frame_index] = SDL_GetTicks() - old_time;
+  old_time = SDL_GetTicks();
+  frame_index = (frame_index + 1) % FRAME_BUFFER_SIZE;
+
+  float fps_total = 0;
+  for (Uint32 i = 0; i < FRAME_BUFFER_SIZE; ++i) {
+    fps_total += frames_array[i];
+  }
+
+  // FPS = average
+  fps = 1000.0f / (fps_total / FRAME_BUFFER_SIZE);
 }
 
 // Returns current display mode
-int DisplayService::getDisplayServiceMode() const {
+DisplayMode DisplayService::getDisplayMode() const {
   return display_mode;
 }
 
 // Gets draw width
-unsigned int DisplayService::getDrawWidth() const {
+Uint32 DisplayService::getDrawWidth() const {
   return draw_w;
 }
 
 // Gets draw height
-unsigned int DisplayService::getDrawHeight() const {
+Uint32 DisplayService::getDrawHeight() const {
   return draw_h;
 }
 
 // Gets translation x
-unsigned int DisplayService::getTranslationX() const {
+Uint32 DisplayService::getTranslationX() const {
   return translation_x;
 }
 
 // Gets translation y
-unsigned int DisplayService::getTranslationY() const {
+Uint32 DisplayService::getTranslationY() const {
   return translation_y;
 }
 
 // Gets scale width
-unsigned int DisplayService::getDisplayServiceWidth() const {
+Uint32 DisplayService::getDisplayServiceWidth() const {
   return window_w;
 }
 
 // Gets scale height
-unsigned int DisplayService::getDisplayServiceHeight() const {
+Uint32 DisplayService::getDisplayServiceHeight() const {
   return window_h;
 }
 
@@ -113,8 +113,7 @@ void DisplayService::showMouse() {
 }
 
 // Resize window
-void DisplayService::resize(const unsigned int window_w,
-                            const unsigned int window_h) {
+void DisplayService::resize(const Uint32 window_w, const Uint32 window_h) {
   // Get monitor width
   SDL_DisplayMode info;
   SDL_GetCurrentDisplayMode(0, &info);
@@ -122,7 +121,7 @@ void DisplayService::resize(const unsigned int window_w,
   // Window mode
   switch (display_mode) {
     // Fullscreen windowed stretch
-    case DISPLAY_MODE::FULLSCREEN_WINDOW_STRETCH:
+    case DisplayMode::FULLSCREEN_WINDOW_STRETCH:
       // Set flags
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
@@ -134,7 +133,7 @@ void DisplayService::resize(const unsigned int window_w,
       break;
 
     // Fullscreen window center
-    case DISPLAY_MODE::FULLSCREEN_WINDOW_CENTER:
+    case DisplayMode::FULLSCREEN_WINDOW_CENTER:
       // Set flags
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
@@ -147,7 +146,7 @@ void DisplayService::resize(const unsigned int window_w,
       break;
 
     // Fullscreen window center
-    case DISPLAY_MODE::FULLSCREEN_WINDOW_LETTERBOX:
+    case DisplayMode::FULLSCREEN_WINDOW_LETTERBOX:
       // Set flags
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
@@ -161,7 +160,7 @@ void DisplayService::resize(const unsigned int window_w,
       break;
 
     // Windowed
-    case DISPLAY_MODE::WINDOWED:
+    case DisplayMode::WINDOWED:
       // Set flags
       SDL_SetWindowFullscreen(window, 0);
 
@@ -182,15 +181,13 @@ void DisplayService::resize(const unsigned int window_w,
 }
 
 // Set window size
-void DisplayService::setWindowSize(const unsigned int width,
-                                   const unsigned int height) {
+void DisplayService::setWindowSize(const Uint32 width, const Uint32 height) {
   window_w = width;
   window_h = height;
 }
 
 // Set buffer size
-void DisplayService::setBufferSize(const unsigned int width,
-                                   const unsigned int height) {
+void DisplayService::setBufferSize(const Uint32 width, const Uint32 height) {
   draw_w = width;
   draw_h = height;
 }
@@ -202,8 +199,7 @@ void DisplayService::setScale(const float width, const float height) {
 }
 
 // Set translation
-void DisplayService::setTranslation(const unsigned int x,
-                                    const unsigned int y) {
+void DisplayService::setTranslation(const Uint32 x, const Uint32 y) {
   translation_x = x;
   translation_y = y;
 }
@@ -239,7 +235,7 @@ SDL_Window* DisplayService::getWindow() {
 }
 
 // Change display mode
-void DisplayService::setMode(const DISPLAY_MODE mode) {
+void DisplayService::setMode(const DisplayMode mode) {
   // Destroy existing display
   if (window) {
     SDL_DestroyWindow(window);
@@ -259,42 +255,11 @@ void DisplayService::setMode(const DISPLAY_MODE mode) {
     throw InitException("Could not create window");
   }
 
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  renderer = SDL_CreateRenderer(
+      window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (!renderer) {
     throw InitException("Could not create renderer");
   }
 }
 
-void DisplayService::draw(Scene* current_scene) {
-  if (!window || !renderer) {
-    return;
-  }
-
-  // Render a frame
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-  SDL_RenderClear(renderer);
-
-  current_scene->drawInternal();
-
-  // Flip
-  SDL_RenderPresent(renderer);
-
-  // Shift fps buffer
-  for (unsigned int i = FRAME_BUFFER_SIZE - 1; i > 0; i--) {
-    frames_array[i] = frames_array[i - 1];
-  }
-
-  frames_array[0] = (1000.0 / (SDL_GetTicks() - old_time));
-  old_time = SDL_GetTicks();
-
-  unsigned int fps_total = 0;
-
-  for (unsigned int i = 0; i < FRAME_BUFFER_SIZE; i++) {
-    fps_total += frames_array[i];
-  }
-
-  // FPS = average
-  fps = fps_total / FRAME_BUFFER_SIZE;
-}
-
-}
+}  // namespace afk
