@@ -1,0 +1,29 @@
+name: Build Web
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build Web
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v7
+        with:
+          actions-cache-folder: "emsdk-cache"
+
+      - name: Run CMake
+        run: |
+          emcmake cmake -G "Unix Makefiles" .
+
+      - name: Make
+        run: |
+          emmake make
