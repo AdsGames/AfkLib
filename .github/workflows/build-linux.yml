@@ -2,9 +2,9 @@ name: Build Linux
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      
-    - name: Install Libraries
-      run: |
-        sudo apt update
-        sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-image5-dev liballegro-dialog5-dev liballegro-ttf5-dev
-        
-    - name: Run CMake
-      run: cmake -G "Unix Makefiles" .
-      
-    - name: Make
-      run: make
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Libraries
+        run: |
+          sudo apt update
+          sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-gfx-dev
+
+      - name: Run CMake
+        run: cmake -G "Unix Makefiles" .
+
+      - name: Make
+        run: make
