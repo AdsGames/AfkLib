@@ -21,6 +21,20 @@ jobs:
         with:
           doxyfile-path: "./Doxyfile"
 
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v7
+        with:
+          actions-cache-folder: "emsdk-cache"
+
+      - name: Run CMake
+        run: emcmake cmake -G "Unix Makefiles" .
+
+      - name: Make
+        run: emmake make
+
+      - name: Copy Docs to Bin
+        run: cp -r ./bin/* ./docs/examples
+
       - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3
         with:
