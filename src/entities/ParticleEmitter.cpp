@@ -34,9 +34,9 @@ void ParticleEmitter::draw() {
 }
 
 // Update
-void ParticleEmitter::update() {
+void ParticleEmitter::update(Uint32 delta) {
   for (auto& particle : particles) {
-    particle.update();
+    particle.update(delta);
 
     if (particle.dead()) {
       particle.reset();

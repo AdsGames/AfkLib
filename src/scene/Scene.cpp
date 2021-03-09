@@ -42,29 +42,29 @@ void Scene::drawInternal() {
 }
 
 // Internal update method
-void Scene::updateInternal() {
+void Scene::updateInternal(Uint32 delta) {
   // Update all
   for (unsigned int i = 0; i < update_pool.size(); i++) {
     GameObject& obj = *update_pool.at(i);
 
     // Update
-    obj.update();
+    obj.update(delta);
 
     // Get id
-    const int id = obj.getId();
+    // const int id = obj.getId();
 
     // Collisions
-    if (collider_map.count(id) > 0) {
-      // Go through each id
-      for (const int otherId : collider_map[id]) {
-        // Get other
-        GameObject& other = *update_pool.at(lookup_map[otherId]);
-        if (obj.colliding(other)) {
-          obj.onCollide(other);
-          other.onCollide(obj);
-        }
-      }
-    }
+    // if (collider_map.count(id) > 0) {
+    //   // Go through each id
+    //   for (const int otherId : collider_map[id]) {
+    //     // Get other
+    //     GameObject& other = *update_pool.at(lookup_map[otherId]);
+    //     if (obj.colliding(other)) {
+    //       obj.onCollide(other);
+    //       other.onCollide(obj);
+    //     }
+    //   }
+    // }
   }
 }
 

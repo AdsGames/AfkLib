@@ -50,8 +50,10 @@ class Particle : public Sprite {
   /**
    * @brief Update particle
    *
+   * @param delta Time since last call in ms
+   *
    */
-  void update() override;
+  void update(Uint32 delta) override;
 
   /**
    * @brief Draw particle
@@ -77,16 +79,16 @@ class Particle : public Sprite {
   /**
    * @brief Set the velocity of particle
    *
-   * @param x X velocity
-   * @param y Y velocity
+   * @param x X velocity in pixels per second
+   * @param y Y velocity in pixels per second
    */
   void setVelocity(const float x, const float y);
 
   /**
    * @brief Set the acceleration of particle
    *
-   * @param x X acceleration
-   * @param y Y acceleration
+   * @param x X acceleration in pixels per second
+   * @param y Y acceleration in pixels per second
    */
   void setAcceleration(const float x, const float y);
 

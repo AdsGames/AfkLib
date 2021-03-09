@@ -19,7 +19,11 @@
 namespace afk {
 
 // Register events
-SceneService::SceneService() {}
+SceneService::SceneService()
+    : current_scene(nullptr),
+      scene_id(""),
+      next_scene(""),
+      last_tick(SDL_GetTicks()) {}
 
 // Unregister events
 SceneService::~SceneService() {}
@@ -31,9 +35,12 @@ void SceneService::update() {
 
   // Update scene
   if (current_scene) {
-    current_scene->update();
-    current_scene->updateInternal();
+    Uint32 delta = SDL_GetTicks() - last_tick;
+    current_scene->update(delta);
+    current_scene->updateInternal(delta);
   }
+
+  last_tick = SDL_GetTicks();
 }
 
 // Update scene

@@ -13,8 +13,10 @@
 #ifndef INCLUDE_ENTITIES_GAMEOBJECT_H_
 #define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
+#include <SDL2/SDL.h>
+
 /// Unique id type alias
-using ObjId = unsigned int;
+using ObjId = Uint32;
 
 namespace afk {
 
@@ -50,8 +52,9 @@ class GameObject {
    * @brief Update loop to be overriden by derived classes. Automatically called
    * by Scene.
    *
+   * @param delta Time since last call in ms
    */
-  virtual void update();
+  virtual void update(Uint32 delta);
 
   /**
    * @brief Draw loop to be overriden by derived classes. Automatically called

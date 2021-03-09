@@ -49,8 +49,10 @@ class Scene {
   /**
    * @brief Update to be overridden by derived scenes
    *
+   * @param delta Time since last call in ms
+   *
    */
-  virtual void update() = 0;
+  virtual void update(Uint32 delta) = 0;
 
   /**
    * @brief Draw to be overridden by derived scenes
@@ -79,8 +81,10 @@ class Scene {
   /**
    * @brief Update all objects hooked into scene
    *
+   * @param delta Time since last call in ms
+   *
    */
-  void updateInternal();
+  void updateInternal(Uint32 delta);
 
   /**
    * @brief Add game object to update and draw pool

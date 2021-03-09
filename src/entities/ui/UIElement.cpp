@@ -45,7 +45,7 @@ void UIElement::setText(const std::string& text) {
 void UIElement::draw() {}
 
 // Update
-void UIElement::update() {
+void UIElement::update(Uint32 delta) {
   if (!onClick) {
     return;
   }
