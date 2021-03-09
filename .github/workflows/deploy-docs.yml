@@ -3,6 +3,8 @@ name: Deploy Docs
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   docs:
@@ -33,7 +35,7 @@ jobs:
           doxyfile-path: "./Doxyfile"
 
       - name: Copy Bin to Docs
-        run: cp -r ./bin ./docs/examples
+        run: sudo cp -r ./bin ./docs/examples
 
       - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3
