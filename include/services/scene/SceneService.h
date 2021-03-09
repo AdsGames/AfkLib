@@ -93,7 +93,7 @@ class SceneService {
   void changeScene();
 
   /// Current scene pointer
-  Scene* current_scene = nullptr;
+  Scene* current_scene;
 
   /// List of scene ids
   std::vector<SceneType> scenes;
@@ -103,6 +103,9 @@ class SceneService {
 
   /// Next scene to load
   std::string next_scene;
+
+  /// Last tick
+  Uint32 last_tick;
 };
 
 }  // namespace afk

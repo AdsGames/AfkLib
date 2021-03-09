@@ -55,8 +55,10 @@ class ParticleEmitter : public GameObject {
   /**
    * @brief Hook into update loop
    *
+   * @param delta Time since last call in ms
+   *
    */
-  void update() override;
+  void update(Uint32 delta) override;
 
   /**
    * @brief Add particles to system

@@ -28,7 +28,9 @@ GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
 GameObject::~GameObject() {}
 
 // Update
-void GameObject::update() {}
+void GameObject::update(Uint32 delta) {
+  (void)delta;
+}
 
 // Draw
 void GameObject::draw() {}

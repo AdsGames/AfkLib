@@ -16,7 +16,7 @@
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
-const int NUM_SPRITE = 100;
+const int NUM_SPRITE = 1000;
 const int SCREEN_H = 400;
 const int SCREEN_W = 400;
 const int SPRITE_SIZE = 20;
@@ -34,7 +34,7 @@ class DemoScene : public afk::Scene {
     assets.loadFont("freesans", "assets/freesans.ttf", 64);
     assets.loadImage("lenna", "assets/lenna.png");
 
-    label_id = add<afk::Label>(*this, 10, 5, 0, "fps", "freesans");
+    label_id = add<afk::Label>(*this, 10, 5, 100, "fps", "freesans");
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       int x = afk::Random::randomInt(0, SCREEN_W);
@@ -46,7 +46,7 @@ class DemoScene : public afk::Scene {
 
   void draw() {}
 
-  void update() {
+  void update(Uint32 delta) {
     iter++;
 
     unsigned int fps = display.getFps();
@@ -57,6 +57,7 @@ class DemoScene : public afk::Scene {
       afk::Sprite& sprite = get<afk::Sprite>(sprites[i]);
       sprite.setPosition((iter + i) % SCREEN_W,
                          sin(iter / 100.0f + i) * SCREEN_H / 2 + SCREEN_H / 2);
+      sprite.setAngle(sprite.getAngle() + delta / 10.0f);
     }
   }
 

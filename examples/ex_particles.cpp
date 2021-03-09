@@ -38,9 +38,9 @@ class DemoScene : public afk::Scene {
       particle.setSize(10.0f, 3.0f);
       particle.setColor(afk::color::rgb(128, 22, 22),
                         afk::color::rgb(100, 100, 100));
-      particle.setVelocity(afk::Random::randomFloat(-0.2, 0.2),
-                           afk::Random::randomFloat(-0.1, -0.2));
-      particle.setAcceleration(0, 0.1f);
+      particle.setVelocity(afk::Random::randomFloat(-5.0f, 5.0f),
+                           afk::Random::randomFloat(-1.0f, -2.0f));
+      particle.setAcceleration(0, 0.2f);
       emitter.addParticle(particle);
     }
 
@@ -54,30 +54,37 @@ class DemoScene : public afk::Scene {
       particle.setSize(3.0f, 2.0f);
       particle.setColor(afk::color::rgb(0, 0, 128),
                         afk::color::rgb(255, 255, 255));
-      particle.setVelocity(afk::Random::randomFloat(-0.5, 0.5), -10.0);
-      particle.setAcceleration(0, 0.3f);
+      particle.setVelocity(afk::Random::randomFloat(-5, 5), -100);
+      particle.setAcceleration(0, 3.0f);
       emitter_2.addParticle(particle);
     }
 
     afk::ParticleEmitter& emitter_3 =
         addObj<afk::ParticleEmitter>(*this, 384, 256);
     emitter_3.setSize(5, 5);
+    smoke_id = emitter_3.getId();
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 400; i++) {
       afk::Particle particle(*this, 0, 0, 0, afk::ParticleType::IMAGE);
       particle.setLifespan(afk::Random::randomInt(800, 1500));
       particle.setTexture("fuzzball");
       particle.setSize(16.0f, 20.0f);
-      particle.setVelocity(afk::Random::randomFloat(0.2, 0.25), -0.5);
+      particle.setVelocity(afk::Random::randomFloat(2.0f, 2.5f), -5.0f);
       emitter_3.addParticle(particle);
     }
   }
 
   void draw() {}
 
-  void update() {}
+  void update(Uint32 delta) {
+    get<afk::ParticleEmitter>(smoke_id).setPosition(input.mouseX(),
+                                                    input.mouseY());
+  }
 
   void stop() { logger.log("Stopping!"); }
+
+ private:
+  ObjId smoke_id;
 };
 
 int main(int argv, char** args) {

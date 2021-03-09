@@ -53,8 +53,10 @@ class UIElement : public GameObject {
   /**
    * @brief Update ui element. Checks for collisions and clicks.
    *
+   * @param delta Time since last call in ms
+   *
    */
-  void update() override;
+  void update(Uint32 delta) override;
 
   /**
    * @brief Set the visibility of element. When invisible, they will not be

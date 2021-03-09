@@ -26,7 +26,7 @@ class DemoScene : public afk::Scene {
 
   void draw() {}
 
-  void update() {
+  void update(Uint32 delta) {
     if (input.mousePressed(afk::MouseButtons::LEFT)) {
       audio.playSound("win", {127, 0, 1.0f, false});
     }

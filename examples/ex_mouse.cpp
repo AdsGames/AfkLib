@@ -34,7 +34,7 @@ class DemoScene : public afk::Scene {
 
   void draw() {}
 
-  void update() {
+  void update(Uint32 delta) {
     afk::Sprite& lenna = get<afk::Sprite>(lennaId);
 
     if (input.mousePressed(afk::MouseButtons::LEFT)) {

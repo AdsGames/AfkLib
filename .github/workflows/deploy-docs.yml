@@ -13,14 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install graphviz
-        run: sudo apt install graphviz
-
-      - name: Generate docs
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "./Doxyfile"
-
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v7
         with:
@@ -32,7 +24,15 @@ jobs:
       - name: Make
         run: emmake make
 
-      - name: Copy Docs to Bin
+      - name: Install graphviz
+        run: sudo apt install graphviz
+
+      - name: Generate docs
+        uses: mattnotmitt/doxygen-action@v1
+        with:
+          doxyfile-path: "./Doxyfile"
+
+      - name: Copy Bin to Docs
         run: cp -r ./bin ./docs/examples
 
       - name: Deploy docs

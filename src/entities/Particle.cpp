@@ -34,14 +34,14 @@ Particle::Particle(Scene& scene,
       end_color(color::rgb(0, 0, 0)) {}
 
 // Logic
-void Particle::update() {
+void Particle::update(Uint32 delta) {
   if (dead()) {
     return;
   }
 
   // Update velocity
-  x += velocity_x + acceleration_x * age;
-  y += velocity_y + acceleration_y * age;
+  x += (velocity_x + acceleration_x * age) / 1000 * delta;
+  y += (velocity_y + acceleration_y * age) / 1000 * delta;
 
   // Its dead
   this->age += 4.0f;
