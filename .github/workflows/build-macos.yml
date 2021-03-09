@@ -23,4 +23,4 @@ jobs:
       - name: Make
         run: |
           export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include"
-          make
+          make -j4

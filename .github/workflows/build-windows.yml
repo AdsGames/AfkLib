@@ -26,4 +26,4 @@ jobs:
       - name: Make
         run: |
           Set-Item -Path Env:Path -Value ("C:/msys64/mingw32/bin;" + $Env:Path)
-          make
+          make -j4
