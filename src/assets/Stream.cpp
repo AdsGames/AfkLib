@@ -14,12 +14,6 @@
 
 namespace afk {
 
-// Buffer count
-const size_t BUFFER_COUNT = 4;
-
-// Samples
-const size_t SAMPLES = 2048;
-
 // Constructor
 Stream::Stream() : stream(nullptr) {}
 
@@ -39,7 +33,7 @@ void Stream::play(const bool loop) {
     return;
   }
 
-  Mix_PlayChannel(-1, stream, loop);
+  Mix_PlayMusic(stream, loop);
 }
 
 // Stop stream
@@ -48,18 +42,18 @@ void Stream::stop() {
     return;
   }
 
-  // al_detach_audio_stream(stream);
+  Mix_HaltMusic();
 }
 
 // Return if the audio is playing
 bool Stream::isPlaying() const {
-  return false;  // al_get_audio_stream_playing(stream);
+  return Mix_PlayingMusic();
 }
 
 // Load SDL sample from file
-Mix_Chunk* Stream::loadStream(const std::string& path) {
+Mix_Music* Stream::loadStream(const std::string& path) {
   // Attempt to load
-  Mix_Chunk* temp_stream = Mix_LoadWAV(path.c_str());
+  Mix_Music* temp_stream = Mix_LoadMUS(path.c_str());
 
   // Throw exception if file is not loaded
   if (!temp_stream) {

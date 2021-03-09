@@ -43,7 +43,7 @@ if(EMSCRIPTEN)
     target_link_libraries(
       ${PROJECT_NAME} 
       -sWASM=1 
-      -sUSE_SDL=2 
+      -sUSE_SDL=2
       -sUSE_SDL_IMAGE=2 
       -sUSE_SDL_TTF=2 
       -sUSE_SDL_MIXER=2 

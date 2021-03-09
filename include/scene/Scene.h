@@ -19,6 +19,7 @@
 
 #include "../common/Exceptions.h"
 #include "../entities/GameObject.h"
+#include "../services/Services.h"
 
 /**
  * @brief Scene for state machine
@@ -28,7 +29,13 @@ namespace afk {
 class Scene {
  public:
   /**
-   * @brief Destroy the Scene object
+   * @brief Create a new Scene
+   *
+   */
+  Scene();
+
+  /**
+   * @brief Destroy the Scene
    *
    */
   virtual ~Scene() {}
@@ -145,6 +152,15 @@ class Scene {
    * @param obj2 Game object 2
    */
   void addCollider(const ObjId obj1, const ObjId obj2);
+
+  /// Service references
+  AudioService& audio;
+  LoggingService& logger;
+  DisplayService& display;
+  AssetService& assets;
+  InputService& input;
+  SceneService& scene;
+  ConfigService& config;
 
  private:
   /**

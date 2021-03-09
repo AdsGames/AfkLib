@@ -16,16 +16,13 @@
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
 
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_sprite");
 
-    afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadImage("lenna", "assets/lenna.png");
 
     lennaId = add<afk::Sprite>(*this, "lenna");
@@ -39,10 +36,7 @@ class DemoScene : public afk::Scene {
     lenna.setAngle(lenna.getAngle() + 0.1f);
   }
 
-  void stop() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
-    logger.log("Stopping!");
-  }
+  void stop() { logger.log("Stopping!"); }
 
  private:
   ObjId lennaId;

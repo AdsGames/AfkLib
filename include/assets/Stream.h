@@ -68,16 +68,16 @@ class Stream {
 
  private:
   /**
-   * @brief Load an Mix_Chunk* from file
+   * @brief Load an Mix_Music* from file
    *
    * @param path Path to stream
-   * @return Mix_Chunk* Loaded SDL audio stream
+   * @return Mix_Music* Loaded SDL audio stream
    * @throws FileIOException If stream can not be found at path
    */
-  static Mix_Chunk* loadStream(const std::string& path);
+  static Mix_Music* loadStream(const std::string& path);
 
-  /// Pointer to associated Mix_Chunk*
-  Mix_Chunk* stream;
+  /// Pointer to associated Mix_Music*
+  Mix_Music* stream;
 };
 
 }  // namespace afk

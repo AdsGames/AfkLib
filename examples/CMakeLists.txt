@@ -29,6 +29,16 @@ foreach(EX_NAME ${EXAMPLES})
   # Emscripten support
   if(EMSCRIPTEN)
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
+    target_compile_options(
+      ${EX_NAME}
+      PRIVATE  
+      -sUSE_SDL=2 
+      -sUSE_SDL_IMAGE=2 
+      -sUSE_SDL_TTF=2 
+      -sUSE_SDL_MIXER=2 
+      -sUSE_SDL_GFX=2 
+      -sSDL2_IMAGE_FORMATS=["png"]
+    )
     target_link_libraries(
       ${EX_NAME} 
       -sWASM=1 
@@ -40,7 +50,6 @@ foreach(EX_NAME ${EXAMPLES})
       -sSDL2_IMAGE_FORMATS=["png"] 
       -sDEMANGLE_SUPPORT=1
       -sTOTAL_MEMORY=512MB
-      -sDISABLE_EXCEPTION_CATCHING=0
       afk
     )
     set_target_properties(${EX_NAME} PROPERTIES LINK_FLAGS "--preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets --use-preload-plugins")
@@ -50,7 +59,17 @@ foreach(EX_NAME ${EXAMPLES})
     if(MINGW)
       target_link_libraries(${EX_NAME} -lmingw32)
     endif(MINGW)
-    target_link_libraries(${EX_NAME} -lm ${SDL_MAIN_LIBRARY} ${SDL_LIBRARY} ${SDL_MIXER_LIBRARY} ${SDL_IMAGE_LIBRARY} ${SDL_TTF_LIBRARY} ${SDL_GFX_LIBRARY} afk)
+    target_link_libraries(
+      ${EX_NAME} 
+      -lm 
+      ${SDL_MAIN_LIBRARY} 
+      ${SDL_LIBRARY} 
+      ${SDL_MIXER_LIBRARY} 
+      ${SDL_IMAGE_LIBRARY} 
+      ${SDL_TTF_LIBRARY} 
+      ${SDL_GFX_LIBRARY} 
+      afk
+    )
   endif(EMSCRIPTEN)
 endforeach()
 

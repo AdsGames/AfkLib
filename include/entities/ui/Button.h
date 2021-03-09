@@ -37,7 +37,7 @@ class Button : public UIElement {
    * @param text Text to display, if applicable
    * @param font Font to use to display text
    */
-  Button(const Scene& scene,
+  Button(Scene& scene,
          const int x,
          const int y,
          const int z,
@@ -53,7 +53,7 @@ class Button : public UIElement {
    * @param z Z position of element (for sorting)
    * @param image_id Id of image to assign to button
    */
-  Button(const Scene& scene,
+  Button(Scene& scene,
          const int x,
          const int y,
          const int z,

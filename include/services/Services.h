@@ -19,7 +19,7 @@
 #include "display/DisplayService.h"
 #include "events/EventQueue.h"
 #include "input/InputService.h"
-#include "logging/LoggingService.h"
+#include "logging/DebugLoggingService.h"
 #include "scene/SceneService.h"
 
 namespace afk {
@@ -29,105 +29,6 @@ namespace afk {
  */
 class Services {
  public:
-  /**
-   * @brief Provide instance of audio service
-   *
-   * @tparam T Type of audio service to provide, must be child of AudioService
-   * class
-   * @tparam Args Arguments that correspond to the constructor of T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideAudioService(Args&&... args) {
-    audio_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of asset service
-   *
-   * @tparam T Type of asset service to provide, must be of type AssetService
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideAssetService(Args&&... args) {
-    asset_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of display service
-   *
-   * @tparam T Type of window to provide, must be of type Window
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideDisplayService(Args&&... args) {
-    display_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of config service
-   *
-   * @tparam T Type of config service to provide, must be of type
-   * ConfigService
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideConfigService(Args&&... args) {
-    config_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of logging service
-   *
-   * @tparam T Type of logging service to provide, must be of type
-   * LoggingService
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideLoggingService(Args&&... args) {
-    logging_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of input service
-   *
-   * @tparam T Type of logger to provide, must be of type InputService
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideInputService(Args&&... args) {
-    input_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of event queue
-   *
-   * @tparam T Type of logger to provide, must be of type Event Queue
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideEventQueue(Args&&... args) {
-    event_service = std::make_shared<T>((args)...);
-  }
-
-  /**
-   * @brief Provide instance of scene service
-   *
-   * @tparam T Type of logger to provide, must be of type SceneService
-   * @tparam Args Ctor arguments for T
-   * @param args Argument values to be forwarded to constructor of T
-   */
-  template <class T, class... Args>
-  static void provideSceneService(Args&&... args) {
-    scene_service = std::make_shared<T>((args)...);
-  }
-
   /**
    * @brief Get the AudioService
    *
@@ -186,28 +87,28 @@ class Services {
 
  private:
   /// Internal pointer to current LoggingService instance
-  static inline std::shared_ptr<LoggingService> logging_service;
+  static inline DebugLoggingService logging_service;
 
   /// Internal pointer to current Event queue instance
-  static inline std::shared_ptr<EventQueue> event_service;
+  static inline EventQueue event_service;
 
   /// Internal pointer to current SceneService queue instance
-  static inline std::shared_ptr<SceneService> scene_service;
+  static inline SceneService scene_service;
 
   /// Internal pointer to current DisplayService instance
-  static inline std::shared_ptr<DisplayService> display_service;
+  static inline DisplayService display_service;
 
   /// Internal pointer to current InputService instance
-  static inline std::shared_ptr<InputService> input_service;
+  static inline InputService input_service;
 
   /// Internal pointer to current AudioService instance
-  static inline std::shared_ptr<AudioService> audio_service;
+  static inline AudioService audio_service;
 
   /// Internal pointer to current AssetService instance
-  static inline std::shared_ptr<AssetService> asset_service;
+  static inline AssetService asset_service;
 
   /// Internal pointer to current ConfigService instance
-  static inline std::shared_ptr<ConfigService> config_service;
+  static inline ConfigService config_service;
 };
 
 }  // namespace afk

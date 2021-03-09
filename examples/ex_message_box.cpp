@@ -17,16 +17,13 @@
 class DemoScene : public afk::Scene {
  public:
   void start() {
-    afk::LoggingService& logger = afk::Services::getLoggingService();
     logger.log("Starting!");
 
-    afk::DisplayService& display = afk::Services::getDisplayService();
     display.setWindowSize(256, 256);
     display.setBufferSize(256, 256);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_message_box");
 
-    afk::AssetService& assets = afk::Services::getAssetService();
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
     afk::Button& button1 =
@@ -67,7 +64,7 @@ class DemoScene : public afk::Scene {
 
   void update() {}
 
-  void stop() { afk::Services::getLoggingService().log("Stopping!"); }
+  void stop() { logger.log("Stopping!"); }
 };
 
 class MainGame : public afk::Game {

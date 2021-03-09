@@ -35,7 +35,7 @@ class GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit GameObject(const Scene& scene,
+  explicit GameObject(Scene& scene,
                       const float x = 0.0f,
                       const float y = 0.0f,
                       const int z = 0);
@@ -154,7 +154,7 @@ class GameObject {
 
  protected:
   /// Reference to registered scene
-  const Scene& scene;
+  Scene& scene;
 
   /// X position on x y plane
   float x;

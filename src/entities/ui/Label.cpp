@@ -17,7 +17,7 @@
 namespace afk {
 
 // Detailed constructor
-Label::Label(const Scene& scene,
+Label::Label(Scene& scene,
              const int x,
              const int y,
              const int z,

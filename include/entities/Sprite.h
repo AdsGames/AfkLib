@@ -33,7 +33,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  explicit Sprite(const Scene& scene,
+  explicit Sprite(Scene& scene,
                   const float x = 0.0f,
                   const float y = 0.0f,
                   const int z = 0);
@@ -47,7 +47,7 @@ class Sprite : public GameObject {
    * @param y Y position
    * @param z Z position (for sorting)
    */
-  Sprite(const Scene& scene,
+  Sprite(Scene& scene,
          const std::string& texture,
          const float x = 0.0f,
          const float y = 0.0f,

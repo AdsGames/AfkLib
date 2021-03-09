@@ -11,6 +11,7 @@
 #ifndef INCLUDE_ENTITIES_PARTICLE_H_
 #define INCLUDE_ENTITIES_PARTICLE_H_
 
+#include "../entities/Sprite.h"
 #include "../primitives/Primitives.h"
 
 namespace afk {
@@ -23,6 +24,7 @@ enum class ParticleType : int {
   PIXEL,
   SQUARE,
   CIRCLE,
+  IMAGE,
   NONE,
 };
 
@@ -30,29 +32,131 @@ enum class ParticleType : int {
  * @brief Represents a single Particle
  *
  */
-class Particle {
+class Particle : public Sprite {
  public:
-  Particle(float x,
-           float y,
-           color::Color color,
-           float velocity_x,
-           float velocity_y,
-           int size,
-           ParticleType type);
+  /**
+   * @brief Create a new particle
+   *
+   * @param x X position
+   * @param y Y position
+   * @param type Type of particle
+   */
+  explicit Particle(Scene& scene,
+                    float x = 0.0f,
+                    float y = 0.0f,
+                    float z = 0,
+                    ParticleType type = ParticleType::PIXEL);
 
-  void update();
+  /**
+   * @brief Update particle
+   *
+   */
+  void update() override;
 
-  void draw();
+  /**
+   * @brief Draw particle
+   *
+   */
+  void draw() override;
+
+  /**
+   * @brief Set the size of the particle in pixels
+   *
+   * @param size Size of particle
+   */
+  void setSize(const float size);
+
+  /**
+   * @brief Set the size of particle over lifespan
+   *
+   * @param start_size Size to start at
+   * @param end_size Size to end at
+   */
+  void setSize(const float start_size, const float end_size);
+
+  /**
+   * @brief Set the velocity of particle
+   *
+   * @param x X velocity
+   * @param y Y velocity
+   */
+  void setVelocity(const float x, const float y);
+
+  /**
+   * @brief Set the acceleration of particle
+   *
+   * @param x X acceleration
+   * @param y Y acceleration
+   */
+  void setAcceleration(const float x, const float y);
+
+  /**
+   * @brief Set the lifespan of particle in ms
+   *
+   * @param lifespan Number of ms to stay alive
+   */
+  void setLifespan(const float lifespan);
+
+  /**
+   * @brief Set the particle color
+   *
+   * @param color Color to set to
+   */
+  void setColor(const color::Color& color);
+
+  /**
+   * @brief Set the particle color over lifespan
+   *
+   * @param start_color Starting color
+   * @param end_color Ending color
+   */
+  void setColor(const color::Color& start_color, const color::Color& end_color);
+
+  /**
+   * @brief Reset age
+   *
+   */
+  void reset();
+
+  /**
+   * @brief Check if dead
+   *
+   */
+  bool dead();
 
  private:
-  float x, y;
-
-  int size;
+  /// Type of particle
   ParticleType type;
 
-  float velocity_x, velocity_y;
+  /// Starting size
+  float start_size;
 
-  color::Color color;
+  /// Ending size
+  float end_size;
+
+  /// Velocity x
+  float velocity_x;
+
+  /// Velocity y
+  float velocity_y;
+
+  /// Acceleration x
+  float acceleration_x;
+
+  /// Acceleration y
+  float acceleration_y;
+
+  /// Current age
+  float age;
+
+  /// Max lifespan
+  float lifespan;
+
+  /// Start color
+  color::Color start_color;
+
+  /// End color
+  color::Color end_color;
 };
 
 }  // namespace afk
