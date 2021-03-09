@@ -24,7 +24,7 @@ jobs:
         run: emcmake cmake -G "Unix Makefiles" .
 
       - name: Make
-        run: emmake make
+        run: emmake make -j4
 
       - name: Install graphviz
         run: sudo apt install graphviz

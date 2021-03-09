@@ -19,9 +19,7 @@ jobs:
           actions-cache-folder: "emsdk-cache"
 
       - name: Run CMake
-        run: |
-          emcmake cmake -G "Unix Makefiles" .
+        run: emcmake cmake -G "Unix Makefiles" .
 
       - name: Make
-        run: |
-          emmake make
+        run: emmake make -j4
