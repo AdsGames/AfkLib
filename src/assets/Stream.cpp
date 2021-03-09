@@ -14,12 +14,6 @@
 
 namespace afk {
 
-// Buffer count
-const size_t BUFFER_COUNT = 4;
-
-// Samples
-const size_t SAMPLES = 2048;
-
 // Constructor
 Stream::Stream() : stream(nullptr) {}
 

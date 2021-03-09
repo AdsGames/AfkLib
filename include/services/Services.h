@@ -19,7 +19,7 @@
 #include "display/DisplayService.h"
 #include "events/EventQueue.h"
 #include "input/InputService.h"
-#include "logging/LoggingService.h"
+#include "logging/DebugLoggingService.h"
 #include "scene/SceneService.h"
 
 namespace afk {
@@ -29,7 +29,7 @@ namespace afk {
  */
 class Services {
  public:
-    /**
+  /**
    * @brief Get the AudioService
    *
    * @return AudioService& Reference to current audio service
@@ -87,7 +87,7 @@ class Services {
 
  private:
   /// Internal pointer to current LoggingService instance
-  static inline LoggingService logging_service;
+  static inline DebugLoggingService logging_service;
 
   /// Internal pointer to current Event queue instance
   static inline EventQueue event_service;

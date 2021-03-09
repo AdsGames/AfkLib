@@ -13,26 +13,21 @@
 
 #include "color/Color.h"
 #include "primitives/Primitives.h"
+#include "random/RandomGenerator.h"
 #include "scene/Scene.h"
-
 #include "services/Services.h"
 
 namespace afk {
 
 // Constructor
 ParticleEmitter::ParticleEmitter(Scene& scene,
-                                 Particle particle,
                                  const float x,
                                  const float y,
                                  const int z)
-    : GameObject(scene, x, y, z), particle(particle) {}
-
-// Destructor
-ParticleEmitter::~ParticleEmitter() {}
+    : GameObject(scene, x, y, z) {}
 
 // Draw
 void ParticleEmitter::draw() {
-  // Draw particles
   for (auto& particle : particles) {
     particle.draw();
   }
@@ -40,11 +35,22 @@ void ParticleEmitter::draw() {
 
 // Update
 void ParticleEmitter::update() {
-  particles.push_back(Particle(particle));
-
-  // Draw particles
   for (auto& particle : particles) {
     particle.update();
+
+    if (particle.dead()) {
+      particle.reset();
+      particle.setPosition(Random::randomInt(x, x + width),
+                           Random::randomInt(y, y + width));
+    }
+  }
+}
+
+// Add
+void ParticleEmitter::addParticle(const Particle& particle,
+                                  const Uint32 count) {
+  for (Uint32 i = 0; i < count; i++) {
+    particles.push_back(Particle(particle));
   }
 }
 

@@ -16,6 +16,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+#include "../../color/Color.h"
 #include "../Service.h"
 
 const int FRAME_BUFFER_SIZE = 50;
@@ -192,6 +193,13 @@ class DisplayService {
   void setIcon(const std::string& path);
 
   /**
+   * @brief Set clear color
+   *
+   * @param color to set to
+   */
+  void setBackgroundColor(const color::Color& color);
+
+  /**
    * @brief Get the current frames per second
    *
    * @return int Frames per second
@@ -257,6 +265,9 @@ class DisplayService {
 
   /// Frame index
   Uint32 frame_index = 0;
+
+  /// Clear color
+  color::Color clear_color;
 
   /**
    * @brief Sets the window scaling in percent

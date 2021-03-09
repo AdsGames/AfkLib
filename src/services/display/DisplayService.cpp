@@ -23,7 +23,7 @@
 namespace afk {
 
 // Setup DisplayService
-DisplayService::DisplayService() {
+DisplayService::DisplayService() : clear_color(color::rgb(255, 255, 255)) {
   // Set initial time
   old_time = SDL_GetTicks();
 }
@@ -46,7 +46,8 @@ void DisplayService::draw(Scene* current_scene) {
   }
 
   // Render a frame
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_SetRenderDrawColor(renderer, clear_color.r, clear_color.g, clear_color.b,
+                         clear_color.a);
   SDL_RenderClear(renderer);
 
   current_scene->draw();
@@ -233,6 +234,11 @@ void DisplayService::setIcon(const std::string& path) {
   }
   SDL_SetWindowIcon(window, icon);
   SDL_FreeSurface(icon);
+}
+
+// Set clear colour
+void DisplayService::setBackgroundColor(const color::Color& color) {
+  clear_color = color;
 }
 
 // Get fps

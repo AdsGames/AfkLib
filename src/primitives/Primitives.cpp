@@ -47,13 +47,13 @@ void circle(const Sint16 cx,
             const Sint16 r,
             color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  circleColor(renderer, cx, cy, r, color::colorToInt(colour));
+  circleRGBA(renderer, cx, cy, r, colour.r, colour.g, colour.b, colour.a);
 }
 
 // Draw a pixel
 void pixel(const Sint16 x, const Sint16 y, color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  pixelColor(renderer, x, y, color::colorToInt(colour));
+  pixelRGBA(renderer, x, y, colour.r, colour.g, colour.b, colour.a);
 }
 
 }  // namespace afk::primitives
