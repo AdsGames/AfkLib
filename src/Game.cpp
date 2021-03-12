@@ -42,7 +42,6 @@ void showErrorDialog(const std::string& title,
                      const std::string& message = "") {
   MessageBox error(MessageBoxType::ERROR);
   error.setTitle(title);
-  error.setHeading(title);
   error.setText(message);
   error.show();
 }

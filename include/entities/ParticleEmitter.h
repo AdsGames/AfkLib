@@ -97,3 +97,9 @@ class ParticleEmitter : public GameObject {
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_PARTICLEEMITTER_H_
+
+/**
+ * @example ex_particles.cpp
+ * This is an example of how to use the ParticleEmitter class to create particle
+ * effects.
+ */

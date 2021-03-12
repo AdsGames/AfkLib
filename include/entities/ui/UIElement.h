@@ -93,3 +93,8 @@ class UIElement : public GameObject {
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_UI_UIELEMENT_H_
+
+/**
+ * @example ex_ui.cpp
+ * This example shows how to use various ui elements
+ */

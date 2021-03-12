@@ -16,8 +16,9 @@
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
-const int NUM_SPRITE = 1000;
+const int NUM_SPRITE = 100;
 const int SCREEN_H = 400;
+const int SCREEN_H_2 = 200;
 const int SCREEN_W = 400;
 const int SPRITE_SIZE = 20;
 
@@ -40,9 +41,7 @@ class DemoScene : public afk::Scene {
     label_id = label.getId();
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
-      int x = afk::Random::randomInt(0, SCREEN_W);
-      int y = afk::Random::randomInt(0, SCREEN_H);
-      sprites[i] = add<afk::Sprite>(*this, "lenna", x, y);
+      sprites[i] = add<afk::Sprite>(*this, "lenna");
       get<afk::Sprite>(sprites[i]).setSize(SPRITE_SIZE, SPRITE_SIZE);
     }
   }
@@ -50,16 +49,16 @@ class DemoScene : public afk::Scene {
   void draw() {}
 
   void update(Uint32 delta) {
-    iter++;
+    iter += static_cast<float>(delta) / 10.0f;
 
-    unsigned int fps = display.getFps();
+    int fps = display.getFps();
 
     get<afk::Label>(label_id).setText(std::to_string(fps));
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       afk::Sprite& sprite = get<afk::Sprite>(sprites[i]);
-      sprite.setPosition((iter + i) % SCREEN_W,
-                         sin(iter / 100.0f + i) * SCREEN_H / 2 + SCREEN_H / 2);
+      sprite.setPosition(fmod(iter + i, SCREEN_W),
+                         sin(iter / 100.0f + i) * SCREEN_H_2 + SCREEN_H_2);
       sprite.setAngle(sprite.getAngle() + delta / 10.0f);
     }
   }

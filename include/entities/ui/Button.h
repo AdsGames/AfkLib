@@ -56,3 +56,8 @@ class Button : public UIElement {
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_UI_BUTTON_H_
+
+/**
+ * @example ex_ui.cpp
+ * This example shows how to use various ui elements
+ */

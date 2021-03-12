@@ -80,3 +80,13 @@ class Sprite : public GameObject {
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_SPRITE_H_
+
+/**
+ * @example ex_sprite.cpp
+ * This example shows basic usage of a sprite
+ */
+
+/**
+ * @example ex_fps.cpp
+ * This example shows a stress test of sprites
+ */

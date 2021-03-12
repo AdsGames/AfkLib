@@ -36,8 +36,7 @@ class DemoScene : public afk::Scene {
     button.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::INFO);
       message_box.setTitle("Nice");
-      message_box.setHeading("You Clicked");
-      message_box.setText("The button");
+      message_box.setText("You Clicked\nThe button");
       message_box.show();
     });
 

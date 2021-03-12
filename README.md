@@ -13,7 +13,16 @@ Game framework
 
 ## Examples (Web)
 
+- [ex_display](https://adsgames.github.io/AfkLib/examples/ex_display.html)
 - [ex_fps](https://adsgames.github.io/AfkLib/examples/ex_fps.html)
+- [ex_keyboard](https://adsgames.github.io/AfkLib/examples/ex_keyboard.html)
+- [ex_message_box](https://adsgames.github.io/AfkLib/examples/ex_message_box.html)
+- [ex_mouse](https://adsgames.github.io/AfkLib/examples/ex_mouse.html)
+- [ex_particles](https://adsgames.github.io/AfkLib/examples/ex_particles.html)
+- [ex_rotate](https://adsgames.github.io/AfkLib/examples/ex_rotate.html)
+- [ex_sound](https://adsgames.github.io/AfkLib/examples/ex_sound.html)
+- [ex_sprite](https://adsgames.github.io/AfkLib/examples/ex_sprite.html)
+- [ex_ui](https://adsgames.github.io/AfkLib/examples/ex_ui.html)
 
 ## Setup
 
@@ -38,9 +47,25 @@ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
 ### Build
 
 ```bash
-cmake -G "Unix Makefiles" .
+cmake .
 ```
 
 ```bash
 make
+```
+
+### Build Emscripten
+
+```bash
+emcmake cmake .
+```
+
+```bash
+make
+```
+
+### Install Library (works for emscripten)
+
+```bash
+make install
 ```

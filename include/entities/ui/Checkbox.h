@@ -77,3 +77,8 @@ class Checkbox : public UIElement {
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_UI_CHECKBOX_H_
+
+/**
+ * @example ex_ui.cpp
+ * This example shows how to use various ui elements
+ */

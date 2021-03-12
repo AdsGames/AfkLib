@@ -64,3 +64,8 @@ class AudioService {
 }  // namespace afk
 
 #endif  // INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
+
+/**
+ * @example ex_sound.cpp
+ * This example shows how to use basic sound features
+ */

@@ -45,13 +45,6 @@ class MessageBox {
   void setTitle(const std::string& title);
 
   /**
-   * @brief Set the heading of the message box
-   *
-   * @param heading string heading
-   */
-  void setHeading(const std::string& heading);
-
-  /**
    * @brief Set the body text of the message box
    *
    * @param text string text
@@ -67,9 +60,6 @@ class MessageBox {
  private:
   /// Title of message box
   std::string title;
-
-  /// Heading of message box
-  std::string heading;
 
   /// Text of message box
   std::string text;
@@ -88,3 +78,13 @@ class MessageBox {
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_UI_MESSAGEBOX_H_
+
+/**
+ * @example ex_ui.cpp
+ * This example shows how to use various ui elements
+ */
+
+/**
+ * @example ex_message_box.cpp
+ * This example shows how to use advanced MessageBox features
+ */

@@ -33,7 +33,6 @@ class DemoScene : public afk::Scene {
     button1.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::INFO);
       message_box.setTitle("Info");
-      message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
@@ -45,7 +44,6 @@ class DemoScene : public afk::Scene {
     button2.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::WARN);
       message_box.setTitle("Warning");
-      message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
@@ -57,7 +55,6 @@ class DemoScene : public afk::Scene {
     button3.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::ERROR);
       message_box.setTitle("Error");
-      message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
