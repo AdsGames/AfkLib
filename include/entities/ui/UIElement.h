@@ -33,15 +33,8 @@ class UIElement : public GameObject {
    * @param x X position of element
    * @param y Y position of element
    * @param z Z position of element (for sorting)
-   * @param text Text to display, if applicable
-   * @param font Font to use to display text
    */
-  UIElement(Scene& scene,
-            const float x,
-            const float y,
-            const int z,
-            const std::string& text,
-            const std::string& font);
+  UIElement(Scene& scene, const float x, const float y, const int z);
 
   /**
    * @brief Draw the ui element to the screen. Can be overriden by other ui
@@ -59,14 +52,6 @@ class UIElement : public GameObject {
   void update(Uint32 delta) override;
 
   /**
-   * @brief Set the visibility of element. When invisible, they will not be
-   * drawn or interactive.
-   *
-   * @param visible visibility of element
-   */
-  void setVisible(const bool visible);
-
-  /**
    * @brief Set the font to use for displaying text
    *
    * @param font id of font to render text with
@@ -78,7 +63,7 @@ class UIElement : public GameObject {
    *
    * @param text to display
    */
-  void setText(const std::string& text);
+  virtual void setText(const std::string& text);
 
   /**
    * @brief Set the onClick function which will be called when element is
@@ -89,17 +74,20 @@ class UIElement : public GameObject {
   void setOnClick(std::function<void(void)> func);
 
  protected:
-  /// Visibility
-  bool visible;
-
   /// Font to use for displaying text
   Font font;
 
   /// Text to display where applicable
   std::string text;
 
+  /// Intermediate on click handler
+  virtual void handleOnClick();
+
   /// Holds reference to onClick function
   std::function<void(void)> onClick;
+
+  /// Stores id of focused element
+  static ObjId focused;
 };
 
 }  // namespace afk

@@ -30,8 +30,8 @@ Particle::Particle(Scene& scene,
       acceleration_y(0),
       age(0),
       lifespan(1000),
-      start_color(color::rgb(0, 0, 0)),
-      end_color(color::rgb(0, 0, 0)) {}
+      start_color(color::black),
+      end_color(color::black) {}
 
 // Logic
 void Particle::update(Uint32 delta) {

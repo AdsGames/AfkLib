@@ -19,7 +19,14 @@ ObjId GameObject::index = 0;
 
 // Constructor
 GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
-    : scene(scene), x(x), y(y), z(z), height(0), width(0), angle(0.0f) {
+    : scene(scene),
+      x(x),
+      y(y),
+      z(z),
+      height(0),
+      width(0),
+      angle(0.0f),
+      visible(true) {
   this->id = GameObject::index;
   GameObject::index += 1;
 }
@@ -63,6 +70,11 @@ void GameObject::setAngle(const float angle) {
   this->angle = angle;
 }
 
+// Set visibility
+void GameObject::setVisible(const bool visible) {
+  this->visible = visible;
+}
+
 // Get z index
 int GameObject::getWidth() const {
   return width;
@@ -96,6 +108,11 @@ float GameObject::getAngle() const {
 // Get unique id
 ObjId GameObject::getId() const {
   return id;
+}
+
+// Get visibility
+bool GameObject::getVisible() const {
+  return visible;
 }
 
 }  // namespace afk

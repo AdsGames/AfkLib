@@ -16,27 +16,21 @@
 
 namespace afk {
 
+// Static
+ObjId UIElement::focused = 0;
+
 // Constructor
-UIElement::UIElement(Scene& scene,
-                     const float x,
-                     const float y,
-                     const int z,
-                     const std::string& text,
-                     const std::string& font)
-    : GameObject(scene, x, y, z), visible(true), text(text) {
-  setFont(font);
-}
+UIElement::UIElement(Scene& scene, const float x, const float y, const int z)
+    : GameObject(scene, x, y, z), text(""), onClick(nullptr) {}
 
-void UIElement::setVisible(const bool visible) {
-  this->visible = visible;
-}
-
-void UIElement::setFont(const std::string& text) {
-  if (text != "") {
-    this->font = Services::getAssetService().getFont(text);
+// Set font of element
+void UIElement::setFont(const std::string& font) {
+  if (font != "") {
+    this->font = Services::getAssetService().getFont(font);
   }
 }
 
+// Set text of element
 void UIElement::setText(const std::string& text) {
   this->text = text;
 }
@@ -46,10 +40,6 @@ void UIElement::draw() {}
 
 // Update
 void UIElement::update(Uint32 delta) {
-  if (!onClick) {
-    return;
-  }
-
   InputService& input = Services::getInputService();
 
   if (input.mousePressed(MouseButtons::LEFT)) {
@@ -58,14 +48,21 @@ void UIElement::update(Uint32 delta) {
                         input.mouseY() > y;
 
     if (is_colliding) {
-      onClick();
+      UIElement::focused = getId();
+      handleOnClick();
     }
   }
 }
 
-// On click
+// Set on click
 void UIElement::setOnClick(std::function<void(void)> func) {
   this->onClick = func;
+}
+
+void UIElement::handleOnClick() {
+  if (onClick) {
+    onClick();
+  }
 }
 
 }  // namespace afk

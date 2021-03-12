@@ -23,7 +23,7 @@
 namespace afk {
 
 // Setup DisplayService
-DisplayService::DisplayService() : clear_color(color::rgb(255, 255, 255)) {
+DisplayService::DisplayService() : clear_color(color::white) {
   // Set initial time
   old_time = SDL_GetTicks();
 }

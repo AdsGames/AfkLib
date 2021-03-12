@@ -38,7 +38,7 @@ struct KeyboardState {
   int lastKeyReleased = static_cast<int>(Keys::UNKNOWN);
 
   /// True if any key down
-  bool anyKeyDown = -1;
+  bool anyKeyDown = false;
 
   /// Previous key states
   bool lastTicksKey[static_cast<int>(Keys::MAX)] = {false};
@@ -49,8 +49,8 @@ struct KeyboardState {
    */
   void update() {
     // Reset last key
-    lastKeyPressed = -1;
-    lastKeyReleased = -1;
+    lastKeyPressed = static_cast<int>(Keys::UNKNOWN);
+    lastKeyReleased = static_cast<int>(Keys::UNKNOWN);
     anyKeyDown = false;
 
     // Check key just pressed

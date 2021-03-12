@@ -34,7 +34,10 @@ class DemoScene : public afk::Scene {
     assets.loadFont("freesans", "assets/freesans.ttf", 64);
     assets.loadImage("lenna", "assets/lenna.png");
 
-    label_id = add<afk::Label>(*this, 10, 5, 100, "fps", "freesans");
+    afk::Label& label = addObj<afk::Label>(*this, 10, 5, 100);
+    label.setText("FPS");
+    label.setFont("freesans");
+    label_id = label.getId();
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       int x = afk::Random::randomInt(0, SCREEN_W);

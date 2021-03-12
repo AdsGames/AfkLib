@@ -61,7 +61,7 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const color::Color colour = color::rgb(0, 0, 0),
+            const color::Color colour = color::black,
             const FontAlign align = FontAlign::ALIGN_LEFT);
 
   /**
@@ -85,6 +85,13 @@ class Font {
    * @return Size of font loaded
    */
   int getSize();
+
+  /**
+   * @brief Check if font has been loaded
+   *
+   * @return Loaded status, true if font exists, false otherwise
+   */
+  bool exists() const;
 
  private:
   /**

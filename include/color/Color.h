@@ -23,6 +23,16 @@ struct Color {
   Uint8 a;
 };
 
+// Color defenitions
+static const Color black = {0, 0, 0, 255};
+static const Color white = {255, 255, 255, 255};
+static const Color red = {255, 0, 0, 255};
+static const Color orange = {255, 0, 255, 255};
+static const Color yellow = {255, 255, 0, 255};
+static const Color green = {0, 255, 0, 255};
+static const Color blue = {0, 0, 255, 255};
+static const Color purple = {0, 255, 255, 255};
+
 /**
  * @brief Create SDL Color from rgb values
  *

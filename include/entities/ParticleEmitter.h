@@ -31,14 +31,14 @@ class ParticleEmitter : public GameObject {
    * @param scene Reference to scene which is stored in game object
    * @param x X position
    * @param y Y position
-   * @param width Width of emitter
-   * @param height Height of emitter
    * @param z Z position (for sorting)
+   * @param frequency Frequency in ms to emit, 0 is burst
    */
   explicit ParticleEmitter(Scene& scene,
                            const float x = 0.0f,
                            const float y = 0.0f,
-                           const int z = 0);
+                           const int z = 0,
+                           const int frequency = 0);
 
   /**
    * @brief Destroy the ParticleEmitter object
@@ -68,9 +68,30 @@ class ParticleEmitter : public GameObject {
    */
   void addParticle(const Particle& particle, const Uint32 count = 1);
 
+  /**
+   * @brief Disable more particles from being emitted
+   *
+   */
+  void enable();
+
+  /**
+   * @brief Enable particle emitting
+   *
+   */
+  void disable();
+
  protected:
   /// Particles
   std::vector<Particle> particles;
+
+  /// Enabled state
+  bool enabled;
+
+  /// Frequency to emit in ms
+  int frequency;
+
+  /// Current tick
+  int current_tick;
 };
 
 }  // namespace afk

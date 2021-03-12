@@ -56,4 +56,14 @@ void pixel(const Sint16 x, const Sint16 y, color::Color colour) {
   pixelRGBA(renderer, x, y, colour.r, colour.g, colour.b, colour.a);
 }
 
+// Draw a line
+void line(const Sint16 x1,
+          const Sint16 y1,
+          const Sint16 x2,
+          const Sint16 y2,
+          color::Color colour) {
+  SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
+  lineRGBA(renderer, x1, y1, x2, y2, colour.r, colour.g, colour.b, colour.a);
+}
+
 }  // namespace afk::primitives

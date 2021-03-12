@@ -68,6 +68,21 @@ void circle(const Sint16 cx,
  */
 void pixel(const Sint16 x, const Sint16 y, color::Color colour);
 
+/**
+ * @brief Draw line between two points
+ *
+ * @param x1 X start position of line
+ * @param y1 Y start position of line
+ * @param x2 X end position of line
+ * @param y2 Y end position of line
+ * @param colour Colour of line
+ */
+void line(const Sint16 x1,
+          const Sint16 y1,
+          const Sint16 x2,
+          const Sint16 y2,
+          color::Color colour);
+
 }  // namespace afk::primitives
 
 #endif  // INCLUDE_PRIMITIVES_PRIMITIVES_H_

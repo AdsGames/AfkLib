@@ -66,13 +66,6 @@ class Sprite : public GameObject {
   void draw() override;
 
   /**
-   * @brief Set the visibility of the sprite. Will not draw when not visible.
-   *
-   * @param visible Visibility to set to
-   */
-  void setVisible(const bool visible);
-
-  /**
    * @brief Set the Texture of the sprite
    *
    * @param texture Id of texture to assign
@@ -82,9 +75,6 @@ class Sprite : public GameObject {
  protected:
   /// Texture of Sprite
   Texture texture;
-
-  /// Visibility
-  bool visible;
 };
 
 }  // namespace afk

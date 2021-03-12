@@ -98,6 +98,13 @@ class GameObject {
   void setAngle(const float angle);
 
   /**
+   * @brief Set the visibility of the sprite. Will not draw when not visible.
+   *
+   * @param visible Visibility to set to
+   */
+  void setVisible(const bool visible);
+
+  /**
    * @brief Get the width of the game object
    *
    * @return Width of game object
@@ -140,6 +147,14 @@ class GameObject {
   float getAngle() const;
 
   /**
+   * @brief Get the visibility of game object
+   *
+   * @return true If visible
+   * @return false If not visible
+   */
+  bool getVisible() const;
+
+  /**
    * @brief Definition for < operator. Less than if z is less than the other
    * game object.
    *
@@ -176,6 +191,9 @@ class GameObject {
 
   /// Rotation
   float angle;
+
+  /// Visibility
+  bool visible;
 
  private:
   /// Autoassigned unique id

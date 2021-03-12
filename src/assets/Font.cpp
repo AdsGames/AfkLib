@@ -37,7 +37,7 @@ int Font::getHeight() {
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  SDL_Texture* texture = renderText(renderer, "a", color::rgb(0, 0, 0));
+  SDL_Texture* texture = renderText(renderer, "a", color::black);
 
   int h;
   SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &h);
@@ -52,15 +52,19 @@ int Font::getSize() {
   return font_size;
 }
 
+// Check if exists
+bool Font::exists() const {
+  return font != nullptr;
+}
+
 // Return width given text
 int Font::getWidth(const std::string& text) {
-  if (!font) {
+  if (!font || text == "") {
     return 0;
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  SDL_Texture* texture =
-      renderText(renderer, text.c_str(), color::rgb(0, 0, 0));
+  SDL_Texture* texture = renderText(renderer, text.c_str(), color::black);
 
   int w;
   SDL_QueryTexture(texture, nullptr, nullptr, &w, nullptr);

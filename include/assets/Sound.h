@@ -19,23 +19,6 @@
 namespace afk {
 
 /**
- * @brief Configuration for playing audio file
- *
- */
-struct PlaySoundConfig {
-  /// Floating point gain
-  const float gain = 1.0f;
-  /// Left right balance
-  const float pan = 0.0f;
-  /// Speed, and effectively frequency
-  const float speed = 1.0f;
-  /// Loop mode
-  const bool loop = false;
-};
-
-const PlaySoundConfig defaultConfig;
-
-/**
  * @brief Wrapper for SDL Mix_Chunk. Easy interface to interact with samples.
  *
  */
@@ -66,9 +49,15 @@ class Sound {
   /**
    * @brief Play sound if it exists
    *
-   * @param config PlaySoundConfig object defining play mode
+   * @param gain Gain from 0 to 1
+   * @param pan Pan from -1 to 1
+   * @param speed Speed (unused)
+   * @param loop Loop mode
    */
-  void play(const PlaySoundConfig& config = defaultConfig);
+  void play(const float gain = 1.0f,
+            const float pan = 0.0f,
+            const float speed = 1.0f,
+            const bool loop = false);
 
  private:
   /**

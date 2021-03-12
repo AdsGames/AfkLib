@@ -24,7 +24,7 @@ class DemoScene : public afk::Scene {
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
     display.setTitle("ex_particles");
-    display.setBackgroundColor(afk::color::rgb(0, 0, 0));
+    display.setBackgroundColor(afk::color::black);
 
     assets.loadImage("fuzzball", "assets/fuzzball.png");
 
@@ -52,8 +52,7 @@ class DemoScene : public afk::Scene {
       afk::Particle particle(*this, 0, 0, 0, afk::ParticleType::CIRCLE);
       particle.setLifespan(afk::Random::randomInt(100, 200));
       particle.setSize(3.0f, 2.0f);
-      particle.setColor(afk::color::rgb(0, 0, 128),
-                        afk::color::rgb(255, 255, 255));
+      particle.setColor(afk::color::blue, afk::color::white);
       particle.setVelocity(afk::Random::randomFloat(-5, 5), -100);
       particle.setAcceleration(0, 3.0f);
       emitter_2.addParticle(particle);

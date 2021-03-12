@@ -30,15 +30,11 @@ class Label : public UIElement {
    * @param x X position of element
    * @param y Y position of element
    * @param z Z position of element (for sorting)
-   * @param text Text to display, if applicable
-   * @param font Font to use to display text
    */
-  Label(Scene& scene,
-        const int x,
-        const int y,
-        const int z,
-        const std::string& text,
-        const std::string& font);
+  explicit Label(Scene& scene,
+                 const int x = 0,
+                 const int y = 0,
+                 const int z = 0);
 
   /**
    * @brief Draw the label to the screen.
