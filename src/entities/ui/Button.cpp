@@ -24,7 +24,7 @@ const int DEFAULT_WIDTH = 20;
 const int DEFAULT_PADDING = 5;
 
 // Ctor
-Button::Button(Scene& scene, const int x, const int y, const int z)
+Button::Button(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z) {
   width = DEFAULT_WIDTH;
   height = DEFAULT_HEIGHT;
@@ -39,7 +39,8 @@ void Button::draw() {
   primitives::rect(x, y, width, height, color::black);
 
   // Text
-  font.draw(x + DEFAULT_PADDING, y + DEFAULT_PADDING, text, color::black);
+  font.draw(x + DEFAULT_PADDING, y + DEFAULT_PADDING, text, color::black,
+            text_align);
 }
 
 // Override text setter

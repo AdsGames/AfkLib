@@ -11,6 +11,7 @@
 #include "../include/Game.h"
 #include "../include/entities/ui/Button.h"
 #include "../include/entities/ui/Checkbox.h"
+#include "../include/entities/ui/Image.h"
 #include "../include/entities/ui/Inputbox.h"
 #include "../include/entities/ui/Label.h"
 #include "../include/entities/ui/MessageBox.h"
@@ -28,6 +29,7 @@ class DemoScene : public afk::Scene {
     display.setTitle("ex_button");
 
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
+    assets.loadImage("lenna", "assets/lenna.png");
 
     afk::Button& button = addObj<afk::Button>(*this, 10, 10);
     button.setText("CLICK ME");
@@ -61,11 +63,17 @@ class DemoScene : public afk::Scene {
     afk::Inputbox& inputbox = addObj<afk::Inputbox>(*this, 10, 90);
     inputbox.setText("WRITE ME");
     inputbox.setFont("freesans");
+
+    afk::Image& image = addObj<afk::Image>(*this, 10, 120);
+    image.setTexture("lenna");
+    image.setSize(20, 20);
+    image.setOnClick([]() {
+      afk::MessageBox message_box(afk::MessageBoxType::INFO);
+      message_box.setTitle("Nice");
+      message_box.setText("Clicked the image");
+      message_box.show();
+    });
   }
-
-  void draw() {}
-
-  void update(Uint32 delta) {}
 
   void stop() { logger.log("Stopping!"); }
 

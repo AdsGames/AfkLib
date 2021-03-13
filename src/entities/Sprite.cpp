@@ -14,8 +14,6 @@
 #include "primitives/Primitives.h"
 #include "scene/Scene.h"
 
-#include "services/Services.h"
-
 namespace afk {
 
 // Constructor
@@ -36,7 +34,7 @@ Sprite::Sprite(Scene& scene,
 Sprite::~Sprite() {}
 
 void Sprite::setTexture(const std::string& texture) {
-  this->texture = Services::getAssetService().getImage(texture);
+  this->texture = scene.assets.getImage(texture);
   this->width = this->texture.getWidth();
   this->height = this->texture.getHeight();
 }

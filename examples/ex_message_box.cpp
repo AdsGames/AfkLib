@@ -60,10 +60,6 @@ class DemoScene : public afk::Scene {
     });
   }
 
-  void draw() {}
-
-  void update(Uint32 delta) {}
-
   void stop() { logger.log("Stopping!"); }
 };
 

@@ -28,10 +28,6 @@ class DemoScene : public afk::Scene {
     add<afk::Sprite>(*this, "lenna");
   }
 
-  void draw() {}
-
-  void update(Uint32 delta) {}
-
   void stop() { logger.log("Stopping!"); }
 };
 

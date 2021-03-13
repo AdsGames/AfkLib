@@ -29,12 +29,12 @@ class DemoScene : public afk::Scene {
 
     lenna.setSize(30, 30);
     lenna.setPosition(100, 100);
-    lennaId = lenna.getId();
+    lennaId = lenna.id;
   }
 
-  void draw() {}
-
   void update(Uint32 delta) {
+    Scene::update(delta);
+
     afk::Sprite& lenna = get<afk::Sprite>(lennaId);
 
     if (input.mousePressed(afk::MouseButtons::LEFT)) {

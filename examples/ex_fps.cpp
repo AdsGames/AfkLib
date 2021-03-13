@@ -38,7 +38,7 @@ class DemoScene : public afk::Scene {
     afk::Label& label = addObj<afk::Label>(*this, 10, 5, 100);
     label.setText("FPS");
     label.setFont("freesans");
-    label_id = label.getId();
+    label_id = label.id;
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       sprites[i] = add<afk::Sprite>(*this, "lenna");
@@ -46,9 +46,9 @@ class DemoScene : public afk::Scene {
     }
   }
 
-  void draw() {}
-
   void update(Uint32 delta) {
+    Scene::update(delta);
+
     iter += static_cast<float>(delta) / 10.0f;
 
     int fps = display.getFps();

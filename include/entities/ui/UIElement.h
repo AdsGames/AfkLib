@@ -59,6 +59,13 @@ class UIElement : public GameObject {
   void setFont(const std::string& font);
 
   /**
+   * @brief Set the text align of font
+   *
+   * @param align Text align
+   */
+  void setTextAlign(const TextAlign align);
+
+  /**
    * @brief Set the text to display on ui element
    *
    * @param text to display
@@ -73,9 +80,19 @@ class UIElement : public GameObject {
    */
   void setOnClick(std::function<void(void)> func);
 
+  /**
+   * @brief Get the text
+   *
+   * @returns text
+   */
+  std::string getText() const;
+
  protected:
   /// Font to use for displaying text
   Font font;
+
+  // Font align
+  TextAlign text_align;
 
   /// Text to display where applicable
   std::string text;

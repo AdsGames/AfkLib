@@ -22,6 +22,8 @@ class Character : public afk::Sprite {
   }
 
   void update(Uint32 delta) {
+    Sprite::update(delta);
+
     float speed = delta / 10.0f;
     if (scene.input.keyDown(afk::Keys::UP)) {
       setPosition(x, y - speed);
@@ -52,10 +54,6 @@ class DemoScene : public afk::Scene {
 
     add<Character>(*this, 100, 100);
   }
-
-  void draw() {}
-
-  void update(Uint32 delta) {}
 
   void stop() { logger.log("Stopping!"); }
 };

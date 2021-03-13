@@ -28,9 +28,9 @@ class DemoScene : public afk::Scene {
     lennaId = add<afk::Sprite>(*this, "lenna");
   }
 
-  void draw() {}
-
   void update(Uint32 delta) {
+    Scene::update(delta);
+
     afk::Sprite& lenna = get<afk::Sprite>(lennaId);
     lenna.setAngle(lenna.getAngle() + delta / 10.0f);
   }

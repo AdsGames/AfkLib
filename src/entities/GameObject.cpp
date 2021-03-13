@@ -15,19 +15,24 @@
 namespace afk {
 
 // Set incrementing index count
-ObjId GameObject::index = 0;
+ObjId GameObject::index = 1;
 
 // Constructor
 GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
-    : scene(scene),
+    : id(GameObject::index),
+      scene(scene),
       x(x),
       y(y),
       z(z),
       height(0),
       width(0),
       angle(0.0f),
-      visible(true) {
-  this->id = GameObject::index;
+      visible(true),
+      enabled(true),
+      hooked(true),
+      last_x(0),
+      last_y(0),
+      parent_id(0) {
   GameObject::index += 1;
 }
 
@@ -39,8 +44,38 @@ void GameObject::update(Uint32 delta) {
   (void)delta;
 }
 
+// Update
+void GameObject::updateInternal() {
+  // Update delta position
+  last_x = x;
+  last_y = y;
+
+  // Parent functions
+  if (parent_id != 0) {
+    // Autoremove if parent is dead
+    try {
+      auto& parent = scene.get<GameObject>(parent_id);
+
+      // Set hooked state
+      hooked = parent.getHooked();
+
+      // Set position
+      x += parent.x - parent.last_x;
+      y += parent.y - parent.last_y;
+
+    } catch (const KeyLookupException&) {
+      scene.remove(id);
+    }
+  }
+}
+
 // Draw
 void GameObject::draw() {}
+
+// Add child
+void GameObject::setParent(const ObjId parent_id) {
+  this->parent_id = parent_id;
+}
 
 // Is colliding with game object
 bool GameObject::colliding(const GameObject& other) {
@@ -75,6 +110,16 @@ void GameObject::setVisible(const bool visible) {
   this->visible = visible;
 }
 
+// Set enabled
+void GameObject::setEnabled(const bool enabled) {
+  this->enabled = enabled;
+}
+
+// Set hooked
+void GameObject::setHooked(const bool hooked) {
+  this->hooked = hooked;
+}
+
 // Get z index
 int GameObject::getWidth() const {
   return width;
@@ -105,14 +150,19 @@ float GameObject::getAngle() const {
   return angle;
 }
 
-// Get unique id
-ObjId GameObject::getId() const {
-  return id;
-}
-
 // Get visibility
 bool GameObject::getVisible() const {
   return visible;
+}
+
+// Get enabled
+bool GameObject::getEnabled() const {
+  return enabled;
+}
+
+// Get hooked
+bool GameObject::getHooked() const {
+  return hooked;
 }
 
 }  // namespace afk

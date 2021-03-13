@@ -61,7 +61,7 @@ class DemoScene : public afk::Scene {
     afk::ParticleEmitter& emitter_3 =
         addObj<afk::ParticleEmitter>(*this, 384, 256);
     emitter_3.setSize(5, 5);
-    smoke_id = emitter_3.getId();
+    smoke_id = emitter_3.id;
 
     for (int i = 0; i < 400; i++) {
       afk::Particle particle(*this, 0, 0, 0, afk::ParticleType::IMAGE);
@@ -73,9 +73,9 @@ class DemoScene : public afk::Scene {
     }
   }
 
-  void draw() {}
-
   void update(Uint32 delta) {
+    Scene::update(delta);
+
     get<afk::ParticleEmitter>(smoke_id).setPosition(input.mouseX(),
                                                     input.mouseY());
   }

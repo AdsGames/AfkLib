@@ -34,22 +34,27 @@ void Scene::stopInternal() {
 }
 
 // Draw internal method
-void Scene::drawInternal() {
+void Scene::draw() {
   // Draw
   for (auto& obj : update_pool) {
-    if (obj->getVisible()) {
+    if (obj->getVisible() && obj->getHooked()) {
       obj->draw();
     }
   }
 }
 
 // Internal update method
-void Scene::updateInternal(Uint32 delta) {
+void Scene::update(Uint32 delta) {
   // Update all
   for (auto& obj : update_pool) {
-    if (obj->getVisible()) {
+    if (obj->getEnabled() && obj->getHooked()) {
       obj->update(delta);
     }
+  }
+
+  // Internal updates
+  for (auto& obj : update_pool) {
+    obj->updateInternal();
   }
 }
 
@@ -88,7 +93,7 @@ void Scene::sortGameObjects() {
 
   // Update lookup map
   for (unsigned int i = 0; i < update_pool.size(); i++) {
-    const int id = update_pool.at(i)->getId();
+    const int id = update_pool.at(i)->id;
     lookup_map[id] = i;
   }
 }

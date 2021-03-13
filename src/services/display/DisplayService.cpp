@@ -51,7 +51,6 @@ void DisplayService::draw(Scene* current_scene) {
   SDL_RenderClear(renderer);
 
   current_scene->draw();
-  current_scene->drawInternal();
 
   // Flip
   SDL_RenderPresent(renderer);

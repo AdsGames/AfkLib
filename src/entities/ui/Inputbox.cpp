@@ -29,7 +29,7 @@ const int DEFAULT_WIDTH = 100;
 const int DEFAULT_PADDING = 5;
 
 // Ctor
-Inputbox::Inputbox(Scene& scene, const int x, const int y, const int z)
+Inputbox::Inputbox(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z), iter(text.end()), onChange(nullptr) {
   this->height = DEFAULT_HEIGHT;
   this->width = DEFAULT_WIDTH;
@@ -44,7 +44,7 @@ void Inputbox::draw() {
   primitives::rect(x, y, width, height, color::black);
 
   // Focus border
-  if (getId() == UIElement::focused) {
+  if (id == UIElement::focused) {
     primitives::rect(x + 1, y + 1, width - 2, height - 2, color::black);
   }
 
@@ -67,7 +67,7 @@ void Inputbox::update(Uint32 delta) {
   UIElement::update(delta);
 
   // Ensure focused
-  if (getId() != UIElement::focused) {
+  if (id != UIElement::focused) {
     return;
   }
 

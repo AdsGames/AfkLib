@@ -9,7 +9,6 @@
  *
  */
 #include <functional>
-#include <iostream>
 
 #include "entities/ui/Checkbox.h"
 
@@ -24,7 +23,7 @@ const int DEFAULT_WIDTH = 20;
 namespace afk {
 
 // Ctor
-Checkbox::Checkbox(Scene& scene, const int x, const int y, const int z)
+Checkbox::Checkbox(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z), checked(false), onCheck(nullptr) {
   this->height = DEFAULT_HEIGHT;
   this->width = DEFAULT_WIDTH;
@@ -65,7 +64,6 @@ void Checkbox::setOnCheck(std::function<void(bool)> func) {
 // On click interceptor
 void Checkbox::handleOnClick() {
   checked = !checked;
-  std::cout << checked << std::endl;
   if (onCheck) {
     onCheck(checked);
   }

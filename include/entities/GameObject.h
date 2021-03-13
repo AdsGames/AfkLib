@@ -14,6 +14,7 @@
 #define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 #include <SDL2/SDL.h>
+#include <vector>
 
 /// Unique id type alias
 using ObjId = Uint32;
@@ -57,11 +58,24 @@ class GameObject {
   virtual void update(Uint32 delta);
 
   /**
+   * @brief Internal game object management
+   *
+   */
+  void updateInternal();
+
+  /**
    * @brief Draw loop to be overriden by derived classes. Automatically called
    * by Scene.
    *
    */
   virtual void draw();
+
+  /**
+   * @brief Set gameobject parent
+   *
+   * @param parent_id
+   */
+  void setParent(const ObjId parent_id);
 
   /**
    * @brief Checks collision between this game object and itself.
@@ -98,11 +112,27 @@ class GameObject {
   void setAngle(const float angle);
 
   /**
-   * @brief Set the visibility of the sprite. Will not draw when not visible.
+   * @brief Set the visibility of the GameObject. Will not draw when not
+   * visible.
    *
    * @param visible Visibility to set to
    */
   void setVisible(const bool visible);
+
+  /**
+   * @brief Set the enabled of the GameObject. Will not update when not enabled.
+   *
+   * @param enabled Enabled to set to
+   */
+  void setEnabled(const bool enabled);
+
+  /**
+   * @brief Set hooked state. This removes the GameObject from the draw and
+   * update loop as well as its children.
+   *
+   * @param hooked Enabled to set to
+   */
+  void setHooked(const bool hooked);
 
   /**
    * @brief Get the width of the game object
@@ -155,6 +185,22 @@ class GameObject {
   bool getVisible() const;
 
   /**
+   * @brief Check if enabled
+   *
+   * @return true If enabled
+   * @return false If not enabled
+   */
+  bool getEnabled() const;
+
+  /**
+   * @brief Check if enabled
+   *
+   * @return true If enabled
+   * @return false If not enabled
+   */
+  bool getHooked() const;
+
+  /**
    * @brief Definition for < operator. Less than if z is less than the other
    * game object.
    *
@@ -163,12 +209,8 @@ class GameObject {
    */
   bool operator<(const GameObject& obj) const { return (z < obj.getZ()); }
 
-  /**
-   * @brief Get the unique id of game object
-   *
-   * @return Id of this game object
-   */
-  ObjId getId() const;
+  /// Autoassigned unique id
+  const ObjId id;
 
  protected:
   /// Reference to registered scene
@@ -195,13 +237,26 @@ class GameObject {
   /// Visibility
   bool visible;
 
+  /// Enabled
+  bool enabled;
+
+  /// Hooked
+  bool hooked;
+
+  /// Delta x
+  float last_x;
+
+  /// Delta y
+  float last_y;
+
  private:
-  /// Autoassigned unique id
-  ObjId id;
+  /// Parent Id
+  ObjId parent_id;
 
   /// Static id counter
   static ObjId index;
 };
+
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_GAMEOBJECT_H_

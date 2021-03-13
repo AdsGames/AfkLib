@@ -12,7 +12,6 @@
 #define INCLUDE_ENTITIES_SPRITE_H_
 
 #include <string>
-#include <vector>
 
 #include "../assets/Texture.h"
 #include "GameObject.h"

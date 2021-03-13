@@ -32,8 +32,8 @@ class Label : public UIElement {
    * @param z Z position of element (for sorting)
    */
   explicit Label(Scene& scene,
-                 const int x = 0,
-                 const int y = 0,
+                 const float x = 0,
+                 const float y = 0,
                  const int z = 0);
 
   /**

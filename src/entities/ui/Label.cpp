@@ -17,13 +17,13 @@
 namespace afk {
 
 // Detailed constructor
-Label::Label(Scene& scene, const int x, const int y, const int z)
+Label::Label(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z) {}
 
 // Draw label
 void Label::draw() {
   // Text
-  font.draw(x, y, text, color::black);
+  font.draw(x, y, text, color::black, text_align);
 }
 
 }  // namespace afk

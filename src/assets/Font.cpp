@@ -79,7 +79,7 @@ void Font::draw(const int x,
                 const int y,
                 const std::string& text,
                 const color::Color colour,
-                const FontAlign align) {
+                const TextAlign align) {
   if (!font) {
     return;
   }
@@ -93,14 +93,14 @@ void Font::draw(const int x,
   SDL_Rect target = {x, y, w, h};
 
   switch (align) {
-    case FontAlign::ALIGN_LEFT:
+    case TextAlign::LEFT:
       SDL_RenderCopy(renderer, texture, NULL, &target);
       break;
-    case FontAlign::ALIGN_RIGHT:
+    case TextAlign::RIGHT:
       target.x = x - w;
       SDL_RenderCopy(renderer, texture, NULL, &target);
       break;
-    case FontAlign::ALIGN_CENTER:
+    case TextAlign::CENTER:
       target.x = x - w / 2;
       SDL_RenderCopy(renderer, texture, NULL, &target);
       break;
