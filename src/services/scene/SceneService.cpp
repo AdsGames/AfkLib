@@ -37,7 +37,6 @@ void SceneService::update() {
   if (current_scene) {
     Uint32 delta = SDL_GetTicks() - last_tick;
     current_scene->update(delta);
-    current_scene->updateInternal(delta);
   }
 
   last_tick = SDL_GetTicks();

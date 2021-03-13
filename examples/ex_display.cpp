@@ -23,10 +23,6 @@ class DemoScene : public afk::Scene {
     display.setTitle("ex_display");
   }
 
-  void draw() {}
-
-  void update(Uint32 delta) {}
-
   void stop() { logger.log("Stopping!"); }
 };
 

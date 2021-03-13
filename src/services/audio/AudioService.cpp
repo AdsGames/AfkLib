@@ -15,9 +15,12 @@
 namespace afk {
 
 void AudioService::playSound(const std::string& key,
-                             const PlaySoundConfig& config) {
+                             const float gain,
+                             const float pan,
+                             const float speed,
+                             const bool loop) {
   Sound sound = Services::getAssetService().getAudio(key);
-  sound.play(config);
+  sound.play(gain, pan, speed, loop);
 }
 
 void AudioService::playStream(const std::string& key, const bool loop) {

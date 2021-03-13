@@ -14,17 +14,11 @@
 
 namespace afk {
 
-MessageBox::MessageBox(MessageBoxType type)
-    : title(""), heading(""), text(""), type(type) {}
+MessageBox::MessageBox(MessageBoxType type) : title(""), text(""), type(type) {}
 
 // Set the title of the message box
 void MessageBox::setTitle(const std::string& title) {
   this->title = title;
-}
-
-// Set the heading of the message box
-void MessageBox::setHeading(const std::string& heading) {
-  this->heading = heading;
 }
 
 // Set the body text of the message box
@@ -37,7 +31,6 @@ int MessageBox::show() {
   SDL_Window* window = Services::getDisplayService().getWindow();
   int return_code = SDL_ShowSimpleMessageBox(resolveType(), title.c_str(),
                                              text.c_str(), window);
-
   return return_code;
 }
 

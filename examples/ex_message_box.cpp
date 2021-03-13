@@ -26,43 +26,39 @@ class DemoScene : public afk::Scene {
 
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
-    afk::Button& button1 =
-        addObj<afk::Button>(*this, 10, 10, 10, "Question Message", "freesans");
-
+    afk::Button& button1 = addObj<afk::Button>(*this, 10, 10, 10);
+    button1.setFont("freesans");
+    button1.setText("Question Message");
+    button1.sizeToText();
     button1.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::INFO);
       message_box.setTitle("Info");
-      message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
 
-    afk::Button& button2 =
-        addObj<afk::Button>(*this, 10, 30, 10, "Warning Message", "freesans");
-
+    afk::Button& button2 = addObj<afk::Button>(*this, 10, 50, 10);
+    button2.setFont("freesans");
+    button2.setText("Warning Message");
+    button2.sizeToText();
     button2.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::WARN);
       message_box.setTitle("Warning");
-      message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
 
-    afk::Button& button3 =
-        addObj<afk::Button>(*this, 10, 50, 10, "Error Message", "freesans");
-
+    afk::Button& button3 = addObj<afk::Button>(*this, 10, 90, 10);
+    button3.setFont("freesans");
+    button3.setText("Error Message");
+    button3.sizeToText();
     button3.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::ERROR);
       message_box.setTitle("Error");
-      message_box.setHeading("Heading");
       message_box.setText("Text");
       message_box.show();
     });
   }
-
-  void draw() {}
-
-  void update(Uint32 delta) {}
 
   void stop() { logger.log("Stopping!"); }
 };

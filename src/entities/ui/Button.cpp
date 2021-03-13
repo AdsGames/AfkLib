@@ -19,49 +19,37 @@
 
 namespace afk {
 
-// Ctor
-Button::Button(Scene& scene,
-               const int x,
-               const int y,
-               const int z,
-               const std::string& text,
-               const std::string& font)
-    : UIElement(scene, x, y, z, text, font) {
-  this->height = this->font.getHeight();
-  this->width = this->font.getWidth(text);
-}
+const int DEFAULT_HEIGHT = 20;
+const int DEFAULT_WIDTH = 20;
+const int DEFAULT_PADDING = 5;
 
-Button::Button(Scene& scene,
-               const int x,
-               const int y,
-               const int z,
-               const std::string& textureId)
-    : UIElement(scene, x, y, z, "", "") {
-  this->image = Services::getAssetService().getImage(textureId);
-  this->height = this->image.getHeight();
-  this->width = this->image.getWidth();
+// Ctor
+Button::Button(Scene& scene, const float x, const float y, const int z)
+    : UIElement(scene, x, y, z) {
+  width = DEFAULT_WIDTH;
+  height = DEFAULT_HEIGHT;
 }
 
 // Draw button
 void Button::draw() {
-  // Do not draw if not visible
-  if (!visible) {
+  // Draw button background
+  primitives::rectfill(x, y, width, height, color::white);
+
+  // Draw button border
+  primitives::rect(x, y, width, height, color::black);
+
+  // Text
+  font.draw(x + DEFAULT_PADDING, y + DEFAULT_PADDING, text, color::black,
+            text_align);
+}
+
+// Override text setter
+void Button::sizeToText() {
+  if (!font.exists()) {
     return;
   }
-
-  if (image.exists()) {
-    // Draw image
-    image.draw(x, y);
-  } else {
-    // Draw button background
-    primitives::rectfill(x, y, width, height, color::rgb(255, 255, 255));
-
-    // Draw button border
-    primitives::rect(x, y, width, height, color::rgb(0, 0, 0));
-
-    // Text
-    font.draw(x, y, text, color::rgb(0, 0, 0));
-  }
+  height = font.getHeight() + DEFAULT_PADDING * 2;
+  width = font.getWidth(text) + DEFAULT_PADDING * 2;
 }
 
 }  // namespace afk

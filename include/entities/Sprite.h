@@ -12,7 +12,6 @@
 #define INCLUDE_ENTITIES_SPRITE_H_
 
 #include <string>
-#include <vector>
 
 #include "../assets/Texture.h"
 #include "GameObject.h"
@@ -66,13 +65,6 @@ class Sprite : public GameObject {
   void draw() override;
 
   /**
-   * @brief Set the visibility of the sprite. Will not draw when not visible.
-   *
-   * @param visible Visibility to set to
-   */
-  void setVisible(const bool visible);
-
-  /**
    * @brief Set the Texture of the sprite
    *
    * @param texture Id of texture to assign
@@ -82,11 +74,18 @@ class Sprite : public GameObject {
  protected:
   /// Texture of Sprite
   Texture texture;
-
-  /// Visibility
-  bool visible;
 };
 
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_SPRITE_H_
+
+/**
+ * @example ex_sprite.cpp
+ * This example shows basic usage of a sprite
+ */
+
+/**
+ * @example ex_fps.cpp
+ * This example shows a stress test of sprites
+ */

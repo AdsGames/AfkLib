@@ -36,15 +36,21 @@ void Sound::load(const std::string& path) {
 }
 
 // Play this file with config
-void Sound::play(const PlaySoundConfig& config) {
+void Sound::play(const float gain,
+                 const float pan,
+                 const float speed,
+                 const bool loop) {
   if (!sample) {
     return;
   }
 
   // TODO(alegemaate): Frequency
-  Mix_SetPanning(channel, config.pan, 255 - config.pan);
-  Mix_Volume(channel, config.gain);
-  Mix_PlayChannel(channel, sample, config.loop);
+  int int_pan = (pan + 1.0f) * 128;
+  int int_gain = gain * 255;
+
+  Mix_SetPanning(channel, int_pan, 255 - int_pan);
+  Mix_Volume(channel, int_gain);
+  Mix_PlayChannel(channel, sample, loop);
 }
 
 // Load sample from file

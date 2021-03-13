@@ -24,11 +24,11 @@ class DemoScene : public afk::Scene {
     assets.loadAudio("win", "assets/win.wav");
   }
 
-  void draw() {}
-
   void update(Uint32 delta) {
+    Scene::update(delta);
+
     if (input.mousePressed(afk::MouseButtons::LEFT)) {
-      audio.playSound("win", {127, 0, 1.0f, false});
+      audio.playSound("win", 1.0f, 0.0f, 1.0f, false);
     }
   }
 

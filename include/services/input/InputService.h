@@ -250,3 +250,13 @@ class InputService : public Service {
 }  // namespace afk
 
 #endif  // INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
+
+/**
+ * @example ex_mouse.cpp
+ * This example shows how to use the mouse
+ */
+
+/**
+ * @example ex_keyboard.cpp
+ * This example shows how to use the keyboard
+ */

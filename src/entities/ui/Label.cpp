@@ -17,25 +17,13 @@
 namespace afk {
 
 // Detailed constructor
-Label::Label(Scene& scene,
-             const int x,
-             const int y,
-             const int z,
-             const std::string& text,
-             const std::string& font)
-    : UIElement(scene, x, y, z, text, font) {
-  this->height = this->font.getHeight();
-  this->width = this->font.getWidth(text);
-}
+Label::Label(Scene& scene, const float x, const float y, const int z)
+    : UIElement(scene, x, y, z) {}
 
 // Draw label
 void Label::draw() {
-  // Do not draw if not visible
-  if (!visible)
-    return;
-
   // Text
-  font.draw(x, y, text, color::rgb(0, 0, 0));
+  font.draw(x, y, text, color::black, text_align);
 }
 
 }  // namespace afk

@@ -21,18 +21,21 @@ class Character : public afk::Sprite {
     setSize(30, 30);
   }
 
-  void update() {
+  void update(Uint32 delta) {
+    Sprite::update(delta);
+
+    float speed = delta / 10.0f;
     if (scene.input.keyDown(afk::Keys::UP)) {
-      setPosition(x, y - 5);
+      setPosition(x, y - speed);
     }
     if (scene.input.keyDown(afk::Keys::DOWN)) {
-      setPosition(x, y + 5);
+      setPosition(x, y + speed);
     }
     if (scene.input.keyDown(afk::Keys::LEFT)) {
-      setPosition(x - 5, y);
+      setPosition(x - speed, y);
     }
     if (scene.input.keyDown(afk::Keys::RIGHT)) {
-      setPosition(x + 5, y);
+      setPosition(x + speed, y);
     }
   }
 };
@@ -51,10 +54,6 @@ class DemoScene : public afk::Scene {
 
     add<Character>(*this, 100, 100);
   }
-
-  void draw() {}
-
-  void update(Uint32 delta) {}
 
   void stop() { logger.log("Stopping!"); }
 };

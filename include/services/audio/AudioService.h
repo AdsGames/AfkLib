@@ -34,10 +34,16 @@ class AudioService {
    * @brief Play sound by id
    *
    * @param key Id of sound to play
-   * @param config Play configuration
+   * @param gain Gain from 0 to 1
+   * @param pan Pan from -1 to 1
+   * @param speed Speed (unused)
+   * @param loop Loop mode
    */
   void playSound(const std::string& key,
-                 const PlaySoundConfig& config = PlaySoundConfig());
+                 const float gain = 1.0f,
+                 const float pan = 0.0f,
+                 const float speed = 1.0f,
+                 const bool loop = false);
 
   /**
    * @brief Play audio stream by id
@@ -58,3 +64,8 @@ class AudioService {
 }  // namespace afk
 
 #endif  // INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
+
+/**
+ * @example ex_sound.cpp
+ * This example shows how to use basic sound features
+ */

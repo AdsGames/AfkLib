@@ -23,7 +23,7 @@
 namespace afk {
 
 // Setup DisplayService
-DisplayService::DisplayService() : clear_color(color::rgb(255, 255, 255)) {
+DisplayService::DisplayService() : clear_color(color::white) {
   // Set initial time
   old_time = SDL_GetTicks();
 }
@@ -51,7 +51,6 @@ void DisplayService::draw(Scene* current_scene) {
   SDL_RenderClear(renderer);
 
   current_scene->draw();
-  current_scene->drawInternal();
 
   // Flip
   SDL_RenderPresent(renderer);

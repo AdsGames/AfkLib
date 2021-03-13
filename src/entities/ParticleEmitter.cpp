@@ -23,8 +23,12 @@ namespace afk {
 ParticleEmitter::ParticleEmitter(Scene& scene,
                                  const float x,
                                  const float y,
-                                 const int z)
-    : GameObject(scene, x, y, z) {}
+                                 const int z,
+                                 const int frequency)
+    : GameObject(scene, x, y, z),
+      enabled(true),
+      frequency(frequency),
+      current_tick(0) {}
 
 // Draw
 void ParticleEmitter::draw() {
@@ -35,10 +39,15 @@ void ParticleEmitter::draw() {
 
 // Update
 void ParticleEmitter::update(Uint32 delta) {
+  if (enabled) {
+    current_tick += delta;
+  }
+
   for (auto& particle : particles) {
     particle.update(delta);
 
-    if (particle.dead()) {
+    if (particle.dead() && enabled && current_tick >= frequency) {
+      current_tick -= frequency;
       particle.reset();
       particle.setPosition(Random::randomInt(x, x + width),
                            Random::randomInt(y, y + width));
@@ -52,6 +61,16 @@ void ParticleEmitter::addParticle(const Particle& particle,
   for (Uint32 i = 0; i < count; i++) {
     particles.push_back(Particle(particle));
   }
+}
+
+// Enable
+void ParticleEmitter::enable() {
+  this->enabled = true;
+}
+
+// Disable
+void ParticleEmitter::disable() {
+  this->enabled = false;
 }
 
 }  // namespace afk

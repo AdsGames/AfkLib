@@ -294,3 +294,8 @@ class DisplayService {
  * @example ex_display.cpp
  * This is an example of how to use the Window class to create a basic display.
  */
+
+/**
+ * @example ex_fps.cpp
+ * This example shows how to use the fps functionality
+ */

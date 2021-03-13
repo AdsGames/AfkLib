@@ -34,37 +34,27 @@ void Scene::stopInternal() {
 }
 
 // Draw internal method
-void Scene::drawInternal() {
+void Scene::draw() {
   // Draw
   for (auto& obj : update_pool) {
-    obj->draw();
+    if (obj->getVisible() && obj->getHooked()) {
+      obj->draw();
+    }
   }
 }
 
 // Internal update method
-void Scene::updateInternal(Uint32 delta) {
+void Scene::update(Uint32 delta) {
   // Update all
-  for (unsigned int i = 0; i < update_pool.size(); i++) {
-    GameObject& obj = *update_pool.at(i);
+  for (auto& obj : update_pool) {
+    if (obj->getEnabled() && obj->getHooked()) {
+      obj->update(delta);
+    }
+  }
 
-    // Update
-    obj.update(delta);
-
-    // Get id
-    // const int id = obj.getId();
-
-    // Collisions
-    // if (collider_map.count(id) > 0) {
-    //   // Go through each id
-    //   for (const int otherId : collider_map[id]) {
-    //     // Get other
-    //     GameObject& other = *update_pool.at(lookup_map[otherId]);
-    //     if (obj.colliding(other)) {
-    //       obj.onCollide(other);
-    //       other.onCollide(obj);
-    //     }
-    //   }
-    // }
+  // Internal updates
+  for (auto& obj : update_pool) {
+    obj->updateInternal();
   }
 }
 
@@ -103,7 +93,7 @@ void Scene::sortGameObjects() {
 
   // Update lookup map
   for (unsigned int i = 0; i < update_pool.size(); i++) {
-    const int id = update_pool.at(i)->getId();
+    const int id = update_pool.at(i)->id;
     lookup_map[id] = i;
   }
 }

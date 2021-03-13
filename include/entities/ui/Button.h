@@ -34,30 +34,11 @@ class Button : public UIElement {
    * @param x X position of element
    * @param y Y position of element
    * @param z Z position of element (for sorting)
-   * @param text Text to display, if applicable
-   * @param font Font to use to display text
    */
-  Button(Scene& scene,
-         const int x,
-         const int y,
-         const int z,
-         const std::string& text,
-         const std::string& font);
-
-  /**
-   * @brief Construct a new textured Button object
-   *
-   * @param scene Scene to add element to
-   * @param x X position of element
-   * @param y Y position of element
-   * @param z Z position of element (for sorting)
-   * @param image_id Id of image to assign to button
-   */
-  Button(Scene& scene,
-         const int x,
-         const int y,
-         const int z,
-         const std::string& image_id);
+  explicit Button(Scene& scene,
+                  const float x = 0,
+                  const float y = 0,
+                  const int z = 0);
 
   /**
    * @brief Draw the button to the screen.
@@ -65,11 +46,18 @@ class Button : public UIElement {
    */
   void draw() override;
 
- private:
-  /// Texture for textured buttons
-  Texture image;
+  /**
+   * @brief Helper to size button to text
+   *
+   */
+  void sizeToText();
 };
 
 }  // namespace afk
 
 #endif  // INCLUDE_ENTITIES_UI_BUTTON_H_
+
+/**
+ * @example ex_ui.cpp
+ * This example shows how to use various ui elements
+ */

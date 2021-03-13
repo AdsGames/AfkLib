@@ -18,7 +18,7 @@
 
 namespace afk {
 
-enum class FontAlign { ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER };
+enum class TextAlign { LEFT, RIGHT, CENTER };
 
 /**
  * @brief Easy interface to interact with SDL fonts
@@ -61,8 +61,8 @@ class Font {
   void draw(const int x,
             const int y,
             const std::string& text,
-            const color::Color colour = color::rgb(0, 0, 0),
-            const FontAlign align = FontAlign::ALIGN_LEFT);
+            const color::Color colour = color::black,
+            const TextAlign align = TextAlign::LEFT);
 
   /**
    * @brief Get the height of the font
@@ -85,6 +85,13 @@ class Font {
    * @return Size of font loaded
    */
   int getSize();
+
+  /**
+   * @brief Check if font has been loaded
+   *
+   * @return Loaded status, true if font exists, false otherwise
+   */
+  bool exists() const;
 
  private:
   /**

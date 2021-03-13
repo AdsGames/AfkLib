@@ -44,7 +44,7 @@ class Scene {
    * @brief Start the scene
    *
    */
-  virtual void start() = 0;
+  virtual void start(){};
 
   /**
    * @brief Update to be overridden by derived scenes
@@ -52,39 +52,25 @@ class Scene {
    * @param delta Time since last call in ms
    *
    */
-  virtual void update(Uint32 delta) = 0;
+  virtual void update(Uint32 delta);
 
   /**
    * @brief Draw to be overridden by derived scenes
    *
    */
-  virtual void draw() = 0;
+  virtual void draw();
 
   /**
    * @brief Stop the scene
    *
    */
-  virtual void stop() = 0;
+  virtual void stop(){};
 
   /**
    * @brief Internall cleanup call
    *
    */
   void stopInternal();
-
-  /**
-   * @brief Draw all objects hooked into scene
-   *
-   */
-  void drawInternal();
-
-  /**
-   * @brief Update all objects hooked into scene
-   *
-   * @param delta Time since last call in ms
-   *
-   */
-  void updateInternal(Uint32 delta);
 
   /**
    * @brief Add game object to update and draw pool
@@ -97,11 +83,10 @@ class Scene {
    */
   template <typename T, typename... Args>
   ObjId add(Args&&... args) {
-    std::unique_ptr<GameObject> obj = std::make_unique<T>((args)...);
-    const int id = obj.get()->getId();
-    update_pool.push_back(std::move(obj));
+    T* obj = new T(std::forward<Args>(args)...);
+    update_pool.emplace_back(obj);
     sortGameObjects();
-    return id;
+    return obj->id;
   }
 
   /**
@@ -115,12 +100,10 @@ class Scene {
    */
   template <typename T, typename... Args>
   T& addObj(Args&&... args) {
-    std::unique_ptr<GameObject> obj =
-        std::make_unique<T>(T(std::forward<Args>(args)...));
-    const int id = obj.get()->getId();
-    update_pool.push_back(std::move(obj));
+    T* obj = new T(std::forward<Args>(args)...);
+    update_pool.emplace_back(obj);
     sortGameObjects();
-    return get<T>(id);
+    return get<T>(obj->id);
   }
 
   /**
