@@ -84,8 +84,8 @@ class ParticleEmitter : public GameObject {
   /// Particles
   std::vector<Particle> particles;
 
-  /// Enabled state
-  bool enabled;
+  /// Emitting state
+  bool emitting;
 
   /// Frequency to emit in ms
   int frequency;

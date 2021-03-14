@@ -35,14 +35,15 @@ class DemoScene : public afk::Scene {
     assets.loadFont("freesans", "assets/freesans.ttf", 64);
     assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Label& label = addObj<afk::Label>(*this, 10, 5, 100);
+    afk::Label& label = add<afk::Label>(*this, 10, 5, 100);
     label.setText("FPS");
     label.setFont("freesans");
     label_id = label.id;
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
-      sprites[i] = add<afk::Sprite>(*this, "lenna");
-      get<afk::Sprite>(sprites[i]).setSize(SPRITE_SIZE, SPRITE_SIZE);
+      afk::Sprite& sprite = add<afk::Sprite>(*this, "lenna");
+      sprite.setSize(SPRITE_SIZE, SPRITE_SIZE);
+      sprites[i] = sprite.id;
     }
   }
 

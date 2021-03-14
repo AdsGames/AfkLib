@@ -28,8 +28,7 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("fuzzball", "assets/fuzzball.png");
 
-    afk::ParticleEmitter& emitter =
-        addObj<afk::ParticleEmitter>(*this, 256, 256);
+    afk::ParticleEmitter& emitter = add<afk::ParticleEmitter>(*this, 256, 256);
     emitter.setSize(30, 30);
 
     for (int i = 0; i < 100; i++) {
@@ -45,7 +44,7 @@ class DemoScene : public afk::Scene {
     }
 
     afk::ParticleEmitter& emitter_2 =
-        addObj<afk::ParticleEmitter>(*this, 128, 256);
+        add<afk::ParticleEmitter>(*this, 128, 256);
     emitter_2.setSize(1, 1);
 
     for (int i = 0; i < 100; i++) {
@@ -59,7 +58,7 @@ class DemoScene : public afk::Scene {
     }
 
     afk::ParticleEmitter& emitter_3 =
-        addObj<afk::ParticleEmitter>(*this, 384, 256);
+        add<afk::ParticleEmitter>(*this, 384, 256);
     emitter_3.setSize(5, 5);
     smoke_id = emitter_3.id;
 

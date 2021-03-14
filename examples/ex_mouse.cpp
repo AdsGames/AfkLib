@@ -25,7 +25,7 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Sprite& lenna = addObj<afk::Sprite>(*this, "lenna");
+    afk::Sprite& lenna = add<afk::Sprite>(*this, "lenna");
 
     lenna.setSize(30, 30);
     lenna.setPosition(100, 100);

@@ -26,7 +26,7 @@ class DemoScene : public afk::Scene {
 
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
-    afk::Button& button1 = addObj<afk::Button>(*this, 10, 10, 10);
+    afk::Button& button1 = add<afk::Button>(*this, 10, 10, 10);
     button1.setFont("freesans");
     button1.setText("Question Message");
     button1.sizeToText();
@@ -37,7 +37,7 @@ class DemoScene : public afk::Scene {
       message_box.show();
     });
 
-    afk::Button& button2 = addObj<afk::Button>(*this, 10, 50, 10);
+    afk::Button& button2 = add<afk::Button>(*this, 10, 50, 10);
     button2.setFont("freesans");
     button2.setText("Warning Message");
     button2.sizeToText();
@@ -48,7 +48,7 @@ class DemoScene : public afk::Scene {
       message_box.show();
     });
 
-    afk::Button& button3 = addObj<afk::Button>(*this, 10, 90, 10);
+    afk::Button& button3 = add<afk::Button>(*this, 10, 90, 10);
     button3.setFont("freesans");
     button3.setText("Error Message");
     button3.sizeToText();

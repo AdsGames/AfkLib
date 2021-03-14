@@ -67,6 +67,9 @@ class GameObject {
    * @brief Draw loop to be overriden by derived classes. Automatically called
    * by Scene.
    *
+   * Do not add other game objects in the draw loop! This will cause undefined
+   * behaviour.
+   *
    */
   virtual void draw();
 
