@@ -49,15 +49,7 @@ void ConfigService::load(const std::string& path) {
     std::string value = line.substr(delimLoc + 1, line.length());
 
     // Conversion
-    if (str::isBoolean(value)) {
-      settings[key] = str::toBoolean(value);
-    } else if (str::isInteger(value)) {
-      settings[key] = str::toInteger(value);
-    } else if (str::isFloat(value)) {
-      settings[key] = str::toFloat(value);
-    } else {
-      settings[key] = value;
-    }
+    settings[key] = value;
   }
 
   fileStream.close();
@@ -76,32 +68,21 @@ void ConfigService::save() {
 }
 
 void ConfigService::save(const std::string& path) {
+#ifdef __EMSCRIPTEN__
+  return;
+#endif
+
   std::ofstream fileStream(path);
 
   if (!fileStream.is_open()) {
     throw FileIOException("Could not open file from path " + path);
   }
 
-  for (auto const& [key, value] : this->settings) {
-    fileStream << key + "=";
-    fileStream << getString(key);
-    fileStream << "\n";
+  for (auto const& entry : this->settings) {
+    fileStream << entry.first + "=" + entry.second + "\n";
   }
 
   fileStream.close();
-}
-
-// Setters
-void ConfigService::set(const std::string& key, SettingType value) {
-  set({key, value});
-}
-
-void ConfigService::set(const Setting pair) {
-  settings[pair.first] = pair.second;
-
-  if (autosave) {
-    save();
-  }
 }
 
 // Set autosave

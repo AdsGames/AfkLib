@@ -14,6 +14,16 @@
 
 namespace afk {
 
+// Init services
+DebugLoggingService Services::logging_service;
+EventQueue Services::event_service;
+SceneService Services::scene_service;
+DisplayService Services::display_service;
+InputService Services::input_service;
+AudioService Services::audio_service;
+AssetService Services::asset_service;
+ConfigService Services::config_service;
+
 AudioService& Services::getAudioService() {
   return audio_service;
 }

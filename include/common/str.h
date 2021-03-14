@@ -16,7 +16,8 @@
 
 #include "Exceptions.h"
 
-namespace afk::str {
+namespace afk {
+namespace str {
 
 /**
  * @brief Check if string is an integer
@@ -96,6 +97,7 @@ std::string format(const std::string& format, Args... args) {
   return std::string(buf.get(), buf.get() + size - 1);
 }
 
-}  // namespace afk::str
+}  // namespace str
+}  // namespace afk
 
 #endif  // INCLUDE_COMMON_STR_H_

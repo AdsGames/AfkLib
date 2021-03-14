@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -9,14 +9,14 @@ include_directories(${CMAKE_BINARY_DIR}/include)
 include_directories(${CMAKE_BINARY_DIR}/bin)
 
 # Find libs
-if(!EMSCRIPTEN)
+if(NOT EMSCRIPTEN)
   find_library(SDL_LIBRARY NAMES SDL2 REQUIRED)
   find_library(SDL_MIXER_LIBRARY NAMES SDL2_mixer REQUIRED)
   find_library(SDL_IMAGE_LIBRARY NAMES SDL2_image REQUIRED)
   find_library(SDL_TTF_LIBRARY NAMES SDL2_ttf REQUIRED)
   find_library(SDL_GFX_LIBRARY NAMES SDL2_gfx REQUIRED)
   find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
-endif(!EMSCRIPTEN)
+endif(NOT EMSCRIPTEN)
 
 
 # Build examples
@@ -52,7 +52,12 @@ foreach(EX_NAME ${EXAMPLES})
       -sTOTAL_MEMORY=512MB
       afk
     )
-    set_target_properties(${EX_NAME} PROPERTIES LINK_FLAGS "--preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets --use-preload-plugins")
+    set_target_properties(
+      ${EX_NAME} 
+      PROPERTIES 
+      LINK_FLAGS
+      "--preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets --use-preload-plugins"
+    )
 
   # Run of the mill executable
   else(EMSCRIPTEN)

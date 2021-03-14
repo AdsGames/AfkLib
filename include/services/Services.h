@@ -87,28 +87,28 @@ class Services {
 
  private:
   /// Internal pointer to current LoggingService instance
-  static inline DebugLoggingService logging_service;
+  static DebugLoggingService logging_service;
 
   /// Internal pointer to current Event queue instance
-  static inline EventQueue event_service;
+  static EventQueue event_service;
 
   /// Internal pointer to current SceneService queue instance
-  static inline SceneService scene_service;
+  static SceneService scene_service;
 
   /// Internal pointer to current DisplayService instance
-  static inline DisplayService display_service;
+  static DisplayService display_service;
 
   /// Internal pointer to current InputService instance
-  static inline InputService input_service;
+  static InputService input_service;
 
   /// Internal pointer to current AudioService instance
-  static inline AudioService audio_service;
+  static AudioService audio_service;
 
   /// Internal pointer to current AssetService instance
-  static inline AssetService asset_service;
+  static AssetService asset_service;
 
   /// Internal pointer to current ConfigService instance
-  static inline ConfigService config_service;
+  static ConfigService config_service;
 };
 
 }  // namespace afk

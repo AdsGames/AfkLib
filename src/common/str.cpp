@@ -12,7 +12,8 @@
 
 #include <algorithm>
 
-namespace afk::str {
+namespace afk {
+namespace str {
 
 // Checks
 bool isInteger(const std::string& str) {
@@ -54,4 +55,5 @@ float toFloat(const std::string& str) {
   return std::stof(str);
 }
 
-}  // namespace afk::str
+}  // namespace str
+}  // namespace afk

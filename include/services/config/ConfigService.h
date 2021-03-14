@@ -11,25 +11,17 @@
 #ifndef INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
 #define INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
 
-#include <iostream>
 #include <map>
+#include <sstream>
 #include <string>
-#include <utility>
-#include <variant>
 
 namespace afk {
-
-/**
- * @brief Varient defining allowed setting types
- *
- */
-typedef std::variant<std::string, int, bool, float> SettingType;
 
 /**
  * @brief Pair defining what a setting pair should look like
  *
  */
-typedef std::pair<std::string, SettingType> Setting;
+typedef std::pair<std::string, std::string> Setting;
 
 /**
  * @brief Class which can load and store setting key pair values in different
@@ -82,38 +74,14 @@ class ConfigService {
   T get(const std::string& key, T fallback) const {
     auto it = settings.find(key);
 
-    if (it != settings.end()) {
-      return std::get<T>(it->second);
-    }
-
-    return fallback;
-  }
-
-  /**
-   * @brief Get string value of setting
-   *
-   * @param key Key of setting to lookup
-   * @return std::string String value or empty string if not found
-   */
-  std::string getString(const std::string& key) const {
-    auto it = settings.find(key);
-
     if (it == settings.end()) {
-      return "";
+      return fallback;
     }
 
-    switch (it->second.index()) {
-      case 0:
-        return std::get<std::string>(it->second);
-      case 1:
-        return std::to_string(std::get<int>(it->second));
-      case 2:
-        return std::get<bool>(it->second) ? "true" : "false";
-      case 3:
-        return std::to_string(std::get<float>(it->second));
-      default:
-        return "";
-    }
+    std::stringstream convert((*it).second);
+    T value;
+    convert >> value;
+    return value;
   }
 
   /**
@@ -122,14 +90,16 @@ class ConfigService {
    * @param key Id of setting
    * @param value Value of setting
    */
-  void set(const std::string& key, SettingType value);
+  template <class T>
+  void set(const std::string& key, const T value) {
+    std::string s_val = std::to_string(value);
 
-  /**
-   * @brief Set setting value of id key
-   *
-   * @param pair Setting pair
-   */
-  void set(const Setting pair);
+    settings[key] = s_val;
+
+    if (autosave) {
+      save();
+    }
+  }
 
   /**
    * @brief Set the autosave config
@@ -147,7 +117,7 @@ class ConfigService {
   bool autosave;
 
   /// Container which stores all settings
-  std::map<std::string, SettingType> settings;
+  std::map<std::string, std::string> settings;
 };
 
 }  // namespace afk
