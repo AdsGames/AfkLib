@@ -110,7 +110,8 @@
     "__tuple": "cpp",
     "filesystem": "cpp",
     "unordered_set": "cpp",
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "*.def": "cpp"
   },
   "cmake.configureOnOpen": true
 }

@@ -11,7 +11,8 @@
 
 #include "common/math.h"
 
-namespace afk::math {
+namespace afk {
+namespace math {
 
 // Lerp between two values
 float lerp(float start, float end, float progress) {
@@ -29,4 +30,5 @@ float clamp(float value, float min, float max) {
   return value;
 }
 
-}  // namespace afk::math
+}  // namespace math
+}  // namespace afk

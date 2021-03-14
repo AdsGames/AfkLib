@@ -14,6 +14,7 @@
 #define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 #include <SDL2/SDL.h>
+#include <string>
 #include <vector>
 
 /// Unique id type alias
@@ -81,12 +82,33 @@ class GameObject {
   void setParent(const ObjId parent_id);
 
   /**
-   * @brief Checks collision between this game object and itself.
+   * @brief Add a collider with a game object
+   *
+   */
+  void addCollider(const ObjId obj_id);
+
+  /**
+   * @brief Remove a collider with a game object
+   *
+   */
+  void removeCollider(const ObjId obj_id);
+
+  /**
+   * @brief Checks collision between this game object and another.
    *
    * @param other Some other game object
    * @return True on collision, else false
    */
-  bool colliding(const GameObject& other);
+  bool isColliding(const GameObject& other);
+
+  /**
+   * @brief Checks collision between this game object and another.
+   * Calls on collide on both objects if there is a collision
+   *
+   * @param other Some other game object
+   * @return True on collision, else false
+   */
+  bool collide(GameObject& other);
 
   /**
    * @brief Callback which is triggered on collision with another game object if
@@ -94,7 +116,7 @@ class GameObject {
    *
    * @param other The game object which is being collided with.
    */
-  virtual void onCollide(const GameObject& other);
+  virtual void onCollide(GameObject& other);
 
   /**
    * @brief Set the size of game object in pixels
@@ -258,6 +280,9 @@ class GameObject {
 
   /// Static id counter
   static ObjId index;
+
+  /// Colliders
+  std::vector<ObjId> colliders;
 };
 
 }  // namespace afk

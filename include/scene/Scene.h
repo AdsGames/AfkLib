@@ -107,6 +107,15 @@ class Scene {
   void remove(const ObjId id);
 
   /**
+   * @brief Check if obj id exists in scene
+   *
+   * @param id Object id to check
+   * @return true If the object exists
+   * @return false If the object does not exist
+   */
+  bool has(const ObjId id);
+
+  /**
    * @brief Gets a game object by id and casts to type T
    *
    * @tparam T Type of game object
@@ -116,13 +125,30 @@ class Scene {
    */
   template <class T>
   T& get(const ObjId id) {
+    GameObject& obj = get(id);
     try {
-      unsigned int index = lookup_map[id];
-      return dynamic_cast<T&>(*update_pool.at(index));
+      return dynamic_cast<T&>(obj);
     } catch (...) {
+      throw KeyLookupException("Could not cast entity " + std::to_string(id) +
+                               " to type");
+    }
+  }
+
+  /**
+   * @brief Gets a game object by id without the cast
+   *
+   * @param id Id of game object to look up
+   * @return Reference to game object if found
+   * @throws KeyLookupException if game object could not be found
+   */
+  GameObject& get(const ObjId id) {
+    if (!has(id)) {
       throw KeyLookupException("Could not find entity by id " +
                                std::to_string(id));
     }
+
+    unsigned int index = lookup_map[id];
+    return *update_pool.at(index);
   }
 
   /// Service references

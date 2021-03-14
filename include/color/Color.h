@@ -13,7 +13,8 @@
 
 #include <SDL2/SDL2_gfxPrimitives.h>
 
-namespace afk::color {
+namespace afk {
+namespace color {
 
 // Color
 struct Color {
@@ -91,6 +92,7 @@ Uint32 rgbaToInt(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
  */
 Uint32 colorToInt(const Color colour);
 
-}  // namespace afk::color
+}  // namespace color
+}  // namespace afk
 
 #endif  // INCLUDE_COLOR_COLOR_H_

@@ -11,7 +11,8 @@
 #ifndef INCLUDE_COMMON_MATH_H_
 #define INCLUDE_COMMON_MATH_H_
 
-namespace afk::math {
+namespace afk {
+namespace math {
 
 /**
  * @brief Lerp between two values
@@ -33,6 +34,7 @@ float lerp(float start, float end, float progress);
  */
 float clamp(float value, float min, float max);
 
-}  // namespace afk::math
+}  // namespace math
+}  // namespace afk
 
 #endif  // INCLUDE_COMMON_MATH_H_

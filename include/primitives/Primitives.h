@@ -14,7 +14,8 @@
 
 #include "../color/Color.h"
 
-namespace afk::primitives {
+namespace afk {
+namespace primitives {
 
 /**
  * @brief Draw a rectangle border
@@ -83,6 +84,7 @@ void line(const Sint16 x1,
           const Sint16 y2,
           color::Color colour);
 
-}  // namespace afk::primitives
+}  // namespace primitives
+}  // namespace afk
 
 #endif  // INCLUDE_PRIMITIVES_PRIMITIVES_H_

@@ -97,4 +97,9 @@ void Scene::remove(const ObjId id) {
   remove_pool.push_back(id);
 }
 
+// Check if obj id exists in scene
+bool Scene::has(const ObjId id) {
+  return lookup_map.count(id) == 1;
+}
+
 }  // namespace afk

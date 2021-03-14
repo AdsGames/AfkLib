@@ -76,9 +76,6 @@ class DemoScene : public afk::Scene {
   }
 
   void stop() { logger.log("Stopping!"); }
-
- private:
-  ObjId checkbox_id;
 };
 
 int main(int argv, char** args) {
