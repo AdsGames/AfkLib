@@ -73,23 +73,6 @@ class Scene {
   void stopInternal();
 
   /**
-   * @brief Add game object to update and draw pool
-   *
-   * @tparam T Type of game object
-   * @tparam Args Arguments to forward to T
-   * @param args Argument values which will be forwarded to T when constructing
-   * a new game object
-   * @return Unique id of created object
-   */
-  template <typename T, typename... Args>
-  ObjId add(Args&&... args) {
-    T* obj = new T(std::forward<Args>(args)...);
-    update_pool.emplace_back(obj);
-    sortGameObjects();
-    return obj->id;
-  }
-
-  /**
    * @brief Add game object to update and draw pool, returns by reference
    *
    * @tparam T Type of game object
@@ -99,10 +82,20 @@ class Scene {
    * @return Reference to created game object
    */
   template <typename T, typename... Args>
-  T& addObj(Args&&... args) {
-    T* obj = new T(std::forward<Args>(args)...);
+  T& add(Args&&... args) {
+    // Create the game object
+    GameObject* obj = new T(std::forward<Args>(args)...);
+
+    // Add to lookup
+    lookup_map[obj->id] = update_pool.size();
+
+    // Push
     update_pool.emplace_back(obj);
-    sortGameObjects();
+
+    // Force sort on next update
+    need_sort = true;
+
+    // Return the object!
     return get<T>(obj->id);
   }
 
@@ -132,14 +125,6 @@ class Scene {
     }
   }
 
-  /**
-   * @brief Register collider between two game objects
-   *
-   * @param obj1 Game object 1
-   * @param obj2 Game object 2
-   */
-  void addCollider(const ObjId obj1, const ObjId obj2);
-
   /// Service references
   AudioService& audio;
   LoggingService& logger;
@@ -150,20 +135,17 @@ class Scene {
   ConfigService& config;
 
  private:
-  /**
-   * @brief Sort game object by Z index
-   *
-   */
-  void sortGameObjects();
-
   /// Holds game objects
   std::vector<std::unique_ptr<GameObject>> update_pool;
 
   /// Quick gameobject lookup
   std::map<ObjId, unsigned int> lookup_map;
 
-  /// Quick collider lookup
-  std::map<ObjId, std::vector<ObjId>> collider_map;
+  /// Store objects to be removed
+  std::vector<ObjId> remove_pool;
+
+  /// Needs sorting
+  bool need_sort;
 };
 }  // namespace afk
 

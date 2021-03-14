@@ -31,7 +31,7 @@ class DemoScene : public afk::Scene {
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
     assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Button& button = addObj<afk::Button>(*this, 10, 10);
+    afk::Button& button = add<afk::Button>(*this, 10, 10);
     button.setText("CLICK ME");
     button.setFont("freesans");
     button.sizeToText();
@@ -42,7 +42,7 @@ class DemoScene : public afk::Scene {
       message_box.show();
     });
 
-    afk::Checkbox& checkbox = addObj<afk::Checkbox>(*this, 10, 40);
+    afk::Checkbox& checkbox = add<afk::Checkbox>(*this, 10, 40);
     checkbox.setText("CHECK ME");
     checkbox.setFont("freesans");
     checkbox.setOnCheck([](const bool checked) {
@@ -56,15 +56,15 @@ class DemoScene : public afk::Scene {
       message_box.show();
     });
 
-    afk::Label& label = addObj<afk::Label>(*this, 10, 70);
+    afk::Label& label = add<afk::Label>(*this, 10, 70);
     label.setText("LABEL ME");
     label.setFont("freesans");
 
-    afk::Inputbox& inputbox = addObj<afk::Inputbox>(*this, 10, 90);
+    afk::Inputbox& inputbox = add<afk::Inputbox>(*this, 10, 90);
     inputbox.setText("WRITE ME");
     inputbox.setFont("freesans");
 
-    afk::Image& image = addObj<afk::Image>(*this, 10, 120);
+    afk::Image& image = add<afk::Image>(*this, 10, 120);
     image.setTexture("lenna");
     image.setSize(20, 20);
     image.setOnClick([]() {

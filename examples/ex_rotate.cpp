@@ -25,7 +25,8 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    lennaId = add<afk::Sprite>(*this, "lenna");
+    afk::Sprite& lenna = add<afk::Sprite>(*this, "lenna");
+    lennaId = lenna.id;
   }
 
   void update(Uint32 delta) {

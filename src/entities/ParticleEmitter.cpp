@@ -26,7 +26,7 @@ ParticleEmitter::ParticleEmitter(Scene& scene,
                                  const int z,
                                  const int frequency)
     : GameObject(scene, x, y, z),
-      enabled(true),
+      emitting(true),
       frequency(frequency),
       current_tick(0) {}
 
@@ -39,14 +39,14 @@ void ParticleEmitter::draw() {
 
 // Update
 void ParticleEmitter::update(Uint32 delta) {
-  if (enabled) {
+  if (emitting) {
     current_tick += delta;
   }
 
   for (auto& particle : particles) {
     particle.update(delta);
 
-    if (particle.dead() && enabled && current_tick >= frequency) {
+    if (particle.dead() && emitting && current_tick >= frequency) {
       current_tick -= frequency;
       particle.reset();
       particle.setPosition(Random::randomInt(x, x + width),
@@ -65,12 +65,12 @@ void ParticleEmitter::addParticle(const Particle& particle,
 
 // Enable
 void ParticleEmitter::enable() {
-  this->enabled = true;
+  this->emitting = true;
 }
 
 // Disable
 void ParticleEmitter::disable() {
-  this->enabled = false;
+  this->emitting = false;
 }
 
 }  // namespace afk

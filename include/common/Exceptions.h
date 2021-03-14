@@ -105,6 +105,21 @@ class SceneLookupException : public std::runtime_error {
       : std::runtime_error(msg) {}
 };
 
+/**
+ * @brief Exception raised when an assertian fails
+ *
+ */
+class AssertionFailedException : public std::runtime_error {
+ public:
+  /**
+   * @brief Construct a new Invalid Parameter Exception object
+   *
+   * @param msg Message to pass to runtime_error.
+   */
+  explicit AssertionFailedException(const std::string& msg)
+      : std::runtime_error(msg) {}
+};
+
 }  // namespace afk
 
 #endif  // INCLUDE_COMMON_EXCEPTIONS_H_

@@ -122,47 +122,47 @@ void GameObject::setHooked(const bool hooked) {
 
 // Get z index
 int GameObject::getWidth() const {
-  return width;
+  return this->width;
 }
 
 // Get z index
 int GameObject::getHeight() const {
-  return height;
+  return this->height;
 }
 
 // Get z index
 float GameObject::getX() const {
-  return x;
+  return this->x;
 }
 
 // Get z index
 float GameObject::getY() const {
-  return y;
+  return this->y;
 }
 
 // Get z index
 int GameObject::getZ() const {
-  return z;
+  return this->z;
 }
 
 // Get z index
 float GameObject::getAngle() const {
-  return angle;
+  return this->angle;
 }
 
 // Get visibility
 bool GameObject::getVisible() const {
-  return visible;
+  return this->visible;
 }
 
 // Get enabled
 bool GameObject::getEnabled() const {
-  return enabled;
+  return this->enabled;
 }
 
 // Get hooked
 bool GameObject::getHooked() const {
-  return hooked;
+  return this->hooked;
 }
 
 }  // namespace afk
