@@ -13,6 +13,7 @@ Game framework
 
 ## Examples (Web)
 
+- [ex_collision](https://adsgames.github.io/AfkLib/examples/ex_collision.html)
 - [ex_display](https://adsgames.github.io/AfkLib/examples/ex_display.html)
 - [ex_fps](https://adsgames.github.io/AfkLib/examples/ex_fps.html)
 - [ex_keyboard](https://adsgames.github.io/AfkLib/examples/ex_keyboard.html)

@@ -70,7 +70,7 @@ class DemoScene : public afk::Scene {
   ObjId label_id = -1;
   ObjId sprites[NUM_SPRITE];
 
-  unsigned int iter = 0;
+  float iter = 0;
 };
 
 int main(int argv, char** args) {
