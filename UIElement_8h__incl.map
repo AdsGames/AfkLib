@@ -1,0 +1,12 @@
+<map id="include/entities/ui/UIElement.h" name="include/entities/ui/UIElement.h">
+<area shape="rect" id="node1" title="Parent class of many other UIElement subclasses. Handles most things that all UIElements may need." alt="" coords="219,5,341,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="67,95,146,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="313,169,367,196"/>
+<area shape="rect" id="node4" href="$Font_8h.html" title="Easy interface to interact with SDL fonts." alt="" coords="170,95,291,121"/>
+<area shape="rect" id="node8" href="$GameObject_8h.html" title="Implementation of GameObject class." alt="" coords="367,95,481,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="173,169,288,196"/>
+<area shape="rect" id="node6" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="45,169,149,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,244,189,271"/>
+<area shape="rect" id="node9" title=" " alt="" coords="477,169,571,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="393,169,452,196"/>
+</map>

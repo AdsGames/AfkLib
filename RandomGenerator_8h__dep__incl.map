@@ -1,0 +1,6 @@
+<map id="include/random/RandomGenerator.h" name="include/random/RandomGenerator.h">
+<area shape="rect" id="node1" title="Static helper class that can create random numbers." alt="" coords="165,5,394,32"/>
+<area shape="rect" id="node2" href="$ParticleEmitter_8cpp.html" title="Implementation of a particle emitter. and configured." alt="" coords="5,80,204,107"/>
+<area shape="rect" id="node3" href="$Game_8cpp.html" title="Implementation of Game." alt="" coords="228,80,331,107"/>
+<area shape="rect" id="node4" href="$RandomGenerator_8cpp.html" title="Implementation of Random class methods." alt="" coords="355,80,575,107"/>
+</map>

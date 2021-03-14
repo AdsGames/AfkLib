@@ -1,0 +1,6 @@
+<map id="include/entities/Particle.h" name="include/entities/Particle.h">
+<area shape="rect" id="node1" title="Just little blips that make things look cool." alt="" coords="92,5,259,32"/>
+<area shape="rect" id="node2" href="$Particle_8cpp.html" title="Implementation of Particle." alt="" coords="5,87,164,114"/>
+<area shape="rect" id="node3" href="$ParticleEmitter_8h.html" title="A particle emitter. Can be fed a particle to emit and configured." alt="" coords="189,80,346,121"/>
+<area shape="rect" id="node4" href="$ParticleEmitter_8cpp.html" title="Implementation of a particle emitter. and configured." alt="" coords="168,169,367,196"/>
+</map>

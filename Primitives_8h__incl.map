@@ -1,0 +1,5 @@
+<map id="include/primitives/Primitives.h" name="include/primitives/Primitives.h">
+<area shape="rect" id="node1" title="Wrapper for SDL_GFX primitive types. Allows drawing without knowing about SDL." alt="" coords="36,5,159,47"/>
+<area shape="rect" id="node2" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="45,95,149,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,189,196"/>
+</map>

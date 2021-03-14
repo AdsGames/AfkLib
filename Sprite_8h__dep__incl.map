@@ -1,0 +1,8 @@
+<map id="include/entities/Sprite.h" name="include/entities/Sprite.h">
+<area shape="rect" id="node1" title="Simple textured GameObject." alt="" coords="91,5,249,32"/>
+<area shape="rect" id="node2" href="$Sprite_8cpp.html" title="Implementation of Sprite." alt="" coords="5,80,153,107"/>
+<area shape="rect" id="node3" href="$Particle_8h.html" title="Just little blips that make things look cool." alt="" coords="177,80,344,107"/>
+<area shape="rect" id="node4" href="$Particle_8cpp.html" title="Implementation of Particle." alt="" coords="91,162,249,189"/>
+<area shape="rect" id="node5" href="$ParticleEmitter_8h.html" title="A particle emitter. Can be fed a particle to emit and configured." alt="" coords="274,155,431,196"/>
+<area shape="rect" id="node6" href="$ParticleEmitter_8cpp.html" title="Implementation of a particle emitter. and configured." alt="" coords="253,244,452,271"/>
+</map>

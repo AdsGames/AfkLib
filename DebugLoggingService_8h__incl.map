@@ -1,0 +1,5 @@
+<map id="include/services/logging/DebugLoggingService.h" name="include/services/logging/DebugLoggingService.h">
+<area shape="rect" id="node1" title="Logging service that does the logging. Used for development." alt="" coords="5,5,168,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="59,169,114,196"/>
+<area shape="rect" id="node3" href="$LoggingService_8h.html" title="Default logging service. Does nothing. Use in production." alt="" coords="75,95,197,121"/>
+</map>

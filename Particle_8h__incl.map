@@ -1,0 +1,12 @@
+<map id="include/entities/Particle.h" name="include/entities/Particle.h">
+<area shape="rect" id="node1" title="Just little blips that make things look cool." alt="" coords="149,5,316,32"/>
+<area shape="rect" id="node2" href="$Sprite_8h.html" title="Simple textured GameObject." alt="" coords="89,80,211,107"/>
+<area shape="rect" id="node10" href="$Primitives_8h.html" title="Wrapper for SDL_GFX primitive types. Allows drawing without knowing about SDL." alt="" coords="254,80,414,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,229,60,256"/>
+<area shape="rect" id="node4" href="$Texture_8h.html" title="Easy interface to interact with sdl bitmaps." alt="" coords="189,155,317,181"/>
+<area shape="rect" id="node8" href="$GameObject_8h.html" title="Implementation of GameObject class." alt="" coords="59,155,164,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="176,229,271,256"/>
+<area shape="rect" id="node6" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="299,229,403,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="259,304,443,331"/>
+<area shape="rect" id="node9" title=" " alt="" coords="85,229,143,256"/>
+</map>

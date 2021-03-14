@@ -1,0 +1,7 @@
+<map id="include/services/audio/AudioService.h" name="include/services/audio/AudioService.h">
+<area shape="rect" id="node1" title="Default audio service, can actually play audio." alt="" coords="14,5,165,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="62,169,117,196"/>
+<area shape="rect" id="node3" href="$Sound_8h.html" title="Implementation of Sound." alt="" coords="182,95,314,121"/>
+<area shape="rect" id="node5" href="$Stream_8h.html" title="Wrapper for sdl stream including ability to store stream pointer. Use for single instance sounds like..." alt="" coords="21,95,158,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="162,169,295,196"/>
+</map>

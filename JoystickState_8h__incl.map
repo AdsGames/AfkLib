@@ -1,0 +1,5 @@
+<map id="include/services/input/JoystickState.h" name="include/services/input/JoystickState.h">
+<area shape="rect" id="node1" title="Container for storing Joystick state." alt="" coords="78,5,226,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,147,121"/>
+<area shape="rect" id="node3" href="$JoystickCodes_8h.html" title="Defines for codes used for joystick." alt="" coords="171,95,288,121"/>
+</map>

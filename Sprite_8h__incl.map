@@ -1,0 +1,10 @@
+<map id="include/entities/Sprite.h" name="include/entities/Sprite.h">
+<area shape="rect" id="node1" title="Simple textured GameObject." alt="" coords="148,5,305,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="207,155,262,181"/>
+<area shape="rect" id="node3" href="$Texture_8h.html" title="Easy interface to interact with sdl bitmaps." alt="" coords="264,80,392,107"/>
+<area shape="rect" id="node7" href="$GameObject_8h.html" title="Implementation of GameObject class." alt="" coords="83,80,189,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="89,155,183,181"/>
+<area shape="rect" id="node5" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="287,155,391,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="247,229,431,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,155,64,181"/>
+</map>

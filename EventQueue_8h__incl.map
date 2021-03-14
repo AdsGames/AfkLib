@@ -1,0 +1,8 @@
+<map id="include/services/events/EventQueue.h" name="include/services/events/EventQueue.h">
+<area shape="rect" id="node1" title="Handles SDL_Events from main SDL_Queue. Can be hooked into by other services and notified when change..." alt="" coords="75,5,233,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,100,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="125,95,183,121"/>
+<area shape="rect" id="node4" href="$Service_8h.html" title="Service subscriber that can listen for events." alt="" coords="208,95,295,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="119,169,261,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="285,169,340,196"/>
+</map>

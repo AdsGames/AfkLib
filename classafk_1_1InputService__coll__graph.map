@@ -1,0 +1,7 @@
+<map id="afk::InputService" name="afk::InputService">
+<area shape="rect" id="node1" title="General Purpose input listener." alt="" coords="199,95,318,121"/>
+<area shape="rect" id="node2" href="$classafk_1_1Service.html" title="Service parent type, interface to allow listening for events." alt="" coords="5,5,96,32"/>
+<area shape="rect" id="node3" href="$structafk_1_1KeyboardState.html" title="Keyboard state." alt="" coords="120,5,251,32"/>
+<area shape="rect" id="node4" href="$structafk_1_1MouseState.html" title="Mouse State." alt="" coords="275,5,391,32"/>
+<area shape="rect" id="node5" href="$structafk_1_1JoystickState.html" title="Joystick state." alt="" coords="416,5,541,32"/>
+</map>

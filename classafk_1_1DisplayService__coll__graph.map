@@ -1,0 +1,4 @@
+<map id="afk::DisplayService" name="afk::DisplayService">
+<area shape="rect" id="node1" title="Manages sdl display pointer and allows easy manipulation of configuration." alt="" coords="5,95,137,121"/>
+<area shape="rect" id="node2" href="$structafk_1_1color_1_1Color.html" title=" " alt="" coords="16,5,127,32"/>
+</map>

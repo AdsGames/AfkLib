@@ -1,0 +1,4 @@
+<map id="afk::Game" name="afk::Game">
+<area shape="rect" id="node1" title="Core game class, manages scenes and sets up locator and sdl." alt="" coords="10,80,91,107"/>
+<area shape="rect" id="node2" href="$classafk_1_1Service.html" title="Service parent type, interface to allow listening for events." alt="" coords="5,5,96,32"/>
+</map>

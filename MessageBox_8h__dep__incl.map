@@ -1,0 +1,5 @@
+<map id="include/entities/ui/MessageBox.h" name="include/entities/ui/MessageBox.h">
+<area shape="rect" id="node1" title="Native message box." alt="" coords="133,5,256,47"/>
+<area shape="rect" id="node2" href="$MessageBox_8cpp.html" title="Implementation of MessageBox." alt="" coords="5,95,208,121"/>
+<area shape="rect" id="node3" href="$Game_8cpp.html" title="Implementation of Game." alt="" coords="233,95,335,121"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="include/entities/ui/Button.h" name="include/entities/ui/Button.h">
+<area shape="rect" id="node1" title="A ui elemenent that accepts a click callback." alt="" coords="27,5,150,47"/>
+<area shape="rect" id="node2" href="$Button_8cpp.html" title="Implementation of Button." alt="" coords="5,95,172,121"/>
+</map>

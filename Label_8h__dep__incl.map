@@ -1,0 +1,4 @@
+<map id="include/entities/ui/Label.h" name="include/entities/ui/Label.h">
+<area shape="rect" id="node1" title="UI Label that simply displays text." alt="" coords="24,5,147,47"/>
+<area shape="rect" id="node2" href="$Label_8cpp.html" title="Implementation of Label class." alt="" coords="5,95,165,121"/>
+</map>

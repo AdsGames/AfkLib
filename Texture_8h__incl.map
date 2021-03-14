@@ -1,0 +1,7 @@
+<map id="include/assets/Texture.h" name="include/assets/Texture.h">
+<area shape="rect" id="node1" title="Easy interface to interact with sdl bitmaps." alt="" coords="70,5,233,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,100,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="124,80,179,107"/>
+<area shape="rect" id="node4" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="203,80,307,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="163,155,347,181"/>
+</map>

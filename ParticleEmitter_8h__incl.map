@@ -1,0 +1,13 @@
+<map id="include/entities/ParticleEmitter.h" name="include/entities/ParticleEmitter.h">
+<area shape="rect" id="node1" title="A particle emitter. Can be fed a particle to emit and configured." alt="" coords="5,5,163,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="8,319,67,345"/>
+<area shape="rect" id="node3" href="$GameObject_8h.html" title="Implementation of GameObject class." alt="" coords="35,244,141,271"/>
+<area shape="rect" id="node6" href="$Particle_8h.html" title="Just little blips that make things look cool." alt="" coords="145,95,221,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="210,319,305,345"/>
+<area shape="rect" id="node5" title=" " alt="" coords="131,319,186,345"/>
+<area shape="rect" id="node7" href="$Sprite_8h.html" title="Simple textured GameObject." alt="" coords="121,169,244,196"/>
+<area shape="rect" id="node11" href="$Primitives_8h.html" title="Wrapper for SDL_GFX primitive types. Allows drawing without knowing about SDL." alt="" coords="287,169,447,196"/>
+<area shape="rect" id="node8" href="$Texture_8h.html" title="Easy interface to interact with sdl bitmaps." alt="" coords="216,244,344,271"/>
+<area shape="rect" id="node9" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="329,319,433,345"/>
+<area shape="rect" id="node10" title=" " alt="" coords="289,393,473,420"/>
+</map>

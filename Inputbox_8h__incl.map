@@ -1,0 +1,13 @@
+<map id="include/entities/ui/Inputbox.h" name="include/entities/ui/Inputbox.h">
+<area shape="rect" id="node1" title="UI Inputbox." alt="" coords="249,5,371,47"/>
+<area shape="rect" id="node2" href="$UIElement_8h.html" title="Parent class of many other UIElement subclasses. Handles most things that all UIElements may need." alt="" coords="222,95,315,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="285,244,340,271"/>
+<area shape="rect" id="node3" title=" " alt="" coords="185,169,264,196"/>
+<area shape="rect" id="node5" href="$Font_8h.html" title="Easy interface to interact with SDL fonts." alt="" coords="391,169,512,196"/>
+<area shape="rect" id="node9" href="$GameObject_8h.html" title="Implementation of GameObject class." alt="" coords="46,169,161,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="515,244,630,271"/>
+<area shape="rect" id="node7" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="387,244,491,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="347,319,531,345"/>
+<area shape="rect" id="node10" title=" " alt="" coords="5,244,100,271"/>
+<area shape="rect" id="node11" title=" " alt="" coords="125,244,183,271"/>
+</map>

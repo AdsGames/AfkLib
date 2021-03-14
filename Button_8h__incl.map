@@ -1,0 +1,14 @@
+<map id="include/entities/ui/Button.h" name="include/entities/ui/Button.h">
+<area shape="rect" id="node1" title="A ui elemenent that accepts a click callback." alt="" coords="222,5,345,47"/>
+<area shape="rect" id="node2" href="$UIElement_8h.html" title="Parent class of many other UIElement subclasses. Handles most things that all UIElements may need." alt="" coords="237,95,330,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="292,244,347,271"/>
+<area shape="rect" id="node12" href="$Texture_8h.html" title="Easy interface to interact with sdl bitmaps." alt="" coords="357,169,495,196"/>
+<area shape="rect" id="node3" title=" " alt="" coords="203,169,281,196"/>
+<area shape="rect" id="node5" href="$Font_8h.html" title="Easy interface to interact with SDL fonts." alt="" coords="5,169,127,196"/>
+<area shape="rect" id="node9" href="$GameObject_8h.html" title="Implementation of GameObject class." alt="" coords="519,169,634,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="9,244,123,271"/>
+<area shape="rect" id="node7" href="$Color_8h.html" title="Helpers for creating colors without accessing SDL api directly." alt="" coords="155,244,259,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="115,319,299,345"/>
+<area shape="rect" id="node10" title=" " alt="" coords="403,244,497,271"/>
+<area shape="rect" id="node11" title=" " alt="" coords="547,244,606,271"/>
+</map>

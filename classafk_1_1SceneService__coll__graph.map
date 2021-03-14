@@ -1,0 +1,15 @@
+<map id="afk::SceneService" name="afk::SceneService">
+<area shape="rect" id="node1" title="Manages scenes (updates)" alt="" coords="281,16,407,43"/>
+<area shape="rect" id="node2" href="$classafk_1_1Scene.html" title=" " alt="" coords="545,161,628,188"/>
+<area shape="rect" id="node3" href="$classafk_1_1AudioService.html" title="Implementation of audio service." alt="" coords="283,83,405,109"/>
+<area shape="rect" id="node4" href="$classafk_1_1LoggingService.html" title="Default logger class, can be overridden." alt="" coords="276,133,412,160"/>
+<area shape="rect" id="node5" href="$classafk_1_1AssetService.html" title="Hold and manages Sound, Texture, Stream and Font assets." alt="" coords="282,184,406,211"/>
+<area shape="rect" id="node6" href="$classafk_1_1DisplayService.html" title="Manages sdl display pointer and allows easy manipulation of configuration." alt="" coords="278,235,410,261"/>
+<area shape="rect" id="node7" href="$structafk_1_1color_1_1Color.html" title=" " alt="" coords="15,235,126,261"/>
+<area shape="rect" id="node8" href="$classafk_1_1ConfigService.html" title="Class which can load and store setting key pair values in different formats." alt="" coords="281,285,407,312"/>
+<area shape="rect" id="node9" href="$classafk_1_1InputService.html" title="General Purpose input listener." alt="" coords="285,336,403,363"/>
+<area shape="rect" id="node10" href="$classafk_1_1Service.html" title="Service parent type, interface to allow listening for events." alt="" coords="25,285,116,312"/>
+<area shape="rect" id="node11" href="$structafk_1_1KeyboardState.html" title="Keyboard state." alt="" coords="5,336,136,363"/>
+<area shape="rect" id="node12" href="$structafk_1_1MouseState.html" title="Mouse State." alt="" coords="13,387,129,413"/>
+<area shape="rect" id="node13" href="$structafk_1_1JoystickState.html" title="Joystick state." alt="" coords="8,437,133,464"/>
+</map>

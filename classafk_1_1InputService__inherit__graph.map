@@ -1,0 +1,4 @@
+<map id="afk::InputService" name="afk::InputService">
+<area shape="rect" id="node1" title="General Purpose input listener." alt="" coords="5,80,124,107"/>
+<area shape="rect" id="node2" href="$classafk_1_1Service.html" title="Service parent type, interface to allow listening for events." alt="" coords="19,5,110,32"/>
+</map>

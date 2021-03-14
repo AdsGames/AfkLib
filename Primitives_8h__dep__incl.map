@@ -1,0 +1,12 @@
+<map id="include/primitives/Primitives.h" name="include/primitives/Primitives.h">
+<area shape="rect" id="node1" title="Wrapper for SDL_GFX primitive types. Allows drawing without knowing about SDL." alt="" coords="418,5,540,47"/>
+<area shape="rect" id="node2" href="$ParticleEmitter_8cpp.html" title="Implementation of a particle emitter. and configured." alt="" coords="440,259,638,285"/>
+<area shape="rect" id="node3" href="$Sprite_8cpp.html" title="Implementation of Sprite." alt="" coords="24,95,172,121"/>
+<area shape="rect" id="node4" href="$Button_8cpp.html" title="Implementation of Button." alt="" coords="196,95,362,121"/>
+<area shape="rect" id="node5" href="$Checkbox_8cpp.html" title="Implementation of UI Checkbox." alt="" coords="386,95,572,121"/>
+<area shape="rect" id="node6" href="$Inputbox_8cpp.html" title="Implementation of UI Inputbox." alt="" coords="596,95,773,121"/>
+<area shape="rect" id="node7" href="$Primitives_8cpp.html" title="Implementation of Primitives namespace helpers." alt="" coords="798,95,984,121"/>
+<area shape="rect" id="node8" href="$Particle_8h.html" title="Just little blips that make things look cool." alt="" coords="1009,95,1176,121"/>
+<area shape="rect" id="node9" href="$Particle_8cpp.html" title="Implementation of Particle." alt="" coords="830,177,989,203"/>
+<area shape="rect" id="node10" href="$ParticleEmitter_8h.html" title="A particle emitter. Can be fed a particle to emit and configured." alt="" coords="1014,169,1171,211"/>
+</map>

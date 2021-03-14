@@ -1,0 +1,5 @@
+<map id="afk::Checkbox" name="afk::Checkbox">
+<area shape="rect" id="node1" title="Implementation of clickable UI Button." alt="" coords="13,155,116,181"/>
+<area shape="rect" id="node2" href="$classafk_1_1UIElement.html" title="Parent class for other UI elements such as buttons and labels." alt="" coords="11,80,118,107"/>
+<area shape="rect" id="node3" href="$classafk_1_1GameObject.html" title="A collidable object! Parent class for many others." alt="" coords="5,5,124,32"/>
+</map>

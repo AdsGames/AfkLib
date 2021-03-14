@@ -1,0 +1,12 @@
+<map id="afk::GameObject" name="afk::GameObject">
+<area shape="rect" id="node1" title="A collidable object! Parent class for many others." alt="" coords="141,5,259,32"/>
+<area shape="rect" id="node2" href="$classafk_1_1ParticleEmitter.html" title="Particle Emitter." alt="" coords="5,80,136,107"/>
+<area shape="rect" id="node3" href="$classafk_1_1Sprite.html" title="A simple texturable game object." alt="" coords="160,80,240,107"/>
+<area shape="rect" id="node5" href="$classafk_1_1UIElement.html" title="Parent class for other UI elements such as buttons and labels." alt="" coords="379,80,485,107"/>
+<area shape="rect" id="node4" href="$classafk_1_1Particle.html" title="Represents a single Particle." alt="" coords="99,155,189,181"/>
+<area shape="rect" id="node6" href="$classafk_1_1Button.html" title="Implementation of clickable UI Button." alt="" coords="214,155,298,181"/>
+<area shape="rect" id="node7" href="$classafk_1_1Checkbox.html" title="Implementation of clickable UI Button." alt="" coords="322,155,425,181"/>
+<area shape="rect" id="node8" href="$classafk_1_1Image.html" title="A simple texturable game object." alt="" coords="449,155,532,181"/>
+<area shape="rect" id="node9" href="$classafk_1_1Inputbox.html" title="Implementation of clickable UI Button." alt="" coords="557,155,651,181"/>
+<area shape="rect" id="node10" href="$classafk_1_1Label.html" title="Implementation of Label class." alt="" coords="675,155,754,181"/>
+</map>

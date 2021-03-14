@@ -1,0 +1,4 @@
+<map id="include/entities/ParticleEmitter.h" name="include/entities/ParticleEmitter.h">
+<area shape="rect" id="node1" title="A particle emitter. Can be fed a particle to emit and configured." alt="" coords="26,5,183,47"/>
+<area shape="rect" id="node2" href="$ParticleEmitter_8cpp.html" title="Implementation of a particle emitter. and configured." alt="" coords="5,95,204,121"/>
+</map>

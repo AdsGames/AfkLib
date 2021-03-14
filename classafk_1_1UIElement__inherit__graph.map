@@ -1,0 +1,9 @@
+<map id="afk::UIElement" name="afk::UIElement">
+<area shape="rect" id="node1" title="Parent class for other UI elements such as buttons and labels." alt="" coords="229,80,335,107"/>
+<area shape="rect" id="node3" href="$classafk_1_1Button.html" title="Implementation of clickable UI Button." alt="" coords="5,155,89,181"/>
+<area shape="rect" id="node4" href="$classafk_1_1Checkbox.html" title="Implementation of clickable UI Button." alt="" coords="113,155,216,181"/>
+<area shape="rect" id="node5" href="$classafk_1_1Image.html" title="A simple texturable game object." alt="" coords="241,155,323,181"/>
+<area shape="rect" id="node6" href="$classafk_1_1Inputbox.html" title="Implementation of clickable UI Button." alt="" coords="348,155,443,181"/>
+<area shape="rect" id="node7" href="$classafk_1_1Label.html" title="Implementation of Label class." alt="" coords="467,155,545,181"/>
+<area shape="rect" id="node2" href="$classafk_1_1GameObject.html" title="A collidable object! Parent class for many others." alt="" coords="223,5,341,32"/>
+</map>

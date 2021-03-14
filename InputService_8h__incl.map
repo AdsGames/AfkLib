@@ -1,0 +1,13 @@
+<map id="include/services/input/InputService.h" name="include/services/input/InputService.h">
+<area shape="rect" id="node1" title="General Purpose input listener. Handles Mouse, Keyboard, Joystick." alt="" coords="350,5,498,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="147,169,288,196"/>
+<area shape="rect" id="node3" title=" " alt="" coords="543,95,615,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="478,169,533,196"/>
+<area shape="rect" id="node5" href="$Service_8h.html" title="Service subscriber that can listen for events." alt="" coords="381,95,467,121"/>
+<area shape="rect" id="node6" href="$JoystickState_8h.html" title="Container for storing Joystick state." alt="" coords="67,95,178,121"/>
+<area shape="rect" id="node8" href="$KeyboardState_8h.html" title="Container for storing Keyboard state." alt="" coords="639,95,756,121"/>
+<area shape="rect" id="node10" href="$MouseState_8h.html" title="Container for storing Mouse state." alt="" coords="254,95,357,121"/>
+<area shape="rect" id="node7" href="$JoystickCodes_8h.html" title="Defines for codes used for joystick." alt="" coords="5,169,123,196"/>
+<area shape="rect" id="node9" href="$KeyboardKeys_8h.html" title="Defenitions of keys that can be used by input manager." alt="" coords="640,169,755,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="312,169,453,196"/>
+</map>
