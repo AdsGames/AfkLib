@@ -18,7 +18,8 @@ class Character : public afk::Sprite {
   Character(afk::Scene& scene, const float x, const float y)
       : Sprite(scene, x, y) {
     setTexture("lenna");
-    setSize(30, 30);
+    transform.width = 30;
+    transform.height = 30;
   }
 
   void update(Uint32 delta) {
@@ -26,16 +27,16 @@ class Character : public afk::Sprite {
 
     float speed = delta / 10.0f;
     if (scene.input.keyDown(afk::Keys::UP)) {
-      setPosition(x, y - speed);
+      transform.y -= speed;
     }
     if (scene.input.keyDown(afk::Keys::DOWN)) {
-      setPosition(x, y + speed);
+      transform.y += speed;
     }
     if (scene.input.keyDown(afk::Keys::LEFT)) {
-      setPosition(x - speed, y);
+      transform.x -= speed;
     }
     if (scene.input.keyDown(afk::Keys::RIGHT)) {
-      setPosition(x + speed, y);
+      transform.x += speed;
     }
   }
 };

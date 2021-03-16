@@ -51,9 +51,10 @@ void UIElement::update(Uint32 delta) {
   InputService& input = Services::getInputService();
 
   if (input.mousePressed(MouseButtons::LEFT)) {
-    bool is_colliding = input.mouseX() < x + width &&
-                        input.mouseY() < y + height && input.mouseX() > x &&
-                        input.mouseY() > y;
+    bool is_colliding = input.mouseX() < transform.x + transform.width &&
+                        input.mouseY() < transform.y + transform.height &&
+                        input.mouseX() > transform.x &&
+                        input.mouseY() > transform.y;
 
     if (is_colliding) {
       UIElement::focused = id;

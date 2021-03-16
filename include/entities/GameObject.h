@@ -14,8 +14,13 @@
 #define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 #include <SDL2/SDL.h>
+#include <map>
+#include <memory>
 #include <string>
 #include <vector>
+
+#include "../components/Component.h"
+#include "../components/Transform.h"
 
 /// Unique id type alias
 using ObjId = Uint32;
@@ -99,7 +104,7 @@ class GameObject {
    * @param other Some other game object
    * @return True on collision, else false
    */
-  bool isColliding(const GameObject& other);
+  bool isColliding(GameObject& other);
 
   /**
    * @brief Checks collision between this game object and another.
@@ -117,24 +122,6 @@ class GameObject {
    * @param other The game object which is being collided with.
    */
   virtual void onCollide(GameObject& other);
-
-  /**
-   * @brief Set the size of game object in pixels
-   *
-   */
-  void setSize(const unsigned int width, const unsigned int height);
-
-  /**
-   * @brief Set the position of game object in pixels
-   *
-   */
-  void setPosition(const float x, const float y);
-
-  /**
-   * @brief Set angle of game object in degrees
-   *
-   */
-  void setAngle(const float angle);
 
   /**
    * @brief Set the visibility of the GameObject. Will not draw when not
@@ -160,48 +147,6 @@ class GameObject {
   void setHooked(const bool hooked);
 
   /**
-   * @brief Get the width of the game object
-   *
-   * @return Width of game object
-   */
-  int getWidth() const;
-
-  /**
-   * @brief Get the height of the game object
-   *
-   * @return Height of game object
-   */
-  int getHeight() const;
-
-  /**
-   * @brief Get x position of game object
-   *
-   * @return X position
-   */
-  float getX() const;
-
-  /**
-   * @brief Get y position of game object
-   *
-   * @return Y position
-   */
-  float getY() const;
-
-  /**
-   * @brief Get z position of game object. Used for z sorting
-   *
-   * @return Z position
-   */
-  int getZ() const;
-
-  /**
-   * @brief Get the angle of the game object.
-   *
-   * @return Angle
-   */
-  float getAngle() const;
-
-  /**
    * @brief Get the visibility of game object
    *
    * @return true If visible
@@ -225,14 +170,33 @@ class GameObject {
    */
   bool getHooked() const;
 
-  /**
-   * @brief Definition for < operator. Less than if z is less than the other
-   * game object.
-   *
-   * @param obj Other game object
-   * @return True if the z of this game object is less than the other
-   */
-  bool operator<(const GameObject& obj) const { return (z < obj.getZ()); }
+  template <typename T>
+  T& addComponent() {
+    std::size_t id = typeid(T).hash_code();
+    components[id] = std::make_unique<T>();
+    return dynamic_cast<T&>(*components[id]);
+  }
+
+  template <typename T>
+  T& getComponent() {
+    std::size_t id = typeid(T).hash_code();
+    return dynamic_cast<T&>(*components[id]);
+  }
+
+  template <typename T>
+  void removeComponent() {
+    std::size_t id = typeid(T).hash_code();
+    components.erase(id);
+  }
+
+  template <typename T>
+  bool hasComponent() const {
+    std::size_t id = typeid(T).hash_code();
+    return components.count(id) > 0;
+  }
+
+  /// Components
+  Transform transform;
 
   /// Autoassigned unique id
   const ObjId id;
@@ -240,24 +204,6 @@ class GameObject {
  protected:
   /// Reference to registered scene
   Scene& scene;
-
-  /// X position on x y plane
-  float x;
-
-  /// Y position on x y plane
-  float y;
-
-  /// Z position, used for sorting
-  int z;
-
-  /// Height in pixels of game object
-  int height;
-
-  /// Width in pixels of game object
-  int width;
-
-  /// Rotation
-  float angle;
 
   /// Visibility
   bool visible;
@@ -268,12 +214,6 @@ class GameObject {
   /// Hooked
   bool hooked;
 
-  /// Delta x
-  float last_x;
-
-  /// Delta y
-  float last_y;
-
  private:
   /// Parent Id
   ObjId parent_id;
@@ -283,6 +223,9 @@ class GameObject {
 
   /// Colliders
   std::vector<ObjId> colliders;
+
+  /// Components
+  std::map<std::size_t, std::unique_ptr<Component>> components{};
 };
 
 }  // namespace afk

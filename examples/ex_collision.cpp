@@ -27,14 +27,14 @@ class DemoScene : public afk::Scene {
     assets.loadImage("lenna", "assets/lenna.png");
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
-    auto& lenna_1 = add<afk::Sprite>(*this, "lenna");
-    lenna_1.setPosition(10, 10);
-    lenna_1.setSize(40, 40);
+    auto& lenna_1 = add<afk::Sprite>(*this, "lenna", 10, 10);
+    lenna_1.transform.width = 40;
+    lenna_1.transform.height = 40;
     lenna_1_id = lenna_1.id;
 
-    auto& lenna_2 = add<afk::Sprite>(*this, "lenna");
-    lenna_2.setPosition(10, 80);
-    lenna_2.setSize(40, 40);
+    auto& lenna_2 = add<afk::Sprite>(*this, "lenna", 10, 80);
+    lenna_2.transform.width = 40;
+    lenna_2.transform.height = 40;
     lenna_2_id = lenna_2.id;
 
     auto& label = add<afk::Label>(*this, 0, 0);
@@ -48,11 +48,13 @@ class DemoScene : public afk::Scene {
     auto& lenna_2 = get(lenna_2_id);
 
     if (input.mouseDown(afk::MouseButtons::LEFT)) {
-      lenna_1.setPosition(input.mouseX(), input.mouseY());
+      lenna_1.transform.x = input.mouseX();
+      lenna_1.transform.y = input.mouseY();
     }
 
     if (input.mouseDown(afk::MouseButtons::RIGHT)) {
-      lenna_2.setPosition(input.mouseX(), input.mouseY());
+      lenna_2.transform.x = input.mouseX();
+      lenna_2.transform.y = input.mouseY();
     }
 
     if (lenna_1.isColliding(lenna_2)) {

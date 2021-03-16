@@ -33,7 +33,7 @@ class DemoScene : public afk::Scene {
     Scene::update(delta);
 
     afk::Sprite& lenna = get<afk::Sprite>(lennaId);
-    lenna.setAngle(lenna.getAngle() + delta / 10.0f);
+    lenna.transform.angle += delta / 10.0f;
   }
 
   void stop() { logger.log("Stopping!"); }

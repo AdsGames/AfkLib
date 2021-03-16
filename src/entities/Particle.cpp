@@ -40,8 +40,8 @@ void Particle::update(Uint32 delta) {
   }
 
   // Update velocity
-  x += (velocity_x + acceleration_x * age) / 1000 * delta;
-  y += (velocity_y + acceleration_y * age) / 1000 * delta;
+  transform.x += (velocity_x + acceleration_x * age) / 1000 * delta;
+  transform.y += (velocity_y + acceleration_y * age) / 1000 * delta;
 
   // Its dead
   this->age += 4.0f;
@@ -68,16 +68,16 @@ void Particle::draw() {
   // Switch over type
   switch (type) {
     case ParticleType::SQUARE:
-      primitives::rectfill(x, y, size, size, color);
+      primitives::rectfill(transform.x, transform.y, size, size, color);
       break;
     case ParticleType::CIRCLE:
-      primitives::circle(x, y, size, color);
+      primitives::circle(transform.x, transform.y, size, color);
       break;
     case ParticleType::PIXEL:
-      primitives::pixel(x, y, color);
+      primitives::pixel(transform.x, transform.y, color);
       break;
     case ParticleType::IMAGE:
-      texture.drawEx(x, y, size, size, 0);
+      texture.drawEx(transform.x, transform.y, size, size, 0);
     default:
       break;
   }

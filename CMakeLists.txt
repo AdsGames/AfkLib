@@ -67,20 +67,17 @@ endif(EMSCRIPTEN)
 
 # Install info
 if (EMSCRIPTEN)
-    if (NOT CMAKE_TOOLCHAIN_FILE)
-        message("CMAKE_TOOLCHAIN_FILE not provided, can not automatically install")
-    else()
-        get_filename_component(EMSDK_DIR ${CMAKE_TOOLCHAIN_FILE} DIRECTORY)
-        set(EMSDK_DIR ${EMSDK_DIR}/../../../system)
-        message("Lib install directory set to ${EMSDK_DIR}")
+    get_filename_component(EMSDK_DIR ${CMAKE_TOOLCHAIN_FILE} DIRECTORY)
+    set(EMSDK_DIR ${EMSDK_DIR}/../../../system)
+    message("Lib install directory set to ${EMSDK_DIR}")
 
-        install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
-        ARCHIVE DESTINATION ${EMSDK_DIR}/lib
-        LIBRARY DESTINATION ${EMSDK_DIR}/lib
-        RUNTIME DESTINATION ${EMSDK_DIR}/bin)
+    install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
+    ARCHIVE DESTINATION ${EMSDK_DIR}/lib
+    LIBRARY DESTINATION ${EMSDK_DIR}/lib
+    RUNTIME DESTINATION ${EMSDK_DIR}/bin)
 
-        install(DIRECTORY include/ DESTINATION ${EMSDK_DIR}/include/${PROJECT_NAME})
-    endif()
+    install(DIRECTORY include/ DESTINATION ${EMSDK_DIR}/include/${PROJECT_NAME})
+
 elseif (WIN32)
     install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
             ARCHIVE DESTINATION C:/msys64/mingw32/lib

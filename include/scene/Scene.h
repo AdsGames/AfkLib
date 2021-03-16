@@ -87,10 +87,10 @@ class Scene {
     GameObject* obj = new T(std::forward<Args>(args)...);
 
     // Add to lookup
-    lookup_map[obj->id] = update_pool.size();
+    entity_map[obj->id] = entities.size();
 
     // Push
-    update_pool.emplace_back(obj);
+    entities.emplace_back(obj);
 
     // Force sort on next update
     need_sort = true;
@@ -147,8 +147,8 @@ class Scene {
                                std::to_string(id));
     }
 
-    unsigned int index = lookup_map[id];
-    return *update_pool.at(index);
+    unsigned int index = entity_map[id];
+    return *entities.at(index);
   }
 
   /// Service references
@@ -162,10 +162,10 @@ class Scene {
 
  private:
   /// Holds game objects
-  std::vector<std::unique_ptr<GameObject>> update_pool;
+  std::vector<std::unique_ptr<GameObject>> entities;
 
   /// Quick gameobject lookup
-  std::map<ObjId, unsigned int> lookup_map;
+  std::map<ObjId, unsigned int> entity_map;
 
   /// Store objects to be removed
   std::vector<ObjId> remove_pool;

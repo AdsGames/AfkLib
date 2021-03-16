@@ -10,9 +10,9 @@
  */
 #include "entities/GameObject.h"
 
-#include "scene/Scene.h"
-
 #include <algorithm>
+
+#include "scene/Scene.h"
 
 namespace afk {
 
@@ -23,19 +23,16 @@ ObjId GameObject::index = 1;
 GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
     : id(GameObject::index),
       scene(scene),
-      x(x),
-      y(y),
-      z(z),
-      height(0),
-      width(0),
-      angle(0.0f),
       visible(true),
       enabled(true),
       hooked(true),
-      last_x(0),
-      last_y(0),
       parent_id(0) {
   GameObject::index += 1;
+
+  // Set transform
+  transform.x = x;
+  transform.y = y;
+  transform.z = z;
 }
 
 // Destructor
@@ -48,10 +45,6 @@ void GameObject::update(Uint32 delta) {
 
 // Update
 void GameObject::updateInternal() {
-  // Update delta position
-  last_x = x;
-  last_y = y;
-
   // Parent functions
   if (parent_id != 0) {
     // Autoremove if parent is dead
@@ -62,8 +55,8 @@ void GameObject::updateInternal() {
       hooked = parent.getHooked();
 
       // Set position
-      x += parent.x - parent.last_x;
-      y += parent.y - parent.last_y;
+      transform.x += parent.transform.x - parent.transform.last_x;
+      transform.y += parent.transform.y - parent.transform.last_y;
 
     } catch (const KeyLookupException&) {
       scene.remove(id);
@@ -100,9 +93,11 @@ void GameObject::removeCollider(const ObjId obj_id) {
 }
 
 // Is colliding with game object
-bool GameObject::isColliding(const GameObject& other) {
-  return x < other.x + other.width && x + width > other.x &&
-         y < other.y + other.height && y + height > other.y;
+bool GameObject::isColliding(GameObject& other) {
+  return transform.x < other.transform.x + other.transform.width &&
+         transform.x + transform.width > other.transform.x &&
+         transform.y < other.transform.y + other.transform.height &&
+         transform.y + transform.height > other.transform.y;
 }
 
 // Collide game objects
@@ -122,23 +117,6 @@ void GameObject::onCollide(GameObject& other) {
   (void)(other);
 }
 
-// Set the size of game object in pixels
-void GameObject::setSize(const unsigned int width, const unsigned int height) {
-  this->width = width;
-  this->height = height;
-}
-
-// Set the position of game object in pixels
-void GameObject::setPosition(const float x, const float y) {
-  this->x = x;
-  this->y = y;
-}
-
-// Set angle of game object in degrees
-void GameObject::setAngle(const float angle) {
-  this->angle = angle;
-}
-
 // Set visibility
 void GameObject::setVisible(const bool visible) {
   this->visible = visible;
@@ -152,36 +130,6 @@ void GameObject::setEnabled(const bool enabled) {
 // Set hooked
 void GameObject::setHooked(const bool hooked) {
   this->hooked = hooked;
-}
-
-// Get z index
-int GameObject::getWidth() const {
-  return this->width;
-}
-
-// Get z index
-int GameObject::getHeight() const {
-  return this->height;
-}
-
-// Get z index
-float GameObject::getX() const {
-  return this->x;
-}
-
-// Get z index
-float GameObject::getY() const {
-  return this->y;
-}
-
-// Get z index
-int GameObject::getZ() const {
-  return this->z;
-}
-
-// Get z index
-float GameObject::getAngle() const {
-  return this->angle;
 }
 
 // Get visibility

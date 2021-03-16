@@ -35,18 +35,20 @@ Sprite::~Sprite() {}
 
 void Sprite::setTexture(const std::string& texture) {
   this->texture = scene.assets.getImage(texture);
-  this->width = this->texture.getWidth();
-  this->height = this->texture.getHeight();
+  transform.width = this->texture.getWidth();
+  transform.height = this->texture.getHeight();
 }
 
 // Draw
 void Sprite::draw() {
   // Draw image
-  texture.drawEx(x, y, width, height, angle);
+  texture.drawEx(transform.x, transform.y, transform.width, transform.height,
+                 transform.angle);
 
   // Draw bounding box
   if (Services::getConfigService().get<bool>("debug", false)) {
-    primitives::rect(x, y, width, height, color::red);
+    primitives::rect(transform.x, transform.y, transform.width,
+                     transform.height, color::red);
   }
 }
 

@@ -33,7 +33,7 @@ ParticleEmitter::ParticleEmitter(Scene& scene,
 // Draw
 void ParticleEmitter::draw() {
   for (auto& particle : particles) {
-    particle.draw();
+    particle->draw();
   }
 }
 
@@ -44,23 +44,22 @@ void ParticleEmitter::update(Uint32 delta) {
   }
 
   for (auto& particle : particles) {
-    particle.update(delta);
+    particle->update(delta);
 
-    if (particle.dead() && emitting && current_tick >= frequency) {
+    if (particle->dead() && emitting && current_tick >= frequency) {
       current_tick -= frequency;
       particle.reset();
-      particle.setPosition(Random::randomInt(x, x + width),
-                           Random::randomInt(y, y + width));
+      transform.x =
+          Random::randomInt(transform.x, transform.x + transform.width);
+      transform.y =
+          Random::randomInt(transform.y, transform.y + transform.width);
     }
   }
 }
 
 // Add
-void ParticleEmitter::addParticle(const Particle& particle,
-                                  const Uint32 count) {
-  for (Uint32 i = 0; i < count; i++) {
-    particles.push_back(Particle(particle));
-  }
+void ParticleEmitter::addParticle(std::unique_ptr<Particle> particle) {
+  particles.push_back(std::move(particle));
 }
 
 // Enable

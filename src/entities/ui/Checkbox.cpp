@@ -25,25 +25,31 @@ namespace afk {
 // Ctor
 Checkbox::Checkbox(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z), checked(false), onCheck(nullptr) {
-  this->height = DEFAULT_HEIGHT;
-  this->width = DEFAULT_WIDTH;
+  transform.height = DEFAULT_HEIGHT;
+  transform.width = DEFAULT_WIDTH;
 }
 
 // Draw checkbox
 void Checkbox::draw() {
   // Draw checkbox background
-  primitives::rectfill(x, y, width, height, color::white);
+  primitives::rectfill(transform.x, transform.y, transform.width,
+                       transform.height, color::white);
 
   // Draw checkbox border
-  primitives::rect(x, y, width, height, color::black);
+  primitives::rect(transform.x, transform.y, transform.width, transform.height,
+                   color::black);
 
   if (checked) {
-    primitives::rectfill(x + width / 4, y + height / 4, width - width / 2,
-                         height - height / 2, color::black);
+    primitives::rectfill(transform.x + transform.width / 4,
+                         transform.y + transform.height / 4,
+                         transform.width - transform.width / 2,
+                         transform.height - transform.height / 2, color::black);
   }
 
   // Draw text label
-  font.draw(x + width + 10, y + height - font.getHeight(), text, color::black);
+  font.draw(transform.x + transform.width + 10,
+            transform.y + transform.height - font.getHeight(), text,
+            color::black);
 }
 
 // Check checkbox stat

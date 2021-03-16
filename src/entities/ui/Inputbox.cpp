@@ -31,34 +31,38 @@ const int DEFAULT_PADDING = 5;
 // Ctor
 Inputbox::Inputbox(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z), iter(text.end()), onChange(nullptr) {
-  this->height = DEFAULT_HEIGHT;
-  this->width = DEFAULT_WIDTH;
+  transform.height = DEFAULT_HEIGHT;
+  transform.width = DEFAULT_WIDTH;
 }
 
 // Draw checkbox
 void Inputbox::draw() {
   // Draw checkbox background
-  primitives::rectfill(x, y, width, height, color::white);
+  primitives::rectfill(transform.x, transform.y, transform.width,
+                       transform.height, color::white);
 
   // Draw checkbox border
-  primitives::rect(x, y, width, height, color::black);
+  primitives::rect(transform.x, transform.y, transform.width, transform.height,
+                   color::black);
 
   // Focus border
   if (id == UIElement::focused) {
-    primitives::rect(x + 1, y + 1, width - 2, height - 2, color::black);
+    primitives::rect(transform.x + 1, transform.y + 1, transform.width - 2,
+                     transform.height - 2, color::black);
   }
 
   // Draw text label
-  font.draw(x + DEFAULT_PADDING, y + height - font.getHeight(), text,
+  font.draw(transform.x + DEFAULT_PADDING,
+            transform.y + transform.height - font.getHeight(), text,
             color::black);
 
   // Draw the caret
   std::string edit_pos = text.substr(0, std::distance(text.begin(), iter));
   int line_x = font.getWidth(edit_pos);
 
-  afk::primitives::line(line_x + x + DEFAULT_PADDING, y + 2,
-                        line_x + x + DEFAULT_PADDING, y + height - 2,
-                        afk::color::black);
+  afk::primitives::line(line_x + transform.x + DEFAULT_PADDING, transform.y + 2,
+                        line_x + transform.x + DEFAULT_PADDING,
+                        transform.y + transform.height - 2, afk::color::black);
 }
 
 // Update loop

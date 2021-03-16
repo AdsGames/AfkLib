@@ -42,7 +42,8 @@ class DemoScene : public afk::Scene {
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       afk::Sprite& sprite = add<afk::Sprite>(*this, "lenna");
-      sprite.setSize(SPRITE_SIZE, SPRITE_SIZE);
+      sprite.transform.width = SPRITE_SIZE;
+      sprite.transform.height = SPRITE_SIZE;
       sprites[i] = sprite.id;
     }
   }
@@ -58,9 +59,9 @@ class DemoScene : public afk::Scene {
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       afk::Sprite& sprite = get<afk::Sprite>(sprites[i]);
-      sprite.setPosition(fmod(iter + i, SCREEN_W),
-                         sin(iter / 100.0f + i) * SCREEN_H_2 + SCREEN_H_2);
-      sprite.setAngle(sprite.getAngle() + delta / 10.0f);
+      sprite.transform.x = fmod(iter + i, SCREEN_W);
+      sprite.transform.y = sin(iter / 100.0f + i) * SCREEN_H_2 + SCREEN_H_2;
+      sprite.transform.angle += delta / 10.0f;
     }
   }
 

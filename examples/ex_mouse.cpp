@@ -25,10 +25,9 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Sprite& lenna = add<afk::Sprite>(*this, "lenna");
-
-    lenna.setSize(30, 30);
-    lenna.setPosition(100, 100);
+    afk::Sprite& lenna = add<afk::Sprite>(*this, "lenna", 100, 100);
+    lenna.transform.width = 30;
+    lenna.transform.height = 30;
     lennaId = lenna.id;
   }
 
@@ -38,10 +37,12 @@ class DemoScene : public afk::Scene {
     afk::Sprite& lenna = get<afk::Sprite>(lennaId);
 
     if (input.mousePressed(afk::MouseButtons::LEFT)) {
-      lenna.setPosition(input.mouseX(), input.mouseY());
+      lenna.transform.x = input.mouseX();
+      lenna.transform.y = input.mouseY();
     }
     if (input.mouseDown(afk::MouseButtons::RIGHT)) {
-      lenna.setSize(input.mouseX(), input.mouseY());
+      lenna.transform.width = input.mouseX();
+      lenna.transform.height = input.mouseY();
     }
   }
 

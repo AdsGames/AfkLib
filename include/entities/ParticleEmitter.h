@@ -12,6 +12,7 @@
 #ifndef INCLUDE_ENTITIES_PARTICLEEMITTER_H_
 #define INCLUDE_ENTITIES_PARTICLEEMITTER_H_
 
+#include <memory>
 #include <vector>
 
 #include "GameObject.h"
@@ -66,7 +67,7 @@ class ParticleEmitter : public GameObject {
    * @param particle Particle to add
    * @param count Number of particles to push back, defaults to 1
    */
-  void addParticle(const Particle& particle, const Uint32 count = 1);
+  void addParticle(std::unique_ptr<Particle> particle);
 
   /**
    * @brief Disable more particles from being emitted
@@ -82,7 +83,7 @@ class ParticleEmitter : public GameObject {
 
  protected:
   /// Particles
-  std::vector<Particle> particles;
+  std::vector<std::unique_ptr<Particle>> particles;
 
   /// Emitting state
   bool emitting;

@@ -23,7 +23,7 @@ Label::Label(Scene& scene, const float x, const float y, const int z)
 // Draw label
 void Label::draw() {
   // Text
-  font.draw(x, y, text, color::black, text_align);
+  font.draw(transform.x, transform.y, text, color::black, text_align);
 }
 
 }  // namespace afk

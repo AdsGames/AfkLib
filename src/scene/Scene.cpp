@@ -30,14 +30,14 @@ Scene::Scene()
 
 // Internal cleanup (on switch scene)
 void Scene::stopInternal() {
-  update_pool.clear();
-  lookup_map.clear();
+  entities.clear();
+  entity_map.clear();
 }
 
 // Draw internal method
 void Scene::draw() {
   // Draw
-  for (auto& obj : update_pool) {
+  for (auto& obj : entities) {
     if (obj->getVisible() && obj->getHooked()) {
       obj->draw();
     }
@@ -47,27 +47,27 @@ void Scene::draw() {
 // Internal update method
 void Scene::update(Uint32 delta) {
   // Update all (we need to indices here since updates can add objects)
-  for (Uint32 i = 0; i < update_pool.size(); ++i) {
-    if (update_pool.at(i)->getEnabled() && update_pool.at(i)->getHooked()) {
-      update_pool.at(i)->update(delta);
+  for (Uint32 i = 0; i < entities.size(); ++i) {
+    if (entities.at(i)->getEnabled() && entities.at(i)->getHooked()) {
+      entities.at(i)->update(delta);
     }
   }
 
   // Internal updates
-  for (auto& obj : update_pool) {
+  for (auto& obj : entities) {
     obj->updateInternal();
   }
 
   // Remove any game objects that need to be cleaned up
   for (auto& id : remove_pool) {
     // Get vector index
-    auto index = lookup_map.at(id);
+    auto index = entity_map.at(id);
 
     // Erase game object
-    update_pool.erase(update_pool.begin() + index);
+    entities.erase(entities.begin() + index);
 
     // Remove from lookup map
-    lookup_map.erase(id);
+    entity_map.erase(id);
 
     // We will need a sort after this
     need_sort = true;
@@ -79,12 +79,15 @@ void Scene::update(Uint32 delta) {
   // Sort flag toggled
   if (need_sort) {
     // Z sort, use defined < operator
-    std::sort(update_pool.begin(), update_pool.end(),
-              [](auto& obj1, auto& obj2) -> bool { return *obj1 < *obj2; });
+    std::sort(entities.begin(), entities.end(),
+              [](std::unique_ptr<afk::GameObject>& obj1,
+                 std::unique_ptr<afk::GameObject>& obj2) -> bool {
+                return obj1->transform.z < obj2->transform.z;
+              });
 
     // Repopulate lookup map
-    for (unsigned int i = 0; i < update_pool.size(); i++) {
-      lookup_map[update_pool.at(i)->id] = i;
+    for (unsigned int i = 0; i < entities.size(); i++) {
+      entity_map[entities.at(i)->id] = i;
     }
 
     // Done sorting
@@ -99,7 +102,7 @@ void Scene::remove(const ObjId id) {
 
 // Check if obj id exists in scene
 bool Scene::has(const ObjId id) {
-  return lookup_map.count(id) == 1;
+  return entity_map.count(id) == 1;
 }
 
 }  // namespace afk
