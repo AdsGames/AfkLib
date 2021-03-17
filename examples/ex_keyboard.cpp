@@ -9,22 +9,22 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/Sprite.h"
+#include "../include/components/Sprite.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
-class Character : public afk::Sprite {
+class Character : public afk::GameObject {
  public:
   Character(afk::Scene& scene, const float x, const float y)
-      : Sprite(scene, x, y) {
-    setTexture("lenna");
+      : GameObject(scene, x, y) {
+    auto& sprite = scene.addComponent<afk::Sprite>(id);
+    sprite.texture = scene.assets.getImage("lenna");
+
     transform.width = 30;
     transform.height = 30;
   }
 
   void update(Uint32 delta) {
-    Sprite::update(delta);
-
     float speed = delta / 10.0f;
     if (scene.input.keyDown(afk::Keys::UP)) {
       transform.y -= speed;
@@ -53,10 +53,30 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    add<Character>(*this, 100, 100);
+    ObjId id = add<Character>(*this, 100, 100).id;
+    character_ids.push_back(id);
+  }
+
+  void update(Uint32 delta) override {
+    if (input.keyPressed(afk::Keys::A)) {
+      ObjId id = add<Character>(*this, 100, 100).id;
+      character_ids.push_back(id);
+    }
+    if (input.keyPressed(afk::Keys::R)) {
+      if (character_ids.size() > 0) {
+        ObjId id = character_ids.back();
+        remove(id);
+        character_ids.pop_back();
+      }
+    }
+
+    Scene::update(delta);
   }
 
   void stop() { logger.log("Stopping!"); }
+
+ private:
+  std::vector<ObjId> character_ids;
 };
 
 class MainGame : public afk::Game {

@@ -13,6 +13,8 @@
 #include <algorithm>
 
 #include "common/Exceptions.h"
+#include "components/Sprite.h"
+#include "components/Transform.h"
 #include "entities/GameObject.h"
 
 namespace afk {
@@ -40,6 +42,16 @@ void Scene::draw() {
   for (auto& obj : entities) {
     if (obj->getVisible() && obj->getHooked()) {
       obj->draw();
+
+      // Render system
+      if (hasComponent<Sprite>(obj->id)) {
+        Sprite& sprite = getComponent<Sprite>(obj->id);
+        Transform& transform = getComponent<Transform>(obj->id);
+
+        // Draw image
+        sprite.texture.drawEx(transform.x, transform.y, transform.width,
+                              transform.height, transform.angle);
+      }
     }
   }
 }
@@ -59,39 +71,46 @@ void Scene::update(Uint32 delta) {
   }
 
   // Remove any game objects that need to be cleaned up
-  for (auto& id : remove_pool) {
-    // Get vector index
-    auto index = entity_map.at(id);
-
-    // Erase game object
-    entities.erase(entities.begin() + index);
-
-    // Remove from lookup map
-    entity_map.erase(id);
-
-    // We will need a sort after this
-    need_sort = true;
-  }
-
-  // Clear remove pool
-  remove_pool.clear();
-
-  // Sort flag toggled
-  if (need_sort) {
-    // Z sort, use defined < operator
-    std::sort(entities.begin(), entities.end(),
-              [](std::unique_ptr<afk::GameObject>& obj1,
-                 std::unique_ptr<afk::GameObject>& obj2) -> bool {
-                return obj1->transform.z < obj2->transform.z;
-              });
-
-    // Repopulate lookup map
-    for (unsigned int i = 0; i < entities.size(); i++) {
-      entity_map[entities.at(i)->id] = i;
+  if (remove_pool.size() > 0) {
+    for (auto& elem : remove_pool) {
+      logger.log("Removing ID: " + std::to_string(elem));
     }
 
-    // Done sorting
-    need_sort = false;
+    for (const auto& obj_id : remove_pool) {
+      // Get vector index
+      unsigned int entity_index = entity_map[obj_id];
+
+      // Remove from lookup map
+      entity_map.erase(obj_id);
+
+      // Erase game object while keeping most indicies correct
+      entities[entity_index] = std::move(entities.back());
+      entities.pop_back();
+
+      // Update moved index
+      if (entities.size() > 0) {
+        auto& moved_obj = *entities[entity_index];
+        entity_map[moved_obj.id] = entity_index;
+      }
+
+      // Erase components
+      for (auto& comp_entry : component_map) {
+        removeComponentById(obj_id, comp_entry.first);
+      }
+    }
+
+    // Clear remove pool
+    remove_pool.clear();
+  }
+
+  // Sort sprites
+  if (need_sort) {
+    const std::size_t id = typeid(Sprite).hash_code();
+
+    // std::sort(components[id].begin(), components[id].end(), [](auto& c1,
+    // auto& c2) {
+    //   return obj1->transform.z < obj2->transform.z;
+    // });
   }
 }
 
@@ -103,6 +122,27 @@ void Scene::remove(const ObjId id) {
 // Check if obj id exists in scene
 bool Scene::has(const ObjId id) {
   return entity_map.count(id) == 1;
+}
+
+// Remove component by type id
+void Scene::removeComponentById(const ObjId obj_id, const std::size_t id) {
+  // Check has
+  if (component_map[id].count(obj_id) > 0) {
+    // Copy index
+    int comp_index = component_map[id][obj_id];
+
+    // Erase from map
+    component_map[id].erase(obj_id);
+
+    // Erase component
+    components[id][comp_index] = std::move(components[id].back());
+    components[id].pop_back();
+
+    // Update moved index
+    if (components[id].size() > 0) {
+      component_map[id][obj_id] = comp_index;
+    }
+  }
 }
 
 }  // namespace afk

@@ -14,9 +14,6 @@
 #define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 #include <SDL2/SDL.h>
-#include <map>
-#include <memory>
-#include <string>
 #include <vector>
 
 #include "../components/Component.h"
@@ -170,33 +167,8 @@ class GameObject {
    */
   bool getHooked() const;
 
-  template <typename T>
-  T& addComponent() {
-    std::size_t id = typeid(T).hash_code();
-    components[id] = std::make_unique<T>();
-    return dynamic_cast<T&>(*components[id]);
-  }
-
-  template <typename T>
-  T& getComponent() {
-    std::size_t id = typeid(T).hash_code();
-    return dynamic_cast<T&>(*components[id]);
-  }
-
-  template <typename T>
-  void removeComponent() {
-    std::size_t id = typeid(T).hash_code();
-    components.erase(id);
-  }
-
-  template <typename T>
-  bool hasComponent() const {
-    std::size_t id = typeid(T).hash_code();
-    return components.count(id) > 0;
-  }
-
   /// Components
-  Transform transform;
+  Transform& transform;
 
   /// Autoassigned unique id
   const ObjId id;
@@ -218,14 +190,11 @@ class GameObject {
   /// Parent Id
   ObjId parent_id;
 
-  /// Static id counter
-  static ObjId index;
-
   /// Colliders
   std::vector<ObjId> colliders;
 
-  /// Components
-  std::map<std::size_t, std::unique_ptr<Component>> components{};
+  /// Static id counter
+  static ObjId index;
 };
 
 }  // namespace afk

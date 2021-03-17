@@ -23,8 +23,6 @@ class Transform : public Component {
    */
   Transform();
 
-  virtual ~Transform() = default;
-
   /// X position on x y plane
   float x;
 

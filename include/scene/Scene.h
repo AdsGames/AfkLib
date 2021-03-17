@@ -11,9 +11,9 @@
 #ifndef INCLUDE_SCENE_SCENE_H_
 #define INCLUDE_SCENE_SCENE_H_
 
-#include <map>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -26,6 +26,10 @@
  *
  */
 namespace afk {
+
+using ComponentArray = std::vector<std::unique_ptr<Component>>;
+using ComponentMap = std::unordered_map<ObjId, unsigned int>;
+
 class Scene {
  public:
   /**
@@ -73,17 +77,17 @@ class Scene {
   void stopInternal();
 
   /**
-   * @brief Add game object to update and draw pool, returns by reference
+   * @brief Add GameObject to update and draw pool, returns by reference
    *
-   * @tparam T Type of game object
+   * @tparam T Type of GameObject
    * @tparam Args Arguments to forward to T
    * @param args Argument values which will be forwarded to T when constructing
-   * a new game object
-   * @return Reference to created game object
+   * a new GameObject
+   * @return Reference to created GameObject
    */
   template <typename T, typename... Args>
   T& add(Args&&... args) {
-    // Create the game object
+    // Create the GameObject
     GameObject* obj = new T(std::forward<Args>(args)...);
 
     // Add to lookup
@@ -100,28 +104,12 @@ class Scene {
   }
 
   /**
-   * @brief Removes a game object from the scene pool
+   * @brief Gets a GameObject by id and casts to type T
    *
-   * @param id Id of object to remove
-   */
-  void remove(const ObjId id);
-
-  /**
-   * @brief Check if obj id exists in scene
-   *
-   * @param id Object id to check
-   * @return true If the object exists
-   * @return false If the object does not exist
-   */
-  bool has(const ObjId id);
-
-  /**
-   * @brief Gets a game object by id and casts to type T
-   *
-   * @tparam T Type of game object
-   * @param id Id of game object to look up
-   * @return Reference to game object if found
-   * @throws KeyLookupException if game object could not be found
+   * @tparam T Type of GameObject
+   * @param id ObjId of GameObject to look up
+   * @return Reference to GameObject if found
+   * @throws KeyLookupException if GameObject could not be found
    */
   template <class T>
   T& get(const ObjId id) {
@@ -135,11 +123,11 @@ class Scene {
   }
 
   /**
-   * @brief Gets a game object by id without the cast
+   * @brief Gets a GameObject by id without the cast
    *
-   * @param id Id of game object to look up
-   * @return Reference to game object if found
-   * @throws KeyLookupException if game object could not be found
+   * @param id ObjId of GameObject to look up
+   * @return Reference to GameObject if found
+   * @throws KeyLookupException if GameObject could not be found
    */
   GameObject& get(const ObjId id) {
     if (!has(id)) {
@@ -151,21 +139,129 @@ class Scene {
     return *entities.at(index);
   }
 
-  /// Service references
+  /**
+   * @brief Removes a GameObject from the scene pool
+   *
+   * @param id ObjId of GameObject to remove
+   */
+  void remove(const ObjId id);
+
+  /**
+   * @brief Check if GameObject id exists in scene
+   *
+   * @param id ObjId to check
+   * @return true If the GameObject exists
+   * @return false If the GameObject does not exist
+   */
+  bool has(const ObjId id);
+
+  /**
+   * @brief Add a component to the scene, linked to a GameObject by obj_id
+   *
+   * @tparam T Subclass of component
+   * @param obj_id ObjId of GameObject to attach to
+   * @return T& Reference to the component
+   */
+  template <typename T>
+  T& addComponent(const ObjId obj_id) {
+    // Get type code
+    std::size_t id = typeid(T).hash_code();
+
+    // Add to component map
+    component_map[id][obj_id] = components[id].size();
+
+    // Add component to vector
+    components[id].emplace_back(new T());
+
+    // Get the component
+    return getComponent<T>(obj_id);
+  }
+
+  /**
+   * @brief Get the Component object
+   *
+   * @tparam T Subclass of component
+   * @param obj_id ObjId of GameObject to search for component
+   * @return T& Reference to the component
+   */
+  template <typename T>
+  T& getComponent(const ObjId obj_id) {
+    // Get type code
+    const std::size_t id = typeid(T).hash_code();
+
+    // Find index in component map
+    unsigned int index = component_map[id][obj_id];
+
+    // Cast and return
+    return dynamic_cast<T&>(*components[id].at(index));
+  }
+
+  /**
+   * @brief Remove a component from an object
+   *
+   * @tparam T Type of component
+   * @param obj_id ObjId of GameObject to remove component from
+   */
+  template <typename T>
+  void removeComponent(const ObjId obj_id) {
+    // Get type code
+    const std::size_t id = typeid(T).hash_code();
+
+    // Remove by id
+    removeComponentById(obj_id, id);
+  }
+
+  /**
+   * @brief Check if a GameObject has a component attached
+   *
+   * @tparam T Type of component
+   * @param obj_id ObjId of GameObject to check
+   */
+  template <typename T>
+  bool hasComponent(const ObjId obj_id) const {
+    // Get type code
+    std::size_t id = typeid(T).hash_code();
+
+    // Check count of id for type
+    return component_map.at(id).count(obj_id) != 0;
+  }
+
+  /// Audio service reference
   AudioService& audio;
+
+  /// Logger service reference
   LoggingService& logger;
+
+  /// Display service reference
   DisplayService& display;
+
+  /// Asset service reference
   AssetService& assets;
+
+  /// Input service reference
   InputService& input;
+
+  /// Scene service reference
   SceneService& scene;
+
+  /// Config service reference
   ConfigService& config;
 
  private:
-  /// Holds game objects
+  /// Remove component by type id
+  void removeComponentById(const ObjId obj_id, const std::size_t id);
+
+  /// Holds GameObjects
   std::vector<std::unique_ptr<GameObject>> entities;
 
-  /// Quick gameobject lookup
-  std::map<ObjId, unsigned int> entity_map;
+  /// Quick GameObjects lookup
+  std::unordered_map<ObjId, unsigned int> entity_map;
+
+  /// Hold GameObject Components
+  std::unordered_map<std::size_t, ComponentArray> components;
+
+  /// Quick lookup of GameObject Components
+  std::unordered_map<std::size_t, ComponentMap> component_map;
 
   /// Store objects to be removed
   std::vector<ObjId> remove_pool;

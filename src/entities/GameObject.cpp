@@ -21,7 +21,8 @@ ObjId GameObject::index = 1;
 
 // Constructor
 GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
-    : id(GameObject::index),
+    : transform(scene.addComponent<Transform>(GameObject::index)),
+      id(GameObject::index),
       scene(scene),
       visible(true),
       enabled(true),
@@ -35,7 +36,7 @@ GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
   transform.z = z;
 }
 
-// Destructor
+// Destructor, remove components
 GameObject::~GameObject() {}
 
 // Update
@@ -57,7 +58,6 @@ void GameObject::updateInternal() {
       // Set position
       transform.x += parent.transform.x - parent.transform.last_x;
       transform.y += parent.transform.y - parent.transform.last_y;
-
     } catch (const KeyLookupException&) {
       scene.remove(id);
     }

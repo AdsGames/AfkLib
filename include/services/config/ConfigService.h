@@ -11,9 +11,10 @@
 #ifndef INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
 #define INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
 
-#include <map>
 #include <sstream>
 #include <string>
+#include <unordered_map>
+#include <utility>
 
 namespace afk {
 
@@ -117,7 +118,7 @@ class ConfigService {
   bool autosave;
 
   /// Container which stores all settings
-  std::map<std::string, std::string> settings;
+  std::unordered_map<std::string, std::string> settings;
 };
 
 }  // namespace afk

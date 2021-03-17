@@ -11,8 +11,8 @@
 #ifndef INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
 #define INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
 
-#include <map>
 #include <string>
+#include <unordered_map>
 
 #include "../../assets/Font.h"
 #include "../../assets/Sound.h"
@@ -130,16 +130,16 @@ class AssetService {
 
  private:
   /// Container that stores all Sound assets
-  std::map<std::string, Sound> loaded_audio;
+  std::unordered_map<std::string, Sound> loaded_audio;
 
   /// Container that stores all Image assets
-  std::map<std::string, Texture> loaded_image;
+  std::unordered_map<std::string, Texture> loaded_image;
 
   /// Container that stores all Font assets
-  std::map<std::string, Font> loaded_font;
+  std::unordered_map<std::string, Font> loaded_font;
 
   /// Container that stores all Stream assets
-  std::map<std::string, Stream> loaded_stream;
+  std::unordered_map<std::string, Stream> loaded_stream;
 };
 
 }  // namespace afk
