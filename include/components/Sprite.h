@@ -22,7 +22,7 @@ class Sprite : public Component {
    * @brief Construct a new Sprite object
    *
    */
-  Sprite();
+  explicit Sprite(ObjId obj_id);
 
   /// Texture of Sprite
   Texture texture;

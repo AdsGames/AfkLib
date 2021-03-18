@@ -171,7 +171,7 @@ class Scene {
     component_map[id][obj_id] = components[id].size();
 
     // Add component to vector
-    components[id].emplace_back(new T());
+    components[id].emplace_back(new T(obj_id));
 
     // Get the component
     return getComponent<T>(obj_id);

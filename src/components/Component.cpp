@@ -13,6 +13,6 @@
 namespace afk {
 
 // Constructor
-Component::Component() {}
+Component::Component(ObjId obj_id) : obj_id(obj_id) {}
 
 }  // namespace afk

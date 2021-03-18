@@ -11,12 +11,16 @@
 #ifndef INCLUDE_COMPONENTS_COMPONENT_H_
 #define INCLUDE_COMPONENTS_COMPONENT_H_
 
+#include "entities/ObjId.h"
+
 namespace afk {
 
 class Component {
  public:
-  Component();
+  explicit Component(ObjId obj_id);
   virtual ~Component() = default;
+
+  const ObjId obj_id;
 };
 
 }  // namespace afk

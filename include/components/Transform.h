@@ -21,7 +21,7 @@ class Transform : public Component {
    * @brief Construct a new Transform object
    *
    */
-  Transform();
+  explicit Transform(ObjId obj_id);
 
   /// X position on x y plane
   float x;

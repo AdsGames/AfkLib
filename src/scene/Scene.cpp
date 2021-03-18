@@ -13,6 +13,7 @@
 #include <algorithm>
 
 #include "common/Exceptions.h"
+#include "components/Collider.h"
 #include "components/Sprite.h"
 #include "components/Transform.h"
 #include "entities/GameObject.h"
@@ -70,12 +71,34 @@ void Scene::update(Uint32 delta) {
     obj->updateInternal();
   }
 
+  // Collision system
+  std::size_t c_type = typeid(Collider).hash_code();
+  ComponentArray& colliders = components[c_type];
+  for (auto& comp : colliders) {
+    Collider& collider = dynamic_cast<Collider&>(*comp);
+    collider.collisions.clear();
+  }
+
+  for (auto& collider_1 : colliders) {
+    for (auto& collider_2 : colliders) {
+      Collider& col_1 = dynamic_cast<Collider&>(*collider_1);
+      Collider& col_2 = dynamic_cast<Collider&>(*collider_2);
+      Transform& tra_1 = getComponent<Transform>(collider_1->obj_id);
+      Transform& tra_2 = getComponent<Transform>(collider_2->obj_id);
+
+      bool colliding =
+          tra_1.x < tra_2.x + tra_2.width && tra_1.x + tra_1.width > tra_2.x &&
+          tra_1.y < tra_2.y + tra_2.height && tra_1.y + tra_1.height > tra_2.y;
+
+      if (colliding) {
+        col_1.collisions.push_back(col_2.obj_id);
+        col_2.collisions.push_back(col_1.obj_id);
+      }
+    }
+  }
+
   // Remove any game objects that need to be cleaned up
   if (remove_pool.size() > 0) {
-    for (auto& elem : remove_pool) {
-      logger.log("Removing ID: " + std::to_string(elem));
-    }
-
     for (const auto& obj_id : remove_pool) {
       // Get vector index
       unsigned int entity_index = entity_map[obj_id];
@@ -105,7 +128,7 @@ void Scene::update(Uint32 delta) {
 
   // Sort sprites
   if (need_sort) {
-    const std::size_t id = typeid(Sprite).hash_code();
+    // const std::size_t id = typeid(Sprite).hash_code();
 
     // std::sort(components[id].begin(), components[id].end(), [](auto& c1,
     // auto& c2) {

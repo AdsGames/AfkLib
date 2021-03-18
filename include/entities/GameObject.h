@@ -14,13 +14,9 @@
 #define INCLUDE_ENTITIES_GAMEOBJECT_H_
 
 #include <SDL2/SDL.h>
-#include <vector>
 
-#include "../components/Component.h"
 #include "../components/Transform.h"
-
-/// Unique id type alias
-using ObjId = Uint32;
+#include "ObjId.h"
 
 namespace afk {
 
@@ -82,43 +78,6 @@ class GameObject {
    * @param parent_id
    */
   void setParent(const ObjId parent_id);
-
-  /**
-   * @brief Add a collider with a game object
-   *
-   */
-  void addCollider(const ObjId obj_id);
-
-  /**
-   * @brief Remove a collider with a game object
-   *
-   */
-  void removeCollider(const ObjId obj_id);
-
-  /**
-   * @brief Checks collision between this game object and another.
-   *
-   * @param other Some other game object
-   * @return True on collision, else false
-   */
-  bool isColliding(GameObject& other);
-
-  /**
-   * @brief Checks collision between this game object and another.
-   * Calls on collide on both objects if there is a collision
-   *
-   * @param other Some other game object
-   * @return True on collision, else false
-   */
-  bool collide(GameObject& other);
-
-  /**
-   * @brief Callback which is triggered on collision with another game object if
-   * registered with the Scene.
-   *
-   * @param other The game object which is being collided with.
-   */
-  virtual void onCollide(GameObject& other);
 
   /**
    * @brief Set the visibility of the GameObject. Will not draw when not
@@ -189,9 +148,6 @@ class GameObject {
  private:
   /// Parent Id
   ObjId parent_id;
-
-  /// Colliders
-  std::vector<ObjId> colliders;
 
   /// Static id counter
   static ObjId index;

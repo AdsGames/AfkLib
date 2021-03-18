@@ -12,8 +12,8 @@
 
 namespace afk {
 
-Transform::Transform()
-    : Component(),
+Transform::Transform(ObjId obj_id)
+    : Component(obj_id),
       x(0),
       y(0),
       z(0),
