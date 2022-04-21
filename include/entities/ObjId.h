@@ -12,6 +12,6 @@
 #define INCLUDE_ENTITIES_OBJID_H_
 
 /// Unique id type alias
-using ObjId = unsigned int;
+using ObjId = unsigned long long;
 
 #endif  // INCLUDE_ENTITIES_OBJID_H_

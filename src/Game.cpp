@@ -100,6 +100,8 @@ void Game::start() {
     showErrorDialog("File Error", e.what());
   } catch (const std::runtime_error& e) {
     showErrorDialog("Runtime Error", e.what());
+  } catch (const std::exception& e) {
+    showErrorDialog("Exception", e.what());
   } catch (...) {
     showErrorDialog("Unknown Error", "An unknown error has occured :(");
   }

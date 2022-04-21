@@ -33,8 +33,8 @@ class DemoScene : public afk::Scene {
     auto& lenna_1_sprite = getComponent<afk::Sprite>(lenna_1.id);
     lenna_1_sprite.texture = assets.getImage("lenna");
     addComponent<afk::Collider>(lenna_1.id);
-    lenna_1.transform.width = 40;
-    lenna_1.transform.height = 40;
+    lenna_1.transform.size.x = 40;
+    lenna_1.transform.size.y = 40;
     lenna_1_id = lenna_1.id;
 
     auto& lenna_2 = add<afk::GameObject>(*this, 10, 80);
@@ -42,8 +42,8 @@ class DemoScene : public afk::Scene {
     auto& lenna_2_sprite = getComponent<afk::Sprite>(lenna_2.id);
     lenna_2_sprite.texture = assets.getImage("lenna");
     addComponent<afk::Collider>(lenna_2.id);
-    lenna_2.transform.width = 40;
-    lenna_2.transform.height = 40;
+    lenna_2.transform.size.x = 40;
+    lenna_2.transform.size.y = 40;
     lenna_2_id = lenna_2.id;
 
     auto& label = add<afk::Label>(*this, 0, 0);
@@ -52,18 +52,18 @@ class DemoScene : public afk::Scene {
   }
 
   void update(Uint32 delta) {
-    auto& label = get<afk::Label>(label_id);
+    auto& label = getComponent<afk::Label>(label_id);
     auto& lenna_1 = get(lenna_1_id);
     auto& lenna_2 = get(lenna_2_id);
 
     if (input.mouseDown(afk::MouseButtons::LEFT)) {
-      lenna_1.transform.x = input.mouseX();
-      lenna_1.transform.y = input.mouseY();
+      lenna_1.transform.position.x = input.mouseX();
+      lenna_1.transform.position.y = input.mouseY();
     }
 
     if (input.mouseDown(afk::MouseButtons::RIGHT)) {
-      lenna_2.transform.x = input.mouseX();
-      lenna_2.transform.y = input.mouseY();
+      lenna_2.transform.position.x = input.mouseX();
+      lenna_2.transform.position.y = input.mouseY();
     }
 
     auto& collider = getComponent<afk::Collider>(lenna_1_id);

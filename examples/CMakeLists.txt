@@ -16,11 +16,13 @@ if(NOT EMSCRIPTEN)
   find_library(SDL_TTF_LIBRARY NAMES SDL2_ttf REQUIRED)
   find_library(SDL_GFX_LIBRARY NAMES SDL2_gfx REQUIRED)
   find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
+  find_package(EnTT REQUIRED)
 endif(NOT EMSCRIPTEN)
 
 
 # Build examples
-set(EXAMPLES ex_display ex_collision ex_sprite ex_ui ex_message_box ex_fps ex_keyboard ex_mouse ex_sound ex_particles ex_rotate)
+# ex_collision ex_ui ex_message_box 
+set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard)
 
 foreach(EX_NAME ${EXAMPLES})
   add_executable(${EX_NAME} ${CMAKE_CURRENT_LIST_DIR}/${EX_NAME}.cpp)
@@ -72,7 +74,8 @@ foreach(EX_NAME ${EXAMPLES})
       ${SDL_MIXER_LIBRARY} 
       ${SDL_IMAGE_LIBRARY} 
       ${SDL_TTF_LIBRARY} 
-      ${SDL_GFX_LIBRARY} 
+      ${SDL_GFX_LIBRARY}
+      EnTT::EnTT
       afk
     )
   endif(EMSCRIPTEN)

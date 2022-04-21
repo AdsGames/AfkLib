@@ -9,7 +9,9 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/Sprite.h"
+#include "../include/common/Vec.h"
+#include "../include/components/Sprite.h"
+#include "../include/components/Transform.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -25,7 +27,10 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    add<afk::Sprite>(*this, "lenna");
+    auto sprite = createEntity();
+    createComponent<afk::SpriteComponent>(sprite, "lenna");
+    createComponent<afk::Transform>(sprite, afk::Vec3(0, 0, 0),
+                                    afk::Vec2(50, 50));
   }
 
   void stop() { logger.log("Stopping!"); }

@@ -31,38 +31,39 @@ const int DEFAULT_PADDING = 5;
 // Ctor
 Inputbox::Inputbox(Scene& scene, const float x, const float y, const int z)
     : UIElement(scene, x, y, z), iter(text.end()), onChange(nullptr) {
-  transform.height = DEFAULT_HEIGHT;
-  transform.width = DEFAULT_WIDTH;
+  transform.size.y = DEFAULT_HEIGHT;
+  transform.size.x = DEFAULT_WIDTH;
 }
 
 // Draw checkbox
 void Inputbox::draw() {
   // Draw checkbox background
-  primitives::rectfill(transform.x, transform.y, transform.width,
-                       transform.height, color::white);
+  primitives::rectfill(transform.position.x, transform.position.y,
+                       transform.size.x, transform.size.y, color::white);
 
   // Draw checkbox border
-  primitives::rect(transform.x, transform.y, transform.width, transform.height,
-                   color::black);
+  primitives::rect(transform.position.x, transform.position.y, transform.size.x,
+                   transform.size.y, color::black);
 
   // Focus border
   if (id == UIElement::focused) {
-    primitives::rect(transform.x + 1, transform.y + 1, transform.width - 2,
-                     transform.height - 2, color::black);
+    primitives::rect(transform.position.x + 1, transform.position.y + 1,
+                     transform.size.x - 2, transform.size.y - 2, color::black);
   }
 
   // Draw text label
-  font.draw(transform.x + DEFAULT_PADDING,
-            transform.y + transform.height - font.getHeight(), text,
+  font.draw(transform.position.x + DEFAULT_PADDING,
+            transform.position.y + transform.size.y - font.getHeight(), text,
             color::black);
 
   // Draw the caret
   std::string edit_pos = text.substr(0, std::distance(text.begin(), iter));
   int line_x = font.getWidth(edit_pos);
 
-  afk::primitives::line(line_x + transform.x + DEFAULT_PADDING, transform.y + 2,
-                        line_x + transform.x + DEFAULT_PADDING,
-                        transform.y + transform.height - 2, afk::color::black);
+  afk::primitives::line(
+      line_x + transform.position.x + DEFAULT_PADDING, transform.position.y + 2,
+      line_x + transform.position.x + DEFAULT_PADDING,
+      transform.position.y + transform.size.y - 2, afk::color::black);
 }
 
 // Update loop

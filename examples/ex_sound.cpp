@@ -9,7 +9,6 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/Sprite.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 

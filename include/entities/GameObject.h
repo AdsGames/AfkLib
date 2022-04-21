@@ -16,12 +16,10 @@
 #include <SDL2/SDL.h>
 
 #include "../components/Transform.h"
+#include "../scene/Scene.h"
 #include "ObjId.h"
 
 namespace afk {
-
-// Forward declare scene class
-class Scene;
 
 /**
  * @brief A collidable object! Parent class for many others
@@ -127,7 +125,7 @@ class GameObject {
   bool getHooked() const;
 
   /// Components
-  Transform& transform;
+  Transform transform;
 
   /// Autoassigned unique id
   const ObjId id;

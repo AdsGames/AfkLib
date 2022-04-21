@@ -22,7 +22,7 @@ namespace afk {
 Texture::Texture() : texture(nullptr) {}
 
 // Constructor with path
-Texture::Texture(const std::string& path) {
+Texture::Texture(const std::string& path) : texture(nullptr) {
   load(path);
 }
 
@@ -105,12 +105,12 @@ void Texture::drawEx(const int x,
 
   SDL_Rect target = {x, y, width, height};
   SDL_Point center = {width / 2, height / 2};
-  SDL_RendererFlip flip = static_cast<SDL_RendererFlip>(mode);
+  auto flip = static_cast<SDL_RendererFlip>(mode);
 
   SDL_RenderCopyEx(renderer, texture, nullptr, &target, angle, &center, flip);
 }
 
-// Load SDL texture from file
+// Load an SDL texture from file
 SDL_Texture* Texture::loadTexture(const std::string& path) {
   // Attempt to load
   SDL_Surface* temp_surface = IMG_Load(path.c_str());

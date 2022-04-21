@@ -10,7 +10,10 @@
  */
 #include "../include/Game.h"
 #include "../include/color/Color.h"
-#include "../include/entities/ParticleEmitter.h"
+#include "../include/common/Vec.h"
+#include "../include/components/Particle.h"
+#include "../include/components/ParticleEmitter.h"
+#include "../include/components/Transform.h"
 #include "../include/random/RandomGenerator.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
@@ -30,68 +33,67 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("fuzzball", "assets/fuzzball.png");
 
-    afk::ParticleEmitter& emitter = add<afk::ParticleEmitter>(*this, 256, 256);
-    emitter.transform.width = 30;
-    emitter.transform.height = 30;
+    emitter_1_id = createEntity();
+    auto& emitter_1 = createComponent<afk::ParticleEmitter>(emitter_1_id, 10);
+    createComponent<afk::Transform>(emitter_1_id, afk::Vec3(256, 256, 0),
+                                    afk::Vec2(30, 30));
 
     for (int i = 0; i < 100; i++) {
-      auto particle = std::make_unique<afk::Particle>(
-          *this, 0, 0, 0, afk::ParticleType::SQUARE);
-      particle->setLifespan(afk::Random::randomInt(100, 1000));
-      particle->setSize(10.0f, 3.0f);
-      particle->setColor(afk::color::rgb(128, 22, 22),
-                         afk::color::rgb(100, 100, 100));
-      particle->setVelocity(afk::Random::randomFloat(-5.0f, 5.0f),
-                            afk::Random::randomFloat(-1.0f, -2.0f));
-      particle->setAcceleration(0, 0.2f);
-      // emitter.addParticle(particle);
+      auto& [particle, physics] = emitter_1.addParticle();
+      particle.setType(afk::ParticleType::SQUARE);
+      particle.setLifespan(afk::Random::randomInt(100, 1000));
+      particle.setSize(10.0f, 3.0f);
+      particle.setColor(afk::color::rgb(128, 22, 22),
+                        afk::color::rgb(100, 100, 100));
+      physics.setVelocity(afk::Random::randomFloat(-5.0f, 5.0f),
+                          afk::Random::randomFloat(-1.0f, -2.0f));
+      physics.setAcceleration(0, 2.0f);
     }
 
-    afk::ParticleEmitter& emitter_2 =
-        add<afk::ParticleEmitter>(*this, 128, 256);
-    emitter_2.transform.width = 1;
-    emitter_2.transform.height = 1;
+    emitter_2_id = createEntity();
+    auto& emitter_2 = createComponent<afk::ParticleEmitter>(emitter_2_id, 10);
+    createComponent<afk::Transform>(emitter_2_id, afk::Vec3(128, 256, 0),
+                                    afk::Vec2(1, 1));
 
     for (int i = 0; i < 100; i++) {
-      auto particle = std::make_unique<afk::Particle>(
-          *this, 0, 0, 0, afk::ParticleType::CIRCLE);
-      particle->setLifespan(afk::Random::randomInt(100, 200));
-      particle->setSize(3.0f, 2.0f);
-      particle->setColor(afk::color::blue, afk::color::white);
-      particle->setVelocity(afk::Random::randomFloat(-5, 5), -100);
-      particle->setAcceleration(0, 3.0f);
-      // emitter_2.addParticle(particle);
+      auto& [particle, physics] = emitter_2.addParticle();
+      particle.setType(afk::ParticleType::CIRCLE);
+      particle.setLifespan(afk::Random::randomInt(1000, 2000));
+      particle.setSize(3.0f, 2.0f);
+      particle.setColor(afk::color::blue, afk::color::white);
+      physics.setVelocity(afk::Random::randomFloat(-20.0, 20.0), -200.0f);
+      physics.setAcceleration(0, 200.0f);
     }
 
-    afk::ParticleEmitter& emitter_3 =
-        add<afk::ParticleEmitter>(*this, 384, 256);
-    emitter_3.transform.width = 5;
-    emitter_3.transform.height = 5;
-    smoke_id = emitter_3.id;
+    emitter_3_id = createEntity();
+    auto& emitter_3 = createComponent<afk::ParticleEmitter>(emitter_3_id, 10);
+    createComponent<afk::Transform>(emitter_3_id, afk::Vec3(384, 256, 0),
+                                    afk::Vec2(5, 5));
 
     for (int i = 0; i < 400; i++) {
-      auto particle = std::make_unique<afk::Particle>(*this, 0, 0, 0,
-                                                      afk::ParticleType::IMAGE);
-      particle->setLifespan(afk::Random::randomInt(800, 1500));
-      particle->setTexture("fuzzball");
-      particle->setSize(16.0f, 20.0f);
-      particle->setVelocity(afk::Random::randomFloat(2.0f, 2.5f), -5.0f);
-      // emitter_3.addParticle(particle);
+      auto& [particle, physics] = emitter_3.addParticle();
+      particle.setType(afk::ParticleType::IMAGE);
+      particle.setLifespan(afk::Random::randomInt(800, 1500));
+      particle.setSize(16.0f, 20.0f);
+      particle.setTexture("fuzzball");
+      physics.setVelocity(afk::Random::randomFloat(2.0f, 2.5f), -5.0f);
     }
   }
 
   void update(Uint32 delta) {
     Scene::update(delta);
 
-    auto& smoke_emitter = get<afk::ParticleEmitter>(smoke_id);
-    smoke_emitter.transform.x = input.mouseX();
-    smoke_emitter.transform.y = input.mouseY();
+    auto& smoke_transform = getComponent<afk::Transform>(emitter_3_id);
+    smoke_transform.position.x = input.mouseX();
+    smoke_transform.position.y = input.mouseY();
   }
 
   void stop() { logger.log("Stopping!"); }
 
  private:
-  ObjId smoke_id;
+  entt::entity emitter_1_id;
+  entt::entity emitter_2_id;
+  entt::entity emitter_3_id;
 };
 
 int main(int argv, char** args) {

@@ -20,15 +20,15 @@ Image::Image(Scene& scene, const float x, const float y, const int z)
 
 // Draw image
 void Image::draw() {
-  texture.drawEx(transform.x, transform.y, transform.width, transform.height,
-                 transform.angle);
+  texture.drawEx(transform.position.x, transform.position.y, transform.size.x,
+                 transform.size.y, transform.angle);
 }
 
 void Image::setTexture(const std::string& texture) {
   this->texture = scene.assets.getImage(texture);
 
-  transform.width = this->texture.getWidth();
-  transform.height = this->texture.getHeight();
+  transform.size.x = this->texture.getWidth();
+  transform.size.y = this->texture.getHeight();
 }
 
 }  // namespace afk

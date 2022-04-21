@@ -1,19 +1,38 @@
 /**
- * @file ex_rotate.cpp
+ * @file ex_physics.cpp
  * @author Allan Legemaate (alegemaate@gmail.com)
- * @brief
+ * @brief Demonstrates usage of physics component
  * @version 0.1
- * @date 2021-03-08
+ * @date 2022-04-20
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2022
  *
  */
 #include "../include/Game.h"
 #include "../include/common/Vec.h"
+#include "../include/components/Physics.h"
 #include "../include/components/Sprite.h"
 #include "../include/components/Transform.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
+
+void bounceSystem(entt::registry& registry) {
+  auto view = registry.view<const afk::Transform, afk::Physics>();
+
+  for (auto [entity, transform, physics] : view.each()) {
+    if (transform.position.x > 512 - transform.size.x) {
+      physics.velocity.x *= -1;
+    }
+    if (transform.position.y > 512 - transform.size.y) {
+      physics.velocity.y *= -1;
+    }
+    if (transform.position.x < 0) {
+      physics.velocity.x *= -1;
+    }
+    if (transform.position.y < 0) {
+      physics.velocity.y *= -1;
+    }
+  }
+}
 
 class DemoScene : public afk::Scene {
  public:
@@ -23,21 +42,20 @@ class DemoScene : public afk::Scene {
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
     display.setMode(afk::DisplayMode::WINDOWED);
-    display.setTitle("ex_sprite");
+    display.setTitle("ex_physics");
 
     assets.loadImage("lenna", "assets/lenna.png");
 
     lennaId = createEntity();
     createComponent<afk::SpriteComponent>(lennaId, "lenna");
-    createComponent<afk::Transform>(lennaId, afk::Vec3(156, 156, 0),
-                                    afk::Vec2(200, 200));
+    createComponent<afk::Transform>(lennaId, afk::Vec3(0, 0, 0),
+                                    afk::Vec2(40, 40));
+    createComponent<afk::Physics>(lennaId, afk::Vec2(100.0f, 400.0f));
   }
 
   void update(Uint32 delta) {
     Scene::update(delta);
-
-    auto& transform = getComponent<afk::Transform>(lennaId);
-    transform.angle += delta / 10.0f;
+    bounceSystem(getRegistry());
   }
 
   void stop() { logger.log("Stopping!"); }

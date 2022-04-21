@@ -10,13 +10,10 @@
  */
 #include "scene/Scene.h"
 
-#include <algorithm>
-
-#include "common/Exceptions.h"
-#include "components/Collider.h"
-#include "components/Sprite.h"
-#include "components/Transform.h"
-#include "entities/GameObject.h"
+#include "systems/ParticleSystem.h"
+#include "systems/PhysicsSystem.h"
+#include "systems/RenderSystem.h"
+#include "systems/UISystem.h"
 
 namespace afk {
 
@@ -33,139 +30,21 @@ Scene::Scene()
 
 // Internal cleanup (on switch scene)
 void Scene::stopInternal() {
-  entities.clear();
-  entity_map.clear();
+  // entities.clear();
 }
 
 // Draw internal method
 void Scene::draw() {
   // Draw
-  for (auto& obj : entities) {
-    if (obj->getVisible() && obj->getHooked()) {
-      obj->draw();
-
-      // Render system
-      if (hasComponent<Sprite>(obj->id)) {
-        Sprite& sprite = getComponent<Sprite>(obj->id);
-        Transform& transform = getComponent<Transform>(obj->id);
-
-        // Draw image
-        sprite.texture.drawEx(transform.x, transform.y, transform.width,
-                              transform.height, transform.angle);
-      }
-    }
-  }
+  systems::renderSystem(registry, assets);
+  systems::uiSystem(registry, assets);
+  systems::particleRenderSystem(registry, assets);
 }
 
 // Internal update method
 void Scene::update(Uint32 delta) {
-  // Update all (we need to indices here since updates can add objects)
-  for (Uint32 i = 0; i < entities.size(); ++i) {
-    if (entities.at(i)->getEnabled() && entities.at(i)->getHooked()) {
-      entities.at(i)->update(delta);
-    }
-  }
-
-  // Internal updates
-  for (auto& obj : entities) {
-    obj->updateInternal();
-  }
-
-  // Collision system
-  std::size_t c_type = typeid(Collider).hash_code();
-  ComponentArray& colliders = components[c_type];
-  for (auto& comp : colliders) {
-    Collider& collider = dynamic_cast<Collider&>(*comp);
-    collider.collisions.clear();
-  }
-
-  for (auto& collider_1 : colliders) {
-    for (auto& collider_2 : colliders) {
-      Collider& col_1 = dynamic_cast<Collider&>(*collider_1);
-      Collider& col_2 = dynamic_cast<Collider&>(*collider_2);
-      Transform& tra_1 = getComponent<Transform>(collider_1->obj_id);
-      Transform& tra_2 = getComponent<Transform>(collider_2->obj_id);
-
-      bool colliding =
-          tra_1.x < tra_2.x + tra_2.width && tra_1.x + tra_1.width > tra_2.x &&
-          tra_1.y < tra_2.y + tra_2.height && tra_1.y + tra_1.height > tra_2.y;
-
-      if (colliding) {
-        col_1.collisions.push_back(col_2.obj_id);
-        col_2.collisions.push_back(col_1.obj_id);
-      }
-    }
-  }
-
-  // Remove any game objects that need to be cleaned up
-  if (remove_pool.size() > 0) {
-    for (const auto& obj_id : remove_pool) {
-      // Get vector index
-      unsigned int entity_index = entity_map[obj_id];
-
-      // Remove from lookup map
-      entity_map.erase(obj_id);
-
-      // Erase game object while keeping most indicies correct
-      entities[entity_index] = std::move(entities.back());
-      entities.pop_back();
-
-      // Update moved index
-      if (entities.size() > 0) {
-        auto& moved_obj = *entities[entity_index];
-        entity_map[moved_obj.id] = entity_index;
-      }
-
-      // Erase components
-      for (auto& comp_entry : component_map) {
-        removeComponentById(obj_id, comp_entry.first);
-      }
-    }
-
-    // Clear remove pool
-    remove_pool.clear();
-  }
-
-  // Sort sprites
-  if (need_sort) {
-    // const std::size_t id = typeid(Sprite).hash_code();
-
-    // std::sort(components[id].begin(), components[id].end(), [](auto& c1,
-    // auto& c2) {
-    //   return obj1->transform.z < obj2->transform.z;
-    // });
-  }
-}
-
-// Remove game object from scene
-void Scene::remove(const ObjId id) {
-  remove_pool.push_back(id);
-}
-
-// Check if obj id exists in scene
-bool Scene::has(const ObjId id) {
-  return entity_map.count(id) == 1;
-}
-
-// Remove component by type id
-void Scene::removeComponentById(const ObjId obj_id, const std::size_t id) {
-  // Check has
-  if (component_map[id].count(obj_id) > 0) {
-    // Copy index
-    int comp_index = component_map[id][obj_id];
-
-    // Erase from map
-    component_map[id].erase(obj_id);
-
-    // Erase component
-    components[id][comp_index] = std::move(components[id].back());
-    components[id].pop_back();
-
-    // Update moved index
-    if (components[id].size() > 0) {
-      component_map[id][obj_id] = comp_index;
-    }
-  }
+  systems::physicsSystem(registry, delta);
+  systems::particleSystem(registry, delta);
 }
 
 }  // namespace afk

@@ -66,8 +66,8 @@ class DemoScene : public afk::Scene {
 
     afk::Image& image = add<afk::Image>(*this, 10, 120);
     image.setTexture("lenna");
-    image.transform.width = 20;
-    image.transform.height = 20;
+    image.transform.size.x = 20;
+    image.transform.size.y = 20;
     image.setOnClick([]() {
       afk::MessageBox message_box(afk::MessageBoxType::INFO);
       message_box.setTitle("Nice");

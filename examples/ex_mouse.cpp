@@ -9,7 +9,8 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/Sprite.h"
+#include "../include/components/Sprite.h"
+#include "../include/components/Transform.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -25,31 +26,31 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Sprite& lenna = add<afk::Sprite>(*this, "lenna", 100, 100);
-    lenna.transform.width = 30;
-    lenna.transform.height = 30;
-    lennaId = lenna.id;
+    lennaId = createEntity();
+    createComponent<afk::SpriteComponent>(lennaId, "lenna");
+    createComponent<afk::Transform>(lennaId, afk::Vec3(100, 100, 0),
+                                    afk::Vec2(30, 30));
   }
 
   void update(Uint32 delta) {
     Scene::update(delta);
 
-    afk::Sprite& lenna = get<afk::Sprite>(lennaId);
+    auto& transform = getComponent<afk::Transform>(lennaId);
 
-    if (input.mousePressed(afk::MouseButtons::LEFT)) {
-      lenna.transform.x = input.mouseX();
-      lenna.transform.y = input.mouseY();
+    if (input.mouseDown(afk::MouseButtons::LEFT)) {
+      transform.position.x = input.mouseX();
+      transform.position.y = input.mouseY();
     }
     if (input.mouseDown(afk::MouseButtons::RIGHT)) {
-      lenna.transform.width = input.mouseX();
-      lenna.transform.height = input.mouseY();
+      transform.size.x = input.mouseX();
+      transform.size.y = input.mouseY();
     }
   }
 
   void stop() { logger.log("Stopping!"); }
 
  private:
-  ObjId lennaId;
+  entt::entity lennaId;
 };
 
 int main(int argv, char** args) {

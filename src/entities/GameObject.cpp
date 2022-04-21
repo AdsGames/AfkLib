@@ -12,8 +12,6 @@
 
 #include <algorithm>
 
-#include "scene/Scene.h"
-
 namespace afk {
 
 // Set incrementing index count
@@ -21,8 +19,7 @@ ObjId GameObject::index = 1;
 
 // Constructor
 GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
-    : transform(scene.addComponent<Transform>(GameObject::index)),
-      id(GameObject::index),
+    : id(GameObject::index),
       scene(scene),
       visible(true),
       enabled(true),
@@ -31,9 +28,9 @@ GameObject::GameObject(Scene& scene, const float x, const float y, const int z)
   GameObject::index += 1;
 
   // Set transform
-  transform.x = x;
-  transform.y = y;
-  transform.z = z;
+  transform.position.x = x;
+  transform.position.y = y;
+  transform.position.z = z;
 }
 
 // Destructor, remove components
@@ -47,21 +44,22 @@ void GameObject::update(Uint32 delta) {
 // Update
 void GameObject::updateInternal() {
   // Parent functions
-  if (parent_id != 0) {
-    // Autoremove if parent is dead
-    try {
-      auto& parent = scene.get<GameObject>(parent_id);
+  // if (parent_id != 0) {
+  //   // Autoremove if parent is dead
+  //   try {
+  //     auto& parent = scene.getComponent<GameObject>(parent_id);
 
-      // Set hooked state
-      hooked = parent.getHooked();
+  //     // Set hooked state
+  //     hooked = parent.getHooked();
 
-      // Set position
-      transform.x += parent.transform.x - parent.transform.last_x;
-      transform.y += parent.transform.y - parent.transform.last_y;
-    } catch (const KeyLookupException&) {
-      scene.remove(id);
-    }
-  }
+  //     // Set position
+  //     transform.position.x += parent.transform.position.x -
+  //     parent.transform.last_x; transform.position.y +=
+  //     parent.transform.position.y - parent.transform.last_y;
+  //   } catch (const KeyLookupException&) {
+  //     // scene.remove(id);
+  //   }
+  // }
 }
 
 // Draw

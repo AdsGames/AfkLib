@@ -49,3 +49,6 @@ install_manifest.txt
 bin
 docs
 lib
+compile_commands.json
+.idea
+build

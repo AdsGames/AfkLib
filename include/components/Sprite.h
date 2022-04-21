@@ -11,21 +11,13 @@
 #ifndef INCLUDE_COMPONENTS_SPRITE_H_
 #define INCLUDE_COMPONENTS_SPRITE_H_
 
-#include "../assets/Texture.h"
-#include "Component.h"
+#include <string>
 
 namespace afk {
 
-class Sprite : public Component {
- public:
-  /**
-   * @brief Construct a new Sprite object
-   *
-   */
-  explicit Sprite(ObjId obj_id);
-
+struct SpriteComponent {
   /// Texture of Sprite
-  Texture texture;
+  std::string texture;
 };
 
 }  // namespace afk

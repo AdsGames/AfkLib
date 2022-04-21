@@ -11,41 +11,19 @@
 #ifndef INCLUDE_COMPONENTS_TRANSFORM_H_
 #define INCLUDE_COMPONENTS_TRANSFORM_H_
 
-#include "Component.h"
+#include "../common/Vec.h"
 
 namespace afk {
 
-class Transform : public Component {
- public:
-  /**
-   * @brief Construct a new Transform object
-   *
-   */
-  explicit Transform(ObjId obj_id);
+struct Transform {
+  /// Position on x y z plane
+  Vec3 position;
 
-  /// X position on x y plane
-  float x;
-
-  /// Y position on x y plane
-  float y;
-
-  /// Z position, used for sorting
-  int z;
-
-  /// Height in pixels of game object
-  int height;
-
-  /// Width in pixels of game object
-  int width;
+  /// Size
+  Vec2 size;
 
   /// Rotation
-  float angle;
-
-  /// Last position y
-  int last_x;
-
-  /// Last position x
-  int last_y;
+  float angle = 0.0f;
 };
 
 }  // namespace afk

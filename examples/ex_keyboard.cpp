@@ -10,36 +10,31 @@
  */
 #include "../include/Game.h"
 #include "../include/components/Sprite.h"
+#include "../include/components/Transform.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
-class Character : public afk::GameObject {
- public:
-  Character(afk::Scene& scene, const float x, const float y)
-      : GameObject(scene, x, y) {
-    auto& sprite = scene.addComponent<afk::Sprite>(id);
-    sprite.texture = scene.assets.getImage("lenna");
+void characterSystem(entt::registry& registry,
+                     afk::InputService& input,
+                     Uint32 delta) {
+  auto view = registry.view<afk::Transform>();
 
-    transform.width = 30;
-    transform.height = 30;
-  }
-
-  void update(Uint32 delta) {
+  for (auto [entity, transform] : view.each()) {
     float speed = delta / 10.0f;
-    if (scene.input.keyDown(afk::Keys::UP)) {
-      transform.y -= speed;
+    if (input.keyDown(afk::Keys::UP)) {
+      transform.position.y -= speed;
     }
-    if (scene.input.keyDown(afk::Keys::DOWN)) {
-      transform.y += speed;
+    if (input.keyDown(afk::Keys::DOWN)) {
+      transform.position.y += speed;
     }
-    if (scene.input.keyDown(afk::Keys::LEFT)) {
-      transform.x -= speed;
+    if (input.keyDown(afk::Keys::LEFT)) {
+      transform.position.x -= speed;
     }
-    if (scene.input.keyDown(afk::Keys::RIGHT)) {
-      transform.x += speed;
+    if (input.keyDown(afk::Keys::RIGHT)) {
+      transform.position.x += speed;
     }
   }
-};
+}
 
 class DemoScene : public afk::Scene {
  public:
@@ -53,30 +48,39 @@ class DemoScene : public afk::Scene {
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    ObjId id = add<Character>(*this, 100, 100).id;
+    createCharacter();
+  }
+
+  void createCharacter() {
+    entt::entity id = createEntity();
+    createComponent<afk::Transform>(id, afk::Vec3(100, 100, 0),
+                                    afk::Vec2(40, 40));
+    createComponent<afk::SpriteComponent>(id, "lenna");
     character_ids.push_back(id);
   }
 
   void update(Uint32 delta) override {
+    Scene::update(delta);
+
     if (input.keyPressed(afk::Keys::A)) {
-      ObjId id = add<Character>(*this, 100, 100).id;
-      character_ids.push_back(id);
+      createCharacter();
     }
+
     if (input.keyPressed(afk::Keys::R)) {
       if (character_ids.size() > 0) {
-        ObjId id = character_ids.back();
-        remove(id);
+        entt::entity id = character_ids.back();
+        destroyEntity(id);
         character_ids.pop_back();
       }
     }
 
-    Scene::update(delta);
+    characterSystem(getRegistry(), input, delta);
   }
 
   void stop() { logger.log("Stopping!"); }
 
  private:
-  std::vector<ObjId> character_ids;
+  std::vector<entt::entity> character_ids;
 };
 
 class MainGame : public afk::Game {

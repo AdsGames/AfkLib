@@ -10,8 +10,9 @@
  */
 
 #include "../include/Game.h"
-#include "../include/entities/Sprite.h"
-#include "../include/entities/ui/Label.h"
+#include "../include/components/Sprite.h"
+#include "../include/components/Transform.h"
+#include "../include/components/ui/Label.h"
 #include "../include/random/RandomGenerator.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
@@ -35,16 +36,19 @@ class DemoScene : public afk::Scene {
     assets.loadFont("freesans", "assets/freesans.ttf", 64);
     assets.loadImage("lenna", "assets/lenna.png");
 
-    afk::Label& label = add<afk::Label>(*this, 10, 5, 100);
+    label_id = createEntity();
+    createComponent<afk::Transform>(label_id, afk::Vec3(10, 5, 0));
+    auto& label = createComponent<afk::LabelComponent>(label_id);
     label.setText("FPS");
     label.setFont("freesans");
-    label_id = label.id;
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
-      afk::Sprite& sprite = add<afk::Sprite>(*this, "lenna");
-      sprite.transform.width = SPRITE_SIZE;
-      sprite.transform.height = SPRITE_SIZE;
-      sprites[i] = sprite.id;
+      auto entity = createEntity();
+      createComponent<afk::SpriteComponent>(entity, "lenna");
+      auto& transform = createComponent<afk::Transform>(entity);
+      transform.size.x = SPRITE_SIZE;
+      transform.size.y = SPRITE_SIZE;
+      sprites[i] = entity;
     }
   }
 
@@ -55,21 +59,22 @@ class DemoScene : public afk::Scene {
 
     int fps = display.getFps();
 
-    get<afk::Label>(label_id).setText(std::to_string(fps));
+    auto& label = getComponent<afk::LabelComponent>(label_id);
+    label.setText(std::to_string(fps));
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
-      afk::Sprite& sprite = get<afk::Sprite>(sprites[i]);
-      sprite.transform.x = fmod(iter + i, SCREEN_W);
-      sprite.transform.y = sin(iter / 100.0f + i) * SCREEN_H_2 + SCREEN_H_2;
-      sprite.transform.angle += delta / 10.0f;
+      auto& transform = getComponent<afk::Transform>(sprites[i]);
+      transform.position.x = fmod(iter + i, SCREEN_W);
+      transform.position.y = sin(iter / 100.0f + i) * SCREEN_H_2 + SCREEN_H_2;
+      transform.angle += delta / 10.0f;
     }
   }
 
   void stop() { logger.log("Stopping!"); }
 
  private:
-  ObjId label_id = -1;
-  ObjId sprites[NUM_SPRITE];
+  entt::entity label_id;
+  entt::entity sprites[NUM_SPRITE];
 
   float iter = 0;
 };

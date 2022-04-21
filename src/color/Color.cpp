@@ -10,8 +10,7 @@
  */
 #include "color/Color.h"
 
-namespace afk {
-namespace color {
+namespace afk::color {
 
 // Create color from RGB
 Color rgb(const Uint8 r, const Uint8 g, const Uint8 b) {
@@ -25,12 +24,12 @@ Color rgba(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a) {
 
 // Create color from int
 Color intToColor(const Uint32 colour) {
-  Color tempcol;
-  tempcol.r = (colour >> 16) & 0xFF;
-  tempcol.g = (colour >> 8) & 0xFF;
-  tempcol.b = colour & 0xFF;
-  tempcol.a = 255;
-  return tempcol;
+  Color tempCol;
+  tempCol.r = (colour >> 16) & 0xFF;
+  tempCol.g = (colour >> 8) & 0xFF;
+  tempCol.b = colour & 0xFF;
+  tempCol.a = 255;
+  return tempCol;
 }
 
 // Convert rgb to int
@@ -48,5 +47,4 @@ Uint32 colorToInt(const Color colour) {
   return rgbaToInt(colour.r, colour.g, colour.b, colour.a);
 }
 
-}  // namespace color
-}  // namespace afk
+}  // namespace afk::color

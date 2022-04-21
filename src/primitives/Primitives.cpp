@@ -13,8 +13,7 @@
 #include "primitives/Primitives.h"
 #include "services/Services.h"
 
-namespace afk {
-namespace primitives {
+namespace afk::primitives {
 
 // Draw a rectangle
 void rect(const Sint32 x,
@@ -67,5 +66,4 @@ void line(const Sint16 x1,
   lineRGBA(renderer, x1, y1, x2, y2, colour.r, colour.g, colour.b, colour.a);
 }
 
-}  // namespace primitives
-}  // namespace afk
+}  // namespace afk::primitives

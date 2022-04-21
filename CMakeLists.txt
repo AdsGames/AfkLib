@@ -2,25 +2,26 @@ cmake_minimum_required(VERSION 3.11)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
 project (afk VERSION 1.0.0 LANGUAGES CXX)
 
 # Add sources
-file(GLOB_RECURSE SOURCES ${CMAKE_BINARY_DIR}/src/*.cpp)
-file(GLOB_RECURSE HEADERS ${CMAKE_BINARY_DIR}/include/*.h)
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE HEADERS ${CMAKE_SOURCE_DIR}/include/*.h)
 
 # Create lib
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
 # Add compile options
 target_compile_options(${PROJECT_NAME} PRIVATE -O2 -Wall -Wextra -pedantic)
-
+ 
 # Add include
 target_include_directories(${PROJECT_NAME} PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     PRIVATE src)
 
@@ -60,9 +61,10 @@ else(EMSCRIPTEN)
     find_library(SDL_TTF_LIBRARY NAMES SDL2_ttf REQUIRED)
     find_library(SDL_GFX_LIBRARY NAMES SDL2_gfx REQUIRED)
     find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
+    find_package(EnTT REQUIRED)
 
     # Link Libs
-    target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_MIXER_LIBRARY} ${SDL_IMAGE_LIBRARY} ${SDL_TTF_LIBRARY} ${SDL_GFX_LIBRARY} ${SDL_MAIN_LIBRARY})
+    target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_MIXER_LIBRARY} ${SDL_IMAGE_LIBRARY} ${SDL_TTF_LIBRARY} ${SDL_GFX_LIBRARY} ${SDL_MAIN_LIBRARY} EnTT::EnTT)
 endif(EMSCRIPTEN) 
 
 # Install info
@@ -103,4 +105,4 @@ else()
 endif()
 
 # Examples
-include(${CMAKE_BINARY_DIR}/examples/CMakeLists.txt)
+include(${CMAKE_SOURCE_DIR}/examples/CMakeLists.txt)
