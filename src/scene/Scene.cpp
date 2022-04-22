@@ -49,17 +49,17 @@ void Scene::stopInternal() {
 }
 
 // Register a new entity
-entt::entity Scene::createEntity() {
+entity Scene::createEntity() {
   return registry.create();
 }
 
 // Remove an entity
-void Scene::destroyEntity(entt::entity entity) {
+void Scene::destroyEntity(entity entity) {
   registry.destroy(entity);
 }
 
 // Get a reference to the registry
-entt::registry& Scene::getRegistry() {
+registry& Scene::getRegistry() {
   return registry;
 }
 

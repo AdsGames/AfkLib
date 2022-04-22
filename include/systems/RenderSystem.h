@@ -23,7 +23,7 @@ namespace afk::systems {
  * @brief RenderSystem
  *
  */
-void renderSystem(entt::registry& registry, AssetService& assetService) {
+void renderSystem(registry& registry, AssetService& assetService) {
   auto view = registry.view<const Transform, Sprite>();
 
   for (auto [entity, tran, sprite] : view.each()) {

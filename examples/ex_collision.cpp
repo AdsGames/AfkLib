@@ -9,10 +9,9 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/components/Collider.h"
-#include "../include/components/Sprite.h"
-#include "../include/components/Transform.h"
-#include "../include/components/ui/Label.h"
+#include "../include/components/components.h"
+#include "../include/components/ui.h"
+#include "../include/entities/Entity.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -76,9 +75,9 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  entt::entity lenna_1_id;
-  entt::entity lenna_2_id;
-  entt::entity label_id;
+  afk::entity lenna_1_id;
+  afk::entity lenna_2_id;
+  afk::entity label_id;
 };
 
 int main(int argv, char** args) {

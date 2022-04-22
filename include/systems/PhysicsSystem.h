@@ -23,7 +23,7 @@ namespace afk::systems {
  * @brief PhysicsSystem
  *
  */
-void physicsSystem(entt::registry& registry, Uint32 delta) {
+void physicsSystem(registry& registry, Uint32 delta) {
   auto view = registry.view<Transform, Physics>();
 
   const float delta_seconds = delta / 1000.0f;

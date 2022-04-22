@@ -3,7 +3,7 @@
  * @author Allan Legemaate (alegemaate@gmail.com)
  * @brief System in charge of updating transforms
  * @version 0.1
- * @date 2022-04-20
+ * @date 2022-04-22
  *
  * @copyright Copyright (c) 2022
  *
@@ -23,7 +23,7 @@ namespace afk::systems {
  * @brief CollisionSystem
  *
  */
-void collisionSystem(entt::registry& registry) {
+void collisionSystem(registry& registry) {
   auto view = registry.view<const Transform, Collider>();
 
   for (auto [entity, tran, collider] : view.each()) {

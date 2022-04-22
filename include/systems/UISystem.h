@@ -14,6 +14,7 @@
 #include <entt/entt.hpp>
 
 #include "components/Transform.h"
+#include "components/ui/Button.h"
 #include "components/ui/Label.h"
 #include "services/assets/AssetService.h"
 
@@ -23,12 +24,17 @@ namespace afk::systems {
  * @brief UISystem
  *
  */
-void uiSystem(entt::registry& registry, AssetService& assetService) {
-  auto view = registry.view<const Transform, Label>();
-
-  for (auto [entity, tran, label] : view.each()) {
+void uiSystem(registry& registry, AssetService& assetService) {
+  auto view_labels = registry.view<const Transform, Label>();
+  for (auto [entity, tran, label] : view_labels.each()) {
     auto font = assetService.getFont(label.font);
     font.draw(tran.position.x, tran.position.y, label.text);
+  }
+
+  auto view_buttons = registry.view<const Transform, Button>();
+  for (auto [entity, tran, button] : view_buttons.each()) {
+    auto font = assetService.getFont(button.font);
+    font.draw(tran.position.x, tran.position.y, button.text);
   }
 }
 

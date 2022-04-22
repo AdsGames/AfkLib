@@ -10,8 +10,7 @@
  */
 #include "../include/Game.h"
 #include "../include/common/Vec.h"
-#include "../include/components/Sprite.h"
-#include "../include/components/Transform.h"
+#include "../include/components/components.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 

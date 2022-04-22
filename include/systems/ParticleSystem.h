@@ -29,7 +29,7 @@ namespace afk::systems {
  * @brief ParticleSystem
  *
  */
-void particleSystem(entt::registry& registry, float delta) {
+void particleSystem(registry& registry, float delta) {
   auto particle_view = registry.view<Transform, Particle>();
 
   int count = 0;
@@ -73,8 +73,7 @@ void particleSystem(entt::registry& registry, float delta) {
   }
 }
 
-void particleRenderSystem(entt::registry& registry,
-                          AssetService& assetService) {
+void particleRenderSystem(registry& registry, AssetService& assetService) {
   auto view = registry.view<Transform, Particle>();
 
   for (auto [entity, tran, particle] : view.each()) {

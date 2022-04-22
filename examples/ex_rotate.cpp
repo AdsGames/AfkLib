@@ -10,8 +10,8 @@
  */
 #include "../include/Game.h"
 #include "../include/common/Vec.h"
-#include "../include/components/Sprite.h"
-#include "../include/components/Transform.h"
+#include "../include/components/components.h"
+#include "../include/entities/Entity.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -43,7 +43,7 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  entt::entity lennaId;
+  afk::entity lennaId;
 };
 
 int main(int argv, char** args) {

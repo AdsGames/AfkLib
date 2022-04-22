@@ -12,13 +12,9 @@
 #include "../include/common/Color.h"
 #include "../include/common/Vec.h"
 #include "../include/common/random.h"
-#include "../include/components/Particle.h"
-#include "../include/components/ParticleEmitter.h"
-#include "../include/components/Transform.h"
+#include "../include/components/components.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
-
-#include <memory>
 
 class DemoScene : public afk::Scene {
  public:
@@ -91,9 +87,9 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  entt::entity emitter_1_id;
-  entt::entity emitter_2_id;
-  entt::entity emitter_3_id;
+  afk::entity emitter_1_id;
+  afk::entity emitter_2_id;
+  afk::entity emitter_3_id;
 };
 
 int main(int argv, char** args) {

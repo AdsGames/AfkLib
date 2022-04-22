@@ -11,7 +11,6 @@
 #ifndef INCLUDE_SCENE_SCENE_H_
 #define INCLUDE_SCENE_SCENE_H_
 
-#include <entt/entt.hpp>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -20,6 +19,7 @@
 
 #include "../common/Exceptions.h"
 #include "../components/Transform.h"
+#include "../include/entities/Entity.h"
 #include "../services/Services.h"
 
 /**
@@ -77,16 +77,16 @@ class Scene {
   /**
    * @brief Register a new entity
    *
-   * @return entt::entity
+   * @return entity
    */
-  entt::entity createEntity();
+  entity createEntity();
 
   /**
    * @brief Remove an entity
    *
    * @param entity Entity to remove
    */
-  void destroyEntity(entt::entity entity);
+  void destroyEntity(entity entity);
 
   /**
    * @brief Add a component to an entity
@@ -97,7 +97,7 @@ class Scene {
    * @param args Arguments accepted by component
    */
   template <typename T, typename... Args>
-  T& createComponent(entt::entity id, Args&&... args) {
+  T& createComponent(entity id, Args&&... args) {
     auto& component = registry.emplace<T>(id, std::forward<Args>(args)...);
 
     // Sort always (inefficient!)
@@ -115,7 +115,7 @@ class Scene {
    * @param id Entity to assign to
    */
   template <typename T>
-  T& createComponent(entt::entity id) {
+  T& createComponent(entity id) {
     return registry.emplace<T>(id);
   }
 
@@ -127,16 +127,16 @@ class Scene {
    * @return T& Returned component reference
    */
   template <typename T>
-  T& getComponent(entt::entity id) {
+  T& getComponent(entity id) {
     return registry.get<T>(id);
   }
 
   /**
    * @brief Get a reference to the registry
    *
-   * @return entt::registry& Registry reference
+   * @return registry& Registry reference
    */
-  entt::registry& getRegistry();
+  registry& getRegistry();
 
   /// Audio service reference
   AudioService& audio;
@@ -161,7 +161,7 @@ class Scene {
 
  private:
   /// Entity registry
-  entt::registry registry;
+  registry registry;
 };
 }  // namespace afk
 

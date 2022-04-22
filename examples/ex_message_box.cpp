@@ -9,11 +9,10 @@
  *
  */
 #include "../include/Game.h"
+#include "../include/components/ui.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
-#include "../include/ui/Button.h"
 #include "../include/ui/MessageBox.h"
-
 class DemoScene : public afk::Scene {
  public:
   void start() {
@@ -26,38 +25,44 @@ class DemoScene : public afk::Scene {
 
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
-    afk::Button& button1 = add<afk::Button>(*this, 10, 10, 10);
-    button1.setFont("freesans");
-    button1.setText("Question Message");
-    button1.sizeToText();
-    button1.setOnClick([]() {
-      afk::MessageBox message_box(afk::MessageBoxType::INFO);
-      message_box.setTitle("Info");
-      message_box.setText("Text");
-      message_box.show();
-    });
+    auto button_1 = createEntity();
+    createComponent<afk::Transform>(button_1, afk::Vec3(10, 10, 10));
+    auto& button_1_button = createComponent<afk::Button>(button_1);
+    button_1_button.setFont("freesans");
+    button_1_button.setText("Question Message");
+    // button_1_button.sizeToText();
+    // button_1_button.setOnClick([]() {
+    //   afk::MessageBox message_box(afk::MessageBoxType::INFO);
+    //   message_box.setTitle("Info");
+    //   message_box.setText("Text");
+    //   message_box.show();
+    // });
 
-    afk::Button& button2 = add<afk::Button>(*this, 10, 50, 10);
-    button2.setFont("freesans");
-    button2.setText("Warning Message");
-    button2.sizeToText();
-    button2.setOnClick([]() {
-      afk::MessageBox message_box(afk::MessageBoxType::WARN);
-      message_box.setTitle("Warning");
-      message_box.setText("Text");
-      message_box.show();
-    });
+    auto button_2 = createEntity();
+    createComponent<afk::Transform>(button_2, afk::Vec3(10, 50, 10));
+    auto& button_2_button = createComponent<afk::Button>(button_2);
+    button_2_button.setFont("freesans");
+    button_2_button.setText("Warning Message");
+    // button_2_button.sizeToText();
+    // button_2_button.setOnClick([]() {
+    //   afk::MessageBox message_box(afk::MessageBoxType::WARN);
+    //   message_box.setTitle("Warning");
+    //   message_box.setText("Text");
+    //   message_box.show();
+    // });
 
-    afk::Button& button3 = add<afk::Button>(*this, 10, 90, 10);
-    button3.setFont("freesans");
-    button3.setText("Error Message");
-    button3.sizeToText();
-    button3.setOnClick([]() {
-      afk::MessageBox message_box(afk::MessageBoxType::ERROR);
-      message_box.setTitle("Error");
-      message_box.setText("Text");
-      message_box.show();
-    });
+    auto button_3 = createEntity();
+    createComponent<afk::Transform>(button_3, afk::Vec3(10, 90, 10));
+    auto& button_3_button = createComponent<afk::Button>(button_3);
+    button_3_button.setFont("freesans");
+    button_3_button.setText("Error Message");
+    // button_3_button.sizeToText();
+    // button_3_button.setOnClick([]() {
+    //   afk::MessageBox message_box(afk::MessageBoxType::ERROR);
+    //   message_box.setTitle("Error");
+    //   message_box.setText("Text");
+    //   message_box.show();
+    // });
   }
 
   void stop() { logger.log("Stopping!"); }

@@ -1,28 +1,28 @@
 /**
- * @file Label.h
+ * @file Button.h
  * @author Allan Legemaate (alegemaate@gmail.com)
- * @brief UI Label
+ * @brief UI Button
  * @version 0.1
  * @date 2021-03-15
  *
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMPONENTS_UI_LABEL_H_
-#define INCLUDE_COMPONENTS_UI_LABEL_H_
+#ifndef INCLUDE_COMPONENTS_UI_BUTTON_H_
+#define INCLUDE_COMPONENTS_UI_BUTTON_H_
 
 #include <string>
 
 namespace afk {
 
-struct Label {
+struct Button {
   /// Constructor
-  Label() : text(""), font("") {}
+  Button() : text(""), font("") {}
 
-  Label(const std::string& text, const std::string& font)
+  Button(const std::string& text, const std::string& font)
       : text(text), font(font) {}
 
-  /// Text of Label
+  /// Text of Button
   std::string text;
 
   /// Font of label
@@ -36,4 +36,4 @@ struct Label {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_UI_LABEL_H_
+#endif  // INCLUDE_COMPONENTS_UI_BUTTON_H_

@@ -9,12 +9,11 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/components/Sprite.h"
-#include "../include/components/Transform.h"
+#include "../include/components/components.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
-void characterSystem(entt::registry& registry,
+void characterSystem(afk::registry& registry,
                      afk::InputService& input,
                      Uint32 delta) {
   auto view = registry.view<afk::Transform>();
@@ -52,7 +51,7 @@ class DemoScene : public afk::Scene {
   }
 
   void createCharacter() {
-    entt::entity id = createEntity();
+    afk::entity id = createEntity();
     createComponent<afk::Transform>(id, afk::Vec3(100, 100, 0),
                                     afk::Vec2(40, 40));
     createComponent<afk::Sprite>(id, "lenna");
@@ -68,7 +67,7 @@ class DemoScene : public afk::Scene {
 
     if (input.keyPressed(afk::Keys::R)) {
       if (character_ids.size() > 0) {
-        entt::entity id = character_ids.back();
+        afk::entity id = character_ids.back();
         destroyEntity(id);
         character_ids.pop_back();
       }
@@ -80,7 +79,7 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  std::vector<entt::entity> character_ids;
+  std::vector<afk::entity> character_ids;
 };
 
 class MainGame : public afk::Game {

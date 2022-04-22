@@ -25,8 +25,8 @@ endif(EMSCRIPTEN)
 
 
 # Build examples
-# ex_collision ex_ui ex_message_box 
-set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard ex_collision)
+# ex_collision ex_ui  
+set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard ex_collision ex_message_box)
 
 foreach(EX_NAME ${EXAMPLES})
   add_executable(${EX_NAME} ${CMAKE_CURRENT_LIST_DIR}/${EX_NAME}.cpp)

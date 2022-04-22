@@ -10,12 +10,11 @@
  */
 #include "../include/Game.h"
 #include "../include/common/Vec.h"
-#include "../include/components/Physics.h"
-#include "../include/components/Sprite.h"
-#include "../include/components/Transform.h"
+#include "../include/components/components.h"
+#include "../include/entities/Entity.h"
 #include "../include/scene/Scene.h"
 
-void bounceSystem(entt::registry& registry) {
+void bounceSystem(afk::registry& registry) {
   auto view = registry.view<const afk::Transform, afk::Physics>();
 
   for (auto [entity, transform, physics] : view.each()) {
@@ -61,7 +60,7 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  entt::entity lennaId;
+  afk::entity lennaId;
 };
 
 int main(int argv, char** args) {
