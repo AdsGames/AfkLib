@@ -12,7 +12,7 @@
 #ifndef INCLUDE_PRIMITIVES_PRIMITIVES_H_
 #define INCLUDE_PRIMITIVES_PRIMITIVES_H_
 
-#include "../color/Color.h"
+#include "../common/Color.h"
 
 namespace afk {
 namespace primitives {

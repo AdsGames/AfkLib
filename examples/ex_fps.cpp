@@ -10,10 +10,10 @@
  */
 
 #include "../include/Game.h"
+#include "../include/common/random.h"
 #include "../include/components/Sprite.h"
 #include "../include/components/Transform.h"
 #include "../include/components/ui/Label.h"
-#include "../include/random/RandomGenerator.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -38,13 +38,13 @@ class DemoScene : public afk::Scene {
 
     label_id = createEntity();
     createComponent<afk::Transform>(label_id, afk::Vec3(10, 5, 0));
-    auto& label = createComponent<afk::LabelComponent>(label_id);
+    auto& label = createComponent<afk::Label>(label_id);
     label.setText("FPS");
     label.setFont("freesans");
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       auto entity = createEntity();
-      createComponent<afk::SpriteComponent>(entity, "lenna");
+      createComponent<afk::Sprite>(entity, "lenna");
       auto& transform = createComponent<afk::Transform>(entity);
       transform.size.x = SPRITE_SIZE;
       transform.size.y = SPRITE_SIZE;
@@ -59,7 +59,7 @@ class DemoScene : public afk::Scene {
 
     int fps = display.getFps();
 
-    auto& label = getComponent<afk::LabelComponent>(label_id);
+    auto& label = getComponent<afk::Label>(label_id);
     label.setText(std::to_string(fps));
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {

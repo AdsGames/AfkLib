@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "../common/Exceptions.h"
+#include "../components/Transform.h"
 #include "../services/Services.h"
 
 /**
@@ -78,14 +79,14 @@ class Scene {
    *
    * @return entt::entity
    */
-  entt::entity createEntity() { return registry.create(); }
+  entt::entity createEntity();
 
   /**
    * @brief Remove an entity
    *
    * @param entity Entity to remove
    */
-  void destroyEntity(entt::entity entity) { registry.destroy(entity); }
+  void destroyEntity(entt::entity entity);
 
   /**
    * @brief Add a component to an entity
@@ -97,7 +98,25 @@ class Scene {
    */
   template <typename T, typename... Args>
   T& createComponent(entt::entity id, Args&&... args) {
-    return registry.emplace<T>(id, std::forward<Args>(args)...);
+    auto& component = registry.emplace<T>(id, std::forward<Args>(args)...);
+
+    // Sort always (inefficient!)
+    registry.sort<afk::Transform>([](const auto& lhs, const auto& rhs) {
+      return lhs.position.z < rhs.position.z;
+    });
+
+    return component;
+  }
+
+  /**
+   * @brief Add a component to an entity without args
+   *
+   * @tparam T Type of component
+   * @param id Entity to assign to
+   */
+  template <typename T>
+  T& createComponent(entt::entity id) {
+    return registry.emplace<T>(id);
   }
 
   /**
@@ -117,7 +136,7 @@ class Scene {
    *
    * @return entt::registry& Registry reference
    */
-  entt::registry& getRegistry() { return registry; }
+  entt::registry& getRegistry();
 
   /// Audio service reference
   AudioService& audio;
@@ -141,9 +160,6 @@ class Scene {
   ConfigService& config;
 
  private:
-  /// Needs sorting
-  bool need_sort;
-
   /// Entity registry
   entt::registry registry;
 };

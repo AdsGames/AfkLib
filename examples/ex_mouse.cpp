@@ -27,7 +27,7 @@ class DemoScene : public afk::Scene {
     assets.loadImage("lenna", "assets/lenna.png");
 
     lennaId = createEntity();
-    createComponent<afk::SpriteComponent>(lennaId, "lenna");
+    createComponent<afk::Sprite>(lennaId, "lenna");
     createComponent<afk::Transform>(lennaId, afk::Vec3(100, 100, 0),
                                     afk::Vec2(30, 30));
   }

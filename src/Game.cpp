@@ -11,9 +11,8 @@
 #include "Game.h"
 
 #include "common/Exceptions.h"
-#include "entities/ui/MessageBox.h"
-#include "random/RandomGenerator.h"
 #include "services/Services.h"
+#include "ui/MessageBox.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>

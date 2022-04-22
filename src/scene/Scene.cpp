@@ -10,6 +10,7 @@
  */
 #include "scene/Scene.h"
 
+#include "systems/CollisionSystem.h"
 #include "systems/ParticleSystem.h"
 #include "systems/PhysicsSystem.h"
 #include "systems/RenderSystem.h"
@@ -25,12 +26,13 @@ Scene::Scene()
       assets(afk::Services::getAssetService()),
       input(afk::Services::getInputService()),
       scene(afk::Services::getSceneService()),
-      config(afk::Services::getConfigService()),
-      need_sort(false) {}
+      config(afk::Services::getConfigService()) {}
 
-// Internal cleanup (on switch scene)
-void Scene::stopInternal() {
-  // entities.clear();
+// Internal update method
+void Scene::update(Uint32 delta) {
+  systems::collisionSystem(registry);
+  systems::physicsSystem(registry, delta);
+  systems::particleSystem(registry, delta);
 }
 
 // Draw internal method
@@ -41,10 +43,24 @@ void Scene::draw() {
   systems::particleRenderSystem(registry, assets);
 }
 
-// Internal update method
-void Scene::update(Uint32 delta) {
-  systems::physicsSystem(registry, delta);
-  systems::particleSystem(registry, delta);
+// Internal cleanup (on switch scene)
+void Scene::stopInternal() {
+  // entities.clear();
+}
+
+// Register a new entity
+entt::entity Scene::createEntity() {
+  return registry.create();
+}
+
+// Remove an entity
+void Scene::destroyEntity(entt::entity entity) {
+  registry.destroy(entity);
+}
+
+// Get a reference to the registry
+entt::registry& Scene::getRegistry() {
+  return registry;
 }
 
 }  // namespace afk

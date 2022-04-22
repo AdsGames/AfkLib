@@ -11,7 +11,8 @@
 #include "../include/Game.h"
 #include "../include/components/Collider.h"
 #include "../include/components/Sprite.h"
-#include "../include/entities/ui/Label.h"
+#include "../include/components/Transform.h"
+#include "../include/components/ui/Label.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -28,46 +29,42 @@ class DemoScene : public afk::Scene {
     assets.loadImage("lenna", "assets/lenna.png");
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
-    auto& lenna_1 = add<afk::GameObject>(*this, 10, 10);
-    addComponent<afk::Sprite>(lenna_1.id);
-    auto& lenna_1_sprite = getComponent<afk::Sprite>(lenna_1.id);
-    lenna_1_sprite.texture = assets.getImage("lenna");
-    addComponent<afk::Collider>(lenna_1.id);
-    lenna_1.transform.size.x = 40;
-    lenna_1.transform.size.y = 40;
-    lenna_1_id = lenna_1.id;
+    lenna_1_id = createEntity();
+    createComponent<afk::Transform>(lenna_1_id, afk::Vec3(10, 10, 0),
+                                    afk::Vec2(40, 40));
+    createComponent<afk::Sprite>(lenna_1_id, "lenna");
+    createComponent<afk::Collider>(lenna_1_id);
 
-    auto& lenna_2 = add<afk::GameObject>(*this, 10, 80);
-    addComponent<afk::Sprite>(lenna_2.id);
-    auto& lenna_2_sprite = getComponent<afk::Sprite>(lenna_2.id);
-    lenna_2_sprite.texture = assets.getImage("lenna");
-    addComponent<afk::Collider>(lenna_2.id);
-    lenna_2.transform.size.x = 40;
-    lenna_2.transform.size.y = 40;
-    lenna_2_id = lenna_2.id;
+    lenna_2_id = createEntity();
+    createComponent<afk::Transform>(lenna_2_id, afk::Vec3(10, 80, 0),
+                                    afk::Vec2(40, 40));
+    createComponent<afk::Sprite>(lenna_2_id, "lenna");
+    createComponent<afk::Collider>(lenna_2_id);
 
-    auto& label = add<afk::Label>(*this, 0, 0);
+    label_id = createEntity();
+    createComponent<afk::Transform>(label_id, afk::Vec3(10, 5, 0));
+    auto& label = createComponent<afk::Label>(label_id);
+    label.setText("FPS");
     label.setFont("freesans");
-    label_id = label.id;
   }
 
   void update(Uint32 delta) {
     auto& label = getComponent<afk::Label>(label_id);
-    auto& lenna_1 = get(lenna_1_id);
-    auto& lenna_2 = get(lenna_2_id);
+    auto& lenna_1 = getComponent<afk::Transform>(lenna_1_id);
+    auto& lenna_2 = getComponent<afk::Transform>(lenna_2_id);
 
     if (input.mouseDown(afk::MouseButtons::LEFT)) {
-      lenna_1.transform.position.x = input.mouseX();
-      lenna_1.transform.position.y = input.mouseY();
+      lenna_1.position.x = input.mouseX();
+      lenna_1.position.y = input.mouseY();
     }
 
     if (input.mouseDown(afk::MouseButtons::RIGHT)) {
-      lenna_2.transform.position.x = input.mouseX();
-      lenna_2.transform.position.y = input.mouseY();
+      lenna_2.position.x = input.mouseX();
+      lenna_2.position.y = input.mouseY();
     }
 
     auto& collider = getComponent<afk::Collider>(lenna_1_id);
-    if (collider.collisions.size() > 0) {
+    if (collider.colliding) {
       label.setText("Colliding!");
     } else {
       label.setText("Not colliding");
@@ -79,9 +76,9 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  ObjId lenna_1_id;
-  ObjId lenna_2_id;
-  ObjId label_id;
+  entt::entity lenna_1_id;
+  entt::entity lenna_2_id;
+  entt::entity label_id;
 };
 
 int main(int argv, char** args) {

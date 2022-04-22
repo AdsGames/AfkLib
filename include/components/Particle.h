@@ -12,7 +12,7 @@
 #define INCLUDE_COMPONENTS_PARTICLE_H_
 
 #include <string>
-#include "../color/Color.h"
+#include "../common/Color.h"
 #include "../common/Vec.h"
 
 namespace afk {

@@ -14,7 +14,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-#include "../color/Color.h"
+#include "../common/Color.h"
 
 namespace afk {
 

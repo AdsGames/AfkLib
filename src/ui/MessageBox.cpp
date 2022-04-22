@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2021
  *
  */
-#include "entities/ui/MessageBox.h"
+#include "ui/MessageBox.h"
 
 #include "services/Services.h"
 

@@ -16,19 +16,19 @@
 #include <vector>
 
 #include "common/math.h"
+#include "common/random.h"
 #include "components/Particle.h"
 #include "components/ParticleEmitter.h"
 #include "components/Transform.h"
 #include "primitives/Primitives.h"
-#include "random/RandomGenerator.h"
 #include "services/assets/AssetService.h"
+
+namespace afk::systems {
 
 /**
  * @brief ParticleSystem
  *
  */
-namespace afk::systems {
-
 void particleSystem(entt::registry& registry, float delta) {
   auto particle_view = registry.view<Transform, Particle>();
 
@@ -53,15 +53,15 @@ void particleSystem(entt::registry& registry, float delta) {
 
     while (emitter.counter > emitter.frequency &&
            emitter.templates.size() > 0) {
-      int index = Random::randomInt(0, emitter.templates.size() - 1);
+      int index = random::randomInt(0, emitter.templates.size() - 1);
       auto& [particle, physics] = emitter.templates.at(index);
 
       emitter.counter -= emitter.frequency;
 
       const float start_x =
-          tran.position.x + Random::randomFloat(0, tran.size.x);
+          tran.position.x + random::randomFloat(0, tran.size.x);
       const float start_y =
-          tran.position.y + Random::randomFloat(0, tran.size.y);
+          tran.position.y + random::randomFloat(0, tran.size.y);
 
       const auto& particle_id = registry.create();
       registry.emplace<Particle>(particle_id, particle);

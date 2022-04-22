@@ -10,7 +10,7 @@
  */
 #include "assets/Font.h"
 
-#include "color/Color.h"
+#include "common/Color.h"
 #include "common/Exceptions.h"
 #include "services/Services.h"
 

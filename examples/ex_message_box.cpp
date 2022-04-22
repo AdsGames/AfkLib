@@ -9,10 +9,10 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/ui/Button.h"
-#include "../include/entities/ui/MessageBox.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
+#include "../include/ui/Button.h"
+#include "../include/ui/MessageBox.h"
 
 class DemoScene : public afk::Scene {
  public:

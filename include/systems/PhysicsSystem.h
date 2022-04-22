@@ -17,12 +17,12 @@
 #include "components/Transform.h"
 #include "services/assets/AssetService.h"
 
+namespace afk::systems {
+
 /**
  * @brief PhysicsSystem
  *
  */
-namespace afk::systems {
-
 void physicsSystem(entt::registry& registry, Uint32 delta) {
   auto view = registry.view<Transform, Physics>();
 

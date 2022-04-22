@@ -17,7 +17,7 @@
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
 
-#include "color/Color.h"
+#include "common/Color.h"
 #include "services/Services.h"
 
 namespace afk {

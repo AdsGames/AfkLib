@@ -12,7 +12,7 @@
 
 #include <SDL2/SDL_image.h>
 
-#include "color/Color.h"
+#include "common/Color.h"
 #include "common/Exceptions.h"
 #include "services/Services.h"
 

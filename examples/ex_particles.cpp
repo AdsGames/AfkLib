@@ -9,12 +9,12 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/color/Color.h"
+#include "../include/common/Color.h"
 #include "../include/common/Vec.h"
+#include "../include/common/random.h"
 #include "../include/components/Particle.h"
 #include "../include/components/ParticleEmitter.h"
 #include "../include/components/Transform.h"
-#include "../include/random/RandomGenerator.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
 
@@ -41,12 +41,12 @@ class DemoScene : public afk::Scene {
     for (int i = 0; i < 100; i++) {
       auto& [particle, physics] = emitter_1.addParticle();
       particle.setType(afk::ParticleType::SQUARE);
-      particle.setLifespan(afk::Random::randomInt(100, 1000));
+      particle.setLifespan(afk::random::randomInt(100, 1000));
       particle.setSize(10.0f, 3.0f);
       particle.setColor(afk::color::rgb(128, 22, 22),
                         afk::color::rgb(100, 100, 100));
-      physics.setVelocity(afk::Random::randomFloat(-5.0f, 5.0f),
-                          afk::Random::randomFloat(-1.0f, -2.0f));
+      physics.setVelocity(afk::random::randomFloat(-5.0f, 5.0f),
+                          afk::random::randomFloat(-1.0f, -2.0f));
       physics.setAcceleration(0, 2.0f);
     }
 
@@ -58,10 +58,10 @@ class DemoScene : public afk::Scene {
     for (int i = 0; i < 100; i++) {
       auto& [particle, physics] = emitter_2.addParticle();
       particle.setType(afk::ParticleType::CIRCLE);
-      particle.setLifespan(afk::Random::randomInt(1000, 2000));
+      particle.setLifespan(afk::random::randomInt(1000, 2000));
       particle.setSize(3.0f, 2.0f);
       particle.setColor(afk::color::blue, afk::color::white);
-      physics.setVelocity(afk::Random::randomFloat(-20.0, 20.0), -200.0f);
+      physics.setVelocity(afk::random::randomFloat(-20.0, 20.0), -200.0f);
       physics.setAcceleration(0, 200.0f);
     }
 
@@ -73,10 +73,10 @@ class DemoScene : public afk::Scene {
     for (int i = 0; i < 400; i++) {
       auto& [particle, physics] = emitter_3.addParticle();
       particle.setType(afk::ParticleType::IMAGE);
-      particle.setLifespan(afk::Random::randomInt(800, 1500));
+      particle.setLifespan(afk::random::randomInt(800, 1500));
       particle.setSize(16.0f, 20.0f);
       particle.setTexture("fuzzball");
-      physics.setVelocity(afk::Random::randomFloat(2.0f, 2.5f), -5.0f);
+      physics.setVelocity(afk::random::randomFloat(2.0f, 2.5f), -5.0f);
     }
   }
 

@@ -9,14 +9,14 @@
  *
  */
 #include "../include/Game.h"
-#include "../include/entities/ui/Button.h"
-#include "../include/entities/ui/Checkbox.h"
-#include "../include/entities/ui/Image.h"
-#include "../include/entities/ui/Inputbox.h"
-#include "../include/entities/ui/Label.h"
-#include "../include/entities/ui/MessageBox.h"
 #include "../include/scene/Scene.h"
 #include "../include/services/Services.h"
+#include "../include/ui/Button.h"
+#include "../include/ui/Checkbox.h"
+#include "../include/ui/Image.h"
+#include "../include/ui/Inputbox.h"
+#include "../include/ui/Label.h"
+#include "../include/ui/MessageBox.h"
 
 class DemoScene : public afk::Scene {
  public:

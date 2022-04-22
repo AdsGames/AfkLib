@@ -2,14 +2,18 @@ cmake_minimum_required(VERSION 3.11)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
 # Add include dir
-include_directories(${CMAKE_BINARY_DIR}/include)
-include_directories(${CMAKE_BINARY_DIR}/bin)
+include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/build)
 
 # Find libs
-if(NOT EMSCRIPTEN)
+if(EMSCRIPTEN)
+  set(EnTT_DIR "C:/Users/alege/Documents/GitHub/emsdk/upstream/lib/cmake/EnTT")
+  find_package(EnTT REQUIRED)
+
+else(EMSCRIPTEN)
   find_library(SDL_LIBRARY NAMES SDL2 REQUIRED)
   find_library(SDL_MIXER_LIBRARY NAMES SDL2_mixer REQUIRED)
   find_library(SDL_IMAGE_LIBRARY NAMES SDL2_image REQUIRED)
@@ -17,12 +21,12 @@ if(NOT EMSCRIPTEN)
   find_library(SDL_GFX_LIBRARY NAMES SDL2_gfx REQUIRED)
   find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
   find_package(EnTT REQUIRED)
-endif(NOT EMSCRIPTEN)
+endif(EMSCRIPTEN)
 
 
 # Build examples
 # ex_collision ex_ui ex_message_box 
-set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard)
+set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard ex_collision)
 
 foreach(EX_NAME ${EXAMPLES})
   add_executable(${EX_NAME} ${CMAKE_CURRENT_LIST_DIR}/${EX_NAME}.cpp)
@@ -41,6 +45,7 @@ foreach(EX_NAME ${EXAMPLES})
       -sUSE_SDL_GFX=2 
       -sSDL2_IMAGE_FORMATS=["png"]
     )
+
     target_link_libraries(
       ${EX_NAME} 
       -sWASM=1 
@@ -52,8 +57,11 @@ foreach(EX_NAME ${EXAMPLES})
       -sSDL2_IMAGE_FORMATS=["png"] 
       -sDEMANGLE_SUPPORT=1
       -sTOTAL_MEMORY=512MB
+      -sDISABLE_EXCEPTION_CATCHING=0
+      EnTT::EnTT
       afk
     )
+
     set_target_properties(
       ${EX_NAME} 
       PROPERTIES 
@@ -66,6 +74,7 @@ foreach(EX_NAME ${EXAMPLES})
     if(MINGW)
       target_link_libraries(${EX_NAME} -lmingw32)
     endif(MINGW)
+    
     target_link_libraries(
       ${EX_NAME} 
       -lm 
@@ -82,4 +91,4 @@ foreach(EX_NAME ${EXAMPLES})
 endforeach()
 
 # Export assets
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/bin/assets/)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_SOURCE_DIR}/build/assets/)

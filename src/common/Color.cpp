@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2021
  *
  */
-#include "color/Color.h"
+#include "common/Color.h"
 
 namespace afk::color {
 

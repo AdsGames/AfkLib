@@ -17,14 +17,14 @@
 #include "components/Transform.h"
 #include "services/assets/AssetService.h"
 
+namespace afk::systems {
+
 /**
  * @brief RenderSystem
  *
  */
-namespace afk::systems {
-
 void renderSystem(entt::registry& registry, AssetService& assetService) {
-  auto view = registry.view<const Transform, SpriteComponent>();
+  auto view = registry.view<const Transform, Sprite>();
 
   for (auto [entity, tran, sprite] : view.each()) {
     auto texture = assetService.getImage(sprite.texture);

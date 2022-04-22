@@ -15,11 +15,11 @@
 
 namespace afk {
 
-struct LabelComponent {
+struct Label {
   /// Constructor
-  LabelComponent() : text(""), font("") {}
+  Label() : text(""), font("") {}
 
-  LabelComponent(const std::string& text, const std::string& font)
+  Label(const std::string& text, const std::string& font)
       : text(text), font(font) {}
 
   /// Text of Label

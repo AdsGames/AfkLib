@@ -15,7 +15,7 @@
 #include <utility>
 #include <vector>
 
-#include "../color/Color.h"
+#include "../common/Color.h"
 #include "../common/Vec.h"
 #include "./Particle.h"
 #include "./Physics.h"

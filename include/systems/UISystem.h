@@ -17,14 +17,14 @@
 #include "components/ui/Label.h"
 #include "services/assets/AssetService.h"
 
+namespace afk::systems {
+
 /**
  * @brief UISystem
  *
  */
-namespace afk::systems {
-
 void uiSystem(entt::registry& registry, AssetService& assetService) {
-  auto view = registry.view<const Transform, LabelComponent>();
+  auto view = registry.view<const Transform, Label>();
 
   for (auto [entity, tran, label] : view.each()) {
     auto font = assetService.getFont(label.font);

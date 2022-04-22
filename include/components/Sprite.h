@@ -15,7 +15,7 @@
 
 namespace afk {
 
-struct SpriteComponent {
+struct Sprite {
   /// Texture of Sprite
   std::string texture;
 };

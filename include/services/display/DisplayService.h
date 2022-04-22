@@ -16,7 +16,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-#include "../../color/Color.h"
+#include "../../common/Color.h"
 #include "../Service.h"
 
 const int FRAME_BUFFER_SIZE = 50;
