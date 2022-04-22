@@ -230,6 +230,15 @@ bool InputService::mouseDown(const MouseButtons button) const {
   return mouse_state.button[static_cast<int>(button)];
 }
 
+// Get mouse button down state
+bool InputService::mouseOver(const Vec2 position, const Vec2 size) const {
+  if (mouse_state.x < position.x || mouse_state.x > position.x + size.x ||
+      mouse_state.y < position.y || mouse_state.y > position.y + size.y) {
+    return false;
+  }
+  return true;
+}
+
 // Get mouse x position
 int InputService::mouseX() const {
   return mouse_state.x;

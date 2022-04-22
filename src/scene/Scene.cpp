@@ -39,7 +39,7 @@ void Scene::update(Uint32 delta) {
 void Scene::draw() {
   // Draw
   systems::renderSystem(registry, assets);
-  systems::uiSystem(registry, assets);
+  systems::uiSystem(registry, assets, input);
   systems::particleRenderSystem(registry, assets);
 }
 

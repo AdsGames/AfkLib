@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 
+#include "../../common/Vec.h"
 #include "../Service.h"
 #include "JoystickState.h"
 #include "KeyboardState.h"
@@ -135,6 +136,16 @@ class InputService : public Service {
    * @return Key state
    */
   bool mouseDown(const MouseButtons button) const;
+
+  /**
+   * @brief Get whether mouse is over a given area
+   *
+   * @param position Position to check
+   * @param size Size of area
+   *
+   * @return Over state
+   */
+  bool mouseOver(const Vec2 position, const Vec2 size) const;
 
   /**
    * @brief Get mouse x position
