@@ -7,6 +7,8 @@ project (afk
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(${EXTERNAL_DIR}/libs.cmake)
 
@@ -16,15 +18,15 @@ file(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/include/*.h)
 
 # Lib
 add_library(${PROJECT_NAME} 
-  STATIC 
+STATIC 
     ${SOURCES}
     ${HEADERS}
 )
 
 target_include_directories(${PROJECT_NAME} 
-    PUBLIC
-      $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:include>
+  PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 
 target_compile_options(${PROJECT_NAME} 
@@ -39,38 +41,17 @@ set_target_properties(${PROJECT_NAME}
   PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
 )
 
 # Emscripten specific options
 if(EMSCRIPTEN) 
-  target_compile_options(${PROJECT_NAME}
-    PRIVATE  
-      -sUSE_SDL=2 
-      -sUSE_SDL_IMAGE=2 
-      -sUSE_SDL_TTF=2 
-      -sUSE_SDL_MIXER=2 
-      -sUSE_SDL_GFX=2 
-      -sSDL2_IMAGE_FORMATS=["png"]
+  set_target_properties(${PROJECT_NAME} 
+    PROPERTIES 
+    LINK_FLAGS 
+    "-s DEMANGLE_SUPPORT=1 -s DISABLE_EXCEPTION_CATCHING=0 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s SDL2_IMAGE_FORMATS=[\"png\"]"
   )
-
-  target_link_libraries(${PROJECT_NAME} 
-    -sWASM=1 
-    -sUSE_SDL=2
-    -sUSE_SDL_IMAGE=2 
-    -sUSE_SDL_TTF=2 
-    -sUSE_SDL_MIXER=2 
-    -sUSE_SDL_GFX=2 
-    -sSDL2_IMAGE_FORMATS=["png"]
-    -sDEMANGLE_SUPPORT=1
-    imported::entt
-  )
-
-  target_link_libraries(${PROJECT_NAME} 
-    -sUSE_SDL=2 
-    -fsanitize=address
-  )
+ 
+  target_link_libraries(${PROJECT_NAME} imported::entt)
 
 # All other system options
 else(EMSCRIPTEN)
@@ -86,25 +67,21 @@ else(EMSCRIPTEN)
 endif(EMSCRIPTEN)
 
 # Install info
-if (EMSCRIPTEN)
-  get_filename_component(EMSDK_DIR ${CMAKE_TOOLCHAIN_FILE} DIRECTORY)
-  set(EMSDK_DIR ${EMSDK_DIR}/../../../system)
-  message(STATUS "Lib install directory set to ${EMSDK_DIR}")
+if (EMSCRIPTEN OR WIN32)
+  if (EMSCRIPTEN)
+    get_filename_component(EMSDK_DIR ${CMAKE_TOOLCHAIN_FILE} DIRECTORY)
+    set(BASE_DIR ${EMSDK_DIR}/../../../system)
+  elseif (WIN32)
+    get_filename_component(WIN32_BIN_PATH ${CMAKE_C_COMPILER} PATH)
+    set(BASE_DIR ${WIN32_BIN_PATH}/../)
+  endif(EMSCRIPTEN)
 
-  set(CMAKE_INSTALL_LIBDIR ${EMSDK_DIR}/lib)
-  set(CMAKE_INSTALL_BINDIR ${EMSDK_DIR}/bin)
-  set(CMAKE_INSTALL_INCLUDEDIR ${EMSDK_DIR}/include)
-  set(CMAKE_INSTALL_DATAROOTDIR ${EMSDK_DIR}/share)
+  message(STATUS "Lib install directory set to ${BASE_DIR}")
 
-elseif (WIN32)
-  get_filename_component(WIN32_BIN_PATH ${CMAKE_C_COMPILER} PATH)
-  set(WIN32_DIR ${WIN32_BIN_PATH}/../)
-  message(STATUS "Lib install directory set to ${WIN32_DIR}")
-
-  set(CMAKE_INSTALL_LIBDIR ${WIN32_DIR}/lib)
-  set(CMAKE_INSTALL_BINDIR  ${WIN32_DIR}/bin)
-  set(CMAKE_INSTALL_INCLUDEDIR ${WIN32_DIR}/include)
-  set(CMAKE_INSTALL_DATAROOTDIR ${WIN32_DIR}/share)
+  set(CMAKE_INSTALL_LIBDIR ${BASE_DIR}/lib)
+  set(CMAKE_INSTALL_BINDIR ${BASE_DIR}/bin)
+  set(CMAKE_INSTALL_INCLUDEDIR ${BASE_DIR}/include)
+  set(CMAKE_INSTALL_DATAROOTDIR ${BASE_DIR}/share)
 else()
   include(GNUInstallDirs)
 endif()

@@ -20,7 +20,7 @@
 
 class DemoScene : public afk::Scene {
  public:
-  void start() {
+  void start() override {
     logger.log("Starting!");
 
     display.setWindowSize(512, 512);
@@ -76,7 +76,7 @@ class DemoScene : public afk::Scene {
     });
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 };
 
 int main(int argv, char** args) {

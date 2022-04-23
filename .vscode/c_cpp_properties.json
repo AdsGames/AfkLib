@@ -5,7 +5,7 @@
       "intelliSenseMode": "gcc-x86",
       "cStandard": "c11",
       "cppStandard": "c++17",
-      "includePath": ["include"]
+      "includePath": ["afk/include"]
     }
   ],
   "version": 4

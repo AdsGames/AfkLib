@@ -71,7 +71,7 @@ class DemoScene : public afk::Scene {
     Scene::update(delta);
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 
  private:
   afk::Entity lennaEntity1;

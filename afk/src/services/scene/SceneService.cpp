@@ -31,11 +31,11 @@ void SceneService::update() {
 
   // Update scene
   if (currentScene) {
-    uint32_t delta = SDL_GetTicks() - lastTick;
+    uint32_t currentTick = SDL_GetTicks();
+    uint32_t delta = currentTick - lastTick;
+    lastTick = currentTick;
     currentScene->update(delta);
   }
-
-  lastTick = SDL_GetTicks();
 }
 
 // Update scene

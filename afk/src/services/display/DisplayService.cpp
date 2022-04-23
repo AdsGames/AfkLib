@@ -20,10 +20,8 @@
 namespace afk {
 
 // Setup DisplayService
-DisplayService::DisplayService() : clearColor(color::white) {
-  // Set initial time
-  oldTime = SDL_GetTicks();
-}
+DisplayService::DisplayService()
+    : clearColor(color::white), oldTime(SDL_GetTicks()) {}
 
 // Cleanup window
 DisplayService::~DisplayService() {
@@ -53,8 +51,9 @@ void DisplayService::draw(Scene* currentScene) {
   SDL_RenderPresent(renderer);
 
   // Update frame index
-  framesArray[frameIndex] = SDL_GetTicks() - oldTime;
-  oldTime = SDL_GetTicks();
+  uint32_t currentTime = SDL_GetTicks();
+  framesArray[frameIndex] = currentTime - oldTime;
+  oldTime = currentTime;
   frameIndex = (frameIndex + 1) % frameBufferSize;
 
   float fpsTotal = 0;

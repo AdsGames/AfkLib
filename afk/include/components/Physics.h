@@ -17,12 +17,12 @@ namespace afk {
 
 struct Physics {
   /// Constructors
+  Physics() = default;
+
   Physics(Vec2 velocity, Vec2 acceleration)
       : velocity(velocity), acceleration(acceleration) {}
 
   explicit Physics(Vec2 velocity) : velocity(velocity) {}
-
-  Physics() = default;
 
   void setVelocity(Vec2 velocity) { this->velocity = velocity; }
 

@@ -17,7 +17,7 @@
 
 class DemoScene : public afk::Scene {
  public:
-  void start() {
+  void start() override {
     logger.log("Starting!");
 
     display.setWindowSize(512, 512);
@@ -75,7 +75,7 @@ class DemoScene : public afk::Scene {
     }
   }
 
-  void update(uint32_t delta) {
+  void update(uint32_t delta) override {
     Scene::update(delta);
 
     auto& smoke_transform = getComponent<afk::Transform>(emitterEntity3);
@@ -83,7 +83,7 @@ class DemoScene : public afk::Scene {
     smoke_transform.position.y = input.mouseY();
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 
  private:
   afk::Entity emitterEntity1;

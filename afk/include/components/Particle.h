@@ -27,24 +27,7 @@ enum class ParticleType : int {
 
 struct Particle {
   /// Constructor
-  explicit Particle(ParticleType type = ParticleType::Pixel)
-      : type(type),
-        startSize(1),
-        endSize(1),
-        age(0),
-        lifespan(1000),
-        startColor(color::black),
-        endColor(color::black){};
-
-  Particle(const Particle& part)
-      : type(part.type),
-        startSize(part.startSize),
-        endSize(part.endSize),
-        age(0),
-        lifespan(part.lifespan),
-        startColor(part.startColor),
-        endColor(part.endColor),
-        texture(part.texture){};
+  Particle() = default;
 
   /**
    * @brief Set the type
@@ -79,10 +62,7 @@ struct Particle {
    *
    * @param lifespan Number of ms to stay alive
    */
-  void setLifespan(const float lifespan) {
-    this->lifespan = lifespan;
-    this->age = lifespan;
-  }
+  void setLifespan(const float lifespan) { this->lifespan = lifespan; }
 
   /**
    * @brief Set the particle color
@@ -113,25 +93,25 @@ struct Particle {
   void setTexture(const std::string& texture) { this->texture = texture; }
 
   /// Type of particle
-  ParticleType type;
+  ParticleType type = ParticleType::Pixel;
 
   /// Starting size
-  float startSize;
+  float startSize = 1;
 
   /// Ending size
-  float endSize;
+  float endSize = 1;
 
   /// Current age
-  uint32_t age;
+  uint32_t age = 0;
 
   /// Max lifespan
-  float lifespan;
+  float lifespan = 1000;
 
   /// Start color
-  color::Color startColor;
+  color::Color startColor = color::black;
 
   /// End color
-  color::Color endColor;
+  color::Color endColor = color::black;
 
   /// String
   std::string texture;

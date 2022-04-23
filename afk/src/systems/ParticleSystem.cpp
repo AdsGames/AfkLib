@@ -45,8 +45,7 @@ void particleSystem(Registry& registry, uint32_t delta) {
   for (auto [entity, tran, emitter] : systemView.each()) {
     emitter.counter += delta;
 
-    while (emitter.counter > emitter.frequency &&
-           !emitter.templates.empty()) {
+    while (emitter.counter > emitter.frequency && !emitter.templates.empty()) {
       int index = random::randomInt(0, emitter.templates.size() - 1);
       auto& [particle, physics] = emitter.templates.at(index);
 
@@ -60,9 +59,9 @@ void particleSystem(Registry& registry, uint32_t delta) {
       const auto& particleId = registry.create();
       registry.emplace<Particle>(particleId, particle);
       registry.emplace<Physics>(particleId, physics);
-      registry.emplace<Transform>(
-          particleId, Vec3(startX, startY, tran.position.z),
-          Vec2(particle.startSize, particle.startSize));
+      registry.emplace<Transform>(particleId,
+                                  Vec3(startX, startY, tran.position.z),
+                                  Vec2(particle.startSize, particle.startSize));
     }
   }
 }
@@ -74,8 +73,7 @@ void particleRenderSystem(Registry& registry, AssetService& assetService) {
     float lifePercent = particle.age / particle.lifespan;
 
     // Lerp size
-    float size =
-        math::lerp(particle.startSize, particle.endSize, lifePercent);
+    float size = math::lerp(particle.startSize, particle.endSize, lifePercent);
 
     // Lerp color
     uint8_t r =
