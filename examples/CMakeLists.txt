@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
 
+project (examples 
+  VERSION 1.0.0
+  LANGUAGES CXX
+)
+
 include(${EXTERNAL_DIR}/libs.cmake)
 
-# Add include dir
-include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(${PROJECT_SOURCE_DIR}/build)
 
 # Config
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
