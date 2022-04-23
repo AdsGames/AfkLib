@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_SERVICE_H_
-#define INCLUDE_SERVICES_SERVICE_H_
+#ifndef AFK_SERVICE_H
+#define AFK_SERVICE_H
 
 #include <SDL2/SDL_events.h>
 #include <string>
@@ -24,7 +24,7 @@ class Service {
   /**
    * @brief Virtual notify to be called by the queue
    *
-   * @param event Allegero event to be processed
+   * @param event SDL event to be processed
    */
   virtual void notify(const SDL_Event& event) = 0;
 
@@ -38,4 +38,4 @@ class Service {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_SERVICE_H_
+#endif  // AFK_SERVICE_H

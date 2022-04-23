@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_ENTITIES_UI_MESSAGEBOX_H_
-#define INCLUDE_ENTITIES_UI_MESSAGEBOX_H_
+#ifndef AFK_MESSAGEBOX_H
+#define AFK_MESSAGEBOX_H
 
 #include <string>
 
@@ -20,9 +20,9 @@ namespace afk {
  *
  */
 enum class MessageBoxType {
-  WARN,
-  ERROR,
-  INFO,
+  Warn,
+  Error,
+  Info,
 };
 
 /**
@@ -77,7 +77,7 @@ class MessageBox {
 
 }  // namespace afk
 
-#endif  // INCLUDE_ENTITIES_UI_MESSAGEBOX_H_
+#endif  // AFK_MESSAGEBOX_H
 
 /**
  * @example ex_ui.cpp

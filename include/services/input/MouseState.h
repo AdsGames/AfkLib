@@ -10,8 +10,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
-#define INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
+#ifndef AFK_MOUSESTATE_H
+#define AFK_MOUSESTATE_H
 
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_mouse.h>
@@ -19,10 +19,10 @@
 namespace afk {
 
 enum class MouseButtons {
-  LEFT = 1,
-  CENTER = 2,
-  RIGHT = 3,
-  MAX = 4,
+  Left = 1,
+  Center = 2,
+  Right = 3,
+  Max = 4,
 };
 
 /**
@@ -40,25 +40,25 @@ struct MouseState {
   int z = 0;
 
   /// Previous mouse x position
-  int old_x = 0;
+  int oldX = 0;
 
   /// Previous mouse y position
-  int old_y = 0;
+  int oldY = 0;
 
   /// Individual button states
-  bool button[static_cast<int>(MouseButtons::MAX)] = {false};
+  bool button[static_cast<int>(MouseButtons::Max)] = {false};
 
   /// Buttons just pressed
-  bool down[static_cast<int>(MouseButtons::MAX)] = {false};
+  bool down[static_cast<int>(MouseButtons::Max)] = {false};
 
   /// Buttons just released
-  bool up[static_cast<int>(MouseButtons::MAX)] = {false};
+  bool up[static_cast<int>(MouseButtons::Max)] = {false};
 
   /// Mouse just moved
   bool moved = false;
 
   /// Previous button states
-  bool button_old[static_cast<int>(MouseButtons::MAX)] = {false};
+  bool buttonOld[static_cast<int>(MouseButtons::Max)] = {false};
 
   /**
    * @brief Update the mouse state
@@ -66,34 +66,34 @@ struct MouseState {
    */
   void update() {
     // Check if just moved
-    moved = old_x != x || old_y != y;
-    old_x = x;
-    old_y = y;
+    moved = oldX != x || oldY != y;
+    oldX = x;
+    oldY = y;
 
     // Check button just pressed
-    for (int i = 0; i < static_cast<int>(MouseButtons::MAX); i++) {
+    for (int i = 0; i < static_cast<int>(MouseButtons::Max); i++) {
       // Just up
-      if (button_old[i] && !button[i]) {
+      if (buttonOld[i] && !button[i]) {
         up[i] = true;
       }
 
       // Just down
-      if (!button_old[i] && button[i]) {
+      if (!buttonOld[i] && button[i]) {
         down[i] = true;
       }
 
       // Same
-      if (button_old[i] == button[i]) {
+      if (buttonOld[i] == button[i]) {
         up[i] = false;
         down[i] = false;
       }
 
       // Set new old values
-      button_old[i] = button[i];
+      buttonOld[i] = button[i];
     }
   }
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_INPUT_MOUSESTATE_H_
+#endif  // AFK_MOUSESTATE_H

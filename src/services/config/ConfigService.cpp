@@ -19,7 +19,7 @@
 namespace afk {
 
 // Constructor
-ConfigService::ConfigService() : autosave(false) {
+ConfigService::ConfigService() : autoSave(false) {
   Services::getLoggingService().log("[Config Service]: Starting up");
 }
 
@@ -34,19 +34,19 @@ void ConfigService::load(const std::string& path) {
   std::ifstream fileStream(path);
 
   if (!fileStream.is_open()) {
-    throw FileIOException("Could not open file from " + path);
+    throw FileIoException("Could not open file from " + path);
   }
 
   while (getline(fileStream, line)) {
     // Split string
-    int delimLoc = line.find("=");
-    if (delimLoc == -1) {
+    int delimiterLocation = line.find('=');
+    if (delimiterLocation == -1) {
       continue;
     }
 
     // Get values
-    std::string key = line.substr(0, delimLoc);
-    std::string value = line.substr(delimLoc + 1, line.length());
+    std::string key = line.substr(0, delimiterLocation);
+    std::string value = line.substr(delimiterLocation + 1, line.length());
 
     // Conversion
     settings[key] = value;
@@ -59,12 +59,12 @@ void ConfigService::load(const std::string& path) {
       "[Setting Manager] Loaded settings from file " + path);
 
   // Set internal file name
-  file_name = path;
+  fileName = path;
 }
 
 // Save file
 void ConfigService::save() {
-  save(file_name);
+  save(fileName);
 }
 
 void ConfigService::save(const std::string& path) {
@@ -75,7 +75,7 @@ void ConfigService::save(const std::string& path) {
   std::ofstream fileStream(path);
 
   if (!fileStream.is_open()) {
-    throw FileIOException("Could not open file from path " + path);
+    throw FileIoException("Could not open file from path " + path);
   }
 
   for (auto const& entry : this->settings) {
@@ -85,9 +85,9 @@ void ConfigService::save(const std::string& path) {
   fileStream.close();
 }
 
-// Set autosave
-void ConfigService::setAutosave(const bool autosave) {
-  this->autosave = autosave;
+// Set auto save
+void ConfigService::setAutoSave(const bool autoSave) {
+  this->autoSave = autoSave;
 }
 
 }  // namespace afk

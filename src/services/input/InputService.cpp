@@ -14,7 +14,7 @@
 #include "common/Exceptions.h"
 #include "services/Services.h"
 
-const float JOYSTICK_DEADZONE = 0.6f;
+const float JOYSTICK_DEAD_ZONE = 0.6f;
 
 namespace afk {
 
@@ -24,10 +24,10 @@ InputService::InputService() {
   Services::getEventQueue().registerService(this);
 
   // Set joystick enabled
-  joystick_state.enabled = SDL_NumJoysticks() > 0;
+  joystickState.enabled = SDL_NumJoysticks() > 0;
 
   // Open joystick if enabled
-  if (joystick_state.enabled) {
+  if (joystickState.enabled) {
     SDL_JoystickOpen(0);
   }
 }
@@ -74,20 +74,20 @@ void InputService::notify(const SDL_Event& event) {
 
 // Update routine
 void InputService::update() {
-  mouse_state.update();
-  keyboard_state.update();
-  joystick_state.update();
+  mouseState.update();
+  keyboardState.update();
+  joystickState.update();
 }
 
 // Joystick button event
-void InputService::onJoystickEvent(const Uint32 event_type,
+void InputService::onJoystickEvent(const uint32_t eventType,
                                    const SDL_JoyButtonEvent event) {
-  switch (event_type) {
+  switch (eventType) {
     case SDL_JOYBUTTONDOWN:
-      joystick_state.button[event.button] = true;
+      joystickState.button[event.button] = true;
       break;
     case SDL_JOYBUTTONUP:
-      joystick_state.button[event.button] = false;
+      joystickState.button[event.button] = false;
       break;
     default:
       break;
@@ -97,38 +97,38 @@ void InputService::onJoystickEvent(const Uint32 event_type,
 // Joystick axis event
 void InputService::onJoystickEvent(const SDL_JoyAxisEvent event) {
   // Translated axis
-  const int trans_axis = (JOY_MAX_AXES + event.axis) * 2;
+  const int transAxis = (JOY_MAX_AXES + event.axis) * 2;
 
   // Check if moved enough
-  if (event.value > JOYSTICK_DEADZONE) {
-    joystick_state.stick[trans_axis] = true;
-  } else if (event.value < -JOYSTICK_DEADZONE) {
-    joystick_state.stick[trans_axis + 1] = true;
+  if (event.value > JOYSTICK_DEAD_ZONE) {
+    joystickState.stick[transAxis] = true;
+  } else if (event.value < -JOYSTICK_DEAD_ZONE) {
+    joystickState.stick[transAxis + 1] = true;
   } else {
-    joystick_state.stick[trans_axis] = false;
-    joystick_state.stick[trans_axis + 1] = false;
+    joystickState.stick[transAxis] = false;
+    joystickState.stick[transAxis + 1] = false;
   }
 }
 
-// Joystick reconfig event
+// Joystick reconfigure event
 void InputService::onJoystickReconfigureEvent() {
-  joystick_state.enabled = SDL_NumJoysticks() > 0;
+  joystickState.enabled = SDL_NumJoysticks() > 0;
 
   // Open joystick if enabled
-  if (joystick_state.enabled) {
+  if (joystickState.enabled) {
     SDL_JoystickOpen(0);
   }
 }
 
 // Keyboard event
-void InputService::onKeyboardEvent(const Uint32 event_type,
+void InputService::onKeyboardEvent(const uint32_t eventType,
                                    const SDL_KeyboardEvent event) {
-  switch (event_type) {
+  switch (eventType) {
     case SDL_KEYDOWN:
-      keyboard_state.key[event.keysym.scancode] = true;
+      keyboardState.key[event.keysym.scancode] = true;
       break;
     case SDL_KEYUP:
-      keyboard_state.key[event.keysym.scancode] = false;
+      keyboardState.key[event.keysym.scancode] = false;
       break;
     default:
       break;
@@ -137,29 +137,29 @@ void InputService::onKeyboardEvent(const Uint32 event_type,
 
 // Mouse axis handler
 void InputService::onMouseEvent(const SDL_MouseMotionEvent event) {
-  mouse_state.x = (event.x - Services::getDisplayService().getTranslationX()) /
+  mouseState.x = (event.x - Services::getDisplayService().getTranslationX()) /
                   Services::getDisplayService().getScaleX();
-  mouse_state.y = (event.y - Services::getDisplayService().getTranslationY()) /
+  mouseState.y = (event.y - Services::getDisplayService().getTranslationY()) /
                   Services::getDisplayService().getScaleY();
 }
 
 // Mouse axis handler
 void InputService::onMouseEvent(const SDL_MouseWheelEvent event) {
-  mouse_state.z = event.y;
+  mouseState.z = event.y;
 }
 
 // Mouse button handler
-void InputService::onMouseEvent(const Uint32 event_type,
+void InputService::onMouseEvent(const uint32_t eventType,
                                 const SDL_MouseButtonEvent event) {
-  switch (event_type) {
+  switch (eventType) {
     case SDL_MOUSEBUTTONUP:
-      if (event.button < static_cast<int>(MouseButtons::MAX)) {
-        mouse_state.button[event.button] = false;
+      if (event.button < static_cast<int>(MouseButtons::Max)) {
+        mouseState.button[event.button] = false;
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      if (event.button < static_cast<int>(MouseButtons::MAX)) {
-        mouse_state.button[event.button] = true;
+      if (event.button < static_cast<int>(MouseButtons::Max)) {
+        mouseState.button[event.button] = true;
       }
       break;
     default:
@@ -169,71 +169,71 @@ void InputService::onMouseEvent(const Uint32 event_type,
 
 // Get key just down state
 bool InputService::keyPressed(const Keys key) const {
-  if (key > Keys::MAX) {
+  if (key > Keys::Max) {
     return false;
   }
-  return keyboard_state.keyPressed[static_cast<int>(key)];
+  return keyboardState.keyPressed[static_cast<int>(key)];
 }
 
 // Get key just up state
 bool InputService::keyReleased(const Keys key) const {
-  if (key > Keys::MAX) {
+  if (key > Keys::Max) {
     return false;
   }
-  return keyboard_state.keyReleased[static_cast<int>(key)];
+  return keyboardState.keyReleased[static_cast<int>(key)];
 }
 
 // Get key down state
 bool InputService::keyDown(const Keys key) const {
-  if (key > Keys::MAX) {
+  if (key > Keys::Max) {
     return false;
   }
-  return keyboard_state.key[static_cast<int>(key)];
+  return keyboardState.key[static_cast<int>(key)];
 }
 
 // Get any key down state
 bool InputService::anyKeyDown() const {
-  return keyboard_state.anyKeyDown;
+  return keyboardState.anyKeyDown;
 }
 
 // Get last key pressed
 int InputService::lastKeyPressed() const {
-  return keyboard_state.lastKeyPressed;
+  return keyboardState.lastKeyPressed;
 }
 
 // Get last key pressed
 int InputService::lastKeyReleased() const {
-  return keyboard_state.lastKeyReleased;
+  return keyboardState.lastKeyReleased;
 }
 
 // Get mouse button just down state
 bool InputService::mousePressed(const MouseButtons button) const {
-  if (button > MouseButtons::MAX) {
+  if (button > MouseButtons::Max) {
     return false;
   }
-  return mouse_state.down[static_cast<int>(button)];
+  return mouseState.down[static_cast<int>(button)];
 }
 
 // Get mouse button just up state
 bool InputService::mouseReleased(const MouseButtons button) const {
-  if (button > MouseButtons::MAX) {
+  if (button > MouseButtons::Max) {
     return false;
   }
-  return mouse_state.up[static_cast<int>(button)];
+  return mouseState.up[static_cast<int>(button)];
 }
 
 // Get mouse button down state
 bool InputService::mouseDown(const MouseButtons button) const {
-  if (button > MouseButtons::MAX) {
+  if (button > MouseButtons::Max) {
     return false;
   }
-  return mouse_state.button[static_cast<int>(button)];
+  return mouseState.button[static_cast<int>(button)];
 }
 
 // Get mouse button down state
 bool InputService::mouseOver(const Vec2 position, const Vec2 size) const {
-  if (mouse_state.x < position.x || mouse_state.x > position.x + size.x ||
-      mouse_state.y < position.y || mouse_state.y > position.y + size.y) {
+  if (mouseState.x < position.x || mouseState.x > position.x + size.x ||
+      mouseState.y < position.y || mouseState.y > position.y + size.y) {
     return false;
   }
   return true;
@@ -241,32 +241,32 @@ bool InputService::mouseOver(const Vec2 position, const Vec2 size) const {
 
 // Get mouse x position
 int InputService::mouseX() const {
-  return mouse_state.x;
+  return mouseState.x;
 }
 
 // Get mouse y position
 int InputService::mouseY() const {
-  return mouse_state.y;
+  return mouseState.y;
 }
 
 // Check if joystick enabled
 bool InputService::joyEnabled() const {
-  return joystick_state.enabled;
+  return joystickState.enabled;
 }
 
 // Get joy button just down state
 bool InputService::joyPressed(const JoystickButtons button) const {
-  return joystick_state.buttonPressed[static_cast<int>(button)];
+  return joystickState.buttonPressed[static_cast<int>(button)];
 }
 
 // Get joy button just up state
 bool InputService::joyReleased(const JoystickButtons button) const {
-  return joystick_state.buttonReleased[static_cast<int>(button)];
+  return joystickState.buttonReleased[static_cast<int>(button)];
 }
 
 // Get joy button down state
 bool InputService::joyDown(const JoystickButtons button) const {
-  return joystick_state.button[static_cast<int>(button)];
+  return joystickState.button[static_cast<int>(button)];
 }
 
 }  // namespace afk

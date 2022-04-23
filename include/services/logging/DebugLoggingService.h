@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
-#define INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
+#ifndef AFK_DEBUGLOGGINGSERVICE_H
+#define AFK_DEBUGLOGGINGSERVICE_H
 
 #include <string>
 
@@ -34,4 +34,4 @@ class DebugLoggingService : public LoggingService {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_LOGGING_DEBUGLOGGINGSERVICE_H_
+#endif  // AFK_DEBUGLOGGINGSERVICE_H

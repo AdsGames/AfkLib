@@ -36,24 +36,24 @@ class DemoScene : public afk::Scene {
     button.setFont("freesans");
     button.sizeToText();
     button.setOnClick([]() {
-      afk::MessageBox message_box(afk::MessageBoxType::INFO);
-      message_box.setTitle("Nice");
-      message_box.setText("You Clicked\nThe button");
-      message_box.show();
+      afk::MessageBox messsageBox(afk::MessageBoxType::INFO);
+      messsageBox.setTitle("Nice");
+      messsageBox.setText("You Clicked\nThe button");
+      messsageBox.show();
     });
 
     afk::Checkbox& checkbox = add<afk::Checkbox>(*this, 10, 40);
     checkbox.setText("CHECK ME");
     checkbox.setFont("freesans");
     checkbox.setOnCheck([](const bool checked) {
-      afk::MessageBox message_box(afk::MessageBoxType::INFO);
-      message_box.setTitle("Nice");
+      afk::MessageBox messsageBox(afk::MessageBoxType::INFO);
+      messsageBox.setTitle("Nice");
       if (checked) {
-        message_box.setText("The checkbox is checked");
+        messsageBox.setText("The checkbox is checked");
       } else {
-        message_box.setText("The checkbox is unchecked");
+        messsageBox.setText("The checkbox is unchecked");
       }
-      message_box.show();
+      messsageBox.show();
     });
 
     afk::Label& label = add<afk::Label>(*this, 10, 70);
@@ -69,10 +69,10 @@ class DemoScene : public afk::Scene {
     image.transform.size.x = 20;
     image.transform.size.y = 20;
     image.setOnClick([]() {
-      afk::MessageBox message_box(afk::MessageBoxType::INFO);
-      message_box.setTitle("Nice");
-      message_box.setText("Clicked the image");
-      message_box.show();
+      afk::MessageBox messsageBox(afk::MessageBoxType::INFO);
+      messsageBox.setTitle("Nice");
+      messsageBox.setText("Clicked the image");
+      messsageBox.show();
     });
   }
 

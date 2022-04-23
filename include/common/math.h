@@ -8,11 +8,10 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMMON_MATH_H_
-#define INCLUDE_COMMON_MATH_H_
+#ifndef AFK_MATH_H
+#define AFK_MATH_H
 
-namespace afk {
-namespace math {
+namespace afk::math {
 
 /**
  * @brief Lerp between two values
@@ -20,7 +19,7 @@ namespace math {
  * @param start Start value
  * @param end End value
  * @param progress Progress from 0.0-1.0
- * @return float Lerped value
+ * @return float Lerp-ed value
  */
 float lerp(float start, float end, float progress);
 
@@ -34,7 +33,6 @@ float lerp(float start, float end, float progress);
  */
 float clamp(float value, float min, float max);
 
-}  // namespace math
-}  // namespace afk
+}  // namespace afk::math
 
-#endif  // INCLUDE_COMMON_MATH_H_
+#endif  // AFK_MATH_H

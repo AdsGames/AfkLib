@@ -8,9 +8,10 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_GAME_H_
-#define INCLUDE_GAME_H_
+#ifndef AFK_GAME_H
+#define AFK_GAME_H
 
+#include <SDL2/SDL_events.h>
 #include <string>
 
 #include "services/Service.h"
@@ -40,21 +41,21 @@ class Game : public Service {
    *
    * @return name
    */
-  std::string getName() const;
+  std::string getName() const override;
 
   /**
    * @brief Starts the main game loop
    *
    * @param scene_id Initial scene to start with
    */
-  void start();
+  void start() const;
 
   /**
    * @brief Notify about changes in queue
    *
    * @param ev event to be processed
    */
-  void notify(const SDL_Event& ev);
+  void notify(const SDL_Event& ev) override;
 
  private:
   /**
@@ -69,4 +70,4 @@ class Game : public Service {
 
 }  // namespace afk
 
-#endif  // INCLUDE_GAME_H_
+#endif  // AFK_GAME_H

@@ -10,6 +10,9 @@
  */
 #include "Game.h"
 
+#include <SDL2/SDL.h>
+#include <cstdint>
+
 #include "common/Exceptions.h"
 #include "services/Services.h"
 #include "ui/MessageBox.h"
@@ -39,7 +42,7 @@ void loop() {
 // Exit helper
 void showErrorDialog(const std::string& title,
                      const std::string& message = "") {
-  MessageBox error(MessageBoxType::ERROR);
+  MessageBox error(MessageBoxType::Error);
   error.setTitle(title);
   error.setText(message);
   error.show();
@@ -64,14 +67,14 @@ std::string Game::getName() const {
 }
 
 // Start your engine!
-void Game::start() {
+void Game::start() const {
   try {
 #ifdef __EMSCRIPTEN__
     emscripten_set_main_loop(loop, 0, 1);
 #else
     float timeDelta = 1000.0f / 30.0f;
     float timeAcc = 0.0f;
-    Uint32 startTime = 0;
+    uint32_t startTime;
 
     // Loop
     while (!closing) {
@@ -92,17 +95,17 @@ void Game::start() {
       Services::getSceneService().draw();
 
       // Inc accumulator
-      timeAcc += SDL_GetTicks() - startTime;
+      timeAcc += static_cast<float>(SDL_GetTicks() - startTime);
     }
 #endif
-  } catch (const FileIOException& e) {
+  } catch (const FileIoException& e) {
     showErrorDialog("File Error", e.what());
   } catch (const std::runtime_error& e) {
     showErrorDialog("Runtime Error", e.what());
   } catch (const std::exception& e) {
     showErrorDialog("Exception", e.what());
   } catch (...) {
-    showErrorDialog("Unknown Error", "An unknown error has occured :(");
+    showErrorDialog("Unknown Error", "An unknown error has occurred :(");
   }
 }
 

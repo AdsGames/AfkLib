@@ -8,19 +8,20 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMPONENTS_UI_LABEL_H_
-#define INCLUDE_COMPONENTS_UI_LABEL_H_
+#ifndef AFK_LABEL_H
+#define AFK_LABEL_H
 
 #include <string>
+#include <utility>
 
 namespace afk {
 
 struct Label {
   /// Constructor
-  Label() : text(""), font("") {}
+  Label() = default;
 
-  Label(const std::string& text, const std::string& font)
-      : text(text), font(font) {}
+  Label(std::string text, std::string font)
+      : text(std::move(text)), font(std::move(font)) {}
 
   /// Text of Label
   std::string text;
@@ -36,4 +37,4 @@ struct Label {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_UI_LABEL_H_
+#endif  // AFK_LABEL_H

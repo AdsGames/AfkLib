@@ -14,7 +14,7 @@
 #include "../include/entities/Entity.h"
 #include "../include/scene/Scene.h"
 
-void bounceSystem(afk::registry& registry) {
+void bounceSystem(afk::Registry& registry) {
   auto view = registry.view<const afk::Transform, afk::Physics>();
 
   for (auto [entity, transform, physics] : view.each()) {
@@ -35,32 +35,32 @@ void bounceSystem(afk::registry& registry) {
 
 class DemoScene : public afk::Scene {
  public:
-  void start() {
+  void start() override {
     logger.log("Starting!");
 
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_physics");
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    lennaId = createEntity();
-    createComponent<afk::Sprite>(lennaId, "lenna");
-    createComponent<afk::Transform>(lennaId, afk::Vec3(0, 0, 0),
+    lennaEntity = createEntity();
+    createComponent<afk::Sprite>(lennaEntity, "lenna");
+    createComponent<afk::Transform>(lennaEntity, afk::Vec3(0, 0, 0),
                                     afk::Vec2(40, 40));
-    createComponent<afk::Physics>(lennaId, afk::Vec2(100.0f, 400.0f));
+    createComponent<afk::Physics>(lennaEntity, afk::Vec2(100.0f, 400.0f));
   }
 
-  void update(Uint32 delta) {
+  void update(uint32_t delta) override {
     Scene::update(delta);
     bounceSystem(getRegistry());
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 
  private:
-  afk::entity lennaId;
+  afk::Entity lennaEntity;
 };
 
 int main(int argv, char** args) {

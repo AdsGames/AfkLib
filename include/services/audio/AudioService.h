@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
-#define INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
+#ifndef AFK_AUDIOSERVICE_H
+#define AFK_AUDIOSERVICE_H
 
 #include <string>
 
@@ -28,7 +28,7 @@ class AudioService {
    * @brief Destroy the Audio Service
    *
    */
-  virtual ~AudioService() {}
+  virtual ~AudioService() = default;
 
   /**
    * @brief Play sound by id
@@ -40,10 +40,10 @@ class AudioService {
    * @param loop Loop mode
    */
   void playSound(const std::string& key,
-                 const float gain = 1.0f,
-                 const float pan = 0.0f,
-                 const float speed = 1.0f,
-                 const bool loop = false);
+                 float gain = 1.0f,
+                 float pan = 0.0f,
+                 float speed = 1.0f,
+                 bool loop = false);
 
   /**
    * @brief Play audio stream by id
@@ -51,7 +51,7 @@ class AudioService {
    * @param key Id of stream to play
    * @param loop Loop mode, true for looping, false for one shot
    */
-  void playStream(const std::string& key, const bool loop = false);
+  void playStream(const std::string& key, bool loop = false);
 
   /**
    * @brief Stop stream by id. Stops all instances of stream currently playing.
@@ -63,7 +63,7 @@ class AudioService {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_AUDIO_AUDIOSERVICE_H_
+#endif  // AFK_AUDIOSERVICE_H
 
 /**
  * @example ex_sound.cpp

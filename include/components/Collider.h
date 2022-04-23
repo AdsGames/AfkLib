@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_COMPONENTS_COLLIDER_H_
-#define INCLUDE_COMPONENTS_COLLIDER_H_
+#ifndef AFK_COLLIDER_H
+#define AFK_COLLIDER_H
 
 namespace afk {
 
@@ -19,4 +19,4 @@ struct Collider {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_COLLIDER_H_
+#endif  // AFK_COLLIDER_H

@@ -10,8 +10,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
-#define INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
+#ifndef AFK_JOYSTICKSTATE_H
+#define AFK_JOYSTICKSTATE_H
 
 #include <SDL2/SDL_events.h>
 
@@ -89,12 +89,12 @@ struct JoystickState {
       stickReleased[i] = false;
 
       // Pressed since last tick?
-      if (stick[i] == true && lastTicksStick[i] == false) {
+      if (stick[i] && !lastTicksStick[i]) {
         stickMoved[i] = true;
       }
 
       // Released since last tick?
-      if (stick[i] == false && lastTicksStick[i] == true) {
+      if (!stick[i] && lastTicksStick[i]) {
         stickReleased[i] = true;
       }
 
@@ -113,13 +113,13 @@ struct JoystickState {
       }
 
       // Pressed since last tick?
-      if (button[i] == true && lastTicksButton[i] == false) {
+      if (button[i] && !lastTicksButton[i]) {
         buttonPressed[i] = true;
         lastButtonPressed = i;
       }
 
       // Released since last tick?
-      if (button[i] == false && lastTicksButton[i] == true) {
+      if (!button[i] && lastTicksButton[i]) {
         buttonReleased[i] = true;
         lastButtonReleased = i;
       }
@@ -132,4 +132,4 @@ struct JoystickState {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_INPUT_JOYSTICKSTATE_H_
+#endif  // AFK_JOYSTICKSTATE_H

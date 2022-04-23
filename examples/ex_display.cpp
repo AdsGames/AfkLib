@@ -10,20 +10,19 @@
  */
 #include "../include/Game.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
 
 class DemoScene : public afk::Scene {
  public:
-  void start() {
+  void start() override {
     logger.log("Starting!");
 
     display.setWindowSize(100, 100);
     display.setBufferSize(100, 100);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_display");
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 };
 
 int main(int argv, char** args) {

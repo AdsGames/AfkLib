@@ -12,7 +12,6 @@
 
 #include <SDL2/SDL_image.h>
 
-#include "common/Color.h"
 #include "common/Exceptions.h"
 #include "services/Services.h"
 
@@ -33,22 +32,22 @@ void Texture::load(const std::string& path) {
 
 // Create texture with specified dimensions
 void Texture::create(const int width, const int height) {
-  SDL_Surface* temp_surface =
+  SDL_Surface* tempSurface =
       SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
-  if (!temp_surface) {
+  if (!tempSurface) {
     throw InitException("There was an error creating surface ");
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
-  SDL_Texture* temp_texture =
-      SDL_CreateTextureFromSurface(renderer, temp_surface);
-  if (!temp_texture) {
+  SDL_Texture* tempTexture =
+      SDL_CreateTextureFromSurface(renderer, tempSurface);
+  if (!tempTexture) {
     throw InitException("There was an error creating texture ");
   }
-  SDL_FreeSurface(temp_surface);
+  SDL_FreeSurface(tempSurface);
 
-  texture = temp_texture;
+  texture = tempTexture;
 }
 
 // Return height of loaded texture
@@ -113,23 +112,23 @@ void Texture::drawEx(const int x,
 // Load an SDL texture from file
 SDL_Texture* Texture::loadTexture(const std::string& path) {
   // Attempt to load
-  SDL_Surface* temp_surface = IMG_Load(path.c_str());
-  if (!temp_surface) {
-    throw FileIOException("There was an error loading surface " + path + " (" +
+  SDL_Surface* tempSurface = IMG_Load(path.c_str());
+  if (!tempSurface) {
+    throw FileIoException("There was an error loading surface " + path + " (" +
                           SDL_GetError() + ")");
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
-  SDL_Texture* temp_texture =
-      SDL_CreateTextureFromSurface(renderer, temp_surface);
-  if (!temp_texture) {
+  SDL_Texture* tempTexture =
+      SDL_CreateTextureFromSurface(renderer, tempSurface);
+  if (!tempTexture) {
     throw InitException("There was an error creating texture " + path + " (" +
                         SDL_GetError() + ")");
   }
-  SDL_FreeSurface(temp_surface);
+  SDL_FreeSurface(tempSurface);
 
-  return temp_texture;
+  return tempTexture;
 }
 
 }  // namespace afk

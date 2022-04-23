@@ -17,12 +17,12 @@
 namespace afk {
 
 // Set channel counter to 0
-Uint32 Sound::channel_counter = 0;
+uint32_t Sound::channelCounter = 0;
 
 // Default constructor
 Sound::Sound() : sample(nullptr) {
-  channel = channel_counter;
-  Sound::channel_counter++;
+  channel = channelCounter;
+  Sound::channelCounter++;
 }
 
 // Constructor with path
@@ -45,26 +45,26 @@ void Sound::play(const float gain,
   }
 
   // TODO(alegemaate): Frequency
-  int int_pan = (pan + 1.0f) * 128;
-  int int_gain = gain * 255;
+  int intPan = static_cast<int>((pan + 1.0f) * 128.0f);
+  int intGain = static_cast<int>(gain * 255.0f);
 
-  Mix_SetPanning(channel, int_pan, 255 - int_pan);
-  Mix_Volume(channel, int_gain);
+  Mix_SetPanning(channel, intPan, 255 - intPan);
+  Mix_Volume(channel, intGain);
   Mix_PlayChannel(channel, sample, loop);
 }
 
 // Load sample from file
 Mix_Chunk* Sound::loadSample(const std::string& path) {
   // Attempt to load
-  Mix_Chunk* temp_sample = Mix_LoadWAV(path.c_str());
+  Mix_Chunk* tempSample = Mix_LoadWAV(path.c_str());
 
   // Throw exception if file is not loaded
-  if (!temp_sample) {
-    throw FileIOException("There was an error loading sound " + path + " (" +
+  if (!tempSample) {
+    throw FileIoException("There was an error loading sound " + path + " (" +
                           Mix_GetError() + ")");
   }
 
-  return temp_sample;
+  return tempSample;
 }
 
 }  // namespace afk

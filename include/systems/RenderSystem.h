@@ -8,13 +8,12 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_SYSTEMS_RENDER_SYSTEM_H_
-#define INCLUDE_SYSTEMS_RENDER_SYSTEM_H_
+#ifndef AFK_RENDERSYSTEM_H
+#define AFK_RENDERSYSTEM_H
 
 #include <entt/entt.hpp>
 
-#include "components/Sprite.h"
-#include "components/Transform.h"
+#include "entities/Entity.h"
 #include "services/assets/AssetService.h"
 
 namespace afk::systems {
@@ -23,16 +22,8 @@ namespace afk::systems {
  * @brief RenderSystem
  *
  */
-void renderSystem(registry& registry, AssetService& assetService) {
-  auto view = registry.view<const Transform, Sprite>();
-
-  for (auto [entity, tran, sprite] : view.each()) {
-    auto texture = assetService.getImage(sprite.texture);
-    texture.drawEx(tran.position.x, tran.position.y, tran.size.x, tran.size.y,
-                   tran.angle);
-  }
-}
+void renderSystem(Registry& registry, AssetService& assetService);
 
 }  // namespace afk::systems
 
-#endif  // INCLUDE_SYSTEMS_RENDER_SYSTEM_H_
+#endif  // AFK_RENDERSYSTEM_H

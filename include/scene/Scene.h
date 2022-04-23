@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SCENE_SCENE_H_
-#define INCLUDE_SCENE_SCENE_H_
+#ifndef AFK_SCENE_H
+#define AFK_SCENE_H
 
 #include <memory>
 #include <string>
@@ -40,7 +40,7 @@ class Scene {
    * @brief Destroy the Scene
    *
    */
-  virtual ~Scene() {}
+  virtual ~Scene() = default;
 
   /**
    * @brief Start the scene
@@ -54,7 +54,7 @@ class Scene {
    * @param delta Time since last call in ms
    *
    */
-  virtual void update(Uint32 delta);
+  virtual void update(uint32_t delta);
 
   /**
    * @brief Draw to be overridden by derived scenes
@@ -69,7 +69,7 @@ class Scene {
   virtual void stop(){};
 
   /**
-   * @brief Internall cleanup call
+   * @brief Internal cleanup call
    *
    */
   void stopInternal();
@@ -79,14 +79,14 @@ class Scene {
    *
    * @return entity
    */
-  entity createEntity();
+  Entity createEntity();
 
   /**
    * @brief Remove an entity
    *
    * @param entity Entity to remove
    */
-  void destroyEntity(entity entity);
+  void destroyEntity(Entity entity);
 
   /**
    * @brief Add a component to an entity
@@ -97,7 +97,7 @@ class Scene {
    * @param args Arguments accepted by component
    */
   template <typename T, typename... Args>
-  T& createComponent(entity id, Args&&... args) {
+  T& createComponent(Entity id, Args&&... args) {
     auto& component = registry.emplace<T>(id, std::forward<Args>(args)...);
 
     // Sort always (inefficient!)
@@ -115,7 +115,7 @@ class Scene {
    * @param id Entity to assign to
    */
   template <typename T>
-  T& createComponent(entity id) {
+  T& createComponent(Entity id) {
     return registry.emplace<T>(id);
   }
 
@@ -127,7 +127,7 @@ class Scene {
    * @return T& Returned component reference
    */
   template <typename T>
-  T& getComponent(entity id) {
+  T& getComponent(Entity id) {
     return registry.get<T>(id);
   }
 
@@ -136,7 +136,7 @@ class Scene {
    *
    * @return registry& Registry reference
    */
-  registry& getRegistry();
+  Registry& getRegistry();
 
   /// Audio service reference
   AudioService& audio;
@@ -161,8 +161,8 @@ class Scene {
 
  private:
   /// Entity registry
-  registry registry;
+  Registry registry;
 };
 }  // namespace afk
 
-#endif  // INCLUDE_SCENE_SCENE_H_
+#endif  // AFK_SCENE_H

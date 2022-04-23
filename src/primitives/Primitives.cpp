@@ -16,10 +16,10 @@
 namespace afk::primitives {
 
 // Draw a rectangle
-void rect(const Sint32 x,
-          const Sint32 y,
-          const Sint32 w,
-          const Sint32 h,
+void rect(const int32_t x,
+          const int32_t y,
+          const int32_t w,
+          const int32_t h,
           color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
@@ -29,10 +29,10 @@ void rect(const Sint32 x,
 }
 
 // Draw a filled rectangle
-void rectfill(const Sint32 x,
-              const Sint32 y,
-              const Sint32 w,
-              const Sint32 h,
+void rectfill(const int32_t x,
+              const int32_t y,
+              const int32_t w,
+              const int32_t h,
               color::Color colour) {
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 

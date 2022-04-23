@@ -12,7 +12,6 @@
 #include "../include/common/Vec.h"
 #include "../include/components/components.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
 
 class DemoScene : public afk::Scene {
  public:
@@ -21,7 +20,7 @@ class DemoScene : public afk::Scene {
 
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_sprite");
 
     assets.loadImage("lenna", "assets/lenna.png");

@@ -10,18 +10,17 @@
  */
 #include "assets/Font.h"
 
-#include "common/Color.h"
 #include "common/Exceptions.h"
 #include "services/Services.h"
 
 namespace afk {
 
 // Constructor
-Font::Font() : font(nullptr), font_size(0) {}
+Font::Font() : font(nullptr), fontSize(0) {}
 
 // Constructor with path
 Font::Font(const std::string& path, const int size)
-    : font(nullptr), font_size(size) {
+    : font(nullptr), fontSize(size) {
   load(path, size);
 }
 
@@ -48,8 +47,8 @@ int Font::getHeight() {
 }
 
 // Get Size of font
-int Font::getSize() {
-  return font_size;
+int Font::getSize() const {
+  return fontSize;
 }
 
 // Check if exists
@@ -59,12 +58,12 @@ bool Font::exists() const {
 
 // Return width given text
 int Font::getWidth(const std::string& text) {
-  if (!font || text == "") {
+  if (!font || text.empty()) {
     return 0;
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  SDL_Texture* texture = renderText(renderer, text.c_str(), color::black);
+  SDL_Texture* texture = renderText(renderer, text, color::black);
 
   int w;
   SDL_QueryTexture(texture, nullptr, nullptr, &w, nullptr);
@@ -85,7 +84,7 @@ void Font::draw(const int x,
   }
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
-  SDL_Texture* texture = renderText(renderer, text.c_str(), colour);
+  SDL_Texture* texture = renderText(renderer, text, colour);
 
   int w, h;
   SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
@@ -93,16 +92,16 @@ void Font::draw(const int x,
   SDL_Rect target = {x, y, w, h};
 
   switch (align) {
-    case TextAlign::LEFT:
-      SDL_RenderCopy(renderer, texture, NULL, &target);
+    case TextAlign::Left:
+      SDL_RenderCopy(renderer, texture, nullptr, &target);
       break;
-    case TextAlign::RIGHT:
+    case TextAlign::Right:
       target.x = x - w;
-      SDL_RenderCopy(renderer, texture, NULL, &target);
+      SDL_RenderCopy(renderer, texture, nullptr, &target);
       break;
-    case TextAlign::CENTER:
+    case TextAlign::Center:
       target.x = x - w / 2;
-      SDL_RenderCopy(renderer, texture, NULL, &target);
+      SDL_RenderCopy(renderer, texture, nullptr, &target);
       break;
     default:
       break;
@@ -114,19 +113,19 @@ void Font::draw(const int x,
 // Load font from file
 TTF_Font* Font::loadFont(const std::string& path, const int size) {
   // Attempt to load
-  TTF_Font* temp_font = TTF_OpenFont(path.c_str(), size);
+  TTF_Font* tempFont = TTF_OpenFont(path.c_str(), size);
 
-  if (!temp_font) {
-    throw FileIOException("There was an error loading font " + path + " (" +
+  if (!tempFont) {
+    throw FileIoException("There was an error loading font " + path + " (" +
                           TTF_GetError() + ")");
   }
 
-  return temp_font;
+  return tempFont;
 }
 
 // Render font to texture
 SDL_Texture* Font::renderText(SDL_Renderer* renderer,
-                              const std::string text,
+                              const std::string& text,
                               const color::Color colour) {
   SDL_Surface* surface = TTF_RenderText_Solid(
       font, text.c_str(), {colour.r, colour.g, colour.b, colour.a});

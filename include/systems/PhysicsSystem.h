@@ -8,14 +8,10 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_SYSTEMS_PHYSICS_SYSTEM_H_
-#define INCLUDE_SYSTEMS_PHYSICS_SYSTEM_H_
+#ifndef AFK_PHYSICSSYSTEM_H
+#define AFK_PHYSICSSYSTEM_H
 
-#include <entt/entt.hpp>
-
-#include "components/Physics.h"
-#include "components/Transform.h"
-#include "services/assets/AssetService.h"
+#include "entities/Entity.h"
 
 namespace afk::systems {
 
@@ -23,19 +19,8 @@ namespace afk::systems {
  * @brief PhysicsSystem
  *
  */
-void physicsSystem(registry& registry, Uint32 delta) {
-  auto view = registry.view<Transform, Physics>();
-
-  const float delta_seconds = delta / 1000.0f;
-
-  for (auto [entity, tran, physics] : view.each()) {
-    tran.position.x += physics.velocity.x * delta_seconds;
-    tran.position.y += physics.velocity.y * delta_seconds;
-    physics.velocity.x += physics.acceleration.x * delta_seconds;
-    physics.velocity.y += physics.acceleration.y * delta_seconds;
-  }
-}
+void physicsSystem(Registry& registry, uint32_t delta);
 
 }  // namespace afk::systems
 
-#endif  // INCLUDE_SYSTEMS_PHYSICS_SYSTEM_H_
+#endif  // AFK_PHYSICSSYSTEM_H

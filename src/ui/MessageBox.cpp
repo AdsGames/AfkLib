@@ -10,11 +10,12 @@
  */
 #include "ui/MessageBox.h"
 
+#include <SDL2/SDL_messagebox.h>
 #include "services/Services.h"
 
 namespace afk {
 
-MessageBox::MessageBox(MessageBoxType type) : title(""), text(""), type(type) {}
+MessageBox::MessageBox(MessageBoxType type) : type(type) {}
 
 // Set the title of the message box
 void MessageBox::setTitle(const std::string& title) {
@@ -29,19 +30,19 @@ void MessageBox::setText(const std::string& text) {
 // Show the message box on screen
 int MessageBox::show() {
   SDL_Window* window = Services::getDisplayService().getWindow();
-  int return_code = SDL_ShowSimpleMessageBox(resolveType(), title.c_str(),
+  int returnCode = SDL_ShowSimpleMessageBox(resolveType(), title.c_str(),
                                              text.c_str(), window);
-  return return_code;
+  return returnCode;
 }
 
 // Get type of box in SDL terms
 int MessageBox::resolveType() {
   switch (type) {
-    case MessageBoxType::ERROR:
+    case MessageBoxType::Error:
       return SDL_MESSAGEBOX_ERROR;
-    case MessageBoxType::INFO:
+    case MessageBoxType::Info:
       return SDL_MESSAGEBOX_INFORMATION;
-    case MessageBoxType::WARN:
+    case MessageBoxType::Warn:
     default:
       return SDL_MESSAGEBOX_WARNING;
   }

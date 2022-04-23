@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
-#define INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
+#ifndef AFK_LOGGINGSERVICE_H
+#define AFK_LOGGINGSERVICE_H
 
 #include <string>
 namespace afk {
@@ -21,7 +21,7 @@ namespace afk {
  **/
 class LoggingService {
  public:
-  virtual ~LoggingService() {}
+  virtual ~LoggingService() = default;
 
   /**
    * @brief Does nothing
@@ -33,4 +33,4 @@ class LoggingService {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_LOGGING_LOGGINGSERVICE_H_
+#endif  // AFK_LOGGINGSERVICE_H

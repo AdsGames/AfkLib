@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_ASSETS_TEXTURE_H_
-#define INCLUDE_ASSETS_TEXTURE_H_
+#ifndef AFK_TEXTURE_H
+#define AFK_TEXTURE_H
 
 #include <SDL2/SDL.h>
 #include <string>
@@ -23,9 +23,9 @@ namespace afk {
  *
  */
 enum class TextureDrawMode {
-  DEFAULT = 0,
-  FLIP_H = 2,
-  FLIP_V = 1,
+  Default = 0,
+  FlipH = 2,
+  FlipV = 1,
 };
 
 /**
@@ -62,7 +62,7 @@ class Texture {
    * @param width Width in pixels
    * @param height Height in pixels
    */
-  void create(const int width, const int height);
+  void create(int width, int height);
 
   /**
    * @brief Draw bitmap to screen
@@ -71,7 +71,7 @@ class Texture {
    * @param y Y position to draw to
    * @see drawScaled
    */
-  void draw(const int x, const int y) const;
+  void draw(int x, int y) const;
 
   /**
    * @brief Draw scaled texture to screen
@@ -81,14 +81,14 @@ class Texture {
    * @param width Width to scale to
    * @param height Height to scale to
    * @param angle Rotation of draw
-   * @param mode Optinal draw mode
+   * @param mode Optional draw mode
    */
-  void drawEx(const int x,
-              const int y,
-              const int width,
-              const int height,
-              const float angle = 0.0f,
-              const TextureDrawMode mode = TextureDrawMode::DEFAULT) const;
+  void drawEx(int x,
+              int y,
+              int width,
+              int height,
+              float angle = 0.0f,
+              TextureDrawMode mode = TextureDrawMode::Default) const;
 
   /**
    * @brief Get the width of the texture
@@ -127,4 +127,4 @@ class Texture {
 
 }  // namespace afk
 
-#endif  // INCLUDE_ASSETS_TEXTURE_H_
+#endif  // AFK_TEXTURE_H

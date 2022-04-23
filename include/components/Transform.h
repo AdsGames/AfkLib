@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMPONENTS_TRANSFORM_H_
-#define INCLUDE_COMPONENTS_TRANSFORM_H_
+#ifndef AFK_TRANSFORM_H
+#define AFK_TRANSFORM_H
 
 #include "../common/Vec.h"
 
@@ -28,4 +28,4 @@ struct Transform {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_TRANSFORM_H_
+#endif  // AFK_TRANSFORM_H

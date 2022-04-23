@@ -11,25 +11,24 @@
 #include "../include/Game.h"
 #include "../include/components/components.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
 
-void characterSystem(afk::registry& registry,
+void characterSystem(afk::Registry& registry,
                      afk::InputService& input,
-                     Uint32 delta) {
+                     uint32_t delta) {
   auto view = registry.view<afk::Transform>();
 
   for (auto [entity, transform] : view.each()) {
     float speed = delta / 10.0f;
-    if (input.keyDown(afk::Keys::UP)) {
+    if (input.keyDown(afk::Keys::Up)) {
       transform.position.y -= speed;
     }
-    if (input.keyDown(afk::Keys::DOWN)) {
+    if (input.keyDown(afk::Keys::Down)) {
       transform.position.y += speed;
     }
-    if (input.keyDown(afk::Keys::LEFT)) {
+    if (input.keyDown(afk::Keys::Left)) {
       transform.position.x -= speed;
     }
-    if (input.keyDown(afk::Keys::RIGHT)) {
+    if (input.keyDown(afk::Keys::Right)) {
       transform.position.x += speed;
     }
   }
@@ -37,12 +36,12 @@ void characterSystem(afk::registry& registry,
 
 class DemoScene : public afk::Scene {
  public:
-  void start() {
+  void start() override {
     logger.log("Starting!");
 
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_keyboard");
 
     assets.loadImage("lenna", "assets/lenna.png");
@@ -51,14 +50,14 @@ class DemoScene : public afk::Scene {
   }
 
   void createCharacter() {
-    afk::entity id = createEntity();
+    afk::Entity id = createEntity();
     createComponent<afk::Transform>(id, afk::Vec3(100, 100, 0),
                                     afk::Vec2(40, 40));
     createComponent<afk::Sprite>(id, "lenna");
-    character_ids.push_back(id);
+    entityIds.push_back(id);
   }
 
-  void update(Uint32 delta) override {
+  void update(uint32_t delta) override {
     Scene::update(delta);
 
     if (input.keyPressed(afk::Keys::A)) {
@@ -66,20 +65,20 @@ class DemoScene : public afk::Scene {
     }
 
     if (input.keyPressed(afk::Keys::R)) {
-      if (character_ids.size() > 0) {
-        afk::entity id = character_ids.back();
+      if (entityIds.size() > 0) {
+        afk::Entity id = entityIds.back();
         destroyEntity(id);
-        character_ids.pop_back();
+        entityIds.pop_back();
       }
     }
 
     characterSystem(getRegistry(), input, delta);
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 
  private:
-  std::vector<afk::entity> character_ids;
+  std::vector<afk::Entity> entityIds;
 };
 
 class MainGame : public afk::Game {

@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
-#define INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
+#ifndef AFK_INPUTSERVICE_H
+#define AFK_INPUTSERVICE_H
 
 #include <SDL2/SDL_events.h>
 #include <iostream>
@@ -53,14 +53,14 @@ class InputService : public Service {
    *
    * @return name
    */
-  std::string getName() const;
+  std::string getName() const override;
 
   /**
    * @brief Notify input service of recent event
    *
    * @param event SDL event to process
    */
-  void notify(const SDL_Event& event);
+  void notify(const SDL_Event& event) override;
 
   /**
    * @brief Get key just down state
@@ -69,7 +69,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool keyPressed(const Keys key) const;
+  bool keyPressed(Keys key) const;
 
   /**
    * @brief Get key just up state
@@ -78,7 +78,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool keyReleased(const Keys key) const;
+  bool keyReleased(Keys key) const;
 
   /**
    * @brief Get key down state
@@ -87,7 +87,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool keyDown(const Keys key) const;
+  bool keyDown(Keys key) const;
 
   /**
    * @brief Get if any key is down
@@ -117,7 +117,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool mousePressed(const MouseButtons button) const;
+  bool mousePressed(MouseButtons button) const;
 
   /**
    * @brief Get mouse button just up state
@@ -126,7 +126,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool mouseReleased(const MouseButtons button) const;
+  bool mouseReleased(MouseButtons button) const;
 
   /**
    * @brief Get mouse button down state
@@ -135,7 +135,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool mouseDown(const MouseButtons button) const;
+  bool mouseDown(MouseButtons button) const;
 
   /**
    * @brief Get whether mouse is over a given area
@@ -145,7 +145,7 @@ class InputService : public Service {
    *
    * @return Over state
    */
-  bool mouseOver(const Vec2 position, const Vec2 size) const;
+  bool mouseOver(Vec2 position, Vec2 size) const;
 
   /**
    * @brief Get mouse x position
@@ -175,7 +175,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool joyPressed(const JoystickButtons button) const;
+  bool joyPressed(JoystickButtons button) const;
 
   /**
    * @brief Get joy button just up state
@@ -184,7 +184,7 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool joyReleased(const JoystickButtons button) const;
+  bool joyReleased(JoystickButtons button) const;
 
   /**
    * @brief Get joy button down state
@@ -193,16 +193,16 @@ class InputService : public Service {
    *
    * @return Key state
    */
-  bool joyDown(const JoystickButtons button) const;
+  bool joyDown(JoystickButtons button) const;
 
  private:
   /**
    * @brief Joystick button event handler
    *
-   * @param event_type Type of sdl event
+   * @param eventType Type of sdl event
    * @param event Sdl event to be processed
    */
-  void onJoystickEvent(const Uint32 event_type, const SDL_JoyButtonEvent event);
+  void onJoystickEvent(uint32_t eventType, SDL_JoyButtonEvent event);
 
   /**
    * @brief Joystick axis and stick event handler
@@ -210,7 +210,7 @@ class InputService : public Service {
    * @param event_type Type of sdl event
    * @param event Sdl event to be processed
    */
-  void onJoystickEvent(const SDL_JoyAxisEvent event);
+  void onJoystickEvent(SDL_JoyAxisEvent event);
 
   /**
    * @brief Joystick configuration event
@@ -221,46 +221,46 @@ class InputService : public Service {
   /**
    * @brief Keyboard event handler
    *
-   * @param event_type Type of sdl event
+   * @param eventType Type of sdl event
    * @param event Sdl event to be processed
    */
-  void onKeyboardEvent(const Uint32 event_type, const SDL_KeyboardEvent event);
+  void onKeyboardEvent(uint32_t eventType, SDL_KeyboardEvent event);
 
   /**
    * @brief Mouse axis handler
    *
    * @param event Sdl event to be processed
    */
-  void onMouseEvent(const SDL_MouseWheelEvent event);
+  void onMouseEvent(SDL_MouseWheelEvent event);
 
   /**
    * @brief Mouse wheel handler
    *
    * @param event Sdl event to be processed
    */
-  void onMouseEvent(const SDL_MouseMotionEvent event);
+  void onMouseEvent(SDL_MouseMotionEvent event);
 
   /**
    * @brief Mouse button handler
    *
-   * @param event_type Type of sdl event
+   * @param eventType Type of sdl event
    * @param event Sdl event to be processed
    */
-  void onMouseEvent(const Uint32 event_type, const SDL_MouseButtonEvent event);
+  void onMouseEvent(uint32_t eventType, SDL_MouseButtonEvent event);
 
   /// Current keyboard state
-  KeyboardState keyboard_state;
+  KeyboardState keyboardState;
 
   /// Current mouse state
-  MouseState mouse_state;
+  MouseState mouseState;
 
   /// Current joystick state
-  JoystickState joystick_state;
+  JoystickState joystickState;
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_INPUT_INPUTSERVICE_H_
+#endif  // AFK_INPUTSERVICE_H
 
 /**
  * @example ex_mouse.cpp

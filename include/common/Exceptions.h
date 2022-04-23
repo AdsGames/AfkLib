@@ -1,7 +1,7 @@
 /**
  * @file Exceptions.h
  * @author Allan Legemaate (alegemaate@gmail.com)
- * @brief Interally used exceptions. These can be handled properly in the main
+ * @brief Internally used exceptions. These can be handled properly in the main
  * game class.
  * @version 0.1
  * @date 2021-03-08
@@ -9,8 +9,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMMON_EXCEPTIONS_H_
-#define INCLUDE_COMMON_EXCEPTIONS_H_
+#ifndef AFK_EXCEPTIONS_H
+#define AFK_EXCEPTIONS_H
 
 #include <stdexcept>
 #include <string>
@@ -21,14 +21,14 @@ namespace afk {
  * @brief Exception raised when a file is not found
  *
  */
-class FileIOException : public std::runtime_error {
+class FileIoException : public std::runtime_error {
  public:
   /**
    * @brief Construct a new File I O Exception object
    *
    * @param msg Message to pass to runtime_error.
    */
-  explicit FileIOException(const std::string& msg) : std::runtime_error(msg) {}
+  explicit FileIoException(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 /**
@@ -106,7 +106,7 @@ class SceneLookupException : public std::runtime_error {
 };
 
 /**
- * @brief Exception raised when an assertian fails
+ * @brief Exception raised when an assertion fails
  *
  */
 class AssertionFailedException : public std::runtime_error {
@@ -122,4 +122,4 @@ class AssertionFailedException : public std::runtime_error {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMMON_EXCEPTIONS_H_
+#endif  // AFK_EXCEPTIONS_H

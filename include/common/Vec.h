@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_COMMON_VEC_H_
-#define INCLUDE_COMMON_VEC_H_
+#ifndef AFK_VEC_H
+#define AFK_VEC_H
 
 namespace afk {
 
@@ -32,4 +32,4 @@ struct Vec3 {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMMON_VEC_H_
+#endif  // AFK_VEC_H

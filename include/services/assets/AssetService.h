@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
-#define INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
+#ifndef AFK_ASSETSERVICE_H
+#define AFK_ASSETSERVICE_H
 
 #include <string>
 #include <unordered_map>
@@ -39,7 +39,7 @@ class AssetService {
    * Cleans up assets upon unloading
    *
    */
-  virtual ~AssetService();
+  virtual ~AssetService() = default;
 
   /**
    * @brief Get reference to audio by key reference
@@ -113,9 +113,7 @@ class AssetService {
    * @throws FileIOException Thrown if file can not be loaded
    * @see getFont
    */
-  void loadFont(const std::string& key,
-                const std::string& path,
-                const int size);
+  void loadFont(const std::string& key, const std::string& path, int size);
 
   /**
    * @brief Loads an audio stream into memory from a given path. Stream is
@@ -130,18 +128,18 @@ class AssetService {
 
  private:
   /// Container that stores all Sound assets
-  std::unordered_map<std::string, Sound> loaded_audio;
+  std::unordered_map<std::string, Sound> loadedAudio;
 
   /// Container that stores all Image assets
-  std::unordered_map<std::string, Texture> loaded_image;
+  std::unordered_map<std::string, Texture> loadedImage;
 
   /// Container that stores all Font assets
-  std::unordered_map<std::string, Font> loaded_font;
+  std::unordered_map<std::string, Font> loadedFont;
 
   /// Container that stores all Stream assets
-  std::unordered_map<std::string, Stream> loaded_stream;
+  std::unordered_map<std::string, Stream> loadedStream;
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_ASSETS_ASSETSERVICE_H_
+#endif  // AFK_ASSETSERVICE_H

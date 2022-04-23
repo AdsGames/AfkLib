@@ -8,16 +8,15 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMMON_STR_H_
-#define INCLUDE_COMMON_STR_H_
+#ifndef AFK_STR_H
+#define AFK_STR_H
 
 #include <memory>
 #include <string>
 
 #include "Exceptions.h"
 
-namespace afk {
-namespace str {
+namespace afk::str {
 
 /**
  * @brief Check if string is an integer
@@ -97,7 +96,6 @@ std::string format(const std::string& format, Args... args) {
   return std::string(buf.get(), buf.get() + size - 1);
 }
 
-}  // namespace str
-}  // namespace afk
+}  // namespace afk::str
 
-#endif  // INCLUDE_COMMON_STR_H_
+#endif  // AFK_STR_H

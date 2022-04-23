@@ -52,3 +52,4 @@ lib
 compile_commands.json
 .idea
 build
+Testing/

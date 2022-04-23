@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMPONENTS_SPRITE_H_
-#define INCLUDE_COMPONENTS_SPRITE_H_
+#ifndef AFK_SPRITE_H
+#define AFK_SPRITE_H
 
 #include <string>
 
@@ -22,4 +22,4 @@ struct Sprite {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_SPRITE_H_
+#endif  // AFK_SPRITE_H

@@ -8,20 +8,21 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMPONENTS_UI_BUTTON_H_
-#define INCLUDE_COMPONENTS_UI_BUTTON_H_
+#ifndef AFK_BUTTON_H
+#define AFK_BUTTON_H
 
 #include <functional>
 #include <string>
+#include <utility>
 
 namespace afk {
 
 struct Button {
   /// Constructor
-  Button() : text(""), font("") {}
+  Button() = default;
 
-  Button(const std::string& text, const std::string& font)
-      : text(text), font(font) {}
+  Button(std::string text, std::string font)
+      : text(std::move(text)), font(std::move(font)) {}
 
   /// Text of Button
   std::string text;
@@ -52,9 +53,11 @@ struct Button {
    *
    * @param func function to assign to onClick
    */
-  void setOnClick(std::function<void(void)> func) { this->onClick = func; };
+  void setOnClick(std::function<void(void)> func) {
+    this->onClick = std::move(func);
+  };
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_UI_BUTTON_H_
+#endif  // AFK_BUTTON_H

@@ -10,10 +10,12 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_ASSETS_SOUND_H_
-#define INCLUDE_ASSETS_SOUND_H_
+#ifndef AFK_SOUND_H
+#define AFK_SOUND_H
 
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#include <cstdint>
 #include <string>
 
 namespace afk {
@@ -54,10 +56,10 @@ class Sound {
    * @param speed Speed (unused)
    * @param loop Loop mode
    */
-  void play(const float gain = 1.0f,
-            const float pan = 0.0f,
-            const float speed = 1.0f,
-            const bool loop = false);
+  void play(float gain = 1.0f,
+            float pan = 0.0f,
+            float speed = 1.0f,
+            bool loop = false);
 
  private:
   /**
@@ -73,12 +75,12 @@ class Sound {
   Mix_Chunk* sample;
 
   /// Allocated channel
-  Uint32 channel;
+  int32_t channel;
 
   /// Current number of channels
-  static Uint32 channel_counter;
+  static uint32_t channelCounter;
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_ASSETS_SOUND_H_
+#endif  // AFK_SOUND_H

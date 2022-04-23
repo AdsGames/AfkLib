@@ -53,15 +53,15 @@ bool Stream::isPlaying() const {
 // Load SDL sample from file
 Mix_Music* Stream::loadStream(const std::string& path) {
   // Attempt to load
-  Mix_Music* temp_stream = Mix_LoadMUS(path.c_str());
+  Mix_Music* tempStream = Mix_LoadMUS(path.c_str());
 
   // Throw exception if file is not loaded
-  if (!temp_stream) {
-    throw FileIOException("There was an error loading stream " + path + " (" +
+  if (!tempStream) {
+    throw FileIoException("There was an error loading stream " + path + " (" +
                           Mix_GetError() + ")");
   }
 
-  return temp_stream;
+  return tempStream;
 }
 
 }  // namespace afk

@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_COMPONENTS_COMPONENTS_H_
-#define INCLUDE_COMPONENTS_COMPONENTS_H_
+#ifndef AFK_COMPONENTS_H
+#define AFK_COMPONENTS_H
 
 #include "./Collider.h"
 #include "./Particle.h"
@@ -18,4 +18,4 @@
 #include "./Sprite.h"
 #include "./Transform.h"
 
-#endif  // INCLUDE_COMPONENTS_COMPONENTS_H_
+#endif  // AFK_COMPONENTS_H

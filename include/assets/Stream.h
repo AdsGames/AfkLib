@@ -9,8 +9,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_ASSETS_STREAM_H_
-#define INCLUDE_ASSETS_STREAM_H_
+#ifndef AFK_STREAM_H
+#define AFK_STREAM_H
 
 #include <SDL2/SDL_mixer.h>
 #include <string>
@@ -43,7 +43,7 @@ class Stream {
    *
    * @param loop Loop mode
    */
-  void play(const bool loop = false);
+  void play(bool loop = false);
 
   /**
    * @brief Stop this instance of the stream from playing
@@ -82,4 +82,4 @@ class Stream {
 
 }  // namespace afk
 
-#endif  // INCLUDE_ASSETS_STREAM_H_
+#endif  // AFK_STREAM_H

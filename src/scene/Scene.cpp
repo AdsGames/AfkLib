@@ -29,7 +29,7 @@ Scene::Scene()
       config(afk::Services::getConfigService()) {}
 
 // Internal update method
-void Scene::update(Uint32 delta) {
+void Scene::update(uint32_t delta) {
   systems::collisionSystem(registry);
   systems::physicsSystem(registry, delta);
   systems::particleSystem(registry, delta);
@@ -49,17 +49,17 @@ void Scene::stopInternal() {
 }
 
 // Register a new entity
-entity Scene::createEntity() {
+Entity Scene::createEntity() {
   return registry.create();
 }
 
 // Remove an entity
-void Scene::destroyEntity(entity entity) {
+void Scene::destroyEntity(Entity entity) {
   registry.destroy(entity);
 }
 
 // Get a reference to the registry
-registry& Scene::getRegistry() {
+Registry& Scene::getRegistry() {
   return registry;
 }
 

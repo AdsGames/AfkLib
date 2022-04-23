@@ -13,18 +13,18 @@
 namespace afk::color {
 
 // Create color from RGB
-Color rgb(const Uint8 r, const Uint8 g, const Uint8 b) {
+Color rgb(const uint8_t r, const uint8_t g, const uint8_t b) {
   return rgba(r, g, b, 255);
 }
 
 // Create color from rgba
-Color rgba(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a) {
+Color rgba(const uint8_t r, const uint8_t g, const uint8_t b, const uint8_t a) {
   return {r, g, b, a};
 }
 
 // Create color from int
-Color intToColor(const Uint32 colour) {
-  Color tempCol;
+Color intToColor(const uint32_t colour) {
+  Color tempCol = {};
   tempCol.r = (colour >> 16) & 0xFF;
   tempCol.g = (colour >> 8) & 0xFF;
   tempCol.b = colour & 0xFF;
@@ -33,17 +33,20 @@ Color intToColor(const Uint32 colour) {
 }
 
 // Convert rgb to int
-Uint32 rgbToInt(const Uint8 r, const Uint8 g, const Uint8 b) {
+uint32_t rgbToInt(const uint8_t r, const uint8_t g, const uint8_t b) {
   return rgbaToInt(r, g, b, 255);
 }
 
 // Convert rgba to int
-Uint32 rgbaToInt(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a) {
-  return (Uint32)((a << 24) + (r << 16) + (g << 8) + (b << 0));
+uint32_t rgbaToInt(const uint8_t r,
+                   const uint8_t g,
+                   const uint8_t b,
+                   const uint8_t a) {
+  return (uint32_t)((a << 24) + (r << 16) + (g << 8) + (b << 0));
 }
 
 // Convert color to int
-Uint32 colorToInt(const Color colour) {
+uint32_t colorToInt(const Color colour) {
   return rgbaToInt(colour.r, colour.g, colour.b, colour.a);
 }
 

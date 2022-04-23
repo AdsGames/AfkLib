@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_COMPONENTS_UI_H_
-#define INCLUDE_COMPONENTS_UI_H_
+#ifndef AFK_UI_H
+#define AFK_UI_H
 
 #include "./ui/Button.h"
 #include "./ui/Label.h"
 
-#endif  // INCLUDE_COMPONENTS_UI_H_
+#endif  // AFK_UI_H

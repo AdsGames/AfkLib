@@ -9,10 +9,10 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
-#define INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
+#ifndef AFK_EVENTQUEUE_H
+#define AFK_EVENTQUEUE_H
 
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
 #include <vector>
 
 #include "../Service.h"
@@ -63,14 +63,14 @@ class EventQueue {
    * @param time Time in ms to call timer at
    * @param code User defined code to inject into timer
    */
-  SDL_TimerID registerTimer(const Uint32 time, const char code);
+  SDL_TimerID registerTimer(uint32_t time, char code);
 
   /**
    * @brief Unregister user timer
    *
-   * @param timer Timer to remove from queue
+   * @param timerId Timer to remove from queue
    */
-  void unregisterTimer(const SDL_TimerID timer);
+  void unregisterTimer(SDL_TimerID timerId);
 
   /**
    * @brief Timer callback for registered timers
@@ -78,7 +78,7 @@ class EventQueue {
    * @param interval MS per call, interval to run at
    * @param param User defined params
    */
-  static Uint32 timerCallback(Uint32 interval, void* param);
+  static uint32_t timerCallback(uint32_t interval, void* param);
 
  private:
   /// List of services which must be notified
@@ -87,4 +87,4 @@ class EventQueue {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_EVENTS_EVENTQUEUE_H_
+#endif  // AFK_EVENTQUEUE_H

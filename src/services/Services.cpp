@@ -10,50 +10,48 @@
  */
 #include "services/Services.h"
 
-#include "common/Exceptions.h"
-
 namespace afk {
 
 // Init services
-DebugLoggingService Services::logging_service;
-EventQueue Services::event_service;
-SceneService Services::scene_service;
-DisplayService Services::display_service;
-InputService Services::input_service;
-AudioService Services::audio_service;
-AssetService Services::asset_service;
-ConfigService Services::config_service;
+DebugLoggingService Services::loggingService;
+EventQueue Services::eventService;
+SceneService Services::sceneService;
+DisplayService Services::displayService;
+InputService Services::inputService;
+AudioService Services::audioService;
+AssetService Services::assetService;
+ConfigService Services::configService;
 
 AudioService& Services::getAudioService() {
-  return audio_service;
+  return audioService;
 }
 
 AssetService& Services::getAssetService() {
-  return asset_service;
+  return assetService;
 }
 
 DisplayService& Services::getDisplayService() {
-  return display_service;
+  return displayService;
 }
 
 ConfigService& Services::getConfigService() {
-  return config_service;
+  return configService;
 }
 
 LoggingService& Services::getLoggingService() {
-  return logging_service;
+  return loggingService;
 }
 
 InputService& Services::getInputService() {
-  return input_service;
+  return inputService;
 }
 
 SceneService& Services::getSceneService() {
-  return scene_service;
+  return sceneService;
 }
 
 EventQueue& Services::getEventQueue() {
-  return event_service;
+  return eventService;
 }
 
 }  // namespace afk

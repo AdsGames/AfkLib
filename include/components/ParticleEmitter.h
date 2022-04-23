@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_COMPONENTS_PARTICLE_EMITTER_H_
-#define INCLUDE_COMPONENTS_PARTICLE_EMITTER_H_
+#ifndef AFK_PARTICLEEMITTER_H
+#define AFK_PARTICLEEMITTER_H
 
 #include <string>
 #include <utility>
@@ -26,7 +26,8 @@ using ParticleTemplate = std::pair<Particle, Physics>;
 
 struct ParticleEmitter {
   /// Constructor
-  ParticleEmitter(float frequency) : frequency(frequency), counter(0){};
+  explicit ParticleEmitter(float frequency)
+      : frequency(frequency), counter(0){};
 
   /**
    * @brief Add a particle to the emitter pool
@@ -51,4 +52,4 @@ struct ParticleEmitter {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_PARTICLE_EMITTER_H_
+#endif  // AFK_PARTICLEEMITTER_H

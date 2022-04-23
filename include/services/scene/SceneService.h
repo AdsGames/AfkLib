@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_SCENE_SCENESERVICE_H_
-#define INCLUDE_SERVICES_SCENE_SCENESERVICE_H_
+#ifndef AFK_SCENESERVICE_H
+#define AFK_SCENESERVICE_H
 
 #include <string>
 #include <vector>
@@ -41,11 +41,11 @@ class SceneService {
   /**
    * @brief Add scene to engine
    *
-   * @param scene_id to add to engine
+   * @param sceneId to add to engine
    */
   template <class T>
-  void addScene(const std::string& scene_id) {
-    scenes.push_back({scene_id, new T()});
+  void addScene(const std::string& sceneId) {
+    scenes.push_back({sceneId, new T()});
   }
 
   /**
@@ -69,9 +69,9 @@ class SceneService {
    * @brief Set the next scene to be loaded in. Upon calling, deletes current
    * scene
    *
-   * @param scene_id Id of next scene to load
+   * @param sceneId Id of next scene to load
    */
-  void setNextScene(const std::string& scene_id);
+  void setNextScene(const std::string& sceneId);
 
  private:
   /**
@@ -80,7 +80,7 @@ class SceneService {
    */
   struct SceneType {
     /// Id of scene
-    std::string scene_id;
+    std::string sceneId;
 
     /// Scene object
     Scene* scene;
@@ -93,21 +93,21 @@ class SceneService {
   void changeScene();
 
   /// Current scene pointer
-  Scene* current_scene;
+  Scene* currentScene;
 
   /// List of scene ids
   std::vector<SceneType> scenes;
 
   /// Current scene
-  std::string scene_id;
+  std::string sceneId;
 
   /// Next scene to load
-  std::string next_scene;
+  std::string nextScene;
 
   /// Last tick
-  Uint32 last_tick;
+  uint32_t lastTick;
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_SCENE_SCENESERVICE_H_
+#endif  // AFK_SCENESERVICE_H

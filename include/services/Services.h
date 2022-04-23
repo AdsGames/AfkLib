@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_SERVICES_H_
-#define INCLUDE_SERVICES_SERVICES_H_
+#ifndef AFK_SERVICES_H
+#define AFK_SERVICES_H
 
 #include <memory>
 
@@ -87,30 +87,30 @@ class Services {
 
  private:
   /// Internal pointer to current LoggingService instance
-  static DebugLoggingService logging_service;
+  static DebugLoggingService loggingService;
 
   /// Internal pointer to current Event queue instance
-  static EventQueue event_service;
+  static EventQueue eventService;
 
   /// Internal pointer to current SceneService queue instance
-  static SceneService scene_service;
+  static SceneService sceneService;
 
   /// Internal pointer to current DisplayService instance
-  static DisplayService display_service;
+  static DisplayService displayService;
 
   /// Internal pointer to current InputService instance
-  static InputService input_service;
+  static InputService inputService;
 
   /// Internal pointer to current AudioService instance
-  static AudioService audio_service;
+  static AudioService audioService;
 
   /// Internal pointer to current AssetService instance
-  static AssetService asset_service;
+  static AssetService assetService;
 
   /// Internal pointer to current ConfigService instance
-  static ConfigService config_service;
+  static ConfigService configService;
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_SERVICES_H_
+#endif  // AFK_SERVICES_H

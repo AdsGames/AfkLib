@@ -14,7 +14,6 @@
 #include "../include/common/random.h"
 #include "../include/components/components.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
 
 class DemoScene : public afk::Scene {
  public:
@@ -23,20 +22,20 @@ class DemoScene : public afk::Scene {
 
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_particles");
     display.setBackgroundColor(afk::color::black);
 
     assets.loadImage("fuzzball", "assets/fuzzball.png");
 
-    emitter_1_id = createEntity();
-    auto& emitter_1 = createComponent<afk::ParticleEmitter>(emitter_1_id, 10);
-    createComponent<afk::Transform>(emitter_1_id, afk::Vec3(256, 256, 0),
+    emitterEntity1 = createEntity();
+    auto& emitter1 = createComponent<afk::ParticleEmitter>(emitterEntity1, 10);
+    createComponent<afk::Transform>(emitterEntity1, afk::Vec3(256, 256, 0),
                                     afk::Vec2(30, 30));
 
     for (int i = 0; i < 100; i++) {
-      auto& [particle, physics] = emitter_1.addParticle();
-      particle.setType(afk::ParticleType::SQUARE);
+      auto& [particle, physics] = emitter1.addParticle();
+      particle.setType(afk::ParticleType::Square);
       particle.setLifespan(afk::random::randomInt(100, 1000));
       particle.setSize(10.0f, 3.0f);
       particle.setColor(afk::color::rgb(128, 22, 22),
@@ -46,14 +45,14 @@ class DemoScene : public afk::Scene {
       physics.setAcceleration(0, 2.0f);
     }
 
-    emitter_2_id = createEntity();
-    auto& emitter_2 = createComponent<afk::ParticleEmitter>(emitter_2_id, 10);
-    createComponent<afk::Transform>(emitter_2_id, afk::Vec3(128, 256, 0),
+    emitterEntity2 = createEntity();
+    auto& emitter2 = createComponent<afk::ParticleEmitter>(emitterEntity2, 10);
+    createComponent<afk::Transform>(emitterEntity2, afk::Vec3(128, 256, 0),
                                     afk::Vec2(1, 1));
 
     for (int i = 0; i < 100; i++) {
-      auto& [particle, physics] = emitter_2.addParticle();
-      particle.setType(afk::ParticleType::CIRCLE);
+      auto& [particle, physics] = emitter2.addParticle();
+      particle.setType(afk::ParticleType::Circle);
       particle.setLifespan(afk::random::randomInt(1000, 2000));
       particle.setSize(3.0f, 2.0f);
       particle.setColor(afk::color::blue, afk::color::white);
@@ -61,14 +60,14 @@ class DemoScene : public afk::Scene {
       physics.setAcceleration(0, 200.0f);
     }
 
-    emitter_3_id = createEntity();
-    auto& emitter_3 = createComponent<afk::ParticleEmitter>(emitter_3_id, 10);
-    createComponent<afk::Transform>(emitter_3_id, afk::Vec3(384, 256, 0),
+    emitterEntity3 = createEntity();
+    auto& emitter3 = createComponent<afk::ParticleEmitter>(emitterEntity3, 10);
+    createComponent<afk::Transform>(emitterEntity3, afk::Vec3(384, 256, 0),
                                     afk::Vec2(5, 5));
 
     for (int i = 0; i < 400; i++) {
-      auto& [particle, physics] = emitter_3.addParticle();
-      particle.setType(afk::ParticleType::IMAGE);
+      auto& [particle, physics] = emitter3.addParticle();
+      particle.setType(afk::ParticleType::Image);
       particle.setLifespan(afk::random::randomInt(800, 1500));
       particle.setSize(16.0f, 20.0f);
       particle.setTexture("fuzzball");
@@ -76,10 +75,10 @@ class DemoScene : public afk::Scene {
     }
   }
 
-  void update(Uint32 delta) {
+  void update(uint32_t delta) {
     Scene::update(delta);
 
-    auto& smoke_transform = getComponent<afk::Transform>(emitter_3_id);
+    auto& smoke_transform = getComponent<afk::Transform>(emitterEntity3);
     smoke_transform.position.x = input.mouseX();
     smoke_transform.position.y = input.mouseY();
   }
@@ -87,9 +86,9 @@ class DemoScene : public afk::Scene {
   void stop() { logger.log("Stopping!"); }
 
  private:
-  afk::entity emitter_1_id;
-  afk::entity emitter_2_id;
-  afk::entity emitter_3_id;
+  afk::Entity emitterEntity1;
+  afk::Entity emitterEntity2;
+  afk::Entity emitterEntity3;
 };
 
 int main(int argv, char** args) {

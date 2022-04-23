@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_RANDOM_RANDOMGENERATOR_H_
-#define INCLUDE_RANDOM_RANDOMGENERATOR_H_
+#ifndef AFK_RANDOM_H
+#define AFK_RANDOM_H
 
 #include <random>
 
@@ -22,7 +22,7 @@ namespace afk::random {
  * @param max Max number
  * @return Random number
  */
-float randomFloat(const float min, const float max);
+float randomFloat(float min, float max);
 
 /**
  * @brief Returns a random int between two numbers
@@ -31,11 +31,11 @@ float randomFloat(const float min, const float max);
  * @param max Max number
  * @return Random number
  */
-int randomInt(const int min, const int max);
+int randomInt(int min, int max);
 
 /// Random number generator
 extern std::mt19937 rng;
 
 }  // namespace afk::random
 
-#endif  // INCLUDE_RANDOM_RANDOMGENERATOR_H_
+#endif  // AFK_RANDOM_H

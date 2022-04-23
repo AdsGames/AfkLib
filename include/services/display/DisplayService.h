@@ -10,8 +10,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
-#define INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
+#ifndef AFK_DISPLAYSERVICE_H
+#define AFK_DISPLAYSERVICE_H
 
 #include <SDL2/SDL.h>
 #include <string>
@@ -19,7 +19,7 @@
 #include "../../common/Color.h"
 #include "../Service.h"
 
-const int FRAME_BUFFER_SIZE = 50;
+const int frameBufferSize = 50;
 
 namespace afk {
 
@@ -30,14 +30,14 @@ class Scene;
  *
  */
 enum class DisplayMode {
-  /// Stretches window in fullscreen
-  FULLSCREEN_WINDOW_STRETCH,
+  /// Stretches window in full screen
+  FullScreenWindowStretch,
   /// Shows window in highest resolution without clipping or stretching
-  FULLSCREEN_WINDOW_LETTERBOX,
+  FullScreenWindowLetterbox,
   /// Centers the window at the standard window resolution
-  FULLSCREEN_WINDOW_CENTER,
+  FullScreenWindowCenter,
   /// Shows window in windowed mode at set window size
-  WINDOWED,
+  Windowed,
 };
 
 /**
@@ -63,9 +63,9 @@ class DisplayService {
    * @brief Draw a scene. Calls the draw and draw_internal functions of a given
    * Scene object
    *
-   * @param current_scene Scene to draw
+   * @param currentScene Scene to draw
    */
-  void draw(Scene* current_scene);
+  void draw(Scene* currentScene);
 
   /**
    * @brief Set the current display mode. Should be called once on
@@ -74,7 +74,7 @@ class DisplayService {
    * @param mode Display mode to set it to
    * @see DisplayMode
    */
-  void setMode(const DisplayMode mode);
+  void setMode(DisplayMode mode);
 
   /**
    * @brief Set the size of the buffer
@@ -82,7 +82,7 @@ class DisplayService {
    * @param width Width of buffer in pixels
    * @param height Height of buffer in pixels
    */
-  void setBufferSize(const Uint32 width, const Uint32 height);
+  void setBufferSize(uint32_t width, uint32_t height);
 
   /**
    * @brief Set the size of the window
@@ -90,7 +90,7 @@ class DisplayService {
    * @param width Width of window in pixels
    * @param height Height of window in pixels
    */
-  void setWindowSize(const Uint32 width, const Uint32 height);
+  void setWindowSize(uint32_t width, uint32_t height);
 
   /**
    * @brief Get the current display mode
@@ -105,42 +105,42 @@ class DisplayService {
    *
    * @return Width of buffer in pixels
    */
-  Uint32 getDrawWidth() const;
+  uint32_t getDrawWidth() const;
 
   /**
    * @brief Get the buffer height
    *
    * @return Height of buffer in pixels
    */
-  Uint32 getDrawHeight() const;
+  uint32_t getDrawHeight() const;
 
   /**
    * @brief Get the x translation of the window
    *
    * @return X translation in pixels
    */
-  Uint32 getTranslationX() const;
+  uint32_t getTranslationX() const;
 
   /**
    * @brief Get the y translation of the window
    *
    * @return Y translation in pixels
    */
-  Uint32 getTranslationY() const;
+  uint32_t getTranslationY() const;
 
   /**
    * @brief Get the current width of the winodw
    *
    * @return width of window
    */
-  Uint32 getDisplayServiceWidth() const;
+  uint32_t getDisplayServiceWidth() const;
 
   /**
    * @brief Get the current height of window
    *
    * @return height of window
    */
-  Uint32 getDisplayServiceHeight() const;
+  uint32_t getDisplayServiceHeight() const;
 
   /**
    * @brief Get the scaling being done on buffer. This is equivalent to buffer
@@ -173,10 +173,10 @@ class DisplayService {
   /**
    * @brief Resize window to given width and height
    *
-   * @param window_w Width in pixels
-   * @param window_h Height in pixels
+   * @param windowW Width in pixels
+   * @param windowH Height in pixels
    */
-  void resize(const Uint32 window_w, const Uint32 window_h);
+  void resize(uint32_t windowW, uint32_t windowH);
 
   /**
    * @brief Set the window title
@@ -222,31 +222,31 @@ class DisplayService {
 
  private:
   /// Width of buffer
-  Uint32 draw_w = 0;
+  uint32_t drawW = 0;
 
   /// Height of buffer
-  Uint32 draw_h = 0;
+  uint32_t drawH = 0;
 
   /// Width of window
-  Uint32 window_w = 0;
+  uint32_t windowW = 0;
 
   /// Height of window
-  Uint32 window_h = 0;
+  uint32_t windowH = 0;
 
   /// X translation of window
-  Uint32 translation_x = 0;
+  uint32_t translationX = 0;
 
   /// Y translation of window
-  Uint32 translation_y = 0;
+  uint32_t translationY = 0;
 
   /// X scaling amount
-  float scale_x = 0;
+  float scaleX = 0;
 
   /// Y scaling amount
-  float scale_y = 0;
+  float scaleY = 0;
 
   /// Current display mode
-  DisplayMode display_mode = DisplayMode::WINDOWED;
+  DisplayMode displayMode = DisplayMode::Windowed;
 
   /// Active window
   SDL_Window* window = nullptr;
@@ -255,19 +255,19 @@ class DisplayService {
   SDL_Renderer* renderer = nullptr;
 
   /// Fps timer
-  Uint32 old_time = 0;
+  uint32_t oldTime = 0;
 
   /// Frame array for calculating fps
-  Uint32 frames_array[FRAME_BUFFER_SIZE] = {0};
+  uint32_t framesArray[frameBufferSize] = {0};
 
   /// Current fps
-  Uint32 fps = 0;
+  uint32_t fps = 0;
 
   /// Frame index
-  Uint32 frame_index = 0;
+  uint32_t frameIndex = 0;
 
   /// Clear color
-  color::Color clear_color;
+  color::Color clearColor;
 
   /**
    * @brief Sets the window scaling in percent
@@ -275,7 +275,7 @@ class DisplayService {
    * @param x X scaling percent
    * @param y Y scaling percent
    */
-  void setScale(const float x, const float y);
+  void setScale(float x, float y);
 
   /**
    * @brief Set the translation amount in pixels
@@ -283,12 +283,12 @@ class DisplayService {
    * @param x X translation
    * @param y Y translation
    */
-  void setTranslation(const Uint32 x, const Uint32 y);
+  void setTranslation(uint32_t x, uint32_t y);
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_DISPLAY_DISPLAYSERVICE_H_
+#endif  // AFK_DISPLAYSERVICE_H
 
 /**
  * @example ex_display.cpp

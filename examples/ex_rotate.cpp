@@ -13,37 +13,36 @@
 #include "../include/components/components.h"
 #include "../include/entities/Entity.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
 
 class DemoScene : public afk::Scene {
  public:
-  void start() {
+  void start() override {
     logger.log("Starting!");
 
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_sprite");
 
     assets.loadImage("lenna", "assets/lenna.png");
 
-    lennaId = createEntity();
-    createComponent<afk::Sprite>(lennaId, "lenna");
-    createComponent<afk::Transform>(lennaId, afk::Vec3(156, 156, 0),
+    lennaEntity = createEntity();
+    createComponent<afk::Sprite>(lennaEntity, "lenna");
+    createComponent<afk::Transform>(lennaEntity, afk::Vec3(156, 156, 0),
                                     afk::Vec2(200, 200));
   }
 
-  void update(Uint32 delta) {
+  void update(uint32_t delta) override {
     Scene::update(delta);
 
-    auto& transform = getComponent<afk::Transform>(lennaId);
+    auto& transform = getComponent<afk::Transform>(lennaEntity);
     transform.angle += delta / 10.0f;
   }
 
-  void stop() { logger.log("Stopping!"); }
+  void stop() override { logger.log("Stopping!"); }
 
  private:
-  afk::entity lennaId;
+  afk::Entity lennaEntity;
 };
 
 int main(int argv, char** args) {

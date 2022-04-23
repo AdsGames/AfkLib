@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_ASSETS_FONT_H_
-#define INCLUDE_ASSETS_FONT_H_
+#ifndef AFK_FONT_H
+#define AFK_FONT_H
 
 #include <SDL2/SDL_ttf.h>
 #include <string>
@@ -18,7 +18,7 @@
 
 namespace afk {
 
-enum class TextAlign { LEFT, RIGHT, CENTER };
+enum class TextAlign { Left, Right, Center };
 
 /**
  * @brief Easy interface to interact with SDL fonts
@@ -38,7 +38,7 @@ class Font {
    * @param size Size of font to load
    * @throws FileIOException If font can not be found at path
    */
-  Font(const std::string& path, const int size);
+  Font(const std::string& path, int size);
 
   /**
    * @brief Load and assign font from given path
@@ -47,7 +47,7 @@ class Font {
    * @param size Size of font to load
    * @throws FileIOException If font can not be found at path
    */
-  void load(const std::string& path, const int size);
+  void load(const std::string& path, int size);
 
   /**
    * @brief Draw font at position
@@ -58,11 +58,11 @@ class Font {
    * @param colour colour to colour text
    * @param align Text alignment, defaults to left
    */
-  void draw(const int x,
-            const int y,
+  void draw(int x,
+            int y,
             const std::string& text,
-            const color::Color colour = color::black,
-            const TextAlign align = TextAlign::LEFT);
+            color::Color colour = color::black,
+            TextAlign align = TextAlign::Left);
 
   /**
    * @brief Get the height of the font
@@ -84,7 +84,7 @@ class Font {
    *
    * @return Size of font loaded
    */
-  int getSize();
+  int getSize() const;
 
   /**
    * @brief Check if font has been loaded
@@ -103,13 +103,13 @@ class Font {
    * @return TTF_Font* File that has been loaded
    * @throws FileIOException If font can not be found at path
    */
-  static TTF_Font* loadFont(const std::string& path, const int size);
+  static TTF_Font* loadFont(const std::string& path, int size);
 
   /// Pointer to referenced font
   TTF_Font* font;
 
   /// Size of font
-  int font_size;
+  int fontSize;
 
   /**
    * @brief Helper for rendering text
@@ -120,10 +120,10 @@ class Font {
    * @return SDL_Texture* New texture containing string
    */
   SDL_Texture* renderText(SDL_Renderer* renderer,
-                          const std::string text,
-                          const color::Color colour);
+                          const std::string& text,
+                          color::Color colour);
 };
 
 }  // namespace afk
 
-#endif  // INCLUDE_ASSETS_FONT_H_
+#endif  // AFK_FONT_H

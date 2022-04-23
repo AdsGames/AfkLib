@@ -8,23 +8,22 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COLOR_COLOR_H_
-#define INCLUDE_COLOR_COLOR_H_
+#ifndef AFK_COLOR_H
+#define AFK_COLOR_H
 
-#include <SDL2/SDL2_gfxPrimitives.h>
+#include <cstdint>
 
-namespace afk {
-namespace color {
+namespace afk::color {
 
 // Color
 struct Color {
-  Uint8 r;
-  Uint8 g;
-  Uint8 b;
-  Uint8 a;
+  uint8_t r;
+  uint8_t g;
+  uint8_t b;
+  uint8_t a;
 };
 
-// Color defenitions
+// Color definitions
 static const Color black = {0, 0, 0, 255};
 static const Color white = {255, 255, 255, 255};
 static const Color red = {255, 0, 0, 255};
@@ -42,7 +41,7 @@ static const Color purple = {0, 255, 255, 255};
  * @param b Blue value
  * @return Color
  */
-Color rgb(const Uint8 r, const Uint8 g, const Uint8 b);
+Color rgb(uint8_t r, uint8_t g, uint8_t b);
 
 /**
  * @brief Create SDL Color from rgba values
@@ -53,7 +52,7 @@ Color rgb(const Uint8 r, const Uint8 g, const Uint8 b);
  * @param a Alpha value
  * @return Color
  */
-Color rgba(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
+Color rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
 /**
  * @brief Convert int representation of color to an Color
@@ -61,7 +60,7 @@ Color rgba(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
  * @param colour Integer representation of color
  * @return Color
  */
-Color intToColor(const Uint32 colour);
+Color intToColor(uint32_t colour);
 
 /**
  * @brief Convert rgb values to an integer color
@@ -69,9 +68,9 @@ Color intToColor(const Uint32 colour);
  * @param r Red value
  * @param g Green value
  * @param b Blue value
- * @return Uint32
+ * @return uint32_t
  */
-Uint32 rgbToInt(const Uint8 r, const Uint8 g, const Uint8 b);
+uint32_t rgbToInt(uint8_t r, uint8_t g, uint8_t b);
 
 /**
  * @brief Convert rgba values to an integer color
@@ -80,19 +79,18 @@ Uint32 rgbToInt(const Uint8 r, const Uint8 g, const Uint8 b);
  * @param g Green value
  * @param b Blue value
  * @param a Alpha value
- * @return Uint32
+ * @return uint32_t
  */
-Uint32 rgbaToInt(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
+uint32_t rgbaToInt(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
 /**
- * @brief Convert Color to Uint32 representation
+ * @brief Convert Color to uint32_t representation
  *
  * @param colour Color to convert
- * @return Uint32
+ * @return uint32_t
  */
-Uint32 colorToInt(const Color colour);
+uint32_t colorToInt(Color colour);
 
-}  // namespace color
-}  // namespace afk
+}  // namespace afk::color
 
-#endif  // INCLUDE_COLOR_COLOR_H_
+#endif  // AFK_COLOR_H

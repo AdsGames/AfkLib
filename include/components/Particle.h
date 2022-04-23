@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_COMPONENTS_PARTICLE_H_
-#define INCLUDE_COMPONENTS_PARTICLE_H_
+#ifndef AFK_PARTICLE_H
+#define AFK_PARTICLE_H
 
 #include <string>
 #include "../common/Color.h"
@@ -18,33 +18,32 @@
 namespace afk {
 
 enum class ParticleType : int {
-  PIXEL,
-  SQUARE,
-  CIRCLE,
-  IMAGE,
-  NONE,
+  Pixel,
+  Square,
+  Circle,
+  Image,
+  None,
 };
 
 struct Particle {
   /// Constructor
-  Particle(ParticleType type = ParticleType::PIXEL)
+  explicit Particle(ParticleType type = ParticleType::Pixel)
       : type(type),
-        start_size(1),
-        end_size(1),
+        startSize(1),
+        endSize(1),
         age(0),
         lifespan(1000),
-        start_color(color::black),
-        end_color(color::black),
-        texture(""){};
+        startColor(color::black),
+        endColor(color::black){};
 
   Particle(const Particle& part)
       : type(part.type),
-        start_size(part.start_size),
-        end_size(part.end_size),
+        startSize(part.startSize),
+        endSize(part.endSize),
         age(0),
         lifespan(part.lifespan),
-        start_color(part.start_color),
-        end_color(part.end_color),
+        startColor(part.startColor),
+        endColor(part.endColor),
         texture(part.texture){};
 
   /**
@@ -60,19 +59,19 @@ struct Particle {
    * @param size Size of particle
    */
   void setSize(const float size) {
-    this->start_size = size;
-    this->end_size = size;
+    this->startSize = size;
+    this->endSize = size;
   }
 
   /**
    * @brief Set the size of particle over lifespan
    *
-   * @param start_size Size to start at
-   * @param end_size Size to end at
+   * @param startSize Size to start at
+   * @param endSize Size to end at
    */
-  void setSize(const float start_size, const float end_size) {
-    this->start_size = start_size;
-    this->end_size = end_size;
+  void setSize(const float startSize, const float endSize) {
+    this->startSize = startSize;
+    this->endSize = endSize;
   }
 
   /**
@@ -91,20 +90,19 @@ struct Particle {
    * @param color Color to set to
    */
   void setColor(const color::Color& color) {
-    this->start_color = color;
-    this->end_color = color;
+    this->startColor = color;
+    this->endColor = color;
   }
 
   /**
    * @brief Set the particle color over lifespan
    *
-   * @param start_color Starting color
-   * @param end_color Ending color
+   * @param startColor Starting color
+   * @param endColor Ending color
    */
-  void setColor(const color::Color& start_color,
-                const color::Color& end_color) {
-    this->start_color = start_color;
-    this->end_color = end_color;
+  void setColor(const color::Color& startColor, const color::Color& endColor) {
+    this->startColor = startColor;
+    this->endColor = endColor;
   }
 
   /**
@@ -118,22 +116,22 @@ struct Particle {
   ParticleType type;
 
   /// Starting size
-  float start_size;
+  float startSize;
 
   /// Ending size
-  float end_size;
+  float endSize;
 
   /// Current age
-  float age;
+  uint32_t age;
 
   /// Max lifespan
   float lifespan;
 
   /// Start color
-  color::Color start_color;
+  color::Color startColor;
 
   /// End color
-  color::Color end_color;
+  color::Color endColor;
 
   /// String
   std::string texture;
@@ -141,4 +139,4 @@ struct Particle {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_PARTICLE_H_
+#endif  // AFK_PARTICLE_H

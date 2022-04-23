@@ -8,16 +8,16 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_ENTITIES_ENTITY_H_
-#define INCLUDE_ENTITIES_ENTITY_H_
+#ifndef AFK_ENTITY_H
+#define AFK_ENTITY_H
 
 #include <entt/entt.hpp>
 
 namespace afk {
 
-using entity = entt::entity;
-using registry = entt::registry;
+using Entity = entt::entity;
+using Registry = entt::registry;
 
 }  // namespace afk
 
-#endif  // INCLUDE_ENTITIES_ENTITY_H_
+#endif  // AFK_ENTITY_H

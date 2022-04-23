@@ -10,10 +10,8 @@
  */
 #include <SDL2/SDL_events.h>
 #include <algorithm>
-#include <functional>
 
 #include "services/Services.h"
-#include "services/events/EventQueue.h"
 
 namespace afk {
 
@@ -45,37 +43,37 @@ void EventQueue::registerService(Service* service) {
 void EventQueue::unregisterService(Service* service) {
   Services::getLoggingService().log("[" + service->getName() +
                                     "] Shutting down");
-  services.erase(std::remove(services.begin(), services.end(), service));
+  services.erase(std::remove(services.begin(), services.end(), service), services.end());
 }
 
 // Register user timer
-SDL_TimerID EventQueue::registerTimer(const Uint32 time, const char code) {
+SDL_TimerID EventQueue::registerTimer(const uint32_t time, const char code) {
   void* c = malloc(sizeof(code));
   memcpy(c, &code, sizeof(code));
 
-  SDL_TimerID timer_id = SDL_AddTimer(time, EventQueue::timerCallback, c);
-  return timer_id;
+  SDL_TimerID timerId = SDL_AddTimer(time, EventQueue::timerCallback, c);
+  return timerId;
 }
 
 // Unregister user timer
-void EventQueue::unregisterTimer(const SDL_TimerID timer_id) {
-  SDL_RemoveTimer(timer_id);
+void EventQueue::unregisterTimer(const SDL_TimerID timerId) {
+  SDL_RemoveTimer(timerId);
 }
 
 // Timer callback
-Uint32 EventQueue::timerCallback(Uint32 interval, void* param) {
+uint32_t EventQueue::timerCallback(uint32_t interval, void* param) {
   SDL_Event event;
-  SDL_UserEvent userevent;
+  SDL_UserEvent userEvent;
 
   char code = *(reinterpret_cast<char*>(param));
 
-  userevent.type = SDL_USEREVENT;
-  userevent.code = code;
-  userevent.data1 = NULL;
-  userevent.data2 = NULL;
+  userEvent.type = SDL_USEREVENT;
+  userEvent.code = code;
+  userEvent.data1 = nullptr;
+  userEvent.data2 = nullptr;
 
   event.type = SDL_USEREVENT;
-  event.user = userevent;
+  event.user = userEvent;
 
   SDL_PushEvent(&event);
   return interval;

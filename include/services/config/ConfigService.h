@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
-#define INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
+#ifndef AFK_CONFIGSERVICE_H
+#define AFK_CONFIGSERVICE_H
 
 #include <sstream>
 #include <string>
@@ -93,29 +93,29 @@ class ConfigService {
    */
   template <class T>
   void set(const std::string& key, const T value) {
-    std::string s_val = std::to_string(value);
+    std::string sVal = std::to_string(value);
 
-    settings[key] = s_val;
+    settings[key] = sVal;
 
-    if (autosave) {
+    if (autoSave) {
       save();
     }
   }
 
   /**
-   * @brief Set the autosave config
+   * @brief Set the auto save config
    *
-   * @param autosave If set to true, will autosave on each set to the original
+   * @param autoSave If set to true, will auto save on each set to the original
    * file path
    */
-  void setAutosave(const bool autosave);
+  void setAutoSave(bool autoSave);
 
  private:
-  /// Name of file for save, and autosave reference
-  std::string file_name;
+  /// Name of file for save, and auto save reference
+  std::string fileName;
 
-  /// Autosave enabled status
-  bool autosave;
+  /// Auto save enabled status
+  bool autoSave;
 
   /// Container which stores all settings
   std::unordered_map<std::string, std::string> settings;
@@ -123,4 +123,4 @@ class ConfigService {
 
 }  // namespace afk
 
-#endif  // INCLUDE_SERVICES_CONFIG_CONFIGSERVICE_H_
+#endif  // AFK_CONFIGSERVICE_H

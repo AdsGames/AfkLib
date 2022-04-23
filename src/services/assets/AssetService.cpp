@@ -11,8 +11,6 @@
 #include "services/assets/AssetService.h"
 
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
 #include <algorithm>
 
 #include "common/Exceptions.h"
@@ -38,21 +36,16 @@ AssetService::AssetService() {
   }
 }
 
-// Destructor
-AssetService::~AssetService() {
-  // Todo cleanup
-}
-
 // Load image from disk and assign key
 void AssetService::loadImage(const std::string& key, const std::string& path) {
   Services::getLoggingService().log("[Asset Manager] Loading image: " + key);
 
   try {
-    loaded_image[key] = Texture(path);
+    loadedImage[key] = Texture(path);
   } catch (const std::runtime_error& e) {
-    throw FileIOException(e.what());
+    throw FileIoException(e.what());
   } catch (...) {
-    throw FileIOException("Could not load image " + key);
+    throw FileIoException("Could not load image " + key);
   }
 }
 
@@ -61,11 +54,11 @@ void AssetService::loadAudio(const std::string& key, const std::string& path) {
   Services::getLoggingService().log("[Asset Manager] Loading audio: " + key);
 
   try {
-    loaded_audio[key] = Sound(path);
+    loadedAudio[key] = Sound(path);
   } catch (const std::runtime_error& e) {
-    throw FileIOException(e.what());
+    throw FileIoException(e.what());
   } catch (...) {
-    throw FileIOException("Could not load sound " + key);
+    throw FileIoException("Could not load sound " + key);
   }
 }
 
@@ -76,11 +69,11 @@ void AssetService::loadFont(const std::string& key,
   Services::getLoggingService().log("[Asset Manager] Loading font: " + key);
 
   try {
-    loaded_font[key] = Font(path, size);
+    loadedFont[key] = Font(path, size);
   } catch (const std::runtime_error& e) {
-    throw FileIOException(e.what());
+    throw FileIoException(e.what());
   } catch (...) {
-    throw FileIOException("Could not load font " + key);
+    throw FileIoException("Could not load font " + key);
   }
 }
 
@@ -89,18 +82,18 @@ void AssetService::loadStream(const std::string& key, const std::string& path) {
   Services::getLoggingService().log("[Asset Manager] Loading stream: " + key);
 
   try {
-    loaded_stream[key] = Stream(path);
+    loadedStream[key] = Stream(path);
   } catch (const std::runtime_error& e) {
-    throw FileIOException(e.what());
+    throw FileIoException(e.what());
   } catch (...) {
-    throw FileIOException("Could not load stream " + key);
+    throw FileIoException("Could not load stream " + key);
   }
 }
 
 // Get image reference
 const Texture& AssetService::getImage(const std::string& key) {
   try {
-    return loaded_image.at(key);
+    return loadedImage.at(key);
   } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find image " + key);
   }
@@ -109,7 +102,7 @@ const Texture& AssetService::getImage(const std::string& key) {
 // Get audio reference
 const Sound& AssetService::getAudio(const std::string& key) {
   try {
-    return loaded_audio.at(key);
+    return loadedAudio.at(key);
   } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find sound " + key);
   }
@@ -118,7 +111,7 @@ const Sound& AssetService::getAudio(const std::string& key) {
 // Get font reference
 const Font& AssetService::getFont(const std::string& key) {
   try {
-    return loaded_font.at(key);
+    return loadedFont.at(key);
   } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find font " + key);
   }
@@ -127,7 +120,7 @@ const Font& AssetService::getFont(const std::string& key) {
 // Get stream reference
 const Stream& AssetService::getStream(const std::string& key) {
   try {
-    return loaded_stream.at(key);
+    return loadedStream.at(key);
   } catch (const std::out_of_range&) {
     throw KeyLookupException("Could not find stream " + key);
   }

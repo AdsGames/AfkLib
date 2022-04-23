@@ -17,15 +17,12 @@
 #include "common/Exceptions.h"
 #include "scene/Scene.h"
 
-#include "common/Color.h"
-#include "services/Services.h"
-
 namespace afk {
 
 // Setup DisplayService
-DisplayService::DisplayService() : clear_color(color::white) {
+DisplayService::DisplayService() : clearColor(color::white) {
   // Set initial time
-  old_time = SDL_GetTicks();
+  oldTime = SDL_GetTicks();
 }
 
 // Cleanup window
@@ -40,78 +37,78 @@ DisplayService::~DisplayService() {
   }
 }
 
-void DisplayService::draw(Scene* current_scene) {
+void DisplayService::draw(Scene* currentScene) {
   if (!window || !renderer) {
     return;
   }
 
   // Render a frame
-  SDL_SetRenderDrawColor(renderer, clear_color.r, clear_color.g, clear_color.b,
-                         clear_color.a);
+  SDL_SetRenderDrawColor(renderer, clearColor.r, clearColor.g, clearColor.b,
+                         clearColor.a);
   SDL_RenderClear(renderer);
 
-  current_scene->draw();
+  currentScene->draw();
 
   // Flip
   SDL_RenderPresent(renderer);
 
   // Update frame index
-  frames_array[frame_index] = SDL_GetTicks() - old_time;
-  old_time = SDL_GetTicks();
-  frame_index = (frame_index + 1) % FRAME_BUFFER_SIZE;
+  framesArray[frameIndex] = SDL_GetTicks() - oldTime;
+  oldTime = SDL_GetTicks();
+  frameIndex = (frameIndex + 1) % frameBufferSize;
 
-  float fps_total = 0;
-  for (Uint32 i = 0; i < FRAME_BUFFER_SIZE; ++i) {
-    fps_total += frames_array[i];
+  float fpsTotal = 0;
+  for (unsigned int i : framesArray) {
+    fpsTotal += i;
   }
 
   // FPS = average
-  fps = 1000.0f / (fps_total / FRAME_BUFFER_SIZE);
+  fps = 1000.0f / (fpsTotal / frameBufferSize);
 }
 
 // Returns current display mode
 DisplayMode DisplayService::getDisplayMode() const {
-  return display_mode;
+  return displayMode;
 }
 
 // Gets draw width
-Uint32 DisplayService::getDrawWidth() const {
-  return draw_w;
+uint32_t DisplayService::getDrawWidth() const {
+  return drawW;
 }
 
 // Gets draw height
-Uint32 DisplayService::getDrawHeight() const {
-  return draw_h;
+uint32_t DisplayService::getDrawHeight() const {
+  return drawH;
 }
 
 // Gets translation x
-Uint32 DisplayService::getTranslationX() const {
-  return translation_x;
+uint32_t DisplayService::getTranslationX() const {
+  return translationX;
 }
 
 // Gets translation y
-Uint32 DisplayService::getTranslationY() const {
-  return translation_y;
+uint32_t DisplayService::getTranslationY() const {
+  return translationY;
 }
 
 // Gets scale width
-Uint32 DisplayService::getDisplayServiceWidth() const {
-  return window_w;
+uint32_t DisplayService::getDisplayServiceWidth() const {
+  return windowW;
 }
 
 // Gets scale height
-Uint32 DisplayService::getDisplayServiceHeight() const {
-  return window_h;
+uint32_t DisplayService::getDisplayServiceHeight() const {
+  return windowH;
 }
 
 // Gets scale x
 float DisplayService::getScaleX() const {
-  return scale_x;
+  return scaleX;
 }
 
 // Gets scale y
 float DisplayService::getScaleY() const {
-  return scale_y;
+  return scaleY;
 }
 
 // Hide mouse from display
@@ -125,64 +122,64 @@ void DisplayService::showMouse() {
 }
 
 // Resize window
-void DisplayService::resize(const Uint32 window_w, const Uint32 window_h) {
+void DisplayService::resize(const uint32_t windowW, const uint32_t windowH) {
   // Get monitor width
   SDL_DisplayMode info;
   SDL_GetCurrentDisplayMode(0, &info);
 
   // Window mode
-  switch (display_mode) {
-    // Fullscreen windowed stretch
-    case DisplayMode::FULLSCREEN_WINDOW_STRETCH:
+  switch (displayMode) {
+    // Full screen windowed stretch
+    case DisplayMode::FullScreenWindowStretch:
       // Set flags
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
       // Set up screen size and positions
       setWindowSize(info.w, info.h);
-      setScale(static_cast<float>(window_w) / draw_w,
-               static_cast<float>(window_h) / draw_h);
+      setScale(static_cast<float>(windowW) / drawW,
+               static_cast<float>(windowH) / drawH);
       setTranslation(0.0f, 0.0f);
 
       break;
 
-    // Fullscreen window center
-    case DisplayMode::FULLSCREEN_WINDOW_CENTER:
+    // Full screen window center
+    case DisplayMode::FullScreenWindowCenter:
       // Set flags
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
       // Set up screen size and positions
       setWindowSize(info.w, info.h);
       setScale(1.0f, 1.0f);
-      setTranslation((window_w - scale_x * draw_w) / 2,
-                     (window_h - scale_y * draw_h) / 2);
+      setTranslation((windowW - scaleX * drawW) / 2,
+                     (windowH - scaleY * drawH) / 2);
 
       break;
 
-    // Fullscreen window center
-    case DisplayMode::FULLSCREEN_WINDOW_LETTERBOX:
+    // Full screen window center
+    case DisplayMode::FullScreenWindowLetterbox:
       // Set flags
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
       // Set up screen size and positions
       setWindowSize(info.w, info.h);
-      setScale(std::min(static_cast<float>(window_w) / draw_w,
-                        static_cast<float>(window_h) / draw_h),
-               std::min(static_cast<float>(window_w) / draw_w,
-                        static_cast<float>(window_h) / draw_h));
-      setTranslation((window_w - scale_x * draw_w) / 2,
-                     (window_h - scale_y * draw_h) / 2);
+      setScale(std::min(static_cast<float>(windowW) / drawW,
+                        static_cast<float>(windowH) / drawH),
+               std::min(static_cast<float>(windowW) / drawW,
+                        static_cast<float>(windowH) / drawH));
+      setTranslation((windowW - scaleX * drawW) / 2,
+                     (windowH - scaleY * drawH) / 2);
 
       break;
 
     // Windowed
-    case DisplayMode::WINDOWED:
+    case DisplayMode::Windowed:
       // Set flags
       SDL_SetWindowFullscreen(window, 0);
 
       // Set up screen size and positions
-      setWindowSize(window_w, window_h);
-      setScale(static_cast<float>(window_w) / draw_w,
-               static_cast<float>(window_h) / draw_h);
+      setWindowSize(windowW, windowH);
+      setScale(static_cast<float>(windowW) / drawW,
+               static_cast<float>(windowH) / drawH);
       setTranslation(0.0f, 0.0f);
 
       break;
@@ -193,31 +190,33 @@ void DisplayService::resize(const Uint32 window_w, const Uint32 window_h) {
   }
 
   // Set scale
-  SDL_RenderSetScale(renderer, draw_w, draw_h);
+  SDL_RenderSetScale(renderer, drawW, drawH);
 }
 
 // Set window size
-void DisplayService::setWindowSize(const Uint32 width, const Uint32 height) {
-  window_w = width;
-  window_h = height;
+void DisplayService::setWindowSize(const uint32_t width,
+                                   const uint32_t height) {
+  windowW = width;
+  windowH = height;
 }
 
 // Set buffer size
-void DisplayService::setBufferSize(const Uint32 width, const Uint32 height) {
-  draw_w = width;
-  draw_h = height;
+void DisplayService::setBufferSize(const uint32_t width,
+                                   const uint32_t height) {
+  drawW = width;
+  drawH = height;
 }
 
 // Set scale
 void DisplayService::setScale(const float width, const float height) {
-  scale_x = width;
-  scale_y = height;
+  scaleX = width;
+  scaleY = height;
 }
 
 // Set translation
-void DisplayService::setTranslation(const Uint32 x, const Uint32 y) {
-  translation_x = x;
-  translation_y = y;
+void DisplayService::setTranslation(const uint32_t x, const uint32_t y) {
+  translationX = x;
+  translationY = y;
 }
 
 // Set window
@@ -229,7 +228,7 @@ void DisplayService::setTitle(const std::string& title) {
 void DisplayService::setIcon(const std::string& path) {
   SDL_Surface* icon = IMG_Load(path.c_str());
   if (!icon) {
-    throw FileIOException("Could not load icon " + path);
+    throw FileIoException("Could not load icon " + path);
   }
   SDL_SetWindowIcon(window, icon);
   SDL_FreeSurface(icon);
@@ -237,7 +236,7 @@ void DisplayService::setIcon(const std::string& path) {
 
 // Set clear colour
 void DisplayService::setBackgroundColor(const color::Color& color) {
-  clear_color = color;
+  clearColor = color;
 }
 
 // Get fps
@@ -263,15 +262,15 @@ void DisplayService::setMode(const DisplayMode mode) {
   }
 
   // Set mode
-  display_mode = mode;
+  displayMode = mode;
 
   // Resize window
-  resize(window_w, window_h);
+  resize(windowW, windowH);
 
   // Create display
   window =
       SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                       window_w, window_h, SDL_WINDOW_RESIZABLE);
+                       windowW, windowH, SDL_WINDOW_RESIZABLE);
   if (!window) {
     throw InitException("Could not create window");
   }

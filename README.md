@@ -1,4 +1,4 @@
-# Allans FrameworK
+# Allan's FrameworK
 
 ![Build Windows](https://github.com/AdsGames/AfkLib/workflows/Build%20Windows/badge.svg)
 ![Build Linux](https://github.com/AdsGames/AfkLib/workflows/Build%20Linux/badge.svg)

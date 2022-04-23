@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  *
  */
-#ifndef INCLUDE_COMPONENTS_PHYSICS_H_
-#define INCLUDE_COMPONENTS_PHYSICS_H_
+#ifndef AFK_PHYSICS_H
+#define AFK_PHYSICS_H
 
 #include "../common/Vec.h"
 
@@ -20,9 +20,9 @@ struct Physics {
   Physics(Vec2 velocity, Vec2 acceleration)
       : velocity(velocity), acceleration(acceleration) {}
 
-  Physics(Vec2 velocity) : velocity(velocity) {}
+  explicit Physics(Vec2 velocity) : velocity(velocity) {}
 
-  Physics() {}
+  Physics() = default;
 
   void setVelocity(Vec2 velocity) { this->velocity = velocity; }
 
@@ -41,4 +41,4 @@ struct Physics {
 
 }  // namespace afk
 
-#endif  // INCLUDE_COMPONENTS_PHYSICS_H_
+#endif  // AFK_PHYSICS_H

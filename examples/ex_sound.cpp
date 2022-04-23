@@ -10,7 +10,6 @@
  */
 #include "../include/Game.h"
 #include "../include/scene/Scene.h"
-#include "../include/services/Services.h"
 
 class DemoScene : public afk::Scene {
  public:
@@ -18,15 +17,15 @@ class DemoScene : public afk::Scene {
     logger.log("Starting!");
     display.setWindowSize(512, 512);
     display.setBufferSize(512, 512);
-    display.setMode(afk::DisplayMode::WINDOWED);
+    display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_mouse");
     assets.loadAudio("win", "assets/win.wav");
   }
 
-  void update(Uint32 delta) {
+  void update(uint32_t delta) {
     Scene::update(delta);
 
-    if (input.mousePressed(afk::MouseButtons::LEFT)) {
+    if (input.mousePressed(afk::MouseButtons::Left)) {
       audio.playSound("win", 1.0f, 0.0f, 1.0f, false);
     }
   }
