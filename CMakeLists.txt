@@ -13,4 +13,4 @@ add_subdirectory(${EXTERNAL_DIR}/entt EXCLUDE_FROM_ALL)
 add_subdirectory(${PROJECT_SOURCE_DIR}/afk)
 
 # Examples
-add_subdirectory(${PROJECT_SOURCE_DIR}/examples EXCLUDE_FROM_ALL)
+add_subdirectory(${PROJECT_SOURCE_DIR}/examples)

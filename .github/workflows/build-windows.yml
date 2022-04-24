@@ -8,6 +8,9 @@ jobs:
   build:
     name: Build Windows
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
 
     steps:
       - name: Checkout
@@ -15,17 +18,14 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Libraries
-        run: |
-          Set-Item -Path Env:Path -Value ("C:/msys64/usr/bin;" + $Env:Path)
-          pacman --noconfirm -S mingw-w64-i686-gcc-libs mingw-w64-i686-SDL2 mingw-w64-i686-SDL2_mixer mingw-w64-i686-SDL2_image mingw-w64-i686-SDL2_ttf mingw-w64-i686-SDL2_gfx
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-i686-gcc-libs mingw-w64-i686-SDL2 mingw-w64-i686-SDL2_mixer mingw-w64-i686-SDL2_image mingw-w64-i686-SDL2_ttf mingw-w64-i686-SDL2_gfx
 
       - name: Run CMake
-        run: |
-          Set-Item -Path Env:Path -Value ("C:/msys64/mingw32/bin;" + $Env:Path)
-          cmake -G "MSYS Makefiles" .
+        run: cmake -G "Ninja" .
 
       - name: Make
-        run: |
-          Set-Item -Path Env:Path -Value ("C:/msys64/mingw32/bin;" + $Env:Path)
-          make -j4
+        run: ninja

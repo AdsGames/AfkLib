@@ -21,10 +21,10 @@ jobs:
           actions-cache-folder: "emsdk-cache"
 
       - name: Run CMake
-        run: emcmake cmake -G "Unix Makefiles" .
+        run: emcmake cmake -G "Ninja" .
 
       - name: Make
-        run: emmake make -j4
+        run: ninja
 
       - name: Install graphviz
         run: sudo apt install graphviz
@@ -35,7 +35,7 @@ jobs:
           doxyfile-path: "./Doxyfile"
 
       - name: Copy Bin to Docs
-        run: sudo cp -r ./bin ./docs/examples
+        run: sudo cp -r ./build/examples ./docs/examples
 
       - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3

@@ -20,9 +20,9 @@ jobs:
           brew install sdl2 sdl2_image sdl2_gfx sdl2_ttf sdl2_mixer
 
       - name: Run CMake
-        run: cmake -G "Unix Makefiles" .
+        run: cmake -G "Ninja" .
 
       - name: Make
         run: |
           export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include"
-          make -j4
+          ninja
