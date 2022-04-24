@@ -5,11 +5,12 @@ project (examples
   LANGUAGES CXX
 )
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 include(${EXTERNAL_DIR}/libs.cmake)
 
-
 # Config
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard ex_collision ex_message_box)
@@ -57,5 +58,6 @@ foreach(EX_NAME ${EXAMPLES})
   endif(EMSCRIPTEN)
 endforeach()
 
-# Export assets
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets/)
+# Export assets (one for pwd and one for running manually)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets/)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/examples/assets/)

@@ -41,13 +41,6 @@ Icon
 .Trashes
 
 CppCheckResults.xml
-CMakeFiles
-CMakeCache.txt
-Makefile
-afk.cmake
-cmake_install.cmake
-compile_commands.json
-install_manifest.txt
 docs/
 .idea/
 build/

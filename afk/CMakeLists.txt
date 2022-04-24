@@ -5,8 +5,6 @@ project (afk
   LANGUAGES CXX
 )
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -33,7 +31,7 @@ target_compile_options(${PROJECT_NAME}
   PRIVATE 
     -Wall 
     -Wextra
-    -pedantic
+    -pedantic 
 )
 
 set_target_properties(${PROJECT_NAME} 
