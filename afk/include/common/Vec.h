@@ -14,20 +14,20 @@
 namespace afk {
 
 struct Vec2 {
-  Vec2() : x(0), y(0) {}
+  Vec2() = default;
   Vec2(float x, float y) : x(x), y(y) {}
 
-  float x;
-  float y;
+  float x = 0.0f;
+  float y = 0.0f;
 };
 
 struct Vec3 {
-  Vec3() : x(0), y(0), z(0) {}
+  Vec3() = default;
   Vec3(float x, float y, float z) : x(x), y(y), z(z) {}
 
-  float x;
-  float y;
-  float z;
+  float x = 0.0f;
+  float y = 0.0f;
+  float z = 0.0f;
 };
 
 }  // namespace afk

@@ -29,49 +29,75 @@ class DemoScene : public afk::Scene {
     assets.loadImage("fuzzball", "assets/fuzzball.png");
 
     emitterEntity1 = createEntity();
-    auto& emitter1 = createComponent<afk::ParticleEmitter>(emitterEntity1, 10);
+    auto& emitter1 =
+        createComponent<afk::ParticleEmitter>(emitterEntity1, 10.0f);
     createComponent<afk::Transform>(emitterEntity1, afk::Vec3(256, 256, 0),
                                     afk::Vec2(30, 30));
 
     for (int i = 0; i < 100; i++) {
-      auto& [particle, physics] = emitter1.addParticle();
-      particle.setType(afk::ParticleType::Square);
-      particle.setLifespan(afk::random::randomInt(100, 1000));
-      particle.setSize(10.0f, 3.0f);
-      particle.setColor(afk::color::rgb(128, 22, 22),
-                        afk::color::rgb(100, 100, 100));
-      physics.setVelocity(afk::random::randomFloat(-5.0f, 5.0f),
-                          afk::random::randomFloat(-1.0f, -2.0f));
-      physics.setAcceleration(0, 2.0f);
+      auto& [particle, physics] = emitter1.addPrefab();
+      particle.type = afk::ParticleType::Square;
+      particle.lifespan = afk::random::randomInt(100, 1000);
+      particle.startSize = 10.0f, particle.endSize = 3.0f;
+      particle.startColor = afk::color::rgb(128, 22, 22);
+      particle.endColor = afk::color::rgb(100, 100, 100);
+      physics.velocity = {afk::random::randomFloat(-5.0f, 5.0f),
+                          afk::random::randomFloat(-1.0f, -2.0f)};
+      physics.acceleration = {0, 2.0f};
     }
 
     emitterEntity2 = createEntity();
-    auto& emitter2 = createComponent<afk::ParticleEmitter>(emitterEntity2, 10);
-    createComponent<afk::Transform>(emitterEntity2, afk::Vec3(128, 256, 0),
+    auto& emitter2 =
+        createComponent<afk::ParticleEmitter>(emitterEntity2, 10.0f);
+    createComponent<afk::Transform>(emitterEntity2, afk::Vec3(64, 256, 0),
                                     afk::Vec2(1, 1));
 
     for (int i = 0; i < 100; i++) {
-      auto& [particle, physics] = emitter2.addParticle();
-      particle.setType(afk::ParticleType::Circle);
-      particle.setLifespan(afk::random::randomInt(1000, 2000));
-      particle.setSize(3.0f, 2.0f);
-      particle.setColor(afk::color::blue, afk::color::white);
-      physics.setVelocity(afk::random::randomFloat(-20.0, 20.0), -200.0f);
-      physics.setAcceleration(0, 200.0f);
+      auto& [particle, physics] = emitter2.addPrefab();
+      particle.type = afk::ParticleType::Circle;
+      particle.lifespan = afk::random::randomInt(1000, 2000);
+      particle.startSize = 3.0f;
+      particle.endSize = 2.0f;
+      particle.startColor = afk::color::blue;
+      particle.endColor = afk::color::white;
+      physics.velocity = {afk::random::randomFloat(-20.0, 20.0), -200.0f};
+      physics.acceleration = {0, 200.0f};
     }
 
     emitterEntity3 = createEntity();
-    auto& emitter3 = createComponent<afk::ParticleEmitter>(emitterEntity3, 10);
-    createComponent<afk::Transform>(emitterEntity3, afk::Vec3(384, 256, 0),
+    auto& emitter3 =
+        createComponent<afk::ParticleEmitter>(emitterEntity3, 10.0f);
+    createComponent<afk::Transform>(emitterEntity3, afk::Vec3(0, 0, 0),
                                     afk::Vec2(5, 5));
 
     for (int i = 0; i < 400; i++) {
-      auto& [particle, physics] = emitter3.addParticle();
-      particle.setType(afk::ParticleType::Image);
-      particle.setLifespan(afk::random::randomInt(800, 1500));
-      particle.setSize(16.0f, 20.0f);
-      particle.setTexture("fuzzball");
-      physics.setVelocity(afk::random::randomFloat(2.0f, 2.5f), -5.0f);
+      auto& [particle, physics] = emitter3.addPrefab();
+      particle.type = afk::ParticleType::Image;
+      particle.lifespan = 3000;
+      particle.startSize = 24.0f;
+      particle.endSize = 48.0f;
+      particle.texture = "fuzzball";
+      physics.velocity = {2.0f, -10.0f};
+      physics.acceleration = {10.0f, 0};
+    }
+
+    emitterEntity4 = createEntity();
+    auto& emitter4 =
+        createComponent<afk::ParticleEmitter>(emitterEntity4, 10.0f);
+    createComponent<afk::Transform>(emitterEntity4, afk::Vec3(128, 256, 0),
+                                    afk::Vec2(1, 1));
+
+    for (int i = 0; i < 400; i++) {
+      auto& [particle, physics] = emitter4.addPrefab();
+      particle.type = afk::ParticleType::Square;
+      particle.startColor = afk::color::rgba(128, 20, 20, 128);
+      particle.endColor = afk::color::rgba(200, 200, 200, 0);
+      particle.lifespan = afk::random::randomInt(400, 500);
+      particle.startSize = 3.0f;
+      particle.endSize = 1.0f;
+      physics.velocity = {afk::random::randomFloat(-40.0f, 40.0f),
+                          afk::random::randomFloat(-40.0f, 40.0f)};
+      physics.acceleration = {0, 200.0f};
     }
   }
 
@@ -89,6 +115,7 @@ class DemoScene : public afk::Scene {
   afk::Entity emitterEntity1;
   afk::Entity emitterEntity2;
   afk::Entity emitterEntity3;
+  afk::Entity emitterEntity4;
 };
 
 int main(int argv, char** args) {

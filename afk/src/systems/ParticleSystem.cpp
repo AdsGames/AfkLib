@@ -45,9 +45,9 @@ void particleSystem(Registry& registry, uint32_t delta) {
   for (auto [entity, tran, emitter] : systemView.each()) {
     emitter.counter += delta;
 
-    while (emitter.counter > emitter.frequency && !emitter.templates.empty()) {
-      int index = random::randomInt(0, emitter.templates.size() - 1);
-      auto& [particle, physics] = emitter.templates.at(index);
+    while (emitter.counter > emitter.frequency && !emitter.prefabs.empty()) {
+      int index = random::randomInt(0, emitter.prefabs.size() - 1);
+      auto& [particle, physics] = emitter.prefabs.at(index);
 
       emitter.counter -= emitter.frequency;
 

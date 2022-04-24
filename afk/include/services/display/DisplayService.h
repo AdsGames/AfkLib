@@ -267,7 +267,7 @@ class DisplayService {
   uint32_t frameIndex = 0;
 
   /// Clear color
-  color::Color clearColor;
+  color::Color clearColor = color::white;
 
   /**
    * @brief Sets the window scaling in percent

@@ -20,8 +20,7 @@
 namespace afk {
 
 // Setup DisplayService
-DisplayService::DisplayService()
-    : clearColor(color::white), oldTime(SDL_GetTicks()) {}
+DisplayService::DisplayService() : oldTime(SDL_GetTicks()) {}
 
 // Cleanup window
 DisplayService::~DisplayService() {

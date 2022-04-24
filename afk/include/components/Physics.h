@@ -16,27 +16,11 @@
 namespace afk {
 
 struct Physics {
-  /// Constructors
-  Physics() = default;
-
-  Physics(Vec2 velocity, Vec2 acceleration)
-      : velocity(velocity), acceleration(acceleration) {}
-
-  explicit Physics(Vec2 velocity) : velocity(velocity) {}
-
-  void setVelocity(Vec2 velocity) { this->velocity = velocity; }
-
-  void setVelocity(float x, float y) { this->velocity = Vec2(x, y); }
-
-  void setAcceleration(Vec2 acceleration) { this->acceleration = acceleration; }
-
-  void setAcceleration(float x, float y) { this->acceleration = Vec2(x, y); }
-
   /// X and Y velocity
-  Vec2 velocity;
+  Vec2 velocity = {0.0f, 0.0f};
 
   /// X and Y acceleration
-  Vec2 acceleration;
+  Vec2 acceleration = {0.0f, 0.0f};
 };
 
 }  // namespace afk

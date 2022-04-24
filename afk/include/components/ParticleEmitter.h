@@ -25,29 +25,25 @@ namespace afk {
 using ParticleTemplate = std::pair<Particle, Physics>;
 
 struct ParticleEmitter {
-  /// Constructor
-  explicit ParticleEmitter(float frequency)
-      : frequency(frequency), counter(0){};
-
   /**
    * @brief Add a particle to the emitter pool
    *
    * @param particle Particle template to add
    * @return Particle& Reference to added particle
    */
-  ParticleTemplate& addParticle() {
-    templates.emplace_back(std::make_pair(Particle(), Physics()));
-    return templates.back();
+  ParticleTemplate& addPrefab() {
+    prefabs.emplace_back(std::make_pair(Particle(), Physics()));
+    return prefabs.back();
   }
 
-  /// Particle templates
-  std::vector<ParticleTemplate> templates;
-
   /// Frequency of emit
-  float frequency;
+  float frequency = 0.0f;
 
   /// Counter
-  float counter;
+  float counter = 0.0f;
+
+  /// Particle prefabs
+  std::vector<ParticleTemplate> prefabs{};
 };
 
 }  // namespace afk

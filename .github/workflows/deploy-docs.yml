@@ -16,7 +16,7 @@ jobs:
           submodules: true
 
       - name: Setup Emscripten
-        uses: mymindstorm/setup-emsdk@v7
+        uses: mymindstorm/setup-emsdk@v11
         with:
           actions-cache-folder: "emsdk-cache"
 

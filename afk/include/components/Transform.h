@@ -17,10 +17,10 @@ namespace afk {
 
 struct Transform {
   /// Position on x y z plane
-  Vec3 position;
+  Vec3 position = {0.0f, 0.0f, 0.0f};
 
   /// Size
-  Vec2 size;
+  Vec2 size = {0.0f, 0.0f};
 
   /// Rotation
   float angle = 0.0f;
