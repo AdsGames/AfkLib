@@ -15,13 +15,15 @@ jobs:
         with:
           submodules: true
 
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v11
         with:
           actions-cache-folder: "emsdk-cache"
 
       - name: Run CMake
-        run: emcmake cmake -G "Ninja" .
+        run: emcmake cmake -G "Unix Makefiles" .
 
       - name: Make
-        run: ninja
+        run: make -j4

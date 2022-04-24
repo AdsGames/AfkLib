@@ -15,14 +15,16 @@ jobs:
         with:
           submodules: true
 
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Install Libraries
         run: |
           brew install sdl2 sdl2_image sdl2_gfx sdl2_ttf sdl2_mixer
 
       - name: Run CMake
-        run: cmake -G "Ninja" .
+        run: cmake -G "Unix Makefiles" .
 
       - name: Make
         run: |
           export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include"
-          ninja
+          make -j4

@@ -25,7 +25,7 @@ jobs:
           install: mingw-w64-i686-gcc-libs mingw-w64-i686-SDL2 mingw-w64-i686-SDL2_mixer mingw-w64-i686-SDL2_image mingw-w64-i686-SDL2_ttf mingw-w64-i686-SDL2_gfx
 
       - name: Run CMake
-        run: cmake -G "Ninja" .
+        run: cmake -G "MSYS Makefiles" .
 
       - name: Make
-        run: ninja
+        run: make -j4
