@@ -18,7 +18,7 @@ file(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/include/*.h)
 
 # Lib
 add_library(${PROJECT_NAME} 
-STATIC 
+  STATIC 
     ${SOURCES}
     ${HEADERS}
 )
@@ -31,7 +31,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_compile_options(${PROJECT_NAME} 
   PRIVATE 
-    -O2 
     -Wall 
     -Wextra
     -pedantic
@@ -73,7 +72,7 @@ if (EMSCRIPTEN OR WIN32)
     set(BASE_DIR ${EMSDK_DIR}/../../../system)
   elseif (WIN32)
     get_filename_component(WIN32_BIN_PATH ${CMAKE_C_COMPILER} PATH)
-    set(BASE_DIR ${WIN32_BIN_PATH}/../)
+    set(BASE_DIR ${WIN32_BIN_PATH}/..)
   endif(EMSCRIPTEN)
 
   message(STATUS "Lib install directory set to ${BASE_DIR}")

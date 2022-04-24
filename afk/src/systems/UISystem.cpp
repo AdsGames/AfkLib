@@ -27,7 +27,7 @@ void uiSystem(Registry& registry,
   auto viewLabels = registry.view<const Transform, Label>();
   for (auto [entity, tran, label] : viewLabels.each()) {
     auto font = assetService.getFont(label.font);
-    font.draw(tran.position.x, tran.position.y, label.text);
+    font.draw(tran.position.x, tran.position.y, label.text, label.color);
   }
 
   auto viewButtons = registry.view<const Transform, Button>();

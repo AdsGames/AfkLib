@@ -13,6 +13,7 @@
 #include "../include/common/Vec.h"
 #include "../include/common/random.h"
 #include "../include/components/components.h"
+#include "../include/components/ui.h"
 #include "../include/scene/Scene.h"
 
 class DemoScene : public afk::Scene {
@@ -27,7 +28,9 @@ class DemoScene : public afk::Scene {
     display.setBackgroundColor(afk::color::black);
 
     assets.loadImage("fuzzball", "assets/fuzzball.png");
+    assets.loadFont("freesans", "assets/freesans.ttf", 24);
 
+    // Weird box thing
     emitterEntity1 = createEntity();
     auto& emitter1 =
         createComponent<afk::ParticleEmitter>(emitterEntity1, 10.0f);
@@ -46,6 +49,7 @@ class DemoScene : public afk::Scene {
       physics.acceleration = {0, 2.0f};
     }
 
+    // Water
     emitterEntity2 = createEntity();
     auto& emitter2 =
         createComponent<afk::ParticleEmitter>(emitterEntity2, 10.0f);
@@ -60,10 +64,12 @@ class DemoScene : public afk::Scene {
       particle.endSize = 2.0f;
       particle.startColor = afk::color::blue;
       particle.endColor = afk::color::white;
-      physics.velocity = {afk::random::randomFloat(-20.0, 20.0), -200.0f};
+      physics.velocity = {afk::random::randomFloat(-20.0, 20.0),
+                          afk::random::randomFloat(-200.0f, -220.0f)};
       physics.acceleration = {0, 200.0f};
     }
 
+    // Smoke
     emitterEntity3 = createEntity();
     auto& emitter3 =
         createComponent<afk::ParticleEmitter>(emitterEntity3, 10.0f);
@@ -87,6 +93,7 @@ class DemoScene : public afk::Scene {
     createComponent<afk::Transform>(emitterEntity4, afk::Vec3(128, 256, 0),
                                     afk::Vec2(1, 1));
 
+    // Sparks
     for (int i = 0; i < 400; i++) {
       auto& [particle, physics] = emitter4.addPrefab();
       particle.type = afk::ParticleType::Square;
@@ -99,14 +106,39 @@ class DemoScene : public afk::Scene {
                           afk::random::randomFloat(-40.0f, 40.0f)};
       physics.acceleration = {0, 200.0f};
     }
+
+    // FPS label
+    fpsLabel = createEntity();
+    createComponent<afk::Transform>(fpsLabel, afk::Vec3(10, 5, 0));
+    auto& fpsLabelComponent = createComponent<afk::Label>(fpsLabel);
+    fpsLabelComponent.font = "freesans";
+    fpsLabelComponent.color = afk::color::white;
+
+    countLabel = createEntity();
+    createComponent<afk::Transform>(countLabel, afk::Vec3(10, 20, 0));
+    auto& countLabelComponent = createComponent<afk::Label>(countLabel);
+    countLabelComponent.font = "freesans";
+    countLabelComponent.color = afk::color::white;
   }
 
   void update(uint32_t delta) override {
     Scene::update(delta);
 
+    // Move smoke to mouse
     auto& smoke_transform = getComponent<afk::Transform>(emitterEntity3);
     smoke_transform.position.x = input.mouseX();
     smoke_transform.position.y = input.mouseY();
+
+    // Set fps label
+    int fps = display.getFps();
+    auto& fpsLabelComponent = getComponent<afk::Label>(fpsLabel);
+    fpsLabelComponent.text = "FPS: " + std::to_string(fps);
+
+    // Set count label
+    int count = 0;
+    getRegistry().view<afk::Particle>().each([&count](auto&) { count++; });
+    auto& countLabelComponent = getComponent<afk::Label>(countLabel);
+    countLabelComponent.text = "Count: " + std::to_string(count);
   }
 
   void stop() override { logger.log("Stopping!"); }
@@ -116,6 +148,9 @@ class DemoScene : public afk::Scene {
   afk::Entity emitterEntity2;
   afk::Entity emitterEntity3;
   afk::Entity emitterEntity4;
+
+  afk::Entity fpsLabel;
+  afk::Entity countLabel;
 };
 
 int main(int argv, char** args) {

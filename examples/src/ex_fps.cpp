@@ -38,8 +38,7 @@ class DemoScene : public afk::Scene {
     labelEntity = createEntity();
     createComponent<afk::Transform>(labelEntity, afk::Vec3(10, 5, 0));
     auto& label = createComponent<afk::Label>(labelEntity);
-    label.setText("FPS");
-    label.setFont("freesans");
+    label.font = "freesans";
 
     for (auto& sprite : sprites) {
       auto entity = createEntity();
@@ -59,7 +58,7 @@ class DemoScene : public afk::Scene {
     int fps = display.getFps();
 
     auto& label = getComponent<afk::Label>(labelEntity);
-    label.setText(std::to_string(fps));
+    label.text = std::to_string(fps);
 
     for (unsigned int i = 0; i < NUM_SPRITE; i++) {
       auto& transform = getComponent<afk::Transform>(sprites[i]);

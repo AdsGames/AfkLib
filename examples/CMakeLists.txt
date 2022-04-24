@@ -20,7 +20,6 @@ foreach(EX_NAME ${EXAMPLES})
 
   target_compile_options(${EX_NAME} 
     PRIVATE 
-      -O2
       -Wall 
       -Wextra
       -pedantic

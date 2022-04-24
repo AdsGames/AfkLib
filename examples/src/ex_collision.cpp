@@ -42,8 +42,7 @@ class DemoScene : public afk::Scene {
     labelEntity = createEntity();
     createComponent<afk::Transform>(labelEntity, afk::Vec3(10, 5, 0));
     auto& label = createComponent<afk::Label>(labelEntity);
-    label.setText("FPS");
-    label.setFont("freesans");
+    label.font = "freesans";
   }
 
   void update(uint32_t delta) override {
@@ -63,9 +62,9 @@ class DemoScene : public afk::Scene {
 
     auto& collider = getComponent<afk::Collider>(lennaEntity1);
     if (collider.colliding) {
-      label.setText("Colliding!");
+      label.text = "Colliding!";
     } else {
-      label.setText("Not colliding");
+      label.text = "Not colliding";
     }
 
     Scene::update(delta);

@@ -12,27 +12,19 @@
 #define AFK_LABEL_H
 
 #include <string>
-#include <utility>
+#include "../../common/Color.h"
 
 namespace afk {
 
 struct Label {
-  /// Constructor
-  Label() = default;
-
-  Label(std::string text, std::string font)
-      : text(std::move(text)), font(std::move(font)) {}
-
   /// Text of Label
   std::string text;
 
+  /// Color of text
+  color::Color color = color::black;
+
   /// Font of label
   std::string font;
-
-  /// Setters
-  void setText(const std::string& text) { this->text = text; }
-
-  void setFont(const std::string& font) { this->font = font; }
 };
 
 }  // namespace afk
