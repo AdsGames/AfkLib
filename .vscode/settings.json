@@ -118,5 +118,5 @@
     "codecvt": "cpp"
   },
   "cmake.configureOnOpen": true,
-  "sonarlint.pathToCompileCommands": "c:\\Users\\alege\\Documents\\GitHub\\AfkLib\\compile_commands.json"
+  "sonarlint.pathToCompileCommands": "c:\\Users\\alege\\Documents\\GitHub\\AfkLib\\build\\compile_commands.json"
 }

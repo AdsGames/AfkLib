@@ -11,7 +11,7 @@
 #ifndef AFK_RENDERSYSTEM_H
 #define AFK_RENDERSYSTEM_H
 
-#include <entt/entt.hpp>
+#include "../../lib/entt/src/entt/entt.hpp"
 
 #include "entities/Entity.h"
 #include "services/assets/AssetService.h"

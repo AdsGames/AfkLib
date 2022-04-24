@@ -42,26 +42,25 @@ set_target_properties(${PROJECT_NAME}
 
 # Emscripten specific options
 if(EMSCRIPTEN) 
-  set_target_properties(${PROJECT_NAME} 
-    PROPERTIES 
-    LINK_FLAGS 
-    "-s DEMANGLE_SUPPORT=1 -s DISABLE_EXCEPTION_CATCHING=0 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s SDL2_IMAGE_FORMATS=[\"png\"]"
+  target_compile_options(${PROJECT_NAME} 
+    PUBLIC
+      -sUSE_SDL=2
+      -sUSE_SDL_IMAGE=2
+      -sUSE_SDL_TTF=2
+      -sUSE_SDL_MIXER=2
+      -sUSE_SDL_GFX=2
+      -sSDL2_IMAGE_FORMATS=["png"]
   )
- 
-  target_link_libraries(${PROJECT_NAME} imported::entt)
+
+  set(SDL2_LIBRARIES "-s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2")
 
 # All other system options
 else(EMSCRIPTEN)
-  target_link_libraries(${PROJECT_NAME}
-    PUBLIC
-      SDL2::Image
-      SDL2::Mixer
-      SDL2::TTF
-      SDL2::GFX
-      SDL2::Main
-      imported::entt
-  )
+  set(SDL2_LIBRARIES "SDL2::Image SDL2::Mixer SDL2::TTF SDL2::GFX SDL2::Main")
 endif(EMSCRIPTEN)
+
+# Link link libraries
+target_link_libraries(${PROJECT_NAME} PUBLIC ${SDL2_LIBRARIES} imported::entt)
 
 # Install info
 if (EMSCRIPTEN OR WIN32)

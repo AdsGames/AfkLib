@@ -2,13 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build",
-      "type": "shell",
-      "command": "make -j24",
-      "problemMatcher": ["$gcc"],
-      "group": "build"
-    },
-    {
       "type": "cppbuild",
       "label": "C/C++: g++.exe build active file",
       "command": "C:\\msys64\\mingw32\\bin\\g++.exe",

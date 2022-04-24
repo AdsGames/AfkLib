@@ -27,37 +27,44 @@ foreach(EX_NAME ${EXAMPLES})
       -Wno-unused-parameter
   )
 
-  # Emscripten support
-  if(EMSCRIPTEN)
+  # Emscripten specific options
+  if(EMSCRIPTEN) 
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
 
-    set_target_properties(${EX_NAME}
-      PROPERTIES
-      LINK_FLAGS 
-      "--preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets --use-preload-plugins -s DEMANGLE_SUPPORT=1 -s DISABLE_EXCEPTION_CATCHING=0 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s SDL2_IMAGE_FORMATS=[\"png\"]"
+    target_compile_options(${EX_NAME} 
+      PUBLIC
+        -sUSE_SDL=2
+        -sUSE_SDL_IMAGE=2
+        -sUSE_SDL_TTF=2
+        -sUSE_SDL_MIXER=2
+        -sUSE_SDL_GFX=2
     )
 
-    target_link_libraries(${EX_NAME} imported::entt afk)
+    set(SDL2_LIBRARIES 
+     "--use-preload-plugins \
+      --preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets \
+      -s DISABLE_EXCEPTION_CATCHING=0 \
+      -s DEMANGLE_SUPPORT=1 \
+      -s USE_SDL=2 \
+      -s USE_SDL_IMAGE=2 \
+      -s USE_SDL_TTF=2 \
+      -s USE_SDL_MIXER=2 \
+      -s USE_SDL_GFX=2 \
+      -s SDL2_IMAGE_FORMATS=[\"png\"]"
+    )
 
-  # Run of the mill executable
+  # All other system options
   else(EMSCRIPTEN)
-    if(MINGW)
-      target_link_libraries(${EX_NAME} -lmingw32)
-    endif(MINGW)
-
-    target_link_libraries(${EX_NAME}
-      -lm
-      SDL2::Main
-      SDL2::Image
-      SDL2::Mixer
-      SDL2::TTF
-      SDL2::GFX
-      EnTT::EnTT
-      afk
-    )
+    set(SDL2_LIBRARIES "SDL2::Image SDL2::Mixer SDL2::TTF SDL2::GFX SDL2::Main")
   endif(EMSCRIPTEN)
+
+  # Link libraries
+  if(MINGW)
+    target_link_libraries(${EX_NAME} -lmingw32)
+  endif(MINGW)
+
+  target_link_libraries(${EX_NAME} PUBLIC ${SDL2_LIBRARIES} imported::entt afk)
 endforeach()
 
-# Export assets (one for pwd and one for running manually)
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets/)
+# Export assets
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/examples/assets/)
