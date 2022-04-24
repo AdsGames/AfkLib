@@ -52,15 +52,15 @@ if(EMSCRIPTEN)
       -sSDL2_IMAGE_FORMATS=["png"]
   )
 
-  set(SDL2_LIBRARIES "-s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2")
+  set(SDL_LIBRARIES -sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sUSE_SDL_MIXER=2 -sUSE_SDL_GFX=2)
 
 # All other system options
 else(EMSCRIPTEN)
-  set(SDL2_LIBRARIES "SDL2::Image SDL2::Mixer SDL2::TTF SDL2::GFX SDL2::Main")
+  set(SDL_LIBRARIES SDL2::Image SDL2::Mixer SDL2::TTF SDL2::GFX SDL2::Main)
 endif(EMSCRIPTEN)
 
 # Link link libraries
-target_link_libraries(${PROJECT_NAME} PUBLIC ${SDL2_LIBRARIES} imported::entt)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL_LIBRARIES} imported::entt)
 
 # Install info
 if (EMSCRIPTEN OR WIN32)

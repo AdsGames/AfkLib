@@ -40,7 +40,7 @@ foreach(EX_NAME ${EXAMPLES})
         -sUSE_SDL_GFX=2
     )
 
-    set(SDL2_LIBRARIES 
+    set(SDL_LIBRARIES 
      "--use-preload-plugins \
       --preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets \
       -s DISABLE_EXCEPTION_CATCHING=0 \
@@ -55,16 +55,17 @@ foreach(EX_NAME ${EXAMPLES})
 
   # All other system options
   else(EMSCRIPTEN)
-    set(SDL2_LIBRARIES "SDL2::Image SDL2::Mixer SDL2::TTF SDL2::GFX SDL2::Main")
+    set(SDL_LIBRARIES SDL2::Image SDL2::Mixer SDL2::TTF SDL2::GFX SDL2::Main)
   endif(EMSCRIPTEN)
 
   # Link libraries
   if(MINGW)
-    target_link_libraries(${EX_NAME} -lmingw32)
+    target_link_libraries(${EX_NAME} PRIVATE -lmingw32)
   endif(MINGW)
 
-  target_link_libraries(${EX_NAME} PUBLIC ${SDL2_LIBRARIES} imported::entt afk)
+  target_link_libraries(${EX_NAME} PRIVATE ${SDL_LIBRARIES} imported::entt afk)
 endforeach()
 
 # Export assets
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/examples/assets/)
+ 
