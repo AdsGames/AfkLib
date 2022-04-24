@@ -30,7 +30,7 @@ Game framework
 ### Windows (MSYS2)
 
 ```bash
-pacman -S mingw-w64-i686-gcc-libs mingw-w64-i686-SDL2 mingw-w64-i686-SDL2_mixer mingw-w64-i686-SDL2_image mingw-w64-i686-SDL2_ttf mingw-w64-i686-SDL2_gfx
+pacman -S mingw-w64-x86_64-gcc-libs mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf mingw-w64-x86_64-SDL2_gfx
 ```
 
 ### Mac OS

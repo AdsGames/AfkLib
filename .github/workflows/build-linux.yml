@@ -21,7 +21,7 @@ jobs:
           sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-gfx-dev
 
       - name: Run CMake
-        run: cmake -G "Unix Makefiles" .
+        run: cmake -G "Unix Makefiles" . -DCMAKE_BUILD_TYPE=Release
 
       - name: Make
         run: make -j4

@@ -22,7 +22,7 @@ jobs:
           brew install sdl2 sdl2_image sdl2_gfx sdl2_ttf sdl2_mixer
 
       - name: Run CMake
-        run: cmake -G "Unix Makefiles" .
+        run: cmake -G "Unix Makefiles" . -DCMAKE_BUILD_TYPE=Release
 
       - name: Make
         run: |

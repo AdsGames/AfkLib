@@ -1,12 +1,15 @@
 {
-  "configurations": [
-    {
-      "name": "Default",
-      "intelliSenseMode": "gcc-x86",
-      "cStandard": "c11",
-      "cppStandard": "c++17",
-      "includePath": ["afk/include"]
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "name": "Default",
+            "intelliSenseMode": "gcc-x86",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "includePath": [
+                "afk/include"
+            ],
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+        }
+    ],
+    "version": 4
 }
