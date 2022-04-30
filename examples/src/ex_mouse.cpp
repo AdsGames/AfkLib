@@ -23,10 +23,10 @@ class DemoScene : public afk::Scene {
     display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_mouse");
 
-    assets.loadImage("lenna", "assets/lenna.png");
+    auto& lennaTexture = assets.loadImage("lenna", "assets/lenna.png");
 
     lennaEntity = createEntity();
-    createComponent<afk::Sprite>(lennaEntity, "lenna");
+    createComponent<afk::Sprite>(lennaEntity, lennaTexture);
     createComponent<afk::Transform>(lennaEntity, afk::Vec3(100, 100, 0),
                                     afk::Vec2(30, 30));
   }

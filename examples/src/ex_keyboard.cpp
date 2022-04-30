@@ -53,7 +53,9 @@ class DemoScene : public afk::Scene {
     afk::Entity id = createEntity();
     createComponent<afk::Transform>(id, afk::Vec3(100, 100, 0),
                                     afk::Vec2(40, 40));
-    createComponent<afk::Sprite>(id, "lenna");
+
+    auto& lennaTexture = assets.getImage("lenna");
+    createComponent<afk::Sprite>(id, lennaTexture);
     entityIds.push_back(id);
   }
 

@@ -43,10 +43,10 @@ class DemoScene : public afk::Scene {
     display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_physics");
 
-    assets.loadImage("lenna", "assets/lenna.png");
+    auto& lennaTexture = assets.loadImage("lenna", "assets/lenna.png");
 
     lennaEntity = createEntity();
-    createComponent<afk::Sprite>(lennaEntity, "lenna");
+    createComponent<afk::Sprite>(lennaEntity, lennaTexture);
     createComponent<afk::Transform>(lennaEntity, afk::Vec3(0, 0, 0),
                                     afk::Vec2(40, 40));
     createComponent<afk::Physics>(lennaEntity, afk::Vec2(100.0f, 400.0f));

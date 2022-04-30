@@ -18,13 +18,12 @@ namespace afk::systems {
  * @brief RenderSystem
  *
  */
-void renderSystem(Registry& registry, AssetService& assetService) {
+void renderSystem(Registry& registry) {
   auto view = registry.view<const Transform, Sprite>();
 
   for (auto [entity, tran, sprite] : view.each()) {
-    auto texture = assetService.getImage(sprite.texture);
-    texture.drawEx(tran.position.x, tran.position.y, tran.size.x, tran.size.y,
-                   tran.angle);
+    sprite.texture.drawEx(tran.position.x, tran.position.y, tran.size.x,
+                          tran.size.y, tran.angle);
   }
 }
 

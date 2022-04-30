@@ -33,7 +33,7 @@ class DemoScene : public afk::Scene {
     display.setTitle("ex_fps");
 
     assets.loadFont("freesans", "assets/freesans.ttf", 64);
-    assets.loadImage("lenna", "assets/lenna.png");
+    auto& lennaTexture = assets.loadImage("lenna", "assets/lenna.png");
 
     labelEntity = createEntity();
     createComponent<afk::Transform>(labelEntity, afk::Vec3(10, 5, 0));
@@ -42,7 +42,7 @@ class DemoScene : public afk::Scene {
 
     for (auto& sprite : sprites) {
       auto entity = createEntity();
-      createComponent<afk::Sprite>(entity, "lenna");
+      createComponent<afk::Sprite>(entity, lennaTexture);
       auto& transform = createComponent<afk::Transform>(entity);
       transform.size.x = SPRITE_SIZE;
       transform.size.y = SPRITE_SIZE;

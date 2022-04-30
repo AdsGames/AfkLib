@@ -19,7 +19,7 @@
 
 #include "../common/Exceptions.h"
 #include "../components/Transform.h"
-#include "../include/entities/Entity.h"
+#include "../entities/Entity.h"
 #include "../services/Services.h"
 
 /**

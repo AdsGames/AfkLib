@@ -28,6 +28,7 @@ Texture::Texture(const std::string& path) : texture(nullptr) {
 // Load texture from file
 void Texture::load(const std::string& path) {
   texture = loadTexture(path);
+  calculateSize();
 }
 
 // Create texture with specified dimensions
@@ -48,17 +49,15 @@ void Texture::create(const int width, const int height) {
   SDL_FreeSurface(tempSurface);
 
   texture = tempTexture;
+
+  calculateSize();
 }
 
-// Return height of loaded texture
-int Texture::getHeight() const {
-  if (!texture) {
-    return 0;
-  }
-
-  int h;
-  SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &h);
-  return h;
+// Calculate size of texture
+void Texture::calculateSize() {
+  int w, h;
+  SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+  this->size = Vec2(w, h);
 }
 
 // Return if it exists
@@ -67,14 +66,8 @@ bool Texture::exists() const {
 }
 
 // Return width of loaded texture
-int Texture::getWidth() const {
-  if (!texture) {
-    return 0;
-  }
-
-  int w;
-  SDL_QueryTexture(texture, nullptr, nullptr, &w, nullptr);
-  return w;
+Vec2 Texture::getSize() {
+  return size;
 }
 
 // Draw texture to screen
@@ -85,7 +78,7 @@ void Texture::draw(const int x, const int y) const {
 
   SDL_Renderer* renderer = Services::getDisplayService().getRenderer();
 
-  SDL_Rect target = {x, y, getWidth(), getHeight()};
+  SDL_Rect target = {x, y, size.x, size.y};
   SDL_RenderCopy(renderer, texture, nullptr, &target);
 }
 

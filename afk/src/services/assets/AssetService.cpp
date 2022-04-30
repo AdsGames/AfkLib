@@ -37,11 +37,13 @@ AssetService::AssetService() {
 }
 
 // Load image from disk and assign key
-void AssetService::loadImage(const std::string& key, const std::string& path) {
+const Texture& AssetService::loadImage(const std::string& key,
+                                       const std::string& path) {
   Services::getLoggingService().log("[Asset Manager] Loading image: " + key);
 
   try {
     loadedImage[key] = Texture(path);
+    return loadedImage[key];
   } catch (const std::runtime_error& e) {
     throw FileIoException(e.what());
   } catch (...) {
@@ -50,11 +52,13 @@ void AssetService::loadImage(const std::string& key, const std::string& path) {
 }
 
 // Load audio from disk and assign key
-void AssetService::loadAudio(const std::string& key, const std::string& path) {
+const Sound& AssetService::loadAudio(const std::string& key,
+                                     const std::string& path) {
   Services::getLoggingService().log("[Asset Manager] Loading audio: " + key);
 
   try {
     loadedAudio[key] = Sound(path);
+    return loadedAudio[key];
   } catch (const std::runtime_error& e) {
     throw FileIoException(e.what());
   } catch (...) {
@@ -63,13 +67,14 @@ void AssetService::loadAudio(const std::string& key, const std::string& path) {
 }
 
 // Load font from disk and assign key
-void AssetService::loadFont(const std::string& key,
-                            const std::string& path,
-                            const int size) {
+const Font& AssetService::loadFont(const std::string& key,
+                                   const std::string& path,
+                                   const int size) {
   Services::getLoggingService().log("[Asset Manager] Loading font: " + key);
 
   try {
     loadedFont[key] = Font(path, size);
+    return loadedFont[key];
   } catch (const std::runtime_error& e) {
     throw FileIoException(e.what());
   } catch (...) {
@@ -78,11 +83,13 @@ void AssetService::loadFont(const std::string& key,
 }
 
 // Load stream from disk and assign key
-void AssetService::loadStream(const std::string& key, const std::string& path) {
+const Stream& AssetService::loadStream(const std::string& key,
+                                       const std::string& path) {
   Services::getLoggingService().log("[Asset Manager] Loading stream: " + key);
 
   try {
     loadedStream[key] = Stream(path);
+    return loadedStream[key];
   } catch (const std::runtime_error& e) {
     throw FileIoException(e.what());
   } catch (...) {

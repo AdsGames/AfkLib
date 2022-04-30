@@ -90,7 +90,7 @@ class AssetService {
    * @throws FileIOException Thrown if file can not be loaded
    * @see getImage
    */
-  void loadImage(const std::string& key, const std::string& path);
+  const Texture& loadImage(const std::string& key, const std::string& path);
 
   /**
    * @brief Loads an audio file into memory from a given path. Font is assigned
@@ -101,7 +101,7 @@ class AssetService {
    * @throws FileIOException Thrown if file can not be loaded
    * @see getAudioService
    */
-  void loadAudio(const std::string& key, const std::string& path);
+  const Sound& loadAudio(const std::string& key, const std::string& path);
 
   /**
    * @brief Loads a font into memory from a given path. Audio file is assigned
@@ -113,7 +113,9 @@ class AssetService {
    * @throws FileIOException Thrown if file can not be loaded
    * @see getFont
    */
-  void loadFont(const std::string& key, const std::string& path, int size);
+  const Font& loadFont(const std::string& key,
+                       const std::string& path,
+                       int size);
 
   /**
    * @brief Loads an audio stream into memory from a given path. Stream is
@@ -124,7 +126,7 @@ class AssetService {
    * @throws FileIOException Thrown if file can not be loaded
    * @see getStream
    */
-  void loadStream(const std::string& key, const std::string& path);
+  const Stream& loadStream(const std::string& key, const std::string& path);
 
  private:
   /// Container that stores all Sound assets

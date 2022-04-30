@@ -11,13 +11,13 @@
 #ifndef AFK_SPRITE_H
 #define AFK_SPRITE_H
 
-#include <string>
+#include "../assets/Texture.h"
 
 namespace afk {
 
 struct Sprite {
   /// Texture of Sprite
-  std::string texture;
+  Texture texture;
 };
 
 }  // namespace afk

@@ -24,19 +24,19 @@ class DemoScene : public afk::Scene {
     display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_collision");
 
-    assets.loadImage("lenna", "assets/lenna.png");
+    auto& lennaTexture = assets.loadImage("lenna", "assets/lenna.png");
     assets.loadFont("freesans", "assets/freesans.ttf", 12);
 
     lennaEntity1 = createEntity();
     createComponent<afk::Transform>(lennaEntity1, afk::Vec3(10, 10, 0),
                                     afk::Vec2(40, 40));
-    createComponent<afk::Sprite>(lennaEntity1, "lenna");
+    createComponent<afk::Sprite>(lennaEntity1, lennaTexture);
     createComponent<afk::Collider>(lennaEntity1);
 
     lennaEntity2 = createEntity();
     createComponent<afk::Transform>(lennaEntity2, afk::Vec3(10, 80, 0),
                                     afk::Vec2(40, 40));
-    createComponent<afk::Sprite>(lennaEntity2, "lenna");
+    createComponent<afk::Sprite>(lennaEntity2, lennaTexture);
     createComponent<afk::Collider>(lennaEntity2);
 
     labelEntity = createEntity();

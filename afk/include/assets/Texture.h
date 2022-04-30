@@ -15,6 +15,7 @@
 #include <string>
 
 #include "../common/Color.h"
+#include "../common/Vec.h"
 
 namespace afk {
 
@@ -91,18 +92,11 @@ class Texture {
               TextureDrawMode mode = TextureDrawMode::Default) const;
 
   /**
-   * @brief Get the width of the texture
+   * @brief Get the size of the texture
    *
-   * @return Width of texture
+   * @return Size of texture
    */
-  int getWidth() const;
-
-  /**
-   * @brief Get the height of the texture
-   *
-   * @return Height of texture
-   */
-  int getHeight() const;
+  Vec2 getSize();
 
   /**
    * @brief Check if texture has been loaded
@@ -112,6 +106,12 @@ class Texture {
   bool exists() const;
 
  private:
+  /**
+   * @brief Calculate and set size of texture
+   *
+   */
+  void calculateSize();
+
   /**
    * @brief Helper which loads an SDL_Texture* from a file
    *
@@ -123,6 +123,9 @@ class Texture {
 
   /// Pointer to referenced texture
   SDL_Texture* texture;
+
+  /// Size of texture
+  Vec2 size;
 };
 
 }  // namespace afk

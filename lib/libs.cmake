@@ -1,5 +1,9 @@
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${EXTERNAL_DIR}/cmake)
 
+
+set(EXTERNAL_INCLUDE_DIRS "")
+set(EXTERNAL_INCLUDE_LIBS "")
+
 # sdl
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
@@ -7,14 +11,18 @@ if (NOT EMSCRIPTEN)
   find_package(SDL2_image REQUIRED)
   find_package(SDL2_ttf REQUIRED)
   find_package(SDL2_gfx REQUIRED)
+  
+  list (APPEND EXTERNAL_INCLUDE_LIBS 
+    SDL2::Image 
+    SDL2::Mixer 
+    SDL2::TTF 
+    SDL2::GFX 
+    SDL2::Main
+  )
+  
 endif(NOT EMSCRIPTEN)
 
 # entt
-add_library (imported::entt INTERFACE IMPORTED)
-set (ENTT_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/lib/entt/single_include)
-set_target_properties(imported::entt PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${ENTT_INCLUDE_PATH}")
-target_link_libraries(imported::entt INTERFACE EnTT)
+find_package(EnTT REQUIRED)
 
-list (APPEND EXTERNAL_INCLUDE_DIRS 
-  ${ENTT_INCLUDE_PATH}
-)
+list (APPEND EXTERNAL_INCLUDE_LIBS EnTT::EnTT)

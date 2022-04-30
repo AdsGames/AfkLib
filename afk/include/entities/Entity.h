@@ -11,7 +11,7 @@
 #ifndef AFK_ENTITY_H
 #define AFK_ENTITY_H
 
-#include "../../lib/entt/src/entt/entt.hpp"
+#include <entt/entt.hpp>
 
 namespace afk {
 

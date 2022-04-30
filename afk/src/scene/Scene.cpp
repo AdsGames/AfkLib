@@ -38,7 +38,7 @@ void Scene::update(uint32_t delta) {
 // Draw internal method
 void Scene::draw() {
   // Draw
-  systems::renderSystem(registry, assets);
+  systems::renderSystem(registry);
   systems::uiSystem(registry, assets, input);
   systems::particleRenderSystem(registry, assets);
 }

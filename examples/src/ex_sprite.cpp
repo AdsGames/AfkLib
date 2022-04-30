@@ -23,10 +23,10 @@ class DemoScene : public afk::Scene {
     display.setMode(afk::DisplayMode::Windowed);
     display.setTitle("ex_sprite");
 
-    assets.loadImage("lenna", "assets/lenna.png");
+    auto& lennaTexture = assets.loadImage("lenna", "assets/lenna.png");
 
     auto sprite = createEntity();
-    createComponent<afk::Sprite>(sprite, "lenna");
+    createComponent<afk::Sprite>(sprite, lennaTexture);
     createComponent<afk::Transform>(sprite, afk::Vec3(0, 0, 0),
                                     afk::Vec2(50, 50));
   }

@@ -11,7 +11,7 @@
 #ifndef AFK_RENDERSYSTEM_H
 #define AFK_RENDERSYSTEM_H
 
-#include "../../lib/entt/src/entt/entt.hpp"
+#include <entt/entt.hpp>
 
 #include "entities/Entity.h"
 #include "services/assets/AssetService.h"
@@ -22,7 +22,7 @@ namespace afk::systems {
  * @brief RenderSystem
  *
  */
-void renderSystem(Registry& registry, AssetService& assetService);
+void renderSystem(Registry& registry);
 
 }  // namespace afk::systems
 
