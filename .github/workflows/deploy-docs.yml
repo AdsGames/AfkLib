@@ -11,18 +11,22 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Setup Emscripten
-        uses: mymindstorm/setup-emsdk@v7
+        uses: mymindstorm/setup-emsdk@v11
         with:
           actions-cache-folder: "emsdk-cache"
 
       - name: Run CMake
-        run: emcmake cmake -G "Unix Makefiles" .
+        run: emcmake cmake -G "Unix Makefiles" . -DCMAKE_BUILD_TYPE=Release
 
       - name: Make
-        run: emmake make -j4
+        run: ninja
 
       - name: Install graphviz
         run: sudo apt install graphviz
@@ -33,7 +37,7 @@ jobs:
           doxyfile-path: "./Doxyfile"
 
       - name: Copy Bin to Docs
-        run: sudo cp -r ./bin ./docs/examples
+        run: sudo cp -r ./build/examples ./docs/examples
 
       - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3

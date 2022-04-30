@@ -11,14 +11,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Install Libraries
         run: |
           brew install sdl2 sdl2_image sdl2_gfx sdl2_ttf sdl2_mixer
 
       - name: Run CMake
-        run: cmake -G "Unix Makefiles" .
+        run: cmake -G "Unix Makefiles" . -DCMAKE_BUILD_TYPE=Release
 
       - name: Make
         run: |

@@ -1,82 +1,48 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.16)
 
-set(CMAKE_CXX_STANDARD 14)
+project (examples 
+  VERSION 1.0.0
+  LANGUAGES CXX
+)
+
+# Config
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-# Add include dir
-include_directories(${CMAKE_BINARY_DIR}/include)
-include_directories(${CMAKE_BINARY_DIR}/bin)
-
-# Find libs
-if(NOT EMSCRIPTEN)
-  find_library(SDL_LIBRARY NAMES SDL2 REQUIRED)
-  find_library(SDL_MIXER_LIBRARY NAMES SDL2_mixer REQUIRED)
-  find_library(SDL_IMAGE_LIBRARY NAMES SDL2_image REQUIRED)
-  find_library(SDL_TTF_LIBRARY NAMES SDL2_ttf REQUIRED)
-  find_library(SDL_GFX_LIBRARY NAMES SDL2_gfx REQUIRED)
-  find_library(SDL_MAIN_LIBRARY NAMES SDL2main REQUIRED)
-endif(NOT EMSCRIPTEN)
-
-
+set(EXAMPLES ex_display ex_sprite ex_rotate ex_fps ex_mouse ex_physics ex_sound ex_particles ex_keyboard ex_collision ex_message_box)
+ 
 # Build examples
-set(EXAMPLES ex_display ex_collision ex_sprite ex_ui ex_message_box ex_fps ex_keyboard ex_mouse ex_sound ex_particles ex_rotate)
-
 foreach(EX_NAME ${EXAMPLES})
-  add_executable(${EX_NAME} ${CMAKE_CURRENT_LIST_DIR}/${EX_NAME}.cpp)
-  target_compile_options(${EX_NAME} PRIVATE -O2 -Wall -Wextra -pedantic -Wno-unused-parameter)
-    
-  # Emscripten support
-  if(EMSCRIPTEN)
-    set(CMAKE_EXECUTABLE_SUFFIX ".html")
-    target_compile_options(
-      ${EX_NAME}
-      PRIVATE  
-      -sUSE_SDL=2 
-      -sUSE_SDL_IMAGE=2 
-      -sUSE_SDL_TTF=2 
-      -sUSE_SDL_MIXER=2 
-      -sUSE_SDL_GFX=2 
-      -sSDL2_IMAGE_FORMATS=["png"]
-    )
-    target_link_libraries(
-      ${EX_NAME} 
-      -sWASM=1 
-      -sUSE_SDL=2 
-      -sUSE_SDL_IMAGE=2 
-      -sUSE_SDL_TTF=2 
-      -sUSE_SDL_MIXER=2 
-      -sUSE_SDL_GFX=2 
-      -sSDL2_IMAGE_FORMATS=["png"] 
-      -sDEMANGLE_SUPPORT=1
-      -sTOTAL_MEMORY=512MB
-      afk
-    )
-    set_target_properties(
-      ${EX_NAME} 
-      PROPERTIES 
-      LINK_FLAGS
-      "--preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets --use-preload-plugins"
-    )
+  add_executable(${EX_NAME} ${CMAKE_CURRENT_LIST_DIR}/src/${EX_NAME}.cpp)
 
-  # Run of the mill executable
-  else(EMSCRIPTEN)
-    if(MINGW)
-      target_link_libraries(${EX_NAME} -lmingw32)
-    endif(MINGW)
-    target_link_libraries(
-      ${EX_NAME} 
-      -lm 
-      ${SDL_MAIN_LIBRARY} 
-      ${SDL_LIBRARY} 
-      ${SDL_MIXER_LIBRARY} 
-      ${SDL_IMAGE_LIBRARY} 
-      ${SDL_TTF_LIBRARY} 
-      ${SDL_GFX_LIBRARY} 
-      afk
+  target_compile_options(${EX_NAME} 
+    PRIVATE
+      -Wall 
+      -Wextra
+      -pedantic
+      -Wno-unused-parameter
+  )
+
+  # Emscripten specific options
+  if(EMSCRIPTEN) 
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+
+    set(EXTRA_LIBRARIES 
+     "--use-preload-plugins \
+      --preload-file ${CMAKE_CURRENT_LIST_DIR}/assets@/assets \
+      -s DISABLE_EXCEPTION_CATCHING=0 \
+      -s DEMANGLE_SUPPORT=1 \
+      -s SDL2_IMAGE_FORMATS=[\"png\"]"
     )
   endif(EMSCRIPTEN)
+
+  # Link libraries 
+  if(MINGW)
+    target_link_libraries(${EX_NAME} PRIVATE -lmingw32)
+  endif(MINGW)
+ 
+  target_link_libraries(${EX_NAME} PRIVATE ${EXTRA_LIBRARIES} afk)
 endforeach()
 
 # Export assets
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/bin/assets/)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/examples/assets/)
+ 

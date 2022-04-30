@@ -1,4 +1,4 @@
-# Allans FrameworK
+# Allan's FrameworK
 
 ![Build Windows](https://github.com/AdsGames/AfkLib/workflows/Build%20Windows/badge.svg)
 ![Build Linux](https://github.com/AdsGames/AfkLib/workflows/Build%20Linux/badge.svg)
@@ -30,7 +30,7 @@ Game framework
 ### Windows (MSYS2)
 
 ```bash
-pacman -S mingw-w64-i686-gcc-libs mingw-w64-i686-SDL2 mingw-w64-i686-SDL2_mixer mingw-w64-i686-SDL2_image mingw-w64-i686-SDL2_ttf mingw-w64-i686-SDL2_gfx
+pacman -S mingw-w64-x86_64-gcc-libs mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf mingw-w64-x86_64-SDL2_gfx
 ```
 
 ### Mac OS
@@ -48,7 +48,9 @@ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
 ### Build
 
 ```bash
-cmake .
+mkdir build
+cd build
+cmake ../
 ```
 
 ```bash
@@ -58,7 +60,9 @@ make
 ### Build Emscripten
 
 ```bash
-emcmake cmake .
+mkdir build
+cd build
+emcmake cmake ../
 ```
 
 ```bash
@@ -68,5 +72,6 @@ make
 ### Install Library (works for emscripten)
 
 ```bash
+cd build
 make install
 ```

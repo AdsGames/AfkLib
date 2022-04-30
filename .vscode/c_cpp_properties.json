@@ -5,7 +5,8 @@
       "intelliSenseMode": "gcc-x86",
       "cStandard": "c11",
       "cppStandard": "c++17",
-      "includePath": ["include"]
+      "includePath": ["afk/include"],
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json"
     }
   ],
   "version": 4
